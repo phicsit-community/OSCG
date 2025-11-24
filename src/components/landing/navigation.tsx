@@ -45,6 +45,7 @@ const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
   const [avatar, setAvatar] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -52,12 +53,11 @@ const Navigation = () => {
       const currentUser = data?.user || null;
 
       setUser(currentUser);
+      setAvatar(
+        currentUser?.user_metadata?.avatar_url || "/default-avatar.png"
+      );
 
-      if (currentUser?.user_metadata?.avatar_url) {
-        setAvatar(currentUser.user_metadata.avatar_url);
-      } else {
-        setAvatar("/default-avatar.png");
-      }
+      setLoading(false);
     };
 
     loadUser();
@@ -65,13 +65,11 @@ const Navigation = () => {
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (_, session) => {
         const currentUser = session?.user || null;
-        setUser(currentUser);
 
-        if (currentUser?.user_metadata?.avatar_url) {
-          setAvatar(currentUser.user_metadata.avatar_url);
-        } else {
-          setAvatar("/default-avatar.png");
-        }
+        setUser(currentUser);
+        setAvatar(
+          currentUser?.user_metadata?.avatar_url || "/default-avatar.png"
+        );
       }
     );
 
@@ -124,7 +122,7 @@ const Navigation = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {!user && (
+            {!loading && !user && (
               <Link href="/sign-in">
                 <Button className="border-2 border-[#6FE7C1] text-white bg-transparent rounded-xl px-6 py-2 font-semibold hover:bg-[#1a2e31] cursor-pointer">
                   Sign In
@@ -132,7 +130,7 @@ const Navigation = () => {
               </Link>
             )}
 
-            {user && (
+            {!loading && user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className="cursor-pointer border border-[#6FE7C1]">
@@ -145,43 +143,36 @@ const Navigation = () => {
 
                 <DropdownMenuContent
                   align="end"
-                  className="w-48 bg-white text-[#0B0F17] rounded-xl shadow-[0_8px_20px_rgba(0,0,0,0.12)] border border-gray-200"
+                  className="w-48 bg-white text-[#0B0F17] rounded-xl shadow-lg border border-gray-200"
                 >
-                  <DropdownMenuLabel className="text-gray-600 text-sm font-semibold tracking-wide px-2 py-1">
+                  <DropdownMenuLabel className="text-gray-600 text-sm font-semibold px-2 py-1">
                     Account
                   </DropdownMenuLabel>
 
-                  <DropdownMenuSeparator className="bg-gray-200" />
+                  <DropdownMenuSeparator />
 
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <DropdownMenuItem
                         onSelect={(e) => e.preventDefault()}
-                        className="cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600 font-medium rounded-md px-2 py-2 transition-colors"
+                        className="cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600 px-2 py-2"
                       >
                         <LogOut className="w-4 h-4" />
                         Log out
                       </DropdownMenuItem>
                     </AlertDialogTrigger>
 
-                    <AlertDialogContent className="bg-white text-[#0B0F17] rounded-xl">
+                    <AlertDialogContent>
                       <AlertDialogHeader>
                         <AlertDialogTitle>Log out?</AlertDialogTitle>
                         <AlertDialogDescription>
-                          You will be signed out from your account. Are you
-                          sure?
+                          You will be signed out from your account.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
 
                       <AlertDialogFooter>
-                        <AlertDialogCancel className="px-4 py-2 rounded-md cursor-pointer">
-                          Cancel
-                        </AlertDialogCancel>
-
-                        <AlertDialogAction
-                          onClick={handleLogout}
-                          className="bg-red-500 cursor-pointer text-white hover:bg-red-600 px-4 py-2 rounded-md"
-                        >
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleLogout}>
                           Log out
                         </AlertDialogAction>
                       </AlertDialogFooter>
@@ -237,24 +228,25 @@ const Navigation = () => {
                   </motion.div>
                 ))}
 
-                <div className="border-t border-[#6FE7C1]/20 my-3 mx-4" />
-
                 {user && (
-                  <div className="px-6 py-3 flex justify-between items-center">
-                    <Avatar className="cursor-pointer border border-[#6FE7C1]">
-                      <AvatarImage src={avatar} />
-                      <AvatarFallback className="bg-[#1a1f25] text-white">
-                        {user.email?.[0]?.toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
+                  <>
+                    <div className="border-t border-[#6FE7C1]/20 my-3 mx-4" />
+                    <div className="px-6 py-3 flex justify-between items-center">
+                      <Avatar className="cursor-pointer border border-[#6FE7C1]">
+                        <AvatarImage src={avatar} />
+                        <AvatarFallback className="bg-[#1a1f25] text-white">
+                          {user.email?.[0]?.toUpperCase() || "U"}
+                        </AvatarFallback>
+                      </Avatar>
 
-                    <Button
-                      onClick={handleLogout}
-                      className="bg-[#6FE7C1] text-[#0B0F17] px-5 rounded-md font-semibold hover:bg-[#4fd5ae]"
-                    >
-                      Log Out
-                    </Button>
-                  </div>
+                      <Button
+                        onClick={handleLogout}
+                        className="bg-[#6FE7C1] text-[#0B0F17] px-5 rounded-md font-semibold hover:bg-[#4fd5ae]"
+                      >
+                        Log Out
+                      </Button>
+                    </div>
+                  </>
                 )}
               </div>
             </motion.div>
