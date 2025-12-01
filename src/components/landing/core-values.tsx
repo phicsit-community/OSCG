@@ -1,5 +1,5 @@
 "use client";
-import { motion,Variants } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { Users, GraduationCap, Lightbulb } from "lucide-react";
 
 const CoreValues = () => {
@@ -24,7 +24,7 @@ const CoreValues = () => {
     },
   ];
 
-  const containerVariants:Variants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -35,7 +35,7 @@ const CoreValues = () => {
     },
   };
 
-  const cardVariants:Variants = {
+  const cardVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 60,
@@ -54,7 +54,7 @@ const CoreValues = () => {
     },
   };
 
-  const iconVariants:Variants = {
+  const iconVariants: Variants = {
     hidden: { opacity: 0, scale: 0.7, rotate: -10 },
     visible: {
       opacity: 1,
@@ -67,7 +67,7 @@ const CoreValues = () => {
     },
   };
 
-  const fadeUp:Variants = {
+  const fadeUp: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -75,12 +75,12 @@ const CoreValues = () => {
       transition: {
         duration: 0.7,
         ease: [0.25, 0.46, 0.45, 0.94],
-      },  
+      },
     },
   };
 
   return (
-    <div className="min-h-screen bg-[#090E1A] flex items-center justify-center py-20 px-4 overflow-hidden">
+    <div className="min-h-screen bg-transparent flex items-center justify-center py-20 px-4 overflow-hidden">
       <motion.div
         className="max-w-7xl w-full"
         initial="hidden"
@@ -150,43 +150,40 @@ const CoreValues = () => {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                whileHover={{ scale: 1.03 }}
-                className="group relative p-8 rounded-3xl bg-[#0B1220] border border-[#202B47] hover:border-[#1AD5BD]/40 transition-all duration-500 overflow-hidden"
+                whileHover={{ scale: 1.05, y: -10 }}
+                className="group relative p-8 rounded-3xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#1AD5BD]/50 transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.3)] hover:shadow-[0_0_50px_rgba(26,213,189,0.2)]"
               >
                 <div
-                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"
+                  className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500"
                   style={{
-                    background: backgroundColor,
-                    boxShadow: "0 0 25px 5px rgba(26, 213, 189, 0.08)",
+                    background: `radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${backgroundColor}40, transparent 40%)`,
                   }}
                 ></div>
 
                 <div className="relative z-10">
                   <motion.div className="mb-8" variants={iconVariants}>
                     <div
-                      className="inline-flex p-5 rounded-2xl"
+                      className="inline-flex p-5 rounded-2xl bg-white/5 border border-white/10 group-hover:bg-white/10 transition-colors"
                       style={{
-                        background: backgroundColor,
                         boxShadow:
                           index === 1
-                            ? "0 4px 20px rgba(96, 165, 250, 0.15)"
-                            : "0 4px 20px rgba(26, 213, 189, 0.15)",
+                            ? "0 0 20px rgba(96, 165, 250, 0.2)"
+                            : "0 0 20px rgba(26, 213, 189, 0.2)",
                       }}
                     >
                       <value.icon
-                        className={`w-8 h-8 ${
-                          index === 1 ? "text-[#60A5FA]" : "text-[#1AD5BD]"
-                        }`}
+                        className={`w-8 h-8 ${index === 1 ? "text-[#60A5FA]" : "text-[#1AD5BD]"
+                          }`}
                         strokeWidth={1.5}
                       />
                     </div>
                   </motion.div>
 
-                  <h3 className="text-2xl font-bold mb-4 text-white">
+                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:text-[#1AD5BD] transition-colors">
                     {value.title}
                   </h3>
 
-                  <p className="text-[#9CA3AF] leading-relaxed">
+                  <p className="text-gray-400 leading-relaxed group-hover:text-gray-300 transition-colors">
                     {value.description}
                   </p>
                 </div>

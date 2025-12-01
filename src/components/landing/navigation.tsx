@@ -85,8 +85,7 @@ const Navigation = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md flex justify-center"
-      style={{ backgroundColor: "#0B0F17" }}
+      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b border-white/5 bg-black/20 transition-all duration-300"
     >
       <div className="container px-4 md:px-6">
         <div className="flex h-16 items-center justify-between">
@@ -204,8 +203,8 @@ const Navigation = () => {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="lg:hidden fixed left-4 right-4 bg-[#0B0F17] border border-[#6FE7C1]/20 rounded-lg shadow-2xl z-50"
-              style={{ top: "4.5rem" }}
+              className="lg:hidden fixed left-4 right-4 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden"
+              style={{ top: "5rem" }}
               initial={{ opacity: 0, scale: 0.95, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -10 }}

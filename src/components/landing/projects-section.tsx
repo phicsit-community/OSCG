@@ -155,7 +155,7 @@ const ProjectsSection = () => {
   return (
     <section
       id="projects"
-      className="py-1 bg-[#090E1A] relative overflow-hidden"
+      className="py-1 bg-transparent relative overflow-hidden"
     >
       <motion.div
         className="absolute inset-0 opacity-5"
@@ -204,7 +204,7 @@ const ProjectsSection = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className={`group relative rounded-xl border-t-4 ${project.borderColor} bg-[#161A26] p-6 overflow-hidden backdrop-blur-sm border border-white/5`}
+              className={`group relative rounded-xl border-t-4 ${project.borderColor} bg-white/5 p-6 overflow-hidden backdrop-blur-md border border-white/10 hover:border-white/20 transition-all duration-500 shadow-lg hover:shadow-2xl`}
             >
               <motion.div
                 className={`absolute inset-0 bg-linear-to-br ${project.gradient} opacity-0 group-hover:opacity-100`}
@@ -326,7 +326,7 @@ linear-to-r ${project.borderColor.replace(
           variants={buttonVariants}
           initial="hidden"
           animate={controls}
-     
+
           className="text-center px-10"
         >
           <Button

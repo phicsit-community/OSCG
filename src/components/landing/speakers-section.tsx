@@ -70,7 +70,7 @@ const cardVariants: Variants = {
 
 const SpeakersSection = () => {
   return (
-    <section className="py-10 bg-[#090E1A]">
+    <section className="py-10 bg-transparent">
       <div className="container mx-auto px-6">
         <motion.div
           className="mb-12 text-center"
@@ -115,47 +115,52 @@ const SpeakersSection = () => {
               {speakers.map((speaker, index) => (
                 <motion.div
                   key={index}
-                  className="rounded-lg border border-border bg-[#111A2B] p-8 text-center"
+                  className="group relative rounded-2xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-[#1DD4BD]/50 hover:shadow-[0_0_40px_rgba(29,212,189,0.2)]"
                   variants={cardVariants}
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ scale: 1.05, y: -10 }}
                 >
-                  <div className="mb-6 flex justify-center">
-                    <motion.div
-                      className="flex h-32 w-32 items-center justify-center rounded-full bg-[#1DD4BD] text-3xl font-bold text-background"
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      {speaker.initials}
-                    </motion.div>
-                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  <h3 className="mb-2 text-xl text-white font-semibold">
-                    {speaker.name}
-                  </h3>
+                  <div className="relative z-10">
+                    <div className="mb-6 flex justify-center">
+                      <motion.div
+                        className="relative flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-[#1DD4BD] to-[#07CAAB] text-3xl font-bold text-white shadow-lg group-hover:shadow-[0_0_30px_rgba(29,212,189,0.4)] transition-all duration-500"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        {speaker.initials}
+                        <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
+                      </motion.div>
+                    </div>
 
-                  <p className="mb-1 text-sm text-[#07CAAB]">{speaker.title}</p>
+                    <h3 className="mb-2 text-xl text-white font-bold group-hover:text-[#1DD4BD] transition-colors">
+                      {speaker.name}
+                    </h3>
 
-                  <p className="mb-4 text-sm text-white/70">
-                    {speaker.expertise}
-                  </p>
+                    <p className="mb-2 text-sm text-[#4FD1D0] font-medium tracking-wide uppercase">{speaker.title}</p>
 
-                  <div className="flex justify-center gap-3">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 bg-white cursor-pointer hover:bg-white/90"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </Button>
+                    <p className="mb-6 text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                      {speaker.expertise}
+                    </p>
 
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 bg-white cursor-pointer hover:bg-white/90"
-                    >
-                      <Twitter className="h-4 w-4" />
-                    </Button>
+                    <div className="flex justify-center gap-4">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-10 w-10 rounded-full bg-white/10 text-white hover:bg-[#1DD4BD] hover:text-black transition-all duration-300"
+                      >
+                        <Linkedin className="h-5 w-5" />
+                      </Button>
+
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-10 w-10 rounded-full bg-white/10 text-white hover:bg-[#1DD4BD] hover:text-black transition-all duration-300"
+                      >
+                        <Twitter className="h-5 w-5" />
+                      </Button>
+                    </div>
                   </div>
                 </motion.div>
               ))}
