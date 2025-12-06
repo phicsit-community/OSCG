@@ -1,4 +1,3 @@
-import Footer from "@/components/landing/footer-section";
 import Navigation from "@/components/landing/navigation";
 
 import { ReactNode } from "react";
@@ -12,7 +11,6 @@ const AuthLayout = ({ children }: AuthLayoutProps) => {
     <div>
       <Navigation />
       {children}
-      <Footer/>
     </div>
   );
 };

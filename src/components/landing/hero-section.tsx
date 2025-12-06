@@ -2,10 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
+import dynamic from "next/dynamic";
+
+// Dynamic import to avoid SSR issues with Three.js
+const Globe = dynamic(() => import("../ui/Globe"), { ssr: false });
 
 const HeroSection = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -13,7 +17,7 @@ const HeroSection = () => {
   useEffect(() => {
     const loadUser = async () => {
       const { data } = await supabase.auth.getUser();
-      setUser(data.user ||null);
+      setUser(data.user || null);
     };
 
     loadUser();
@@ -26,83 +30,94 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url('/Group 1.svg')",
-        }}
-      />
+    <section className="relative min-h-dvh flex items-center justify-center overflow-hidden bg-[#090E1A] pt-20">
+      {/* Content */}
+      <div className="relative z-10 w-full h-full min-h-dvh flex items-center justify-center px-4 md:px-8 py-8">
+        <div className="flex flex-col items-center w-full">
+          {/* Acrylic Glass Card - full page size */}
+          <div className="relative backdrop-blur-md bg-transparent border border-white/10 rounded-3xl p-12 md:p-20 lg:p-28 shadow-2xl w-full max-w-6xl min-h-[75vh] flex flex-col justify-center overflow-hidden mt-4">
+            {/* Globe inside the glass pane */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="w-full h-full opacity-50">
+                <Globe />
+              </div>
+            </div>
 
-      <div className="absolute inset-0 bg-black/50" />
+            {/* Glass overlay for better text readability */}
+            <div className="absolute inset-0 bg-[#090E1A]/20 rounded-3xl pointer-events-none" />
 
-      <div className="relative container mt-24 mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-24 text-center">
-        <div className="flex flex-col items-center">
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-sm text-white backdrop-blur-md font-medium tracking-wide shadow-[0_0_15px_rgba(255,255,255,0.15),0_0_30px_rgba(184,255,249,0.2)] animate-[pulseGlow_2.5s_ease-in-out_infinite]">
-            <Github className="h-4 w-4 text-[#B8FFF9]" />
-            <span className="truncate">Global Edition • 2026</span>
-          </div>
+            {/* Content on top of globe */}
+            <div className="relative z-10">
+              {/* Badge */}
+              <div className="mb-10 inline-flex items-center gap-2 rounded-full border border-[#6FE7C1]/30 bg-[#6FE7C1]/10 px-5 py-2.5 text-sm text-[#6FE7C1] font-medium backdrop-blur-sm">
+                <span className="w-2 h-2 bg-[#6FE7C1] rounded-full animate-pulse" />
+                Open Source Connect Global • 2026
+              </div>
 
-          <h1 className="mb-6 max-w-5xl text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
-            Connecting the World Through{" "}
-            <span className="text-[#57D2D7]">Open Source</span>
-          </h1>
+              {/* Heading */}
+              <h1 className="mb-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
+                Build the Future,{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#6FE7C1] to-[#00D4AA]">
+                  Together
+                </span>
+              </h1>
 
-          <p className="mb-12 max-w-2xl text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed">
-            Join thousands of developers, innovators, and open source
-            enthusiasts celebrating global collaboration and technological
-            excellence.
-          </p>
+              {/* Subtext */}
+              <p className="mb-12 text-lg sm:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                Join developers worldwide in celebrating open source collaboration.
+                Contribute, learn, and connect with the global community.
+              </p>
 
-          <div className="mb-20 flex flex-wrap items-center justify-center gap-4">
-            {user ? (
-              <Link href="/dashboard">
+              {/* Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-5">
+                {user ? (
+                  <Link href="/dashboard">
+                    <Button
+                      size="lg"
+                      className="bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-full px-10 py-6 text-lg cursor-pointer"
+                    >
+                      Dashboard
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                </Link>
+              ) : (
+                <Link href="/sign-up">
+                  <Button
+                    size="lg"
+                    className="bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-full px-10 py-6 text-lg cursor-pointer"
+                  >
+                    Get Started
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              )}
+
+              <Link href="/projects">
                 <Button
                   size="lg"
-                  className="bg-[#00D6B2] hover:bg-[#00d6b2da] text-black border-0 cursor-pointer"
+                  variant="outline"
+                  className="border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 text-white hover:text-white rounded-full px-10 py-6 text-lg cursor-pointer"
                 >
-                  Dashboard
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  Explore Projects
                 </Button>
               </Link>
-            ) : (
-              <Link href="/sign-in">
-                <Button
-                  size="lg"
-                  className="bg-[#00D6B2] hover:bg-[#00d6b2da] text-black border-0 cursor-pointer"
-                >
-                  Register Now
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            )}
-
-            <Link href="/projects">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-green-400 cursor-pointer bg-transparent hover:bg-white/10 text-white hover:text-white"
-              >
-                Explore Projects
-              </Button>
-            </Link>
+            </div>
+            </div>
           </div>
 
-          <div className="grid w-full max-w-4xl grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-4">
+          {/* Stats - moved inside the glass pane area */}
+          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
             {[
-              ["25,000+", "Participants", "#57D2D7"],
-              ["60+", "Speakers", "#89CFEB"],
-              ["100+", "Projects", "#57D2D7"],
-              ["Global", "Community", "#89CFEB"],
-            ].map(([value, label, color], i) => (
+              ["25K+", "Contributors"],
+              ["100+", "Projects"],
+              ["50+", "Countries"],
+              ["∞", "Possibilities"],
+            ].map(([value, label], i) => (
               <div key={i} className="flex flex-col items-center">
-                <div
-                  className="mb-2 font-bold md:text-4xl text-3xl"
-                  style={{ color }}
-                >
+                <div className="text-4xl md:text-5xl font-bold text-[#6FE7C1] mb-2">
                   {value}
                 </div>
-                <div className="text-sm text-gray-300">{label}</div>
+                <div className="text-base text-gray-400">{label}</div>
               </div>
             ))}
           </div>

@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Github, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { signInWithEmail, signInWithGoogle, signInWithGitHub } from "@/lib/supabase/auth";
 import { toast } from "sonner";
+import AnimatedSidePanel from "@/components/ui/AnimatedSidePanel";
 
 const Signin = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const [emailLoading, setEmailLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
@@ -97,109 +97,144 @@ const Signin = () => {
     }
   };
 
+  const isLoading = emailLoading || googleLoading || githubLoading;
+
   return (
-    <div className="min-h-screen bg-[#090E1A] flex items-center justify-center px-4">
-      <div className="bg-[#2B303B] text-white w-full max-w-md rounded-2xl shadow-xl p-8 space-y-6 mt-[100px] mb-[100px]">
-        <div className="text-center">
-          <div className="flex justify-center mb-4">
-            <Image
-              src="/logo1.png"
-              alt="Logo"
-              width={70}
-              height={70}
-              className="rounded-lg"
-            />
+    <div className="min-h-screen bg-[#090E1A] flex">
+      {/* Animated Side Panel */}
+      <AnimatedSidePanel />
+
+      {/* Login Form Side */}
+      <div className="w-full lg:w-1/2 min-h-screen flex items-center justify-center p-10 py-32 bg-[#0B0F17]">
+        <div className="w-full max-w-[380px]">
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-[28px] font-bold text-[#F8FAFC] mb-2">
+              Welcome back,<br />Contributor!
+            </h1>
+            <p className="text-[14px] text-[#94A3B8]">
+              Sign in to explore projects and connect with the community
+            </p>
           </div>
-          <h2 className="text-[28px] font-bold">Welcome Back</h2>
-          <p className="text-[15px] text-[#94A3B8] mt-1">
-            Sign in to your OSCG account
+
+          {/* Login Form */}
+          <form onSubmit={handleEmailSignin}>
+            {/* Email */}
+            <div className="mb-5">
+              <label className="block text-[14px] font-medium text-[#F8FAFC] mb-2">
+                Email address
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-[14px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#94A3B8]" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  placeholder="Enter your email"
+                  autoComplete="email"
+                  className="w-full h-12 pl-11 pr-4 text-[14px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg outline-none transition-all placeholder:text-[#94A3B8] focus:border-[#11D392] focus:shadow-[0_0_0_3px_rgba(17,211,146,0.2)]"
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div className="mb-5">
+              <div className="flex justify-between items-center mb-2">
+                <label className="text-[14px] font-medium text-[#F8FAFC]">
+                  Password
+                </label>
+                <Link href="#" className="text-[13px] text-[#11D392] hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock className="absolute left-[14px] top-1/2 -translate-y-1/2 w-[18px] h-[18px] text-[#94A3B8]" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  className="w-full h-12 pl-11 pr-11 text-[14px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg outline-none transition-all placeholder:text-[#94A3B8] focus:border-[#11D392] focus:shadow-[0_0_0_3px_rgba(17,211,146,0.2)]"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1D1F26] rounded cursor-pointer"
+                >
+                  {showPassword ? <EyeOff className="w-[18px] h-[18px]" /> : <Eye className="w-[18px] h-[18px]" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Remember Me */}
+            <div className="flex items-center gap-2.5 mb-6">
+              <input
+                type="checkbox"
+                id="remember"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+                className="w-[18px] h-[18px] accent-[#11D392] cursor-pointer"
+              />
+              <label htmlFor="remember" className="text-[14px] text-[#94A3B8] cursor-pointer">
+                Remember me
+              </label>
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full h-12 text-[15px] font-semibold text-[#090E1A] bg-gradient-to-br from-[#11D392] to-[#2AAE6F] rounded-lg cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(17,211,146,0.3)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+            >
+              {emailLoading ? "Signing In..." : "Sign In"}
+            </button>
+          </form>
+
+          {/* Divider */}
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-[#2C313C]" />
+            <span className="text-[12px] text-[#94A3B8] uppercase">or</span>
+            <div className="flex-1 h-px bg-[#2C313C]" />
+          </div>
+
+          {/* Social Buttons */}
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={handleGoogleSignin}
+              disabled={isLoading}
+              className="flex-1 h-11 flex items-center justify-center gap-2 text-[14px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg cursor-pointer transition-all hover:bg-[#1D1F26] disabled:opacity-50"
+            >
+              <svg viewBox="0 0 24 24" className="w-[18px] h-[18px]">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+              {googleLoading ? "Loading..." : "Google"}
+            </button>
+            <button
+              type="button"
+              onClick={handleGitHubSignin}
+              disabled={isLoading}
+              className="flex-1 h-11 flex items-center justify-center gap-2 text-[14px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg cursor-pointer transition-all hover:bg-[#1D1F26] disabled:opacity-50"
+            >
+              <Github className="w-[18px] h-[18px]" />
+              {githubLoading ? "Loading..." : "GitHub"}
+            </button>
+          </div>
+
+          {/* Sign Up Link */}
+          <p className="text-center mt-6 text-[14px] text-[#94A3B8]">
+            New to open source?{" "}
+            <Link href="/sign-up" className="text-[#11D392] font-medium hover:underline">
+              Join the community
+            </Link>
           </p>
         </div>
-
-        <div className="space-y-3">
-          <Button
-            onClick={handleGitHubSignin}
-            disabled={githubLoading || googleLoading || emailLoading}
-            variant="outline"
-            className="w-full bg-[#101318] border border-[#272C35] text-[#FCFBF8] hover:text-white hover:bg-[#1a1f25] flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
-          >
-            <Github size={20} />
-            {githubLoading ? "Loading..." : "Sign in with GitHub"}
-          </Button>
-
-          <Button
-            onClick={handleGoogleSignin}
-            disabled={googleLoading || githubLoading || emailLoading}
-            className="w-full bg-white text-[#111827] hover:bg-[#e5e7eb] flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
-          >
-           <svg xmlns="http://www.w3.org/2000/svg" className="scale-125" viewBox="0 0 48 48" > <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z" ></path> <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z" ></path> <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z" ></path> <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z" ></path> </svg>
-            {googleLoading ? "Loading..." : "Sign in with Google"}
-          </Button>
-        </div>
-
-        <div className="flex items-center justify-center text-gray-500 text-sm">
-          <span className="w-1/5 border-b border-gray-600"></span>
-          <span className="mx-2 text-[13.5px] text-[#94A3B8]">
-            OR SIGN IN WITH EMAIL
-          </span>
-          <span className="w-1/5 border-b border-gray-600"></span>
-        </div>
-
-        <form onSubmit={handleEmailSignin} className="space-y-4">
-          <div>
-            <label className="text-[14px]">Email address</label>
-            <div className="relative mt-1">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                placeholder="you@example.com"
-                className="w-full pl-10 pr-3 py-2 rounded-lg bg-[#101318] border border-gray-700 focus:border-[#11D493]"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="text-[14px]">Password</label>
-            <div className="relative mt-1">
-              <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-                placeholder="Enter your password"
-                className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#101318] border border-gray-700 focus:border-[#11D493]"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="  cursor-pointer absolute right-3 top-3 text-gray-400 hover:text-[#11D493]"
-              >
-                {showPassword ? <EyeOff size={18}/> : <Eye size={18}  />}
-              </button>
-            </div>
-          </div>
-
-          <Button
-            type="submit"
-            disabled={emailLoading || googleLoading || githubLoading}
-            className="w-full py-2 bg-[#11D493] text-[#101318] rounded-lg font-semibold text-[14px] hover:bg-[#0ec28a] disabled:opacity-50 cursor-pointer"
-          >
-            {emailLoading ? "Signing In..." : "Sign In"}
-          </Button>
-        </form>
-
-        <p className="text-center text-[15px] text-gray-400">
-          Don&apos;t have an account?{" "}
-          <Button asChild variant="link" className="text-[#11D493] font-semibold p-0 hover:underline">
-            <Link href="/sign-up">Sign up</Link>
-          </Button>
-        </p>
       </div>
     </div>
   );
