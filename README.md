@@ -2,4 +2,4 @@
 
 # Big Global Event
 
-# Open source
+# Open source event
