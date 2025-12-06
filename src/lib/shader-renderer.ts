@@ -115,7 +115,7 @@ void main(){gl_Position=position;}`;
   init() {
     const gl = this.gl;
     const program = this.program!;
-    
+
     this.buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
@@ -135,14 +135,14 @@ void main(){gl_Position=position;}`;
   render(now = 0) {
     const gl = this.gl;
     const program = this.program;
-    
+
     if (!program || gl.getProgramParameter(program, gl.DELETE_STATUS)) return;
 
     gl.clearColor(0, 0, 0, 1);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
-    
+
     gl.uniform2f((program as any).resolution, this.canvas.width, this.canvas.height);
     gl.uniform1f((program as any).time, now * 1e-3);
     gl.uniform2f((program as any).move, ...this.mouseMove);
@@ -163,8 +163,8 @@ export class PointerHandler {
 
   constructor(element: HTMLCanvasElement, scale: number) {
     this.scale = scale;
-    
-    const map = (element: HTMLCanvasElement, scale: number, x: number, y: number) => 
+
+    const map = (element: HTMLCanvasElement, scale: number, x: number, y: number) =>
       [x * scale, element.height - y * scale];
 
     element.addEventListener('pointerdown', (e) => {
@@ -213,8 +213,8 @@ export class PointerHandler {
   }
 
   get coords() {
-    return this.pointers.size > 0 
-      ? Array.from(this.pointers.values()).flat() 
+    return this.pointers.size > 0
+      ? Array.from(this.pointers.values()).flat()
       : [0, 0];
   }
 
@@ -284,10 +284,10 @@ void main(void) {
 		uv+=.1*cos(i*vec2(.1+.01*i, .8)+i*i+T*.5+.1*uv.x);
 		vec2 p=uv;
 		float d=length(p);
-		col+=.00125/d*(cos(sin(i)*vec3(1.5,2,2.5))+1.);
+		col+=.00125/d*(cos(sin(i)*vec3(1.5,2.2,2.3))+1.);
 		float b=noise(i+p+bg*1.731);
 		col+=.002*b/length(max(p,vec2(b*p.x*.02,p.y)));
-		col=mix(col,vec3(bg*.03,bg*.06,bg*.12),d);
+		col=mix(col,vec3(bg*.03,bg*.09,bg*.10),d);
 	}
 	O=vec4(col,1);
 }`;
