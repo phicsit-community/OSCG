@@ -99,38 +99,38 @@ const Navigation = () => {
       <div
         className={`transition-all duration-500 ease-out ${
           isScrolled
-            ? "mx-4 mt-3 md:mx-auto md:max-w-4xl"
+            ? "mx-3 sm:mx-4 mt-3 md:mx-auto md:max-w-4xl lg:max-w-5xl"
             : "mx-0"
         }`}
       >
         <div
-          className={`flex items-center justify-between px-8 transition-all duration-500 ease-out ${
+          className={`flex items-center justify-between px-4 sm:px-6 md:px-8 transition-all duration-500 ease-out ${
             isScrolled
-              ? "h-16 bg-[#111827]/80 backdrop-blur-2xl rounded-2xl border border-[#6FE7C1]/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-              : "h-20 bg-transparent border border-transparent"
+              ? "h-14 sm:h-16 bg-[#111827]/80 backdrop-blur-2xl rounded-xl sm:rounded-2xl border border-[#6FE7C1]/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+              : "h-16 sm:h-20 bg-transparent border border-transparent"
           }`}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0">
             <Image
               src="/logo.png"
               alt="Logo"
-              width={38}
-              height={38}
-              className="rounded-lg"
+              width={32}
+              height={32}
+              className="sm:w-[38px] sm:h-[38px] rounded-lg"
             />
-            <span className="text-white font-semibold text-xl">
+            <span className="text-white font-semibold text-lg sm:text-xl">
               OSC<span className="text-[#6FE7C1]">G</span>
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-2">
+          {/* Desktop & Tablet Navigation */}
+          <div className="hidden md:flex items-center gap-1 lg:gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-4 py-2 text-base text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                className="px-3 lg:px-4 py-2 text-sm lg:text-base text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5"
               >
                 {item.label}
               </Link>
@@ -138,19 +138,19 @@ const Navigation = () => {
           </div>
 
           {/* Right side - Auth buttons */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-2 lg:gap-3">
             {!loading && !user && (
               <>
                 <Link href="/sign-in">
                   <Button
                     variant="ghost"
-                    className="text-white/60 hover:text-white hover:bg-white/5 text-base font-medium"
+                    className="text-white/60 hover:text-white hover:bg-white/5 text-sm lg:text-base font-medium"
                   >
                     Login
                   </Button>
                 </Link>
                 <Link href="/sign-up">
-                  <Button className="bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] text-base font-semibold rounded-xl px-6 py-2.5">
+                  <Button className="bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] text-sm lg:text-base font-semibold rounded-xl px-4 lg:px-6 py-2 lg:py-2.5">
                     Sign Up
                   </Button>
                 </Link>
@@ -160,9 +160,9 @@ const Navigation = () => {
             {!loading && user && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Avatar className="cursor-pointer w-9 h-9 border-2 border-transparent hover:border-[#6FE7C1]/50 transition-all">
+                  <Avatar className="cursor-pointer w-8 h-8 lg:w-9 lg:h-9 border-2 border-transparent hover:border-[#6FE7C1]/50 transition-all">
                     <AvatarImage src={avatar} />
-                    <AvatarFallback className="bg-[#1a1f25] text-white text-sm">
+                    <AvatarFallback className="bg-[#1a1f25] text-white text-xs lg:text-sm">
                       {user.email?.[0]?.toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
@@ -211,11 +211,11 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+          <div className="md:hidden">
             <Button
               variant="ghost"
               size="icon"
-              className="text-white/70 hover:text-white hover:bg-white/5"
+              className="text-white/70 hover:text-white hover:bg-white/5 h-9 w-9"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <motion.div animate={{ rotate: isMenuOpen ? 90 : 0 }}>
@@ -230,13 +230,13 @@ const Navigation = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="lg:hidden fixed inset-x-4 top-20 bg-[#111827]/95 backdrop-blur-2xl border border-white/5 rounded-2xl shadow-2xl overflow-hidden"
+            className="md:hidden fixed inset-x-3 sm:inset-x-4 top-[4.5rem] sm:top-20 bg-[#111827]/95 backdrop-blur-2xl border border-white/5 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100vh-6rem)] overflow-y-auto"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="p-4 space-y-1">
+            <div className="p-3 sm:p-4 space-y-1">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.href}
@@ -246,7 +246,7 @@ const Navigation = () => {
                 >
                   <Link
                     href={item.href}
-                    className="block px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                    className="block px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5 rounded-lg sm:rounded-xl transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
@@ -254,19 +254,19 @@ const Navigation = () => {
                 </motion.div>
               ))}
 
-              <div className="pt-4 mt-4 border-t border-white/5 space-y-2">
+              <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-white/5 space-y-2">
                 {!loading && !user && (
                   <>
                     <Link href="/sign-in" onClick={() => setIsMenuOpen(false)}>
                       <Button
                         variant="ghost"
-                        className="w-full justify-center text-white/70 hover:text-white hover:bg-white/5"
+                        className="w-full justify-center text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5"
                       >
                         Login
                       </Button>
                     </Link>
                     <Link href="/sign-up" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-xl">
+                      <Button className="w-full text-sm sm:text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-xl">
                         Sign Up
                       </Button>
                     </Link>
@@ -274,22 +274,22 @@ const Navigation = () => {
                 )}
 
                 {!loading && user && (
-                  <div className="flex items-center justify-between px-4 py-2">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="w-10 h-10 border-2 border-[#6FE7C1]/30">
+                  <div className="flex items-center justify-between px-3 sm:px-4 py-2">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                      <Avatar className="w-9 h-9 sm:w-10 sm:h-10 border-2 border-[#6FE7C1]/30 flex-shrink-0">
                         <AvatarImage src={avatar} />
-                        <AvatarFallback className="bg-[#1a1f25] text-white">
+                        <AvatarFallback className="bg-[#1a1f25] text-white text-sm">
                           {user.email?.[0]?.toUpperCase() || "U"}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="text-white/70 text-sm truncate max-w-[120px]">
+                      <span className="text-white/70 text-xs sm:text-sm truncate">
                         {user.email}
                       </span>
                     </div>
                     <Button
                       onClick={handleLogout}
                       size="sm"
-                      className="bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg"
+                      className="bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg text-xs sm:text-sm flex-shrink-0"
                     >
                       Logout
                     </Button>
