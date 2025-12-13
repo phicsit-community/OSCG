@@ -117,7 +117,25 @@ const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        {/* Projects Grid */}
+        {/* Coming Soon Message */}
+        <motion.div
+          className="text-center py-20"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <div className="unified-card inline-block px-16 py-12">
+            <p className="text-3xl font-bold text-[var(--accent-primary)] mb-4">
+              Coming Soon
+            </p>
+            <p className="text-[var(--text-secondary)]">
+              Exciting open source projects will be showcased here
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Projects Grid - Commented Out
         <motion.div
           className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12"
           variants={containerVariants}
@@ -131,62 +149,11 @@ const ProjectsSection = () => {
               variants={cardVariants}
               className="group unified-card p-6"
             >
-              <div className="relative z-10">
-                {/* GitHub Icon */}
-                <motion.div
-                  className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/5 border border-white/10 mb-5 group-hover:bg-white/10 transition-colors"
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Github className="h-6 w-6 text-white" />
-                </motion.div>
-
-                {/* Title */}
-                <h3 className="mb-3 text-xl font-semibold text-white group-hover:text-[var(--accent-secondary)] transition-colors">
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p className="mb-5 text-sm text-[var(--text-muted)] leading-relaxed group-hover:text-[var(--text-secondary)] transition-colors">
-                  {project.description}
-                </p>
-
-                {/* Language Badge */}
-                <div className="mb-4">
-                  <div className="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 group-hover:bg-white/10 transition-colors">
-                    <div className={`h-3 w-3 rounded-full ${project.languageColor}`} />
-                    <span className="text-white text-sm font-medium">
-                      {project.language}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Stats */}
-                <div className="mb-5 flex items-center gap-5 text-sm text-[var(--text-muted)]">
-                  <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4" />
-                    <span>{project.stars}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <GitFork className="h-4 w-4" />
-                    <span>{project.forks}</span>
-                  </div>
-                </div>
-
-                {/* View Project Link */}
-                <a
-                  href="#"
-                  className="inline-flex items-center gap-2 text-sm text-[var(--accent-primary)] hover:text-[var(--accent-secondary)] font-medium transition-colors"
-                >
-                  View Project
-                  <ExternalLink className="h-4 w-4" />
-                </a>
-              </div>
+              ...project cards...
             </motion.div>
           ))}
         </motion.div>
 
-        {/* CTA Button */}
         <motion.div
           className="text-center"
           variants={fadeUp}
@@ -201,6 +168,7 @@ const ProjectsSection = () => {
             Explore All Projects
           </Button>
         </motion.div>
+        */}
       </div>
     </section>
   );

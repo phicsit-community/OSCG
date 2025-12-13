@@ -153,30 +153,34 @@
 
 :root {
   /* Spacing */
-  --section-py: clamp(5rem, 10vw, 8rem);
+  --section-py: clamp(3rem, 6vw, 5rem);
   --container-px: clamp(1.5rem, 5vw, 6rem);
-  
+
   /* Card System */
   --card-radius: 1.5rem;
   --card-radius-sm: 1rem;
   --card-border: rgba(255, 255, 255, 0.08);
   --card-bg: rgba(255, 255, 255, 0.03);
   --card-bg-hover: rgba(255, 255, 255, 0.06);
-  
+
   /* Accent Colors (unified) */
   --accent-primary: #00D6B2;
   --accent-secondary: #4FD1D0;
   --accent-tertiary: #89CFEB;
   --accent-glow: rgba(0, 214, 178, 0.15);
-  
+
   /* Text Colors */
   --text-primary: #ffffff;
   --text-secondary: rgba(255, 255, 255, 0.7);
   --text-muted: rgba(255, 255, 255, 0.5);
-  
+
   /* Background */
   --bg-dark: #05080F;
   --bg-section: transparent;
+
+  /* Sparkles Effect */
+  --gradient-color: #00D6B2;
+  --sparkles-color: #00D6B2;
 }
 
 /* Section Container */

@@ -1,48 +1,105 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { Sparkles } from "../ui/sparkles";
+import { useEffect, useState } from "react";
+
+// Sponsor data
+const sponsors = [
+  { name: "TechCorp" },
+  { name: "DevStudio" },
+  { name: "CloudBase" },
+  { name: "OpenStack" },
+  { name: "CodeLabs" },
+  { name: "DataFlow" },
+  { name: "NetSphere" },
+  { name: "AppForge" },
+  { name: "ByteWorks" },
+  { name: "DevOps Co" },
+  { name: "SecureNet" },
+  { name: "AIVenture" },
+];
 
 const SponsersSection = () => {
-  const [activeTab, setActiveTab] = useState<"platinum" | "gold" | "silver">("platinum");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalSponsors = sponsors.length;
+  const visibleCount = 5;
 
-  const sponsorsByTier = {
-    platinum: [
-      { name: "Platinum Sponsor 1", logo: "/nex.png" },
-      { name: "Platinum Sponsor 2", logo: "/nex.png" },
-      { name: "Platinum Sponsor 3", logo: "/nex.png" },
-    ],
-    gold: [
-      { name: "Gold Sponsor 1", logo: "/nex.png" },
-      { name: "Gold Sponsor 2", logo: "/nex.png" },
-      { name: "Gold Sponsor 3", logo: "/nex.png" },
-      { name: "Gold Sponsor 4", logo: "/nex.png" },
-    ],
-    silver: [
-      { name: "Silver Sponsor 1", logo: "/nex.png" },
-      { name: "Silver Sponsor 2", logo: "/nex.png" },
-      { name: "Silver Sponsor 3", logo: "/nex.png" },
-      { name: "Silver Sponsor 4", logo: "/nex.png" },
-      { name: "Silver Sponsor 5", logo: "/nex.png" },
-      { name: "Silver Sponsor 6", logo: "/nex.png" },
-    ],
-  };
+  // Auto-rotate the carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalSponsors);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [totalSponsors]);
 
-  const allSponsors = [
-    ...sponsorsByTier.platinum,
-    ...sponsorsByTier.gold,
-    ...sponsorsByTier.silver,
-  ];
+  // Calculate position along the arc that follows the semicircle
+  const getCardStyle = (index: number) => {
+    let relativePos = index - currentIndex;
 
-  const tierConfig = {
-    platinum: { label: "Platinum", color: "#E5E4E2", cardHeight: "h-44" },
-    gold: { label: "Gold", color: "#FFD700", cardHeight: "h-36" },
-    silver: { label: "Silver", color: "#C0C0C0", cardHeight: "h-32" },
+    if (relativePos > totalSponsors / 2) relativePos -= totalSponsors;
+    if (relativePos < -totalSponsors / 2) relativePos += totalSponsors;
+
+    const isVisible = Math.abs(relativePos) <= Math.floor(visibleCount / 2);
+
+    // Arc parameters - matching the semicircle curve
+    const arcSpread = 60; // Total degrees of the arc
+    const anglePerCard = arcSpread / visibleCount;
+    const baseAngle = 90; // Start from top of semicircle
+
+    // Calculate angle on the arc (center card at 90 degrees = top)
+    const angle = baseAngle + (relativePos * anglePerCard);
+    const angleRad = angle * (Math.PI / 180);
+
+    // Arc radius - this should match the visual semicircle
+    const arcRadius = 400;
+
+    // Position on the arc
+    const x = Math.cos(angleRad) * arcRadius * 2.5; // Horizontal spread
+    const y = -Math.sin(angleRad) * arcRadius * 0.3 + 80; // Vertical arc curve
+
+    // Scale decreases toward edges
+    const scale = isVisible ? 1 - Math.abs(relativePos) * 0.12 : 0;
+    const opacity = isVisible ? 1 - Math.abs(relativePos) * 0.2 : 0;
+    const zIndex = 10 - Math.abs(relativePos);
+
+    return { x, y, scale, opacity, zIndex, isVisible };
   };
 
   return (
-    <section className="section-container bg-transparent">
+    <section className="section-container bg-transparent pt-8">
       <div className="max-w-6xl mx-auto">
+        {/* Our Sponsors - Coming Soon */}
+        <motion.div
+          className="section-header mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2>
+            Our <span className="text-accent-gradient">Sponsors</span>
+          </h2>
+        </motion.div>
+
+        {/* Coming Soon Card */}
+        <motion.div
+          className="text-center py-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+        >
+          <div className="unified-card inline-block px-16 py-12">
+            <p className="text-3xl font-bold text-[var(--accent-primary)] mb-4">
+              Coming Soon
+            </p>
+            <p className="text-[var(--text-secondary)]">
+              Exciting sponsor partnerships will be announced here
+            </p>
+          </div>
+        </motion.div>
+
         {/* Section Header */}
         <motion.div
           className="section-header"
@@ -52,91 +109,81 @@ const SponsersSection = () => {
           transition={{ duration: 0.7 }}
         >
           <h2>
-            Our <span className="text-accent-gradient">Sponsors</span>
+            Trusted by <span className="text-accent-gradient">Industry Leaders</span>
           </h2>
           <p>
-            Supported by industry leaders who believe in the power of open source innovation
+            Supported by innovative companies who believe in the power of open source
           </p>
         </motion.div>
 
-        {/* Marquee Animation */}
-        <div className="relative w-full overflow-hidden mb-16">
-          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[var(--bg-dark)] to-transparent z-10" />
-          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[var(--bg-dark)] to-transparent z-10" />
+        {/* Combined Cards + Sparkles Section */}
+        <div className="relative h-[320px] w-full overflow-hidden">
+          {/* Card Carousel - positioned at top of the arc */}
+          <div className="absolute inset-x-0 top-0 h-[160px] flex items-center justify-center z-20">
+            {sponsors.map((sponsor, index) => {
+              const style = getCardStyle(index);
 
-          <motion.div
-            className="flex gap-8 items-center w-max"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              duration: 30,
-              ease: "linear",
-              repeat: Infinity,
-            }}
-          >
-            {[...allSponsors, ...allSponsors].map((sponsor, index) => (
-              <div
-                key={index}
-                className="flex items-center justify-center min-w-[180px] h-24 rounded-2xl bg-white/5 border border-white/5 backdrop-blur-sm hover:bg-white/10 hover:border-white/10 transition-all duration-300 grayscale hover:grayscale-0 opacity-60 hover:opacity-100"
-              >
-                <span className="text-lg font-semibold text-white">{sponsor.name}</span>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
-        {/* Sponsor Tier Navigation */}
-        <div className="flex justify-center gap-3 mb-10">
-          {(["platinum", "gold", "silver"] as const).map((tier) => (
-            <button
-              key={tier}
-              onClick={() => setActiveTab(tier)}
-              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 border-2 ${activeTab === tier
-                  ? "bg-white/10 scale-105"
-                  : "bg-white/5 border-transparent hover:bg-white/10"
-                }`}
-              style={{
-                borderColor: activeTab === tier ? tierConfig[tier].color : "transparent",
-                color: activeTab === tier ? tierConfig[tier].color : "var(--text-muted)",
-              }}
-            >
-              {tierConfig[tier].label}
-            </button>
-          ))}
-        </div>
-
-        {/* Sponsor Tier Cards */}
-        <motion.div
-          key={activeTab}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className={`grid gap-6 ${activeTab === "platinum"
-              ? "md:grid-cols-3"
-              : activeTab === "gold"
-                ? "md:grid-cols-2 lg:grid-cols-4"
-                : "md:grid-cols-2 lg:grid-cols-3"
-            }`}>
-            {sponsorsByTier[activeTab].map((sponsor, index) => (
-              <motion.div
-                key={sponsor.name}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className={`unified-card ${tierConfig[activeTab].cardHeight} flex items-center justify-center cursor-pointer`}
-                style={{
-                  borderColor: `${tierConfig[activeTab].color}20`,
-                }}
-              >
-                <span
-                  className="font-medium text-center px-4"
-                  style={{ color: tierConfig[activeTab].color }}
+              return (
+                <motion.div
+                  key={sponsor.name}
+                  className="absolute flex items-center justify-center w-40 h-20 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/10 hover:border-[var(--accent-primary)]/50"
+                  initial={false}
+                  animate={{
+                    x: style.x,
+                    y: style.y,
+                    scale: style.scale,
+                    opacity: style.opacity,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 26,
+                  }}
+                  style={{ zIndex: style.zIndex }}
+                  onClick={() => setCurrentIndex(index)}
                 >
-                  {sponsor.name}
-                </span>
-              </motion.div>
-            ))}
+                  <span className="text-sm font-semibold text-white whitespace-nowrap">
+                    {sponsor.name}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
+
+          {/* Sparkles Visual Effect - overlapping with cards */}
+          <div className="absolute inset-0 top-[40px] [mask-image:radial-gradient(50%_50%,white,transparent)]">
+            {/* Gradient background glow */}
+            <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,var(--gradient-color),transparent_70%)] before:opacity-40" />
+
+            {/* Curved horizon line - cards follow this curve */}
+            <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-[#05080F]" />
+
+            {/* Sparkles particles */}
+            <Sparkles
+              density={1200}
+              className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
+              color="var(--sparkles-color)"
+            />
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <motion.div
+          className="text-center mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          <p className="text-[var(--text-secondary)] mb-6">
+            Interested in sponsoring? Join the global open source community.
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-[var(--accent-primary)] text-black font-semibold hover:bg-[#00c4a3] transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)]"
+          >
+            Become a Sponsor
+          </a>
         </motion.div>
       </div>
     </section>

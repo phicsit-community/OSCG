@@ -36,9 +36,9 @@ const GlobalBackground = () => {
 
             {/* Grid Pattern - subtle and unified */}
             <div
-                className="absolute inset-0 opacity-[0.08]"
+                className="absolute inset-0 opacity-[0.18]"
                 style={{
-                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.5) 1px, transparent 1px)`,
+                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)`,
                     backgroundSize: "4rem 4rem",
                     maskImage: "radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%)",
                 }}
