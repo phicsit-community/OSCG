@@ -7,7 +7,6 @@ import { motion, Variants } from "framer-motion";
 const articles = [
   {
     category: "Trends",
-    image: "Image ",
     date: "March 18, 2025",
     readTime: "5 min read",
     title: "The Future of Open Source: Trends to Watch in 2025",
@@ -17,7 +16,6 @@ const articles = [
   },
   {
     category: "Development",
-    image: "Image ",
     date: "March 12, 2025",
     readTime: "8 min read",
     title: "Building Scalable Cloud-Native Applications",
@@ -27,7 +25,6 @@ const articles = [
   },
   {
     category: "Community",
-    image: "Image ",
     date: "March 10, 2025",
     readTime: "6 min read",
     title: "Community-Driven Innovation: Success Stories",
@@ -55,44 +52,39 @@ const fadeUp: Variants = {
 };
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 0.9 },
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
   },
 };
 
 const LatestInsights = () => {
   return (
-    <section className="py-10 bg-[#090E1A]">
-      <div className="container mx-auto px-6">
+    <section className="section-container bg-transparent">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          className="mb-12 text-center"
+          className="section-header"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl text-white font-bold md:text-5xl"
-            variants={fadeUp}
-          >
-            Latest <span className="text-[#4FD1D0]">Insights</span>
+          <motion.h2 variants={fadeUp}>
+            Latest <span className="text-accent-gradient">Insights</span>
           </motion.h2>
-
-          <motion.p
-            className="mx-auto max-w-2xl text-white/80"
-            variants={fadeUp}
-          >
+          <motion.p variants={fadeUp}>
             Stay updated with the latest news, tutorials, and insights from the
             open source community
           </motion.p>
         </motion.div>
 
+        {/* Articles Grid */}
         <motion.div
-          className="mb-12 grid gap-6 md:grid-cols-3"
+          className="grid gap-6 md:grid-cols-3 mb-12"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -102,47 +94,53 @@ const LatestInsights = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
-              className="overflow-hidden rounded-lg border border-border bg-[#0A0F1B]"
+              className="group unified-card overflow-hidden"
             >
-              <div className="relative h-48 bg-[#0A0F1B] flex items-center justify-center">
-                <span className="text-white">{article.image}</span>
-                <div className="absolute left-4 top-4 rounded-full bg-background px-3 py-1 text-xs font-medium">
+              {/* Image Placeholder */}
+              <div className="relative h-48 bg-gradient-to-br from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
+                <div className="text-[var(--text-muted)] text-sm">Article Image</div>
+                <div className="absolute left-4 top-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 text-xs font-medium text-white">
                   {article.category}
                 </div>
               </div>
 
+              {/* Content */}
               <div className="p-6">
-                <div className="mb-3 flex items-center gap-4 text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1 text-white/70">
-                    <Calendar className="h-3 w-3" />
+                {/* Meta */}
+                <div className="mb-4 flex items-center gap-4 text-xs text-[var(--text-muted)]">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5" />
                     {article.date}
                   </div>
-                  <div className="flex items-center gap-1 text-white/70">
-                    <Clock className="h-3 w-3" />
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" />
                     {article.readTime}
                   </div>
                 </div>
 
-                <h3 className="mb-2 text-lg font-semibold text-white">
+                {/* Title */}
+                <h3 className="mb-3 text-lg font-semibold text-white group-hover:text-[var(--accent-secondary)] transition-colors line-clamp-2">
                   {article.title}
                 </h3>
 
-                <p className="mb-4 text-sm text-white/50">
+                {/* Description */}
+                <p className="mb-5 text-sm text-[var(--text-muted)] leading-relaxed line-clamp-2">
                   {article.description}
                 </p>
 
-                <hr className="border-t border-white/30" />
+                {/* Divider */}
+                <div className="h-px bg-white/10 mb-4" />
 
-                <div className="flex items-center mt-3 justify-between">
-                  <div className="flex items-center gap-2 text-sm text-white/70">
+                {/* Footer */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
                     <User className="h-4 w-4" />
                     {article.author}
                   </div>
 
                   <Button
                     variant="link"
-                    className="h-auto p-0 text-[#00D4AA] cursor-pointer"
+                    className="h-auto p-0 text-[var(--accent-primary)] hover:text-[var(--accent-secondary)] cursor-pointer font-medium"
                   >
                     Read
                     <ArrowRight className="ml-1 h-3 w-3" />
@@ -153,16 +151,17 @@ const LatestInsights = () => {
           ))}
         </motion.div>
 
+        {/* CTA Button */}
         <motion.div
-          className="text-center px-10"
+          className="text-center"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true }}
         >
           <Button
             size="lg"
-            className="cursor-pointer text-black bg-[#5bebb5] hover:bg-[#4dddabd3] rounded-full px-10 py-4 font-semibold shadow-lg"
+            className="cursor-pointer text-black bg-[var(--accent-primary)] hover:bg-[#00c4a3] rounded-2xl px-10 h-14 font-semibold shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all text-base"
           >
             View All Articles
           </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Linkedin, Twitter } from "lucide-react";
+import { Linkedin, Twitter } from "lucide-react";
 import { Button } from "../ui/button";
 import { motion, Variants } from "framer-motion";
 
@@ -25,7 +25,6 @@ const speakers = [
   },
 ];
 
-// Matching animation system
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -52,17 +51,15 @@ const fadeUp: Variants = {
 const cardVariants: Variants = {
   hidden: {
     opacity: 0,
-    y: 60,
-    scale: 0.9,
-    rotateX: -10,
+    y: 40,
+    scale: 0.95,
   },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    rotateX: 0,
     transition: {
-      duration: 0.8,
+      duration: 0.7,
       ease: [0.25, 0.46, 0.45, 0.94],
     },
   },
@@ -70,105 +67,84 @@ const cardVariants: Variants = {
 
 const SpeakersSection = () => {
   return (
-    <section className="py-10 bg-[#090E1A]">
-      <div className="container mx-auto px-6">
+    <section className="section-container bg-transparent">
+      <div className="max-w-6xl mx-auto">
+        {/* Section Header */}
         <motion.div
-          className="mb-12 text-center"
+          className="section-header"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl text-white font-bold md:text-5xl"
-            variants={fadeUp}
-          >
-            Our <span className="text-[#4FD1D0]">Speakers</span>
+          <motion.h2 variants={fadeUp}>
+            Our <span className="text-accent-gradient">Speakers</span>
           </motion.h2>
-
-          <motion.p
-            className="mx-auto max-w-2xl text-white/80"
-            variants={fadeUp}
-          >
+          <motion.p variants={fadeUp}>
             Learn from industry leaders and open source pioneers who are driving
             innovation forward
           </motion.p>
         </motion.div>
 
+        {/* Speakers Grid */}
         <motion.div
-          className="relative"
+          className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden md:flex absolute -left-5 top-1/2 z-10 -translate-y-1/2 rounded-full bg-card cursor-pointer hover:bg-white/90"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </Button>
-
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-              {speakers.map((speaker, index) => (
-                <motion.div
-                  key={index}
-                  className="rounded-lg border border-border bg-[#111A2B] p-8 text-center"
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.03 }}
-                >
-                  <div className="mb-6 flex justify-center">
-                    <motion.div
-                      className="flex h-32 w-32 items-center justify-center rounded-full bg-[#1DD4BD] text-3xl font-bold text-background"
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      animate={{ scale: 1, opacity: 1 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      {speaker.initials}
-                    </motion.div>
+          {speakers.map((speaker, index) => (
+            <motion.div
+              key={index}
+              className="group unified-card p-8 text-center"
+              variants={cardVariants}
+            >
+              <div className="relative z-10">
+                {/* Avatar */}
+                <div className="mb-6 flex justify-center">
+                  <div className="relative flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] text-2xl font-bold text-white shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500">
+                    {speaker.initials}
+                    <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
                   </div>
+                </div>
 
-                  <h3 className="mb-2 text-xl text-white font-semibold">
-                    {speaker.name}
-                  </h3>
+                {/* Name */}
+                <h3 className="mb-2 text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
+                  {speaker.name}
+                </h3>
 
-                  <p className="mb-1 text-sm text-[#07CAAB]">{speaker.title}</p>
+                {/* Title */}
+                <p className="mb-2 text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
+                  {speaker.title}
+                </p>
 
-                  <p className="mb-4 text-sm text-white/70">
-                    {speaker.expertise}
-                  </p>
+                {/* Expertise */}
+                <p className="mb-6 text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                  {speaker.expertise}
+                </p>
 
-                  <div className="flex justify-center gap-3">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 bg-white cursor-pointer hover:bg-white/90"
-                    >
-                      <Linkedin className="h-4 w-4" />
-                    </Button>
+                {/* Social Links */}
+                <div className="flex justify-center gap-3">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </Button>
 
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="h-8 w-8 bg-white cursor-pointer hover:bg-white/90"
-                    >
-                      <Twitter className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <Button
-            variant="ghost"
-            size="icon"
-            className="hidden md:flex absolute -right-5 top-1/2 z-10 -translate-y-1/2 rounded-full bg-card cursor-pointer hover:bg-white/90"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300"
+                  >
+                    <Twitter className="h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>

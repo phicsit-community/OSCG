@@ -8,6 +8,7 @@ import {
 } from "../ui/accordion";
 import { Button } from "../ui/button";
 import { motion, Variants } from "framer-motion";
+import { MessageCircle, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
@@ -56,100 +57,94 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
   },
 };
 
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.5, ease: "easeOut" },
   },
 };
 
 const FAQ = () => {
   return (
-    <section className="py-5 bg-[#090E1A]">
-      <div className="container mx-auto px-6">
+    <section className="section-container bg-transparent">
+      {/* Background Elements */}
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[var(--accent-secondary)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[var(--accent-tertiary)]/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Section Header */}
         <motion.div
-          className="mb-12 text-center"
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
+            <HelpCircle className="w-4 h-4 text-[var(--accent-secondary)]" />
+            <span className="text-sm font-medium text-[var(--accent-secondary)]">FAQ</span>
+          </div>
+          <h2>
+            Frequently Asked <span className="text-accent-gradient">Questions</span>
+          </h2>
+          <p>
+            Everything you need to know about the event, registration, and participation.
+          </p>
+        </motion.div>
+
+        {/* Accordion */}
+        <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl text-white font-bold md:text-5xl"
-            variants={fadeUp}
-          >
-            Frequently Asked <span className="text-[#4FD1D0]">Questions</span>
-          </motion.h2>
-
-          <motion.p
-            className="mx-auto max-w-2xl text-white/80"
-            variants={fadeUp}
-          >
-            Find answers to common questions about OSCG 2026
-          </motion.p>
+          <Accordion type="single" collapsible className="space-y-3">
+            {faqs.map((faq, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="group unified-card px-6 overflow-hidden data-[state=open]:border-[var(--accent-secondary)]/30"
+                >
+                  <AccordionTrigger className="text-left text-base font-medium text-white hover:no-underline hover:text-[var(--accent-secondary)] py-5 [&[data-state=open]]:text-[var(--accent-secondary)]">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[var(--text-secondary)] text-base leading-relaxed pb-5">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
+            ))}
+          </Accordion>
         </motion.div>
 
+        {/* Contact CTA */}
         <motion.div
-          className="mx-auto max-w-3xl"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          className="mt-16 unified-card p-10 text-center group"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.7 }}
         >
-          <motion.div variants={fadeUp}>
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <motion.div key={index} variants={cardVariants}>
-                  <AccordionItem
-                    value={`item-${index}`}
-                    className="rounded-lg bg-[#161A26] px-6"
-                  >
-                    <AccordionTrigger className="text-left text-white hover:no-underline cursor-pointer [&>svg]:text-[#00D4AA]">
-                      {faq.question}
-                    </AccordionTrigger>
+          <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+            <MessageCircle className="w-7 h-7 text-[var(--accent-secondary)]" />
+          </div>
 
-                    <AccordionContent className="text-white/60">
-                      {faq.answer}
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
-              ))}
-            </Accordion>
-          </motion.div>
-        </motion.div>
-
-        <motion.div
-          className="mx-auto mt-20 w-[890px] max-w-full rounded-3xl bg-[#161A26]/60 backdrop-blur-md border border-white/10 p-12 text-center shadow-lg"
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <h3 className="mb-3 text-2xl font-semibold text-white">
+          <h3 className="mb-3 text-2xl font-bold text-white">
             Still have questions?
           </h3>
-          <p className="mb-8 text-white/60 text-lg">
-            Our support team is here to help you with any queries
+          <p className="mb-6 text-[var(--text-secondary)] text-lg max-w-md mx-auto">
+            Can't find the answer you're looking for? Our team is here to help.
           </p>
           <Button
             size="lg"
-            className="cursor-pointer text-black/80 bg-linear-to-r from-[#5BE7B5] to-[#82D4FA] hover:opacity-90 rounded-full px-10 py-4 font-semibold shadow-md transition-all"
+            className="bg-[var(--accent-secondary)] hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
           >
             Contact Support
           </Button>
