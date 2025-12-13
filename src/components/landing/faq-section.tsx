@@ -57,7 +57,7 @@ const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
   },
 };
 
@@ -72,52 +72,50 @@ const itemVariants: Variants = {
 
 const FAQ = () => {
   return (
-    <section className="py-24 bg-transparent relative overflow-hidden">
+    <section className="section-container bg-transparent">
       {/* Background Elements */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[#4FD1D0]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[#89CFEB]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-96 h-96 bg-[var(--accent-secondary)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-[var(--accent-tertiary)]/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto relative z-10">
+        {/* Section Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="section-header"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
-            <HelpCircle className="w-4 h-4 text-[#4FD1D0]" />
-            <span className="text-sm font-medium text-[#4FD1D0]">FAQ</span>
+            <HelpCircle className="w-4 h-4 text-[var(--accent-secondary)]" />
+            <span className="text-sm font-medium text-[var(--accent-secondary)]">FAQ</span>
           </div>
-
-          <h2 className="mb-6 text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Frequently Asked <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4FD1D0] to-[#89CFEB]">Questions</span>
+          <h2>
+            Frequently Asked <span className="text-accent-gradient">Questions</span>
           </h2>
-
-          <p className="mx-auto max-w-2xl text-lg text-gray-400">
+          <p>
             Everything you need to know about the event, registration, and participation.
           </p>
         </motion.div>
 
+        {/* Accordion */}
         <motion.div
-          className="mx-auto max-w-3xl"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <AccordionItem
                   value={`item-${index}`}
-                  className="group border border-white/5 bg-white/5 backdrop-blur-md rounded-2xl px-6 overflow-hidden transition-all duration-300 hover:bg-white/10 hover:border-[#4FD1D0]/30 hover:shadow-[0_0_20px_rgba(79,209,208,0.1)]"
+                  className="group unified-card px-6 overflow-hidden data-[state=open]:border-[var(--accent-secondary)]/30"
                 >
-                  <AccordionTrigger className="text-left text-lg font-medium text-white hover:no-underline hover:text-[#4FD1D0] py-6 [&[data-state=open]]:text-[#4FD1D0]">
+                  <AccordionTrigger className="text-left text-base font-medium text-white hover:no-underline hover:text-[var(--accent-secondary)] py-5 [&[data-state=open]]:text-[var(--accent-secondary)]">
                     {faq.question}
                   </AccordionTrigger>
-
-                  <AccordionContent className="text-gray-300 text-base leading-relaxed pb-6">
+                  <AccordionContent className="text-[var(--text-secondary)] text-base leading-relaxed pb-5">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -126,33 +124,30 @@ const FAQ = () => {
           </Accordion>
         </motion.div>
 
+        {/* Contact CTA */}
         <motion.div
-          className="mx-auto mt-20 max-w-2xl rounded-3xl bg-gradient-to-br from-white/5 to-white/0 backdrop-blur-md border border-white/10 p-12 text-center shadow-2xl relative overflow-hidden group"
+          className="mt-16 unified-card p-10 text-center group"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.8 }}
+          transition={{ delay: 0.4, duration: 0.7 }}
         >
-          <div className="absolute inset-0 bg-[#4FD1D0]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-          <div className="relative z-10">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-              <MessageCircle className="w-8 h-8 text-[#4FD1D0]" />
-            </div>
-
-            <h3 className="mb-3 text-2xl font-bold text-white">
-              Still have questions?
-            </h3>
-            <p className="mb-8 text-gray-400 text-lg">
-              Can't find the answer you're looking for? Our team is here to help.
-            </p>
-            <Button
-              size="lg"
-              className="bg-[#4FD1D0] hover:bg-[#3bc2c1] text-black font-semibold rounded-full px-8 h-12 shadow-[0_0_20px_rgba(79,209,208,0.3)] hover:shadow-[0_0_30px_rgba(79,209,208,0.5)] transition-all transform hover:-translate-y-1"
-            >
-              Contact Support
-            </Button>
+          <div className="w-14 h-14 mx-auto mb-5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+            <MessageCircle className="w-7 h-7 text-[var(--accent-secondary)]" />
           </div>
+
+          <h3 className="mb-3 text-2xl font-bold text-white">
+            Still have questions?
+          </h3>
+          <p className="mb-6 text-[var(--text-secondary)] text-lg max-w-md mx-auto">
+            Can't find the answer you're looking for? Our team is here to help.
+          </p>
+          <Button
+            size="lg"
+            className="bg-[var(--accent-secondary)] hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
+          >
+            Contact Support
+          </Button>
         </motion.div>
       </div>
     </section>

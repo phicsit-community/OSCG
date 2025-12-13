@@ -138,7 +138,7 @@ void main(){gl_Position=position;}`;
 
     if (!program || gl.getProgramParameter(program, gl.DELETE_STATUS)) return;
 
-    gl.clearColor(0, 0, 0, 1);
+    gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.useProgram(program);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);

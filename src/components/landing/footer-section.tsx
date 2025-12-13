@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Instagram, Mail, Twitter, Linkedin, Github, Send } from "lucide-react";
+import { Instagram, Twitter, Linkedin, Github, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,15 +8,18 @@ const Footer = () => {
   return (
     <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#4FD1D0]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#1AD5BD]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent-secondary)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--accent-primary)]/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Top Divider */}
+      <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid gap-16 lg:grid-cols-12 mb-20">
+        <div className="grid gap-12 lg:grid-cols-12 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-4 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#1AD5BD]/20 to-[#4FD1D0]/10 border border-[#1AD5BD]/20 group-hover:border-[#1AD5BD]/50 transition-colors">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/10 border border-[var(--accent-primary)]/20 group-hover:border-[var(--accent-primary)]/50 transition-colors">
                 <Image
                   src="/logo.png"
                   alt="Logo"
@@ -26,21 +29,21 @@ const Footer = () => {
                 />
               </div>
               <span className="text-xl font-bold text-white tracking-wide">
-                OSCG <span className="text-[#4FD1D0]">2026</span>
+                OSCG <span className="text-[var(--accent-secondary)]">2026</span>
               </span>
             </Link>
 
-            <p className="mb-8 text-base text-gray-400 leading-relaxed max-w-sm">
+            <p className="mb-8 text-base text-[var(--text-secondary)] leading-relaxed max-w-sm">
               Connecting the world through open source innovation and
               collaborative development. Join our global community today.
             </p>
 
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
                 <Link
                   key={i}
                   href="#"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-gray-400 hover:text-white hover:bg-[#1AD5BD] hover:border-[#1AD5BD] transition-all duration-300"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
                 >
                   <Icon className="h-5 w-5" />
                 </Link>
@@ -50,13 +53,13 @@ const Footer = () => {
 
           {/* Links Columns */}
           <div className="lg:col-span-2">
-            <h4 className="mb-6 text-lg font-semibold text-white">Quick Links</h4>
-            <ul className="space-y-4">
+            <h4 className="mb-5 text-base font-semibold text-white">Quick Links</h4>
+            <ul className="space-y-3">
               {["About", "Projects", "Speakers", "Sponsors", "Blog"].map((item) => (
                 <li key={item}>
                   <Link
                     href={`#${item.toLowerCase()}`}
-                    className="text-gray-400 hover:text-[#4FD1D0] transition-colors text-sm font-medium"
+                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
                   >
                     {item}
                   </Link>
@@ -66,13 +69,13 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-6 text-lg font-semibold text-white">Resources</h4>
-            <ul className="space-y-4">
+            <h4 className="mb-5 text-base font-semibold text-white">Resources</h4>
+            <ul className="space-y-3">
               {["Documentation", "Community", "Code of Conduct", "Help Center"].map((item) => (
                 <li key={item}>
                   <Link
                     href="#"
-                    className="text-gray-400 hover:text-[#4FD1D0] transition-colors text-sm font-medium"
+                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
                   >
                     {item}
                   </Link>
@@ -83,41 +86,42 @@ const Footer = () => {
 
           {/* Newsletter Column */}
           <div className="lg:col-span-4">
-            <h4 className="mb-6 text-lg font-semibold text-white">Stay Updated</h4>
-            <p className="mb-6 text-sm text-gray-400">
+            <h4 className="mb-5 text-base font-semibold text-white">Stay Updated</h4>
+            <p className="mb-5 text-sm text-[var(--text-muted)]">
               Subscribe to our newsletter for the latest updates, announcements, and tech news.
             </p>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <div className="relative">
                 <Input
                   type="email"
                   placeholder="Enter your email"
-                  className="h-12 w-full rounded-xl bg-white/5 border border-white/10 px-4 text-white placeholder:text-gray-500 focus:border-[#1AD5BD]/50 focus:ring-1 focus:ring-[#1AD5BD]/50 transition-all"
+                  className="h-12 w-full rounded-xl bg-white/5 border border-white/10 px-4 text-white placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)]/50 focus:ring-1 focus:ring-[var(--accent-primary)]/50 transition-all"
                 />
                 <Button
                   size="icon"
-                  className="absolute right-1 top-1 h-10 w-10 rounded-lg bg-[#1AD5BD] hover:bg-[#17b8a3] text-black transition-colors"
+                  className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-[var(--accent-primary)] hover:bg-[#17b8a3] text-black transition-colors"
                 >
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--text-muted)]">
                 By subscribing, you agree to our Privacy Policy and consent to receive updates.
               </p>
             </div>
           </div>
         </div>
 
+        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[var(--text-muted)]">
             &copy; 2026 Open Source Connect Global. All rights reserved.
           </p>
           <div className="flex gap-8">
-            <Link href="#" className="text-sm text-gray-500 hover:text-white transition-colors">
+            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-gray-500 hover:text-white transition-colors">
+            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
               Terms of Service
             </Link>
           </div>
