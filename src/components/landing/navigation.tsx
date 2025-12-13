@@ -94,22 +94,19 @@ const Navigation = () => {
   };
 
   return (
-<<<<<<< HEAD
     <nav className="fixed top-0 left-0 right-0 z-50">
       {/* Main navbar container */}
       <div
-        className={`transition-all duration-500 ease-out ${
-          isScrolled
+        className={`transition-all duration-500 ease-out ${isScrolled
             ? "mx-4 mt-3 md:mx-auto md:max-w-4xl"
             : "mx-0"
-        }`}
+          }`}
       >
         <div
-          className={`flex items-center justify-between px-8 transition-all duration-500 ease-out ${
-            isScrolled
+          className={`flex items-center justify-between px-8 transition-all duration-500 ease-out ${isScrolled
               ? "h-16 bg-[#111827]/80 backdrop-blur-2xl rounded-2xl border border-[#6FE7C1]/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
               : "h-20 bg-transparent border border-transparent"
-          }`}
+            }`}
         >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
@@ -124,28 +121,6 @@ const Navigation = () => {
               OSC<span className="text-[#6FE7C1]">G</span>
             </span>
           </Link>
-=======
-    <nav
-      className="fixed top-0 left-0 right-0 z-50 backdrop-blur-lg border-b border-white/5 bg-black/20 transition-all duration-300"
-    >
-      <div className="container px-4 md:px-6">
-        <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <Image
-                src="/logo.png"
-                alt="Logo"
-                width={36}
-                height={36}
-                className="rounded-lg"
-              />
-              <span className="hidden sm:inline text-lg font-semibold text-white tracking-wide">
-                Open Source Connect{" "}
-                <span className="text-[#00D4AA]">Global</span>
-              </span>
-            </Link>
-          </div>
->>>>>>> 7d497e52a0bc20247c4d1117f330b32409dafc48
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-2">
@@ -249,7 +224,6 @@ const Navigation = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
@@ -272,24 +246,6 @@ const Navigation = () => {
                     href={item.href}
                     className="block px-4 py-3 text-white/70 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
                     onClick={() => setIsMenuOpen(false)}
-=======
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              className="lg:hidden fixed left-4 right-4 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl z-50 overflow-hidden"
-              style={{ top: "5rem" }}
-              initial={{ opacity: 0, scale: 0.95, y: -10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: -10 }}
-            >
-              <div className="py-3 space-y-1">
-                {navItems.map((item, index) => (
-                  <motion.div
-                    key={item.href}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
->>>>>>> 7d497e52a0bc20247c4d1117f330b32409dafc48
                   >
                     {item.label}
                   </Link>
