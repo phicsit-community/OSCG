@@ -7,6 +7,7 @@ import Navigation from "@/components/landing/navigation";
 import ProjectsSection from "@/components/landing/projects-section";
 import SpeakersSection from "@/components/landing/speakers-section";
 import SponsersSection from "@/components/landing/sponsors-section";
+import BackToTop from "@/components/ui/BackToTop";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
       <LatestInsights />
       <FAQ />
       <Footer />
-      {/* <Come></Come> */}
+      <BackToTop threshold={600} />
     </div>
   );
 }
