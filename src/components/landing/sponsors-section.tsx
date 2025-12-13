@@ -1,187 +1,189 @@
 "use client";
 
-import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
+import { Sparkles } from "../ui/sparkles";
+import { useEffect, useState } from "react";
 
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
-  },
-};
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 60, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-};
+// Sponsor data
+const sponsors = [
+  { name: "TechCorp" },
+  { name: "DevStudio" },
+  { name: "CloudBase" },
+  { name: "OpenStack" },
+  { name: "CodeLabs" },
+  { name: "DataFlow" },
+  { name: "NetSphere" },
+  { name: "AppForge" },
+  { name: "ByteWorks" },
+  { name: "DevOps Co" },
+  { name: "SecureNet" },
+  { name: "AIVenture" },
+];
 
 const SponsersSection = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const totalSponsors = sponsors.length;
+  const visibleCount = 5;
+
+  // Auto-rotate the carousel
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % totalSponsors);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [totalSponsors]);
+
+  // Calculate position along the arc that follows the semicircle
+  const getCardStyle = (index: number) => {
+    let relativePos = index - currentIndex;
+
+    if (relativePos > totalSponsors / 2) relativePos -= totalSponsors;
+    if (relativePos < -totalSponsors / 2) relativePos += totalSponsors;
+
+    const isVisible = Math.abs(relativePos) <= Math.floor(visibleCount / 2);
+
+    // Arc parameters - matching the semicircle curve
+    const arcSpread = 60; // Total degrees of the arc
+    const anglePerCard = arcSpread / visibleCount;
+    const baseAngle = 90; // Start from top of semicircle
+
+    // Calculate angle on the arc (center card at 90 degrees = top)
+    const angle = baseAngle + (relativePos * anglePerCard);
+    const angleRad = angle * (Math.PI / 180);
+
+    // Arc radius - this should match the visual semicircle
+    const arcRadius = 400;
+
+    // Position on the arc
+    const x = Math.cos(angleRad) * arcRadius * 2.5; // Horizontal spread
+    const y = -Math.sin(angleRad) * arcRadius * 0.3 + 80; // Vertical arc curve
+
+    // Scale decreases toward edges
+    const scale = isVisible ? 1 - Math.abs(relativePos) * 0.12 : 0;
+    const opacity = isVisible ? 1 - Math.abs(relativePos) * 0.2 : 0;
+    const zIndex = 10 - Math.abs(relativePos);
+
+    return { x, y, scale, opacity, zIndex, isVisible };
+  };
+
   return (
-    <section className="py-20 bg-[#090E1A]">
-      <div className="container mx-auto px-6">
+    <section className="section-container bg-transparent pt-8">
+      <div className="max-w-6xl mx-auto">
+        {/* Our Sponsors - Coming Soon */}
         <motion.div
-          className="mb-12 text-center"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          className="section-header mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
         >
-          <motion.h2
-            className="mb-4 text-4xl text-white font-bold md:text-5xl"
-            variants={fadeUp}
-          >
-            Our <span className="text-[#4FD1D0]">Sponsors</span>
-          </motion.h2>
-          <motion.p
-            className="mx-auto max-w-2xl text-white/80"
-            variants={fadeUp}
-          >
-            Supported by industry leaders who believe in the power of open
-            source innovation
-          </motion.p>
+          <h2>
+            Our <span className="text-accent-gradient">Sponsors</span>
+          </h2>
         </motion.div>
 
+        {/* Coming Soon Card */}
         <motion.div
-          className="mb-16"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          className="text-center py-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
         >
-          <motion.div
-            className="flex items-center justify-center mb-6"
-            variants={fadeUp}
-          >
-            <div className="h-px w-12 bg-linear-to-r from-white to-transparent"></div>
-            <h3 className="mx-3 text-white text-lg font-semibold">
-              Platinum Sponsors
-            </h3>
-            <div className="h-px w-12 bg-linear-to-l from-white to-transparent"></div>
-          </motion.div>
-
-          <div className="grid gap-6 md:grid-cols-2 max-w-3xl mx-auto">
-            <motion.div
-              variants={cardVariants}
-              className="flex h-32 items-center justify-center rounded-lg border border-white/10 bg-[#131C29]"
-            >
-              <Image src={"/nex.png"} alt="google logo" width={280} height={280} />
-            </motion.div>
-
-            <motion.div
-              variants={cardVariants}
-              className="flex h-32 items-center justify-center rounded-lg border border-white/10 bg-[#131C29]"
-            ></motion.div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="mb-20"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <motion.div
-            className="flex items-center justify-center mb-6"
-            variants={fadeUp}
-          >
-            <div className="h-px w-12 bg-linear-to-r from-yellow-400 to-transparent"></div>
-            <h3 className="mx-3 text-yellow-400 text-lg font-semibold">
-              Gold Sponsors
-            </h3>
-            <div className="h-px w-12 bg-linear-to-l from-yellow-400 to-transparent"></div>
-          </motion.div>
-
-          <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-            {[1, 2, 3].map((i) => (
-              <motion.div
-                key={i}
-                variants={cardVariants}
-                className="flex h-24 items-center justify-center rounded-lg border border-white/10 bg-[#131C29]"
-              ></motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          className="mb-20"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          <motion.div className="mb-12 text-center" variants={fadeUp}>
-            <h2 className="mb-4 text-4xl text-white font-bold">
-              Hiring <span className="text-[#4FD1D0]">Partners</span>
-            </h2>
-            <p className="mx-auto max-w-2xl text-white/80">
-              Connect with top companies actively seeking talented open source
-              developers
+          <div className="unified-card inline-block px-16 py-12">
+            <p className="text-3xl font-bold text-[var(--accent-primary)] mb-4">
+              Coming Soon
             </p>
-          </motion.div>
+            <p className="text-[var(--text-secondary)]">
+              Exciting sponsor partnerships will be announced here
+            </p>
+          </div>
+        </motion.div>
 
-          <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 max-w-5xl mx-auto">
-            {["Stripe", "Vercel", "Shopify", "Meta", "Salesforce", "Adobe"].map(
-              (company, index) => (
+        {/* Section Header */}
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+        >
+          <h2>
+            Trusted by <span className="text-accent-gradient">Industry Leaders</span>
+          </h2>
+          <p>
+            Supported by innovative companies who believe in the power of open source
+          </p>
+        </motion.div>
+
+        {/* Combined Cards + Sparkles Section */}
+        <div className="relative h-[320px] w-full overflow-hidden">
+          {/* Card Carousel - positioned at top of the arc */}
+          <div className="absolute inset-x-0 top-0 h-[160px] flex items-center justify-center z-20">
+            {sponsors.map((sponsor, index) => {
+              const style = getCardStyle(index);
+
+              return (
                 <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  className="flex h-20 items-center justify-center rounded-lg border border-white/10 bg-[#131C29]"
-                ></motion.div>
-              )
-            )}
+                  key={sponsor.name}
+                  className="absolute flex items-center justify-center w-40 h-20 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm cursor-pointer hover:bg-white/10 hover:border-[var(--accent-primary)]/50"
+                  initial={false}
+                  animate={{
+                    x: style.x,
+                    y: style.y,
+                    scale: style.scale,
+                    opacity: style.opacity,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 260,
+                    damping: 26,
+                  }}
+                  style={{ zIndex: style.zIndex }}
+                  onClick={() => setCurrentIndex(index)}
+                >
+                  <span className="text-sm font-semibold text-white whitespace-nowrap">
+                    {sponsor.name}
+                  </span>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
 
+          {/* Sparkles Visual Effect - overlapping with cards */}
+          <div className="absolute inset-0 top-[40px] [mask-image:radial-gradient(50%_50%,white,transparent)]">
+            {/* Gradient background glow */}
+            <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,var(--gradient-color),transparent_70%)] before:opacity-40" />
+
+            {/* Curved horizon line - cards follow this curve */}
+            <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-[#05080F]" />
+
+            {/* Sparkles particles */}
+            <Sparkles
+              density={1200}
+              className="absolute inset-x-0 bottom-0 h-full w-full [mask-image:radial-gradient(50%_50%,white,transparent_85%)]"
+              color="var(--sparkles-color)"
+            />
+          </div>
+        </div>
+
+        {/* CTA Section */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          className="text-center mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
         >
-          <motion.div className="mb-12 text-center" variants={fadeUp}>
-            <h2 className="mb-4 text-white text-4xl font-bold">
-              Community <span className="text-[#4FD1D0]">Partners</span>
-            </h2>
-            <p className="mx-auto max-w-2xl text-white/80">
-              Collaborating with open source foundations and communities
-              worldwide
-            </p>
-          </motion.div>
-
-          <div className="grid gap-6 grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto">
-            {[
-              "Linux Foundation",
-              "ASF",
-              "Cloud Native Foundation",
-              "Mozilla",
-              "Python Foundation",
-              "OpenJS Foundation",
-              "Eclipse Foundation",
-              "Free Software Foundation",
-            ].map((partner, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                className="flex h-24 items-center justify-center rounded-lg border border-white/10 bg-[#131C29]"
-              ></motion.div>
-            ))}
-          </div>
+          <p className="text-[var(--text-secondary)] mb-6">
+            Interested in sponsoring? Join the global open source community.
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-[var(--accent-primary)] text-black font-semibold hover:bg-[#00c4a3] transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)]"
+          >
+            Become a Sponsor
+          </a>
         </motion.div>
       </div>
     </section>

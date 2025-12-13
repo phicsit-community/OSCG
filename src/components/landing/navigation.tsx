@@ -101,7 +101,7 @@ const Navigation = () => {
           isScrolled
             ? "mx-3 sm:mx-4 mt-3 md:mx-auto md:max-w-4xl lg:max-w-5xl"
             : "mx-0"
-        }`}
+          }`}
       >
         <div
           className={`flex items-center justify-between px-4 sm:px-6 md:px-8 transition-all duration-500 ease-out ${

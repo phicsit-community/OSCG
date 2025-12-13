@@ -1,119 +1,65 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Instagram, Mail, Twitter } from "lucide-react";
-import { Linkedin } from "lucide-react";
-import { Github } from "lucide-react";
+import { Instagram, Twitter, Linkedin, Github, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className=" bg-[#090E1A] pt-16 pb-8">
-      <div className="container mx-auto px-6">
-        <div className="mb-12 grid gap-12 text-left lg:grid-cols-4">
-          <div className="flex flex-col items-start">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+    <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent-secondary)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--accent-primary)]/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Top Divider */}
+      <div className="section-divider mb-16" />
+
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid gap-12 lg:grid-cols-12 mb-16">
+          {/* Brand Column */}
+          <div className="lg:col-span-4 flex flex-col items-start">
+            <Link href="/" className="mb-6 flex items-center gap-3 group">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/10 border border-[var(--accent-primary)]/20 group-hover:border-[var(--accent-primary)]/50 transition-colors">
                 <Image
                   src="/logo.png"
                   alt="Logo"
-                  width={34}
-                  height={34}
-                  className="rounded-lg cursor-pointer"
+                  width={40}
+                  height={40}
+                  className="rounded-lg"
                 />
               </div>
-              <span className="text-lg font-semibold text-white">
-                OSCG <span className="text-[#4FD1D0]">2026</span>
+              <span className="text-xl font-bold text-white tracking-wide">
+                OSCG <span className="text-[var(--accent-secondary)]">2026</span>
               </span>
-            </div>
-            <p className="mb-2 text-sm text-white/60 max-w-xs">
-              Connecting the world through open source innovation and
-              collaborative development.
-            </p>
-
-            <Link
-              href="/osci"
-              className="relative mt-3 inline-flex items-center justify-center rounded-xl border border-[#3AE3B8]/40 bg-[#0E1422] px-4 py-2 text-sm font-semibold text-[#5BEBB5] transition-all duration-300 hover:border-[#5BEBB5] hover:bg-[#1A2335] hover:shadow-[0_0_12px_#3AE3B8]/40"
-            >
-              <span className="relative z-10">
-                Visit OSCI 2025 — our past event
-              </span>
-              <span className="absolute inset-0 rounded-xl bg-linear-to-r from-[#3AE3B8]/10 to-transparent opacity-0 transition-opacity duration-300 hover:opacity-100" />
             </Link>
 
-            <div className="mt-6 flex gap-5">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 bg-white/10 cursor-pointer rounded-full flex items-center justify-center hover:bg-white/20 transition-colors shadow-none"
-              >
-                <Twitter className="h-7 w-7 text-white" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 bg-white/10 cursor-pointer rounded-full flex items-center justify-center hover:bg-white/20 transition-colors shadow-none"
-              >
-                <Linkedin className="h-7 w-7 text-white" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 bg-white/10 cursor-pointer rounded-full flex items-center justify-center hover:bg-white/20 transition-colors shadow-none"
-              >
-                <Github className="h-7 w-7 text-white" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-10 w-10 cursor-pointer bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors shadow-none"
-              >
-                <Instagram className="h-7 w-7 text-white" />
-              </Button>
+            <p className="mb-8 text-base text-[var(--text-secondary)] leading-relaxed max-w-sm">
+              Connecting the world through open source innovation and
+              collaborative development. Join our global community today.
+            </p>
+
+            <div className="flex gap-3">
+              {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
+                <Link
+                  key={i}
+                  href="#"
+                  className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
+                >
+                  <Icon className="h-5 w-5" />
+                </Link>
+              ))}
             </div>
           </div>
 
-          <div className="flex flex-col items-start">
-            <h4 className="mb-4 text-lg font-semibold text-white">
-              Quick Links
-            </h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              {[
-                "about",
-                "projects",
-                "speakers",
-                "sponsors",
-                "blog",
-                "register",
-              ].map((section) => (
-                <li key={section}>
-                  <Link
-                    href={`#${section}`}
-                    className="text-white/40 hover:text-white/70 transition-colors"
-                  >
-                    {section.charAt(0).toUpperCase() +
-                      section.slice(1).replace("-", " ")}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex flex-col items-start">
-            <h4 className="mb-4 text-lg font-semibold text-white">Resources</h4>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              {[
-                "Documentation",
-                "Community Guidelines",
-                "Code of Conduct",
-                "FAQ",
-                "Support",
-                "Media Kit",
-              ].map((item) => (
+          {/* Links Columns */}
+          <div className="lg:col-span-2">
+            <h4 className="mb-5 text-base font-semibold text-white">Quick Links</h4>
+            <ul className="space-y-3">
+              {["About", "Projects", "Speakers", "Sponsors", "Blog"].map((item) => (
                 <li key={item}>
                   <Link
-                    href="#"
-                    className="text-white/40 hover:text-white/70 transition-colors"
+                    href={`#${item.toLowerCase()}`}
+                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
                   >
                     {item}
                   </Link>
@@ -122,76 +68,60 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="flex flex-col items-start">
-            <h4 className="mb-4 text-lg font-semibold text-white">
-              Contact Us
-            </h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li className="flex items-start gap-2">
-                <Mail className="mt-0.5 h-4 w-4 text-[#4FD1D0]" />
-                <div>
-                  <div className="text-white/70">Email</div>
-                  <div className="flex flex-col">
-                    <Link
-                      href="mailto:hello@osconnect.org"
-                      className="text-white transition-colors hover:text-[#4FD1D0]"
-                    >
-                      hello@osconnect.org
-                    </Link>
-                    <Link
-                      href="mailto:events@osconnect.org"
-                      className="text-white transition-colors hover:text-[#4FD1D0]"
-                    >
-                      events@osconnect.org
-                    </Link>
-                  </div>
-                </div>
-              </li>
+          <div className="lg:col-span-2">
+            <h4 className="mb-5 text-base font-semibold text-white">Resources</h4>
+            <ul className="space-y-3">
+              {["Documentation", "Community", "Code of Conduct", "Help Center"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href="#"
+                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-        </div>
 
-        <div className="mb-16 rounded-lg bg-[#181D28] p-8">
-          <div className="flex flex-col items-start text-left gap-6 lg:flex-row lg:items-start lg:justify-between">
-            <div>
-              <h3 className="mb-2 text-2xl font-semibold text-white">
-                Stay Updated
-              </h3>
-              <p className="text-white/80">
-                Subscribe to our newsletter for the latest updates and
-                announcements
+          {/* Newsletter Column */}
+          <div className="lg:col-span-4">
+            <h4 className="mb-5 text-base font-semibold text-white">Stay Updated</h4>
+            <p className="mb-5 text-sm text-[var(--text-muted)]">
+              Subscribe to our newsletter for the latest updates, announcements, and tech news.
+            </p>
+
+            <div className="flex flex-col gap-3">
+              <div className="relative">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="h-12 w-full rounded-xl bg-white/5 border border-white/10 px-4 text-white placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)]/50 focus:ring-1 focus:ring-[var(--accent-primary)]/50 transition-all"
+                />
+                <Button
+                  size="icon"
+                  className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-[var(--accent-primary)] hover:bg-[#17b8a3] text-black transition-colors"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+              <p className="text-xs text-[var(--text-muted)]">
+                By subscribing, you agree to our Privacy Policy and consent to receive updates.
               </p>
-            </div>
-            <div className="flex w-full max-w-xl mt-1 gap-4 flex-col sm:flex-col md:flex-row">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                className="
-    h-14 w-full 
-    rounded-full bg-[#363A43] px-6 text-lg text-white
-    placeholder:text-white/70 border-none shadow-md 
-    focus:ring-4 focus:ring-green-500/60
-
-    md:max-w-[300px] 
-    lg:max-w-[280px]
-  "
-              />
-
-              <Button className="cursor-pointer h-14 text-black bg-[#5bebb5] hover:bg-[#4dddabd3] rounded-full px-10 text-lg font-semibold shadow-[0_10px_30px_rgba(91,235,181,0.35)] w-full md:w-auto">
-                Subscribe
-              </Button>
             </div>
           </div>
         </div>
 
-        <div className="w-full h-[1.5px] my-8 bg-linear-to-r from-transparent via-white/20 to-transparent" />
-        <div className="flex flex-col items-start text-left gap-4 pt-8 text-sm text-white/60 md:flex-row md:justify-between">
-          <p>&copy; 2026 Open Source Connect Global. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-white/60 transition-colors">
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-sm text-[var(--text-muted)]">
+            &copy; 2026 Open Source Connect Global. All rights reserved.
+          </p>
+          <div className="flex gap-8">
+            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-white/60 transition-colors">
+            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
               Terms of Service
             </Link>
           </div>
