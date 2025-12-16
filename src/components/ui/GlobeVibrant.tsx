@@ -29,30 +29,24 @@ export function GlobeVibrant({ className }: GlobeVibrantProps) {
     const canvas2D = canvas2DRef.current;
     const popupEl = popupRef.current;
 
-    let renderer: THREE.WebGLRenderer,
-      scene: THREE.Scene,
-      camera: THREE.OrthographicCamera,
-      rayCaster: THREE.Raycaster,
-      controls: OrbitControls,
-      globe: THREE.Points,
-      globeMesh: THREE.Mesh;
+
 
     const clock = new THREE.Clock();
-    let mapMaterial: THREE.ShaderMaterial;
+
     let animationId: number;
 
     // ---------------- INIT SCENE ----------------
-    renderer = new THREE.WebGLRenderer({ canvas: canvas3D, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas3D, alpha: true });
     renderer.setPixelRatio(2);
 
-    scene = new THREE.Scene();
-    camera = new THREE.OrthographicCamera(-1.1, 1.1, 1.1, -1.1, 0, 3);
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1.1, 1.1, 1.1, -1.1, 0, 3);
     camera.position.z = 1.1;
 
-    rayCaster = new THREE.Raycaster();
+    const rayCaster = new THREE.Raycaster();
     rayCaster.far = 1.15;
 
-    controls = new OrbitControls(camera, canvas3D);
+    const controls = new OrbitControls(camera, canvas3D);
     controls.enablePan = false;
     controls.enableZoom = false;
     controls.enableDamping = true;
@@ -141,7 +135,7 @@ export function GlobeVibrant({ className }: GlobeVibrantProps) {
           }
         `;
 
-        mapMaterial = new THREE.ShaderMaterial({
+        const mapMaterial = new THREE.ShaderMaterial({
           vertexShader,
           fragmentShader,
           uniforms: {
@@ -154,10 +148,10 @@ export function GlobeVibrant({ className }: GlobeVibrantProps) {
           transparent: true,
         });
 
-        globe = new THREE.Points(globeGeometry, mapMaterial);
+        const globe = new THREE.Points(globeGeometry, mapMaterial);
         scene.add(globe);
 
-        globeMesh = new THREE.Mesh(
+        const globeMesh = new THREE.Mesh(
           globeGeometry,
           new THREE.MeshBasicMaterial({
             color: 0x11D392,

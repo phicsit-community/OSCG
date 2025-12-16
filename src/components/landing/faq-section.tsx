@@ -140,7 +140,7 @@ const FAQ = () => {
             Still have questions?
           </h3>
           <p className="mb-6 text-[var(--text-secondary)] text-lg max-w-md mx-auto">
-            Can't find the answer you're looking for? Our team is here to help.
+            Can&apos;t find the answer you&apos;re looking for? Our team is here to help.
           </p>
           <Button
             size="lg"
