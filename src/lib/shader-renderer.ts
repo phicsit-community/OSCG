@@ -6,11 +6,18 @@ export class WebGLRenderer {
   private vs: WebGLShader | null = null;
   private fs: WebGLShader | null = null;
   private buffer: WebGLBuffer | null = null;
+  // Uniform locations
+  private resolutionLoc: WebGLUniformLocation | null = null;
+  private timeLoc: WebGLUniformLocation | null = null;
+  private moveLoc: WebGLUniformLocation | null = null;
+  private touchLoc: WebGLUniformLocation | null = null;
+  private pointerCountLoc: WebGLUniformLocation | null = null;
+  private pointersLoc: WebGLUniformLocation | null = null;
   private scale: number;
   private shaderSource: string;
-  private mouseMove = [0, 0];
-  private mouseCoords = [0, 0];
-  private pointerCoords = [0, 0];
+  private mouseMove: [number, number] = [0, 0];
+  private mouseCoords: [number, number] = [0, 0];
+  private pointerCoords: [number, number] = [0, 0];
   private nbrOfPointers = 0;
 
   private vertexSrc = `#version 300 es
@@ -23,7 +30,7 @@ void main(){gl_Position=position;}`;
   constructor(canvas: HTMLCanvasElement, scale: number) {
     this.canvas = canvas;
     this.scale = scale;
-    this.gl = canvas.getContext('webgl2')!;
+    this.gl = canvas.getContext("webgl2")!;
     this.gl.viewport(0, 0, canvas.width * scale, canvas.height * scale);
     this.shaderSource = defaultShaderSource;
   }
@@ -36,15 +43,15 @@ void main(){gl_Position=position;}`;
   }
 
   updateMove(deltas: number[]) {
-    this.mouseMove = deltas;
+    this.mouseMove = [deltas[0] ?? 0, deltas[1] ?? 0];
   }
 
   updateMouse(coords: number[]) {
-    this.mouseCoords = coords;
+    this.mouseCoords = [coords[0] ?? 0, coords[1] ?? 0];
   }
 
   updatePointerCoords(coords: number[]) {
-    this.pointerCoords = coords;
+    this.pointerCoords = [coords[0] ?? 0, coords[1] ?? 0];
   }
 
   updatePointerCount(nbr: number) {
@@ -53,7 +60,12 @@ void main(){gl_Position=position;}`;
 
   updateScale(scale: number) {
     this.scale = scale;
-    this.gl.viewport(0, 0, this.canvas.width * scale, this.canvas.height * scale);
+    this.gl.viewport(
+      0,
+      0,
+      this.canvas.width * scale,
+      this.canvas.height * scale
+    );
   }
 
   compile(shader: WebGLShader, source: string) {
@@ -63,7 +75,7 @@ void main(){gl_Position=position;}`;
 
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
       const error = gl.getShaderInfoLog(shader);
-      console.error('Shader compilation error:', error);
+      console.error("Shader compilation error:", error);
     }
   }
 
@@ -83,7 +95,10 @@ void main(){gl_Position=position;}`;
 
   reset() {
     const gl = this.gl;
-    if (this.program && !gl.getProgramParameter(this.program, gl.DELETE_STATUS)) {
+    if (
+      this.program &&
+      !gl.getProgramParameter(this.program, gl.DELETE_STATUS)
+    ) {
       if (this.vs) {
         gl.detachShader(this.program, this.vs);
         gl.deleteShader(this.vs);
@@ -118,18 +133,23 @@ void main(){gl_Position=position;}`;
 
     this.buffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(this.vertices), gl.STATIC_DRAW);
+    gl.bufferData(
+      gl.ARRAY_BUFFER,
+      new Float32Array(this.vertices),
+      gl.STATIC_DRAW
+    );
 
-    const position = gl.getAttribLocation(program, 'position');
+    const position = gl.getAttribLocation(program, "position");
     gl.enableVertexAttribArray(position);
     gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
-    (program as any).resolution = gl.getUniformLocation(program, 'resolution');
-    (program as any).time = gl.getUniformLocation(program, 'time');
-    (program as any).move = gl.getUniformLocation(program, 'move');
-    (program as any).touch = gl.getUniformLocation(program, 'touch');
-    (program as any).pointerCount = gl.getUniformLocation(program, 'pointerCount');
-    (program as any).pointers = gl.getUniformLocation(program, 'pointers');
+    // Cache uniform locations on the renderer instance instead of attaching to the program
+    this.resolutionLoc = gl.getUniformLocation(program, "resolution");
+    this.timeLoc = gl.getUniformLocation(program, "time");
+    this.moveLoc = gl.getUniformLocation(program, "move");
+    this.touchLoc = gl.getUniformLocation(program, "touch");
+    this.pointerCountLoc = gl.getUniformLocation(program, "pointerCount");
+    this.pointersLoc = gl.getUniformLocation(program, "pointers");
   }
 
   render(now = 0) {
@@ -143,12 +163,14 @@ void main(){gl_Position=position;}`;
     gl.useProgram(program);
     gl.bindBuffer(gl.ARRAY_BUFFER, this.buffer);
 
-    gl.uniform2f((program as any).resolution, this.canvas.width, this.canvas.height);
-    gl.uniform1f((program as any).time, now * 1e-3);
-    gl.uniform2f((program as any).move, ...this.mouseMove);
-    gl.uniform2f((program as any).touch, ...this.mouseCoords);
-    gl.uniform1i((program as any).pointerCount, this.nbrOfPointers);
-    gl.uniform2fv((program as any).pointers, this.pointerCoords);
+    if (this.resolutionLoc)
+      gl.uniform2f(this.resolutionLoc, this.canvas.width, this.canvas.height);
+    if (this.timeLoc) gl.uniform1f(this.timeLoc, now * 1e-3);
+    if (this.moveLoc) gl.uniform2f(this.moveLoc, ...this.mouseMove);
+    if (this.touchLoc) gl.uniform2f(this.touchLoc, ...this.mouseCoords);
+    if (this.pointerCountLoc)
+      gl.uniform1i(this.pointerCountLoc, this.nbrOfPointers);
+    if (this.pointersLoc) gl.uniform2fv(this.pointersLoc, this.pointerCoords);
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
   }
 }
@@ -158,21 +180,28 @@ export class PointerHandler {
   private scale: number;
   private active = false;
   private pointers = new Map<number, number[]>();
-  private lastCoords = [0, 0];
-  private moves = [0, 0];
+  private lastCoords: [number, number] = [0, 0];
+  private moves: [number, number] = [0, 0];
 
   constructor(element: HTMLCanvasElement, scale: number) {
     this.scale = scale;
 
-    const map = (element: HTMLCanvasElement, scale: number, x: number, y: number) =>
-      [x * scale, element.height - y * scale];
+    const map = (
+      element: HTMLCanvasElement,
+      scale: number,
+      x: number,
+      y: number
+    ) => [x * scale, element.height - y * scale];
 
-    element.addEventListener('pointerdown', (e) => {
+    element.addEventListener("pointerdown", (e) => {
       this.active = true;
-      this.pointers.set(e.pointerId, map(element, this.getScale(), e.clientX, e.clientY));
+      this.pointers.set(
+        e.pointerId,
+        map(element, this.getScale(), e.clientX, e.clientY)
+      );
     });
 
-    element.addEventListener('pointerup', (e) => {
+    element.addEventListener("pointerup", (e) => {
       if (this.count === 1) {
         this.lastCoords = this.first;
       }
@@ -180,7 +209,7 @@ export class PointerHandler {
       this.active = this.pointers.size > 0;
     });
 
-    element.addEventListener('pointerleave', (e) => {
+    element.addEventListener("pointerleave", (e) => {
       if (this.count === 1) {
         this.lastCoords = this.first;
       }
@@ -188,10 +217,13 @@ export class PointerHandler {
       this.active = this.pointers.size > 0;
     });
 
-    element.addEventListener('pointermove', (e) => {
+    element.addEventListener("pointermove", (e) => {
       if (!this.active) return;
       this.lastCoords = [e.clientX, e.clientY];
-      this.pointers.set(e.pointerId, map(element, this.getScale(), e.clientX, e.clientY));
+      this.pointers.set(
+        e.pointerId,
+        map(element, this.getScale(), e.clientX, e.clientY)
+      );
       this.moves = [this.moves[0] + e.movementX, this.moves[1] + e.movementY];
     });
   }
@@ -213,13 +245,19 @@ export class PointerHandler {
   }
 
   get coords() {
-    return this.pointers.size > 0
-      ? Array.from(this.pointers.values()).flat()
-      : [0, 0];
+    if (this.pointers.size > 0) {
+      const vals = Array.from(this.pointers.values())[0];
+      // values in the map are stored as [x, y]
+      return [vals[0] ?? 0, vals[1] ?? 0] as [number, number];
+    }
+    return [0, 0] as [number, number];
   }
 
   get first() {
-    return this.pointers.values().next().value || this.lastCoords;
+    return (
+      (this.pointers.values().next().value as [number, number]) ||
+      this.lastCoords
+    );
   }
 }
 
