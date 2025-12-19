@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis} from 'lenis/react'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function SmoothScroll({ children }: { children: any }) {
