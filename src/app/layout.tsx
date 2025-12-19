@@ -14,7 +14,7 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "OSCG",
+  title: "Open Source Connect Global",
   description: "Website for Open Source Connect Global",
   icons: {
     icon: "/logo1.png"
