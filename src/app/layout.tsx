@@ -5,7 +5,6 @@ import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import GlobalBackground from "@/components/global-background";
-import SmoothCursor from "@/components/smooth-cursor";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -28,9 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning={true} className={`${roboto.className} cursor-none`}>
+      <body suppressHydrationWarning={true} className={`${roboto.className}`}>
         <GlobalBackground />
-        <SmoothCursor />
+        {/* <SmoothCursor /> */}
         <SmoothScroll>
           {children}
         </SmoothScroll>

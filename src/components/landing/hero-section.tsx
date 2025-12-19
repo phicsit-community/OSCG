@@ -103,7 +103,7 @@ const HeroSection = () => {
       {/* Animated Shader Background */}
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 w-full h-full object-contain touch-none opacity-60 mix-blend-screen"
+        className="absolute inset-0 w-full h-full object-cover touch-none opacity-60 mix-blend-screen"
         style={{ background: 'transparent' }}
       />
 
@@ -115,7 +115,7 @@ const HeroSection = () => {
         }}
       />
 
-      <div className="relative container z-20 mt-16 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
+      <div className="relative container pt-16 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -181,7 +181,7 @@ const HeroSection = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/20 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all"
+                className="border-white/20 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all hidden min-[500px]:block"
               >
                 Explore Projects
               </Button>
