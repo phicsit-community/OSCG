@@ -7,16 +7,13 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--accent-secondary)]/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--accent-primary)]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-(--accent-secondary)/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-(--accent-primary)/5 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Top Divider */}
       <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid gap-12 lg:grid-cols-12 mb-16">
-          {/* Brand Column */}
           <div className="lg:col-span-4 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
               <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/10 border border-[var(--accent-primary)]/20 group-hover:border-[var(--accent-primary)]/50 transition-colors">
@@ -34,24 +31,41 @@ const Footer = () => {
             </Link>
 
             <p className="mb-8 text-base text-[var(--text-secondary)] leading-relaxed max-w-sm">
-              Connecting the world through open source innovation and
-              collaborative development. Join our global community today.
+              Connecting the world through open source innovation and collaborative development. Join our global community today.
             </p>
 
             <div className="flex gap-3">
-              {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
-                <Link
-                  key={i}
-                  href="#"
-                  className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
-                >
-                  <Icon className="h-5 w-5" />
-                </Link>
-              ))}
+              <Link
+                href="https://x.com/osconnect1/"
+                target="_blank"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
+              >
+                <Twitter className="h-5 w-5" />
+              </Link>
+              <Link
+                href="https://www.linkedin.com/company/open-source-connect/"
+                target="_blank"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
+              >
+                <Linkedin className="h-5 w-5" />
+              </Link>
+              <Link
+                href="https://github.com/yourusername"
+                target="_blank"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
+              >
+                <Github className="h-5 w-5" />
+              </Link>
+              <Link
+                href="https://www.instagram.com/osconnect.official/"
+                target="_blank"
+                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
+              >
+                <Instagram className="h-5 w-5" />
+              </Link>
             </div>
           </div>
 
-          {/* Links Columns */}
           <div className="lg:col-span-2">
             <h4 className="mb-5 text-base font-semibold text-white">Quick Links</h4>
             <ul className="space-y-3">
@@ -75,7 +89,7 @@ const Footer = () => {
                 <li key={item}>
                   <Link
                     href="#"
-                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
+                    className="text-(--text-muted) hover:text-(--accent-secondary) transition-colors text-sm font-medium"
                   >
                     {item}
                   </Link>
@@ -84,10 +98,9 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter Column */}
           <div className="lg:col-span-4">
             <h4 className="mb-5 text-base font-semibold text-white">Stay Updated</h4>
-            <p className="mb-5 text-sm text-[var(--text-muted)]">
+            <p className="mb-5 text-sm text-(--text-muted)">
               Subscribe to our newsletter for the latest updates, announcements, and tech news.
             </p>
 
@@ -105,14 +118,13 @@ const Footer = () => {
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
-              <p className="text-xs text-[var(--text-muted)]">
+              <p className="text-xs text-(--text-muted)">
                 By subscribing, you agree to our Privacy Policy and consent to receive updates.
               </p>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
         <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-[var(--text-muted)]">
             &copy; 2026 Open Source Connect Global. All rights reserved.
