@@ -3,9 +3,10 @@
 import { MapPin, Users, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface EventCardProps {
-  status?: "upcoming" | "past";
+  status?: "upcoming" | "past" | "Open";
   title: string;
   description: string;
   date: string;
@@ -24,7 +25,7 @@ export const EventCard = ({
   attendees,
   index,
 }: EventCardProps) => {
-  const isActive = index < 2;
+  const isActive = index < 1;
 
   return (
     <motion.div
@@ -115,14 +116,14 @@ export const EventCard = ({
         `}
       >
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-4 gap-3">
-          {status === "upcoming" && isActive && (
+          {status === "Open" && isActive && (
             <motion.span
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white bg-[#11D493] uppercase tracking-wide w-fit"
             >
-              Upcoming
+              Ongoing
             </motion.span>
           )}
           <motion.div 
@@ -163,7 +164,7 @@ export const EventCard = ({
           {description}
         </motion.p>
 
-        <motion.div 
+        {/* <motion.div 
           initial={{ y: 20 }}
           whileInView={{ y: 0 }}
           viewport={{ once: true }}
@@ -186,9 +187,9 @@ export const EventCard = ({
             `} />
             <span>{attendees}</span>
           </div>
-        </motion.div>
+        </motion.div> */}
 
-        {status === "upcoming" && isActive && (
+        {status === "Open" && isActive && (
           <motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
@@ -196,9 +197,11 @@ export const EventCard = ({
             transition={{ delay: 0.3 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Button className="font-semibold text-black bg-[#11D493] hover:bg-[#0fb883] rounded-lg px-6 py-2 transition-all duration-300 cursor-pointer">
-              Register Now
-            </Button>
+            <Link href="https://luma.com/vyb4bntj">
+              <Button className="font-semibold text-black bg-[#11D493] hover:bg-[#0fb883] rounded-lg px-6 py-2 transition-all duration-300 cursor-pointer">
+                Register Now
+              </Button>
+            </Link>
           </motion.div>
         )}
       </motion.div>
