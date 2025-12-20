@@ -33,9 +33,10 @@ import {
 
 const navItems = [
   { label: "About", href: "/about" },
-  { label: "Team", href: "/team" },
   { label: "Projects", href: "/projects" },
+  { label: "Timeline", href: "/timeline" },
   { label: "Leaderboard", href: "/leaderboard" },
+  { label: "Team", href: "/team" },
   { label: "Blog", href: "/blog" },
 ];
 
