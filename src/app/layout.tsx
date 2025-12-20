@@ -15,9 +15,18 @@ const roboto = Roboto({
 export const metadata: Metadata = {
   title: "Open Source Connect Global",
   description: "Website for Open Source Connect Global",
-  icons: {
-    icon: "/logo1.png"
-  }
+  icons: [
+    {
+      rel: "icon",
+      url: "/logo1.png",
+      media: "(prefers-color-scheme: dark)",
+    },
+    {
+      rel: "icon",
+      url: "/logo2.png",
+      media: "(prefers-color-scheme: light)",
+    },
+  ],
 };
 
 export default function RootLayout({

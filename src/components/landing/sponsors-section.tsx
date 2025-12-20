@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Sparkles } from "../ui/sparkles";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 // Sponsor data
 const sponsors = [
@@ -111,12 +112,12 @@ const SponsersSection = () => {
           <p className="text-[var(--text-secondary)] mb-6">
             Interested in sponsoring? Join the global open source community.
           </p>
-          <a
-            href="#contact"
+          <Link
+            href="mailto:hello@osconnect.org"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-[var(--accent-primary)] text-black font-semibold hover:bg-[#00c4a3] transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)]"
           >
             Become a Sponsor
-          </a>
+          </Link>
         </motion.div>
 
         {/* Section Header */}
@@ -128,7 +129,7 @@ const SponsersSection = () => {
           transition={{ duration: 0.7 }}
         >
           <h2>
-            Trusted by <span className="text-accent-gradient">Industry Leaders</span>
+            Trusted by <span className="text-accent-gradient">Network Partners</span>
           </h2>
           <p>
             Supported by innovative companies who believe in the power of open source
