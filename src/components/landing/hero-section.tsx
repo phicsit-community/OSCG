@@ -181,7 +181,7 @@ const HeroSection = () => {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white/20 bg-white/5 hover:bg-white/10 text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all hidden min-[500px]:block"
+                className="border-white/20 bg-white/5  cursor-pointer text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all hidden min-[500px]:block"
               >
                 Explore Projects
               </Button>

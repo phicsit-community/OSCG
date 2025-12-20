@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Accordion,
   AccordionContent,
@@ -12,39 +13,39 @@ import { MessageCircle, HelpCircle } from "lucide-react";
 
 const faqs = [
   {
-    question: "How do I register for the event?",
+    question: "What is Open Source Connect Global 2026?",
     answer:
-      "Registration is simple! Click the 'Register Now' button on our homepage, fill out the registration form with your details, and you'll receive a confirmation email with your ticket and event details.",
+      "Open Source Connect Global 2026 is a global open-source program that brings together developers, contributors, mentors, students, communities, startups, and organizations to collaborate on real-world open-source projects.",
   },
   {
-    question: "Is there a code of conduct for participants?",
+    question: "Who can participate in Open Source Connect Global 2026?",
     answer:
-      "Yes, we have a comprehensive code of conduct that ensures a safe, inclusive, and respectful environment for all participants.",
+      "Anyone interested in open source can participate, including developers, designers, researchers, and professionals from any background or region.",
   },
   {
-    question: "What kind of projects will be showcased?",
+    question: "Do I need prior open-source experience to join?",
     answer:
-      "We showcase a diverse range of open source projects including cloud infrastructure, developer tools, AI/ML frameworks, and community-driven initiatives.",
+      "No, beginners are welcome. Mentorship, documentation, and guided onboarding sessions are designed to help first-time contributors get started confidently.",
   },
   {
-    question: "Can I submit my own project for consideration?",
+    question: "What kind of projects will be part of OSCG 2026?",
     answer:
-      "Absolutely! We encourage participants to submit their open source projects through our submission portal.",
+      "Projects will include open-source software, developer tools, infrastructure tools, AI/ML projects, documentation, community platforms, and socially impactful open-source initiatives.",
   },
   {
-    question: "Are there networking opportunities at the event?",
+    question: "Can communities or organizations partner with OSCG 2026?",
     answer:
-      "Yes! We have dedicated networking sessions, workshops, and social events designed to help you connect with other developers and industry leaders.",
+      "Yes. Open-source communities, universities, startups, and organizations can collaborate as partners, mentors, project sponsors, or ecosystem supporters.",
   },
   {
-    question: "Will I get a certificate of participation?",
+    question: "Will participants receive certificates or recognition?",
     answer:
       "Yes, all registered participants will receive a digital certificate of participation upon completion of the event.",
   },
   {
     question: "What are the career opportunities available?",
     answer:
-      "Our hiring partners are actively recruiting open source developers. You'll have access to exclusive job opportunities and career counseling sessions.",
+      "Yes. Active contributors and contributors who meet participation guidelines will receive certificates, recognition, and community acknowledgment based on their engagement and impact.",
   },
   {
     question: "Is there a refund policy for registration?",
@@ -86,15 +87,19 @@ const FAQ = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6 backdrop-blur-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
             <HelpCircle className="w-4 h-4 text-[var(--accent-secondary)]" />
-            <span className="text-sm font-medium text-[var(--accent-secondary)]">FAQ</span>
+            <span className="text-sm font-medium text-[var(--accent-secondary)]">
+              FAQ
+            </span>
           </div>
           <h2>
-            Frequently Asked <span className="text-accent-gradient">Questions</span>
+            Frequently Asked{" "}
+            <span className="text-accent-gradient">Questions</span>
           </h2>
           <p>
-            Everything you need to know about the event, registration, and participation.
+            Everything you need to know about the event, registration, and
+            participation.
           </p>
         </motion.div>
 
@@ -112,7 +117,7 @@ const FAQ = () => {
                   value={`item-${index}`}
                   className="group unified-card px-6 overflow-hidden data-[state=open]:border-[var(--accent-secondary)]/30"
                 >
-                  <AccordionTrigger className="text-left text-base font-medium text-white hover:no-underline hover:text-[var(--accent-secondary)] py-5 [&[data-state=open]]:text-[var(--accent-secondary)]">
+                  <AccordionTrigger className="text-left text-base font-medium text-white hover:no-underline hover:text-[var(--accent-secondary)] cursor-pointer  py-5 [&[data-state=open]]:text-[var(--accent-secondary)]">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-[var(--text-secondary)] text-base leading-relaxed pb-5">
@@ -140,14 +145,17 @@ const FAQ = () => {
             Still have questions?
           </h3>
           <p className="mb-6 text-[var(--text-secondary)] text-lg max-w-md mx-auto">
-            Can&apos;t find the answer you&apos;re looking for? Our team is here to help.
+            Can&apos;t find the answer you&apos;re looking for? Our team is here
+            to help.
           </p>
-          <Button
-            size="lg"
-            className="bg-[var(--accent-secondary)] hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
-          >
-            Contact Support
-          </Button>
+          <Link href="mailto:hello@osconnect.org">
+            <Button
+              size="lg"
+              className="bg-(--accent-secondary) hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
+            >
+              Contact Support
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

@@ -100,9 +100,28 @@ const SponsersSection = () => {
           </div>
         </motion.div>
 
+          {/* CTA Section */}
+        <motion.div
+          className="text-center mt-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.4 }}
+        >
+          <p className="text-[var(--text-secondary)] mb-6">
+            Interested in sponsoring? Join the global open source community.
+          </p>
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-[var(--accent-primary)] text-black font-semibold hover:bg-[#00c4a3] transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)]"
+          >
+            Become a Sponsor
+          </a>
+        </motion.div>
+
         {/* Section Header */}
         <motion.div
-          className="section-header"
+          className="section-header mt-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -167,24 +186,7 @@ const SponsersSection = () => {
           </div>
         </div>
 
-        {/* CTA Section */}
-        <motion.div
-          className="text-center mt-4"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.4 }}
-        >
-          <p className="text-[var(--text-secondary)] mb-6">
-            Interested in sponsoring? Join the global open source community.
-          </p>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-2xl bg-[var(--accent-primary)] text-black font-semibold hover:bg-[#00c4a3] transition-all shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)]"
-          >
-            Become a Sponsor
-          </a>
-        </motion.div>
+      
       </div>
     </section>
   );
