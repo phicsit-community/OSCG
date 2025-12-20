@@ -4,6 +4,13 @@ import { Instagram, Twitter, Linkedin, Github, Send } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+const resources = [
+  { label: "Documentation", href: "/docs" },
+  { label: "Community", href: "/community-guidelines" },
+  { label: "Code of Conduct", href: "/code-of-conduct" },
+  { label: "Help Center", href: "/help" },
+];
+
 const Footer = () => {
   return (
     <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden">
@@ -16,7 +23,7 @@ const Footer = () => {
         <div className="grid gap-12 lg:grid-cols-12 mb-16">
           <div className="lg:col-span-4 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent-primary)]/20 to-[var(--accent-secondary)]/10 border border-[var(--accent-primary)]/20 group-hover:border-[var(--accent-primary)]/50 transition-colors">
+              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-(--accent-primary)/20 to-(--accent-secondary)/10 border border-(--accent-primary)/20 group-hover:border-(--accent-primary)/50 transition-colors">
                 <Image
                   src="/logo.png"
                   alt="Logo"
@@ -26,12 +33,14 @@ const Footer = () => {
                 />
               </div>
               <span className="text-xl font-bold text-white tracking-wide">
-                OSCG <span className="text-[var(--accent-secondary)]">2026</span>
+                OSCG{" "}
+                <span className="text-[var(--accent-secondary)]">2026</span>
               </span>
             </Link>
 
             <p className="mb-8 text-base text-[var(--text-secondary)] leading-relaxed max-w-sm">
-              Connecting the world through open source innovation and collaborative development. Join our global community today.
+              Connecting the world through open source innovation and
+              collaborative development. Join our global community today.
             </p>
 
             <div className="flex gap-3">
@@ -50,7 +59,7 @@ const Footer = () => {
                 <Linkedin className="h-5 w-5" />
               </Link>
               <Link
-                href="https://github.com/yourusername"
+                href="https://github.com/phicsit-community/OSCG"
                 target="_blank"
                 className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
               >
@@ -67,31 +76,37 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-5 text-base font-semibold text-white">Quick Links</h4>
+            <h4 className="mb-5 text-base font-semibold text-white">
+              Quick Links
+            </h4>
             <ul className="space-y-3">
-              {["About", "Projects", "Speakers", "Sponsors", "Blog"].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`#${item.toLowerCase()}`}
-                    className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              {["About", "Projects", "Speakers", "Sponsors", "Blog"].map(
+                (item) => (
+                  <li key={item}>
+                    <Link
+                      href={`#${item.toLowerCase()}`}
+                      className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-5 text-base font-semibold text-white">Resources</h4>
+            <h4 className="mb-5 text-base font-semibold text-white">
+              Resources
+            </h4>
             <ul className="space-y-3">
-              {["Documentation", "Community", "Code of Conduct", "Help Center"].map((item) => (
-                <li key={item}>
+              {resources.map(({ label, href }) => (
+                <li key={label}>
                   <Link
-                    href="#"
+                    href={href}
                     className="text-(--text-muted) hover:text-(--accent-secondary) transition-colors text-sm font-medium"
                   >
-                    {item}
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -99,9 +114,12 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-4">
-            <h4 className="mb-5 text-base font-semibold text-white">Stay Updated</h4>
+            <h4 className="mb-5 text-base font-semibold text-white">
+              Stay Updated
+            </h4>
             <p className="mb-5 text-sm text-(--text-muted)">
-              Subscribe to our newsletter for the latest updates, announcements, and tech news.
+              Subscribe to our newsletter for the latest updates, announcements,
+              and tech news.
             </p>
 
             <div className="flex flex-col gap-3">
@@ -119,7 +137,8 @@ const Footer = () => {
                 </Button>
               </div>
               <p className="text-xs text-(--text-muted)">
-                By subscribing, you agree to our Privacy Policy and consent to receive updates.
+                By subscribing, you agree to our Privacy Policy and consent to
+                receive updates.
               </p>
             </div>
           </div>
@@ -130,10 +149,16 @@ const Footer = () => {
             &copy; 2026 Open Source Connect Global. All rights reserved.
           </p>
           <div className="flex gap-8">
-            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
+            <Link
+              href="#"
+              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="#" className="text-sm text-[var(--text-muted)] hover:text-white transition-colors">
+            <Link
+              href="#"
+              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
+            >
               Terms of Service
             </Link>
           </div>

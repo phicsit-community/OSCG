@@ -23,14 +23,14 @@ const faqs = [
       "Anyone interested in open source can participate, including developers, designers, researchers, and professionals from any background or region.",
   },
   {
-    question: "Do I need prior open-source experience to join?",
-    answer:
-      "No, beginners are welcome. Mentorship, documentation, and guided onboarding sessions are designed to help first-time contributors get started confidently.",
-  },
-  {
     question: "What kind of projects will be part of OSCG 2026?",
     answer:
       "Projects will include open-source software, developer tools, infrastructure tools, AI/ML projects, documentation, community platforms, and socially impactful open-source initiatives.",
+  },
+  {
+    question: "How are contributions evaluated?",
+    answer:
+      "Contributions are evaluated based on quality, consistency, collaboration, documentation, and adherence to open-source ethics, not just lines of code.",
   },
   {
     question: "Can communities or organizations partner with OSCG 2026?",
@@ -40,17 +40,12 @@ const faqs = [
   {
     question: "Will participants receive certificates or recognition?",
     answer:
-      "Yes, all registered participants will receive a digital certificate of participation upon completion of the event.",
-  },
-  {
-    question: "What are the career opportunities available?",
-    answer:
       "Yes. Active contributors and contributors who meet participation guidelines will receive certificates, recognition, and community acknowledgment based on their engagement and impact.",
   },
   {
-    question: "Is there a refund policy for registration?",
+    question: "Where will official updates and announcements be shared?",
     answer:
-      "Yes, we offer full refunds up to 14 days before the event. Please refer to our terms and conditions for more details.",
+      "All official updates, timelines, onboarding resources, and announcements will be shared through official email and the NexFellow platform.",
   },
 ];
 
