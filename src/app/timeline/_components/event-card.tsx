@@ -1,9 +1,12 @@
 "use client"
 
-import { MapPin, Users, Calendar } from "lucide-react";
+import { MapPin, Users, Calendar, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import LumaEmbed from "@/components/landing/lumaEmbed";
+import { createPortal } from "react-dom";
+import { useState } from "react";
 
 interface EventCardProps {
   status?: "upcoming" | "past" | "Open";
@@ -26,8 +29,27 @@ export const EventCard = ({
   index,
 }: EventCardProps) => {
   const isActive = index < 1;
+  const [open, setOpen] = useState(false);
+
+  const modal = open && true
+      ? createPortal(
+          <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
+            <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-24">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute right-8 top-6 text-white cursor-pointer z-10"
+              >
+                <X />
+              </button>
+              <LumaEmbed />
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
 
   return (
+    <>
     <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -197,14 +219,14 @@ export const EventCard = ({
             transition={{ delay: 0.3 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link href="https://luma.com/vyb4bntj">
-              <Button className="font-semibold text-black bg-[#11D493] hover:bg-[#0fb883] rounded-lg px-6 py-2 transition-all duration-300 cursor-pointer">
+              <Button className="font-semibold text-black bg-[#11D493] hover:bg-[#0fb883] rounded-lg px-6 py-2 transition-all duration-300 cursor-pointer" onClick={() => setOpen(true)}>
                 Register Now
               </Button>
-            </Link>
           </motion.div>
         )}
       </motion.div>
     </motion.div>
+    {modal}
+    </>
   );
 };

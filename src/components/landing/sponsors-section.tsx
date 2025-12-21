@@ -68,7 +68,7 @@ const SponsersSection = () => {
   };
 
   return (
-    <section className="section-container bg-transparent pt-8">
+    <section className="section-container bg-transparent pt-8" id="sponsors">
       <div className="max-w-6xl mx-auto">
         {/* Our Sponsors - Coming Soon */}
         <motion.div
