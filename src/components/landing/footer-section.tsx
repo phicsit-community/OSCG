@@ -168,7 +168,7 @@ const Footer = () => {
             </Link>
             <Link
               href="/terms"
-              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
+              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors md:mr-20"
             >
               Terms
             </Link>
