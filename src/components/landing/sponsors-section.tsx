@@ -129,7 +129,7 @@ const SponsersSection = () => {
           transition={{ duration: 0.7 }}
         >
           <h2>
-            Trusted by <span className="text-accent-gradient">Network Partners</span>
+            <span className="text-accent-gradient">Network Partners</span>
           </h2>
           <p>
             Supported by innovative companies who believe in the power of open source
