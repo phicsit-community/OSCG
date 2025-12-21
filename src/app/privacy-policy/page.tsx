@@ -87,7 +87,7 @@ const policy = [
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-[#090E1A] mt-10 section-container">
+    <div className="min-h-screen bg-[#090E1A] pt-10 section-container">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
@@ -111,12 +111,12 @@ const PrivacyPolicy = () => {
           {policy.map((item, index) => (
             <div key={index} className="space-y-4">
               <div className="flex items-start gap-4">
-                <div className="mt-1">
+                {/* <div className="mt-1">
                   <item.icon className="w-7 h-7 text-white flex-shrink-0" />
-                </div>
+                </div> */}
                 <div className="flex-1 space-y-4">
                   <h3 className="text-white font-semibold text-2xl">
-                    {item.title}
+                    {index + 1}. {item.title}
                   </h3>
                   <p className="text-white/80 text-base leading-relaxed">
                     {item.description}

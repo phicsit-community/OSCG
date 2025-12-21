@@ -1,3 +1,4 @@
+import Footer from "@/components/landing/footer-section";
 import Navigation from "@/components/landing/navigation";
 import React from "react";
 
@@ -7,6 +8,7 @@ const Privacy = ({ children }: { children: React.ReactNode }) => {
       <Navigation />
 
       {children}
+      <Footer/>
     </div>
   );
 };
