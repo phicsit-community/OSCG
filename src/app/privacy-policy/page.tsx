@@ -96,7 +96,7 @@ const PrivacyPolicy = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="section-header">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            OSCG <span className="text-[#4FD1D0]">PrivacyPolicy</span>
+            OSCG <span className="text-[#4FD1D0]">Privacy Policy</span>
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             Open Source Connect Community (“we”, “our”, “us”) respects your
@@ -116,7 +116,7 @@ const PrivacyPolicy = () => {
                 </div>
                 <div className="flex-1 space-y-4">
                   <h3 className="text-white font-semibold text-2xl">
-                    {index + 1}. {item.title}
+                    {item.title}
                   </h3>
                   <p className="text-white/80 text-base leading-relaxed">
                     {item.description}

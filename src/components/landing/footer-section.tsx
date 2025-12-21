@@ -9,7 +9,7 @@ const resources = [
   { label: "Projects", href: "/projects" },
   { label: "Community Guidelines", href: "/community-guidelines" },
   { label: "Code of Conduct", href: "/code-of-conduct" },
-  { label: "Media Kit", href: "/help" },
+  { label: "Media Kit", href: "/media" },
   { label: "Help Center", href: "/help" },
 ];
 
@@ -167,10 +167,10 @@ const Footer = () => {
               Privacy Policy
             </Link>
             <Link
-              href="#"
+              href="/terms"
               className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
             >
-              Terms of Service
+              Terms
             </Link>
           </div>
         </div>
