@@ -12,8 +12,9 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
-const guidelines = [
+const policy = [
   {
     icon: Database,
     title: "Information We Collect",
@@ -71,8 +72,16 @@ const guidelines = [
   {
     icon: Mail,
     title: "Contact Us",
-    description:
-      "If you have any questions or concerns about this Privacy Policy or how your data is handled, please contact us at hello@osconnect.org.",
+    description: (
+      <>
+        If you have any questions or concerns about this Privacy Policy or how
+        your data is handled, please contact us at{" "}
+        <Link href="mailto:hello@osconnect.org">
+          <span className="underline text-[#4FD1D0]">hello@osconnect.org</span>
+        </Link>
+        .
+      </>
+    ),
   },
 ];
 
@@ -87,7 +96,7 @@ const PrivacyPolicy = () => {
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="section-header">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            Privacy <span className="text-[#4FD1D0]">Policy</span>
+            OSCG <span className="text-[#4FD1D0]">Privacy Policy</span>
           </h1>
           <p className="text-muted-foreground text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             Open Source Connect Community (“we”, “our”, “us”) respects your
@@ -98,24 +107,23 @@ const PrivacyPolicy = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-20">
-          {guidelines.map((item, index) => (
-            <Card key={index} className="unified-card overflow-hidden group">
-              <CardHeader className="relative pb-2">
-                <div className="bg-primary/10 w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <item.icon className="w-6 h-6 text-white" />
+        <div className="max-w-4xl mx-auto space-y-12 mb-20">
+          {policy.map((item, index) => (
+            <div key={index} className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="mt-1">
+                  <item.icon className="w-7 h-7 text-white flex-shrink-0" />
                 </div>
-                <CardTitle className="text-xl font-semibold mb-2 group-hover:text-white/90 transition-colors text-white">
-                  {item.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-white/70 leading-relaxed">
-                  {item.description}
-                </p>
-              </CardContent>
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
-            </Card>
+                <div className="flex-1 space-y-4">
+                  <h3 className="text-white font-semibold text-2xl">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/80 text-base leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
