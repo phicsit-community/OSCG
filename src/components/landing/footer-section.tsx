@@ -6,9 +6,20 @@ import Link from "next/link";
 
 const resources = [
   { label: "Documentation", href: "/docs" },
-  { label: "Community", href: "/community-guidelines" },
+  { label: "Projects", href: "/projects" },
+  { label: "Community Guidelines", href: "/community-guidelines" },
   { label: "Code of Conduct", href: "/code-of-conduct" },
+  { label: "Media Kit", href: "/help" },
   { label: "Help Center", href: "/help" },
+];
+
+const quickLinks = [
+  { label: "About", href: "/about" },
+  { label: "Event Overview", href: "/timeline" },
+  { label: "Speakers", href: "/speakers" },
+  { label: "Sponsors", href: "#sponsors" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact Us", href: "mailto:hello@osconnect.org" },
 ];
 
 const Footer = () => {
@@ -80,14 +91,14 @@ const Footer = () => {
               Quick Links
             </h4>
             <ul className="space-y-3">
-              {["About", "Projects", "Speakers", "Sponsors", "Blog"].map(
-                (item) => (
-                  <li key={item}>
+              {quickLinks.map(
+                ({label, href}) => (
+                  <li key={label}>
                     <Link
-                      href={`#${item.toLowerCase()}`}
+                      href={`${href.toLowerCase()}`}
                       className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
                     >
-                      {item}
+                      {label}
                     </Link>
                   </li>
                 )
@@ -150,7 +161,7 @@ const Footer = () => {
           </p>
           <div className="flex gap-8">
             <Link
-              href="#"
+              href="/privacy-policy"
               className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
             >
               Privacy Policy

@@ -1,7 +1,7 @@
 import Navigation from "@/components/landing/navigation";
 import React from "react";
 
-const Privacy = ({ children }: { children: React.ReactNode }) => {
+const mediaLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div>
       <Navigation />
@@ -11,4 +11,4 @@ const Privacy = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default Privacy;
+export default mediaLayout;

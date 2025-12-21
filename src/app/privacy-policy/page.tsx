@@ -76,7 +76,7 @@ const guidelines = [
   },
 ];
 
-const CommunityGuidelines = () => {
+const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-[#090E1A] mt-10 section-container">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -136,4 +136,4 @@ const CommunityGuidelines = () => {
   );
 };
 
-export default CommunityGuidelines;
+export default PrivacyPolicy;

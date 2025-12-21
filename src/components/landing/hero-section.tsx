@@ -3,11 +3,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { ArrowRight, Github } from "lucide-react";
+import { ArrowRight, Github, X } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
 import { motion } from "framer-motion";
+import LumaEmbed from "./lumaEmbed";
+import { createPortal } from "react-dom";
 
 // Shader background hook
 const useShaderBackground = () => {
@@ -17,63 +19,65 @@ const useShaderBackground = () => {
   const pointersRef = useRef<any>(null);
 
   useEffect(() => {
-    if (typeof window === 'undefined' || !canvasRef.current) return;
+    if (typeof window === "undefined" || !canvasRef.current) return;
 
     // Dynamic import to avoid SSR issues
-    import('@/lib/shader-renderer').then(({ WebGLRenderer, PointerHandler, defaultShaderSource }) => {
-      const canvas = canvasRef.current;
-      if (!canvas) return;
-
-      const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
-
-      rendererRef.current = new WebGLRenderer(canvas, dpr);
-      pointersRef.current = new PointerHandler(canvas, dpr);
-
-      rendererRef.current.setup();
-      rendererRef.current.init();
-
-      const resize = () => {
+    import("@/lib/shader-renderer")
+      .then(({ WebGLRenderer, PointerHandler, defaultShaderSource }) => {
+        const canvas = canvasRef.current;
         if (!canvas) return;
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        if (rendererRef.current) {
-          rendererRef.current.updateScale(dpr);
+
+        const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+
+        rendererRef.current = new WebGLRenderer(canvas, dpr);
+        pointersRef.current = new PointerHandler(canvas, dpr);
+
+        rendererRef.current.setup();
+        rendererRef.current.init();
+
+        const resize = () => {
+          if (!canvas) return;
+          canvas.width = window.innerWidth * dpr;
+          canvas.height = window.innerHeight * dpr;
+          if (rendererRef.current) {
+            rendererRef.current.updateScale(dpr);
+          }
+        };
+
+        resize();
+
+        if (rendererRef.current.test(defaultShaderSource) === null) {
+          rendererRef.current.updateShader(defaultShaderSource);
         }
-      };
 
-      resize();
+        const loop = (now: number) => {
+          if (!rendererRef.current || !pointersRef.current) return;
 
-      if (rendererRef.current.test(defaultShaderSource) === null) {
-        rendererRef.current.updateShader(defaultShaderSource);
-      }
+          rendererRef.current.updateMouse(pointersRef.current.first);
+          rendererRef.current.updatePointerCount(pointersRef.current.count);
+          rendererRef.current.updatePointerCoords(pointersRef.current.coords);
+          rendererRef.current.updateMove(pointersRef.current.move);
+          rendererRef.current.render(now);
+          animationFrameRef.current = requestAnimationFrame(loop);
+        };
 
-      const loop = (now: number) => {
-        if (!rendererRef.current || !pointersRef.current) return;
+        loop(0);
 
-        rendererRef.current.updateMouse(pointersRef.current.first);
-        rendererRef.current.updatePointerCount(pointersRef.current.count);
-        rendererRef.current.updatePointerCoords(pointersRef.current.coords);
-        rendererRef.current.updateMove(pointersRef.current.move);
-        rendererRef.current.render(now);
-        animationFrameRef.current = requestAnimationFrame(loop);
-      };
+        window.addEventListener("resize", resize);
 
-      loop(0);
-
-      window.addEventListener('resize', resize);
-
-      return () => {
-        window.removeEventListener('resize', resize);
-        if (animationFrameRef.current) {
-          cancelAnimationFrame(animationFrameRef.current);
-        }
-        if (rendererRef.current) {
-          rendererRef.current.reset();
-        }
-      };
-    }).catch(err => {
-      console.error('Failed to load shader:', err);
-    });
+        return () => {
+          window.removeEventListener("resize", resize);
+          if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+          }
+          if (rendererRef.current) {
+            rendererRef.current.reset();
+          }
+        };
+      })
+      .catch((err) => {
+        console.error("Failed to load shader:", err);
+      });
   }, []);
 
   return canvasRef;
@@ -82,6 +86,7 @@ const useShaderBackground = () => {
 const HeroSection = () => {
   const [user, setUser] = useState<User | null>(null);
   const canvasRef = useShaderBackground();
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const loadUser = async () => {
@@ -98,20 +103,39 @@ const HeroSection = () => {
     return () => listener.subscription.unsubscribe();
   }, []);
 
+  const modal = open && true
+    ? createPortal(
+        <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
+          <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-6">
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute right-8 top-6 text-white cursor-pointer z-10"
+            >
+              <X />
+            </button>
+            <LumaEmbed />
+          </div>
+        </div>,
+        document.body
+      )
+    : null;
+
   return (
+    <>
     <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
       {/* Animated Shader Background */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full object-cover touch-none opacity-60 mix-blend-screen"
-        style={{ background: 'transparent' }}
+        style={{ background: "transparent" }}
       />
 
       {/* Gradient fade to next section */}
       <div
         className="absolute inset-x-0 bottom-0 h-48 z-10 pointer-events-none"
         style={{
-          background: 'linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%)'
+          background:
+            "linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%)",
         }}
       />
 
@@ -130,15 +154,15 @@ const HeroSection = () => {
             className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm backdrop-blur-md"
           >
             <Github className="h-4 w-4 text-[var(--accent-secondary)]" />
-            <span className="text-white/90 font-medium">Global Edition • 2026</span>
+            <span className="text-white/90 font-medium">
+              Global Edition • 2026
+            </span>
           </motion.div>
 
           {/* Main Heading */}
           <h1 className="mb-6 max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
             Connecting the World Through{" "}
-            <span className="text-accent-gradient">
-              Open Source
-            </span>
+            <span className="text-accent-gradient">Open Source</span>
           </h1>
 
           {/* Subheading */}
@@ -166,15 +190,17 @@ const HeroSection = () => {
                 </Button>
               </Link>
             ) : (
-              <Link href="/sign-in">
+              <>
                 <Button
                   size="lg"
                   className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
+                  onClick={() => setOpen(true)}
                 >
                   Register Now
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-              </Link>
+                
+              </>
             )}
 
             <Link href="/projects">
@@ -215,6 +241,8 @@ const HeroSection = () => {
         </motion.div>
       </div>
     </section>
+    {modal}
+    </>
   );
 };
 
