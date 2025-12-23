@@ -227,13 +227,21 @@ const Signin = () => {
             </button>
           </div>
 
-          {/* Sign Up Link */}
-          <p className="text-center mt-6 text-[14px] text-[#94A3B8]">
-            New to open source?{" "}
-            <Link href="/sign-up" className="text-[#11D392] font-medium hover:underline">
-              Join the community
-            </Link>
-          </p>
+          {/* Terms + Sign Up Link */}
+          <div className="mt-6 text-center space-y-2">
+            <p className="text-[11px] text-[#64748B]">
+              By signing in, you agree to our{" "}
+              <Link href="/terms" className="text-[#11D392] hover:underline">Terms</Link>
+              {" "}and{" "}
+              <Link href="/privacy-policy" className="text-[#11D392] hover:underline">Privacy</Link>
+            </p>
+            <p className="text-[14px] text-[#94A3B8]">
+              New to open source?{" "}
+              <Link href="/sign-up" className="text-[#11D392] font-medium hover:underline">
+                Join the community
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
