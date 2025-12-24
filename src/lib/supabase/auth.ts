@@ -73,12 +73,20 @@ export interface OAuthResponse {
   error: AuthError | null;
 }
 
+
+const getRedirectUrl = () => {
+  if (typeof window !== "undefined") {
+    return `${window.location.origin}/auth/callback`;
+  }
+  return `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/auth/callback`;
+};
+
 export async function signInWithGoogle(): Promise<OAuthResponse> {
   try {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+        redirectTo: getRedirectUrl(),
       },
     });
 
@@ -99,7 +107,7 @@ export async function signInWithGitHub(): Promise<OAuthResponse> {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${process.env.NEXT_PUBLIC_APP_URL}/auth/callback`,
+        redirectTo: getRedirectUrl(),
       },
     });
 
