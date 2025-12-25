@@ -11,16 +11,12 @@ export default function AuthCallback() {
     const process = async () => {
       const { data, error } = await supabase.auth.getSession();
 
-      if (error) {
-        router.push("/sign-in");
+      if (error || !data?.session) {
+        router.replace("/sign-in");
         return;
       }
 
-      if (data?.session) {
-        router.push("/");
-      } else {
-        router.push("/sign-in");
-      }
+      router.replace("/badge");
     };
 
     process();

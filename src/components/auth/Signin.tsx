@@ -44,7 +44,7 @@ const Signin = () => {
         toast.error(error.message);
       } else if (user) {
         toast.success("Signed in successfully");
-        window.location.href = "/";
+        window.location.href = "/badge";
       }
     } catch {
       toast.error("Something went wrong");
