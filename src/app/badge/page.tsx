@@ -151,7 +151,7 @@ export default function BadgePage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className=" origin --text-4xl md:text-6xl font-bold mb-8"
+            className=" origin text-4xl md:text-6xl font-bold mb-8"
           >
             <span className="text-accent-gradient">Contributor</span>
             <br />
@@ -162,20 +162,20 @@ export default function BadgePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.7 }}
-            className="text-[#94A3B8] text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-light"
+            className="text-[#94A3B8] text-lg md:text-xl max-w-175 mx-auto leading-relaxed font-light"
           >
             Create your personalized OSCG badge to celebrate your contribution
-            to open <br /> source.
+            to open source.
           </motion.p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
           <div className="flex flex-col items-center order-2 lg:order-1">
-            <div className="w-full max-w-105">
-              <div className="flex items-center justify-center gap-6 mb-8">
+            <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-105">
+              <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#0C4C4B] to-transparent" />
 
-                <span className="text-[15px] font-semibold tracking-[0.35em] text-[#92A4B9] uppercase">
+                <span className="text-[11px] sm:text-[13px] md:text-[15px] font-semibold tracking-[0.25em] sm:tracking-[0.35em] text-[#92A4B9] uppercase whitespace-nowrap">
                   Live Preview
                 </span>
 
@@ -184,112 +184,124 @@ export default function BadgePage() {
 
               <motion.div
                 layoutId="badge-card"
-                className="relative aspect-[3/4.2] rounded-[2.5rem] p-px overflow-hidden group"
+                className="
+        relative aspect-[3/4.2]
+        rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem]
+        overflow-hidden isolate group
+      "
               >
-                <div className="absolute -inset-2 bg-[#00D6B2]/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-
-                <div className="absolute inset-0 bg-linear-to-br from-white/20 via-white/5 to-white/10" />
-
-                <div className="relative h-full w-full rounded-[2.5rem] bg-[#0B1220] overflow-hidden flex flex-col p-10 bg-[radial-gradient(circle_at_top_right,rgba(0,214,178,0.08),transparent_50%)]">
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] scale-150" />
-
-                  <div className="relative z-10 w-full mb-6 px-2 flex justify-center items-center">
+                <div className="absolute inset-0 rounded-inherit overflow-hidden pointer-events-none">
+                  <div className="absolute inset-0 bg-[#00D6B2]/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
+                  <div className="absolute inset-0 bg-linear-to-br from-white/20 via-white/5 to-white/10" />
+                </div>
+                <div
+                  className="
+          relative w-full h-full rounded-inherit
+          bg-[#0B1220] overflow-hidden
+          flex flex-col
+          p-4 sm:p-6 md:p-8 lg:p-10
+          bg-[radial-gradient(circle_at_top_right,rgba(0,214,178,0.08),transparent_50%)]
+        "
+                >
+                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] scale-150 pointer-events-none" />
+                  <div className="relative z-10 w-full mb-4 sm:mb-6 flex justify-center items-center gap-3">
                     <Image
                       src="/logo1.png"
                       alt="OSCG Logo"
                       width={90}
                       height={40}
-                      className="opacity-90 drop-shadow-[0_0_10px_rgba(255,255,255,0.1)]"
+                      className="opacity-90 w-12 sm:w-16 md:w-20 lg:w-[90px] h-auto"
                     />
-                    <div className="text-white font-bold text-3xl">
+                    <div className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
                       <h1>Open Source</h1>
                       <h1>
                         Connect <span className="text-[#00D4AA]">Global</span>
                       </h1>
                     </div>
                   </div>
-
-                  <div className="relative z-10 flex flex-col items-center mb-6">
+                  <div className="relative z-10 flex flex-col items-center">
                     <div className="relative group/photo">
-                      <div className="absolute -inset-3.75 bg-[#00D6B2]/10 blur-[30px] rounded-full opacity-50 group-hover/photo:opacity-100 transition-opacity" />
-
-                      <div className="relative w-48 h-48 rounded-full p-1 bg-linear-to-tr from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2]/20 shadow-[0_0_50px_rgba(0,214,178,0.3)] shrink-0">
-                        <div className="w-full h-full rounded-full bg-[#0B1220] overflow-hidden flex items-center justify-center ring-4 ring-black/50">
+                      <div className="absolute inset-[-12%] bg-[#00D6B2]/10 blur-[30px] rounded-full opacity-60 group-hover/photo:opacity-100 transition-opacity" />
+                      <div
+                        className="
+                relative w-24 h-24 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-48 lg:h-48
+                rounded-full p-1
+                bg-linear-to-tr from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2]/20
+                shadow-[0_0_40px_rgba(0,214,178,0.35)]
+              "
+                      >
+                        <div className="w-full h-full rounded-full bg-[#0B1220] overflow-hidden flex items-center justify-center ring-2 ring-black/50">
                           {image ? (
                             <motion.img
+                              src={image}
+                              alt="Preview"
                               initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{
-                                opacity: 1,
-                                scale: scale,
-                                rotate: rotation,
-                              }}
+                              animate={{ opacity: 1, scale, rotate: rotation }}
                               transition={{
                                 type: "spring",
                                 stiffness: 120,
                                 damping: 20,
                               }}
-                              src={image}
-                              alt="Preview"
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <UserIcon className="w-20 h-20 text-white/3 drop-shadow-sm" />
+                            <UserIcon className="w-14 h-14 text-white/30" />
                           )}
                         </div>
                       </div>
-
-                      <div className="absolute -inset-1.5 border border-[#00D6B2]/20 rounded-full scale-105 animate-[spin_10s_linear_infinite]" />
+                      <div className="absolute inset-[-4%] border border-[#00D6B2]/20 rounded-full animate-[spin_10s_linear_infinite]" />
                     </div>
-
-                    <div className="mt-6 text-center space-y-4">
+                    <div className="mt-5 sm:mt-6 text-center space-y-4">
                       <div className="flex items-center justify-center gap-3">
-                        <div className="h-px w-10 bg-linear-to-l from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2]/0" />
+                        <div className="h-px w-10 bg-linear-to-l from-[#00D6B2] via-[#00D6B2]/50 to-transparent" />
                         <Sparkles className="w-4 h-4 text-[#00D6B2]" />
-                        <div className="h-px w-10 bg-linear-to-r from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2]/0" />
+                        <div className="h-px w-10 bg-linear-to-r from-[#00D6B2] via-[#00D6B2]/50 to-transparent" />
                       </div>
 
-                      <h2 className="text-4xl font-bold text-white tracking-tight h-10 truncate max-w-[320px] mx-auto drop-shadow-md">
+                      <h2 className="text-lg sm:text-3xl md:text-4xl font-bold text-white truncate max-w-[300px] mx-auto">
                         {name || "Your Name"}
                       </h2>
 
-                      <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20">
-                        <div className="w-1.5 h-1.5 rounded-full bg-[#00D6B2] shadow-[0_0_8px_#1AD5BD]" />
-                        <span className="text-[11px] font-bold tracking-widest text-[#00D6B2] uppercase">
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#00D6B2]" />
+                        <span className="text-[10px] font-bold tracking-widest text-[#00D6B2] uppercase">
                           Open Source Contributor
                         </span>
                       </div>
-                      <div className="text-[10px] uppercase tracking-[0.3em] text-[#94A3B8] font-bold mb-2">
+
+                      <div className="text-[10px] uppercase tracking-[0.3em] text-[#94A3B8] font-bold">
                         Open Source Connect Global
                       </div>
+
                       <div className="flex items-center justify-center gap-3">
-                        <div className="h-px w-20 bg-linear-to-r to-[#1F2B47] from-[#1F2B47]/0" />
-                        <p className="text-[11px] tracking-[0.4em] text-white/40 font-medium">
+                        <div className="h-px w-16 bg-linear-to-r from-transparent to-[#1F2B47]" />
+                        <span className="text-xs tracking-widest text-white/40">
                           2026
-                        </p>
-                        <div className="h-px w-20 bg-linear-to-r from-[#1F2B47] to-[#1F2B47]/0" />
+                        </span>
+                        <div className="h-px w-16 bg-linear-to-r from-[#1F2B47] to-transparent" />
                       </div>
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              <div className="mt-10 flex items-center justify-center gap-3 text-white/30 group">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#00D6B2] shadow-[0_0_8px_#1AD5BD] group-hover:scale-125 transition-transform" />
-                <span className="text-[11px] font-semibold tracking-wide">
+              <div className="mt-6 sm:mt-8 md:mt-10 flex items-center justify-center gap-2 sm:gap-3 text-white/30 group">
+                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#00D6B2] shadow-[0_0_8px_#1AD5BD] group-hover:scale-125 transition-transform" />
+                <span className="text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wide">
                   Your badge updates in real-time
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="order-1 lg:order-2 flex flex-col">
+          <div className="order-1 lg:order-2 flex flex-col justify-center items-center">
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
               className="w-full max-w-xl"
             >
-              <h2 className="text-4xl font-bold mb-3 tracking-tight">
+              <h2 className="text-2xl md:text-4xl font-bold mb-3 tracking-tight">
                 Create Your <span className="text-[#00D6B2]">Badge</span>
               </h2>
               <p className="text-[#94A3B8] text-lg mb-5 leading-relaxed">
@@ -400,11 +412,11 @@ export default function BadgePage() {
                           <Upload className="w-8 h-8 text-white/10 group-hover:text-[#00D6B2] transition-colors" />
                         </div>
                         <div className="text-center space-y-2">
-                          <p className="text-xl font-bold text-white/80 group-hover:text-white transition-colors">
+                          <p className="text-md sm:text-xl font-bold text-white/80 group-hover:text-white transition-colors">
                             Drop your photo here or{" "}
                             <span className="text-[#00D6B2]">browse</span>
                           </p>
-                          <p className="text-xs font-bold text-[#64748B] uppercase tracking-[0.2em]">
+                          <p className="text-xs font-bold text-[#64748B] uppercase sm:tracking-[0.2em]">
                             JPG or PNG • Auto-cropped to square
                           </p>
                         </div>
