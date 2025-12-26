@@ -51,13 +51,7 @@ export const metadata: Metadata = {
   icons: [
     {
       rel: "icon",
-      url: "/logo1.png",
-      media: "(prefers-color-scheme: dark)",
-    },
-    {
-      rel: "icon",
-      url: "/logo2.png",
-      media: "(prefers-color-scheme: light)",
+      url: "/logo.png",
     },
   ],
 
@@ -69,7 +63,7 @@ export const metadata: Metadata = {
     siteName: "Open Source Connect Global",
     images: [
       {
-        url: "/logo.png",
+        url: "/OG.png",
         width: 1200,
         height: 630,
         alt: "Open Source Connect Global 2026",
@@ -84,7 +78,7 @@ export const metadata: Metadata = {
     title: "Open Source Connect Global 2026",
     description:
       "Open Source Connect Global 2026 is an international event connecting innovators, developers, mentors, universities, startups, and organizations worldwide.",
-    images: ["/logo.png"],
+    images: ["/OG.png"],
   },
 };
 
