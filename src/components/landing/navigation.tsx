@@ -309,13 +309,13 @@ const Navigation = () => {
                     <Link href="/sign-in" onClick={() => setIsMenuOpen(false)}>
                       <Button
                         variant="ghost"
-                        className="w-full justify-center text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5"
+                        className="w-full justify-center text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5 cursor-pointer"
                       >
                         Login
                       </Button>
                     </Link>
                     <Link href="/sign-up" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full text-sm sm:text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-xl">
+                      <Button className="w-full text-sm sm:text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-xl cursor-pointer">
                         Sign Up
                       </Button>
                     </Link>

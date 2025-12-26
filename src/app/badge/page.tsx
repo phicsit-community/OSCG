@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback } from "react";
+import { toPng } from "html-to-image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Camera,
@@ -40,6 +41,32 @@ export default function BadgePage() {
   const [historyIndex, setHistoryIndex] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [adjustmentsDone, setAdjustmentsDone] = useState<boolean>(false);
+  const badgeRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+
+  const handleDownload = useCallback(async () => {
+    if (badgeRef.current === null) {
+      return;
+    }
+
+    try {
+      setIsDownloading(true);
+      const dataUrl = await toPng(badgeRef.current, {
+        cacheBust: true,
+        backgroundColor: "#0B1220",
+        pixelRatio: 2,
+      });
+      const link = document.createElement("a");
+      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"}.png`;
+      link.download = fileName;
+      link.href = dataUrl;
+      link.click();
+    } catch (err) {
+      console.error("Oops, something went wrong!", err);
+    } finally {
+      setIsDownloading(false);
+    }
+  }, [badgeRef, name]);
 
   const saveToHistory = (newScale: number, newRotation: number) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -183,6 +210,7 @@ export default function BadgePage() {
               </div>
 
               <motion.div
+                ref={badgeRef}
                 layoutId="badge-card"
                 className="
         relative aspect-[3/4.2]
@@ -541,11 +569,9 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
-                                      ((scale - 0.5) / 1.5) * 100
-                                    }%, #1a2535 ${
-                                      ((scale - 0.5) / 1.5) * 100
-                                    }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${((scale - 0.5) / 1.5) * 100
+                                      }%, #1a2535 ${((scale - 0.5) / 1.5) * 100
+                                      }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <Search className="w-5 h-5 text-[#64748B]" />
@@ -602,17 +628,15 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
-                                      (rotation / 360) * 100
-                                    }%, #1a2535 ${
-                                      (rotation / 360) * 100
-                                    }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${(rotation / 360) * 100
+                                      }%, #1a2535 ${(rotation / 360) * 100
+                                      }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <RefreshCw className="w-4 h-4 text-[#64748B]" />
                               </div>
 
-                              {/* Quick Rotation Buttons */}
+
                               <div className="flex items-center gap-2 pt-1">
                                 {[0, 90, 180, 270].map((deg) => (
                                   <button
@@ -631,18 +655,18 @@ export default function BadgePage() {
                               </div>
                             </div>
 
-                            {/* Action Buttons */}
+
                             <div className="flex items-center gap-3 pt-2">
                               <Button
                                 variant="outline"
                                 onClick={resetAll}
-                                className="flex-1 h-12 rounded-xl border-white/5 bg-[#1a2535] hover:bg-[#1a2535]/80 text-sm font-medium text-white hover:text-white transition-all"
+                                className="flex-1 h-12 rounded-xl border-white/5 bg-[#1a2535] hover:bg-[#1a2535]/80 text-sm font-medium text-white hover:text-white transition-all cursor-pointer"
                               >
                                 <RefreshCw className="w-4 h-4 mr-2 text-[#00D6B2]" />
                                 Reset All
                               </Button>
                               <Button
-                                className="flex-1 h-12 rounded-xl bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] hover:from-[#00c4a3] hover:to-[#3fc1c0] text-black text-sm font-medium transition-all"
+                                className="flex-1 h-12 rounded-xl bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] hover:from-[#00c4a3] hover:to-[#3fc1c0] text-black text-sm font-medium transition-all cursor-pointer"
                                 onClick={() => setAdjustmentsDone(true)}
                               >
                                 <Check className="w-4 h-4 mr-2" />
@@ -662,15 +686,21 @@ export default function BadgePage() {
                     className="flex-1 h-16 rounded-2xl border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 text-sm font-bold cursor-pointer hover:text-white uppercase tracking-[0.2em] transition-all group"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Upload className="w-4 h-4 mr-3 group-hover:-translate-y-1 transition-transform text-[#00D6B2]" />
+                    <Upload className="w-4 h-4 mr-3  transition-transform text-[#00D6B2]" />
                     {image ? "Change IMG" : "Upload IMG"}
                   </Button>
                   <Button
                     className="flex-1 h-16 rounded-2xl bg-[#00D6B2] hover:bg-[#00c4a3] text-black border-0 text-sm font-bold uppercase tracking-[0.2em] shadow-[0_20px_40px_-15px_rgba(0,214,178,0.3)] hover:shadow-[0_25px_50px_-12px_rgba(0,214,178,0.5)] transition-all group disabled:opacity-20 disabled:grayscale cursor-pointer"
-                    disabled={!name || !image}
+                    disabled={!name || !image || isDownloading}
+                    onClick={handleDownload}
                   >
-                    <Download className="w-4 h-4 mr-3 group-hover:translate-y-1 transition-transform" />
-                    Download
+                    <Download
+                      className={cn(
+                        "w-4 h-4 mr-3 transition-transform",
+                        isDownloading && "animate-spin"
+                      )}
+                    />
+                    {isDownloading ? "Generating..." : "Download"}
                   </Button>
                 </div>
               </div>
