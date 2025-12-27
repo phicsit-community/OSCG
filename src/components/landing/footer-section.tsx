@@ -1,6 +1,19 @@
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Instagram, Twitter, Linkedin, Github, Send } from "lucide-react";
+import {
+  Instagram,
+  Twitter,
+  Linkedin,
+  Github,
+  Send,
+  Users,
+  Mic,
+  Award,
+  GraduationCap,
+  MapPin,
+  Heart,
+  ChevronRight
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -22,6 +35,15 @@ const quickLinks = [
   { label: "Contact Us", href: "mailto:hello@osconnect.org" },
 ];
 
+const applyLinks = [
+  { label: "Become a Speaker", href: "#" },
+  { label: "Become a Mentor", href: "#" },
+  { label: "Become Project Admin", href: "#" },
+  { label: "Become Campus Lead", href: "#" },
+  { label: "Become State Lead", href: "#" },
+  { label: "Become Sponsor", href: "#" },
+];
+
 const Footer = () => {
   return (
     <footer className="relative bg-transparent pt-24 pb-12 overflow-hidden">
@@ -31,92 +53,67 @@ const Footer = () => {
       <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid gap-12 lg:grid-cols-12 mb-16">
-          <div className="lg:col-span-4 flex flex-col items-start">
+        <div className="grid gap-12 lg:grid-cols-12 mb-20">
+          {/* Brand Column */}
+          <div className="lg:col-span-3 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
-              <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-(--accent-primary)/20 to-(--accent-secondary)/10 border border-(--accent-primary)/20 group-hover:border-(--accent-primary)/50 transition-colors">
+              <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-(--accent-primary)/30 to-(--accent-secondary)/10 border border-(--accent-primary)/20 group-hover:border-(--accent-primary)/50 transition-all duration-500 overflow-hidden shadow-lg shadow-(--accent-primary)/10">
+                <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 <Image
                   src="/logo.png"
                   alt="Logo"
                   width={40}
                   height={40}
-                  className="rounded-lg"
+                  className="rounded-lg transform group-hover:scale-110 transition-transform duration-500"
                 />
               </div>
-              <span className="text-xl font-bold text-white tracking-wide">
-                OSCG{" "}
-                <span className="text-[var(--accent-secondary)]">2026</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black text-white tracking-tighter leading-none uppercase">
+                  OSCG
+                </span>
+                <span className="text-xs font-medium text-[var(--accent-secondary)] tracking-widest uppercase">
+                  Global 2026
+                </span>
+              </div>
             </Link>
 
-            <p className="mb-8 text-base text-[var(--text-secondary)] leading-relaxed max-w-sm">
-              Connecting the world through open source innovation and
-              collaborative development. Join our global community today.
+            <p className="mb-8 text-sm text-[var(--text-secondary)]/80 leading-relaxed max-w-sm">
+              The ultimate destination for open source enthusiasts. Connecting
+              innovators, developers, and mentors in a global ecosystem.
             </p>
 
-            <div className="flex gap-3">
-              <Link
-                href="https://x.com/osconnect1/"
-                target="_blank"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
-              >
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://www.linkedin.com/company/open-source-connect/"
-                target="_blank"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
-              >
-                <Linkedin className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://github.com/phicsit-community/OSCG"
-                target="_blank"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
-              >
-                <Github className="h-5 w-5" />
-              </Link>
-              <Link
-                href="https://www.instagram.com/osconnect.official/"
-                target="_blank"
-                className="h-10 w-10 flex items-center justify-center rounded-full bg-white/5 border border-white/5 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300"
-              >
-                <Instagram className="h-5 w-5" />
-              </Link>
+            <div className="flex gap-4">
+              {[
+                { icon: Twitter, href: "https://x.com/osconnect1/" },
+                { icon: Linkedin, href: "https://www.linkedin.com/company/open-source-connect/" },
+                { icon: Github, href: "https://github.com/phicsit-community/OSCG" },
+                { icon: Instagram, href: "https://www.instagram.com/osconnect.official/" }
+              ].map((social, i) => (
+                <Link
+                  key={i}
+                  href={social.href}
+                  target="_blank"
+                  className="h-10 w-10 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 text-[var(--text-muted)] hover:text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:-translate-y-1 transition-all duration-300"
+                >
+                  <social.icon className="h-4.5 w-4.5" />
+                </Link>
+              ))}
             </div>
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-5 text-base font-semibold text-white">
+            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
+              <span className="w-8 h-[1px] bg-linear-to-r from-[var(--accent-secondary)] to-transparent"></span>
               Quick Links
             </h4>
-            <ul className="space-y-3">
-              {quickLinks.map(
-                ({label, href}) => (
-                  <li key={label}>
-                    <Link
-                      href={`${href.toLowerCase()}`}
-                      className="text-[var(--text-muted)] hover:text-[var(--accent-secondary)] transition-colors text-sm font-medium"
-                    >
-                      {label}
-                    </Link>
-                  </li>
-                )
-              )}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="mb-5 text-base font-semibold text-white">
-              Resources
-            </h4>
-            <ul className="space-y-3">
-              {resources.map(({ label, href }) => (
-                <li key={label}>
+            <ul className="space-y-4">
+              {quickLinks.map(({ label, href }) => (
+                <li key={label} className="group/link">
                   <Link
                     href={href}
-                    className="text-(--text-muted) hover:text-(--accent-secondary) transition-colors text-sm font-medium"
+                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
                   >
+                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-[var(--accent-secondary)]" />
                     {label}
                   </Link>
                 </li>
@@ -124,33 +121,75 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-4">
-            <h4 className="mb-5 text-base font-semibold text-white">
-              Stay Updated
+          <div className="lg:col-span-2">
+            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
+              <span className="w-8 h-[1px] bg-linear-to-r from-(--accent-primary) to-transparent"></span>
+              Resources
             </h4>
-            <p className="mb-5 text-sm text-(--text-muted)">
-              Subscribe to our newsletter for the latest updates, announcements,
-              and tech news.
-            </p>
+            <ul className="space-y-4">
+              {resources.map(({ label, href }) => (
+                <li key={label} className="group/link">
+                  <Link
+                    href={href}
+                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
+                  >
+                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-(--accent-primary)" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            <div className="flex flex-col gap-3">
-              <div className="relative">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="h-12 w-full rounded-xl bg-white/5 border border-white/10 px-4 text-white placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)]/50 focus:ring-1 focus:ring-[var(--accent-primary)]/50 transition-all"
-                />
-                <Button
-                  size="icon"
-                  className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg bg-[var(--accent-primary)] hover:bg-[#17b8a3] text-black transition-colors"
-                >
-                  <Send className="h-4 w-4" />
-                </Button>
+          <div className="lg:col-span-2">
+            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
+              <span className="w-8 h-[1px] bg-linear-to-r from-[var(--accent-primary)] to-transparent"></span>
+              Apply
+            </h4>
+            <ul className="space-y-4">
+              {applyLinks.map(({ label, href }) => (
+                <li key={label} className="group/link">
+                  <Link
+                    href={href}
+                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
+                  >
+                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-orange-400" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+            <div className="p-[1px] rounded-3xl bg-linear-to-br from-white/10 to-transparent">
+              <div className="bg-[#050505]/40 backdrop-blur-sm rounded-[23px] p-6 border border-white/5">
+                <h4 className="mb-2 text-sm font-bold text-white tracking-tight">
+                  Stay in the Loop
+                </h4>
+                <p className="mb-6 text-xs text-[var(--text-muted)] leading-relaxed">
+                  Join our newsletter for the latest updates and early announcements.
+                </p>
+
+                <div className="flex flex-col gap-3">
+                  <div className="relative group">
+                    <Input
+                      type="email"
+                      placeholder="Email address"
+                      className="h-11 w-full rounded-xl bg-white/5 border border-white/10 px-4 text-white placeholder:text-[var(--text-muted)] focus:border-[var(--accent-primary)]/50 focus:ring-4 focus:ring-[var(--accent-primary)]/10 transition-all text-xs"
+                    />
+                    <Button
+                      size="icon"
+                      className="absolute right-1 top-1 h-9 w-9 rounded-lg bg-[var(--accent-primary)] hover:bg-[#17b8a3] text-black transition-all hover:scale-105"
+                    >
+                      <Send className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                  <p className="text-[10px] text-(--text-muted)/60 leading-tight italic px-1">
+                    * No spam, only high-quality tech updates.
+                  </p>
+                </div>
               </div>
-              <p className="text-xs text-(--text-muted)">
-                By subscribing, you agree to our Privacy Policy and consent to
-                receive updates.
-              </p>
             </div>
           </div>
         </div>
