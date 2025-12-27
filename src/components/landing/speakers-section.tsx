@@ -101,7 +101,8 @@ const SpeakersSection = () => {
               Coming Soon
             </p>
             <p className="text-[var(--text-secondary)]">
-              Exciting open source projects will be showcased here
+              We&apos;re lining up industry leaders, builders, and researchers.
+              Speaker announcements will roll out shortly.
             </p>
           </div>
         </motion.div>
