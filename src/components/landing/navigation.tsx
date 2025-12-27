@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LogOut, Menu, X } from "lucide-react";
+import { LayoutDashboard, LogOut, Menu, User as UserIcon, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,7 +15,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -98,18 +97,16 @@ const Navigation = () => {
     <nav className="fixed top-0 left-0 right-0 z-50">
       {/* Main navbar container */}
       <div
-        className={`transition-all duration-500 ease-out ${
-          isScrolled
-            ? "mx-3 sm:mx-4 mt-3 md:mx-auto md:max-w-4xl lg:max-w-5xl"
-            : "mx-0"
-        }`}
+        className={`transition-all duration-500 ease-out ${isScrolled
+          ? "mx-3 sm:mx-4 mt-3 md:mx-auto md:max-w-4xl lg:max-w-5xl"
+          : "mx-0"
+          }`}
       >
         <div
-          className={`flex items-center justify-between px-4 sm:px-6 md:px-8 transition-all duration-500 ease-out ${
-            isScrolled
-              ? "h-14 sm:h-16 bg-[#111827]/80 backdrop-blur-2xl rounded-xl sm:rounded-2xl border border-[#6FE7C1]/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
-              : "h-16 sm:h-20 bg-transparent border border-transparent"
-          }`}
+          className={`flex items-center justify-between px-4 sm:px-6 md:px-8 transition-all duration-500 ease-out ${isScrolled
+            ? "h-14 sm:h-16 bg-[#111827]/80 backdrop-blur-2xl rounded-xl sm:rounded-2xl border border-[#6FE7C1]/30 shadow-[0_8px_32px_rgba(0,0,0,0.3)]"
+            : "h-16 sm:h-20 bg-transparent border border-transparent"
+            }`}
         >
           {/* Logo */}
           <Link
@@ -128,7 +125,6 @@ const Navigation = () => {
             </span>
           </Link>
 
-          {/* Desktop & Tablet Navigation */}
           <div className="hidden md:flex items-center gap-1 lg:gap-2">
             {navItems.map((item) => (
               <Link
@@ -148,13 +144,13 @@ const Navigation = () => {
                 <Link href="/sign-in">
                   <Button
                     variant="ghost"
-                    className="text-white/60 hover:text-white hover:bg-white/5 text-sm lg:text-base font-medium"
+                    className="text-white/60 cursor-pointer hover:text-white hover:bg-white/5 text-sm lg:text-base font-medium"
                   >
                     Login
                   </Button>
                 </Link>
                 <Link href="/sign-up">
-                  <Button className="bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] text-sm lg:text-base font-semibold rounded-xl px-4 lg:px-6 py-2 lg:py-2.5">
+                  <Button className="bg-[#6FE7C1] cursor-pointer hover:bg-[#5ad4af] text-[#0B0F17] text-sm lg:text-base font-semibold rounded-xl px-4 lg:px-6 py-2 lg:py-2.5">
                     Sign Up
                   </Button>
                 </Link>
@@ -207,46 +203,71 @@ const Navigation = () => {
 
                   <DropdownMenuContent
                     align="end"
-                    className="w-48 bg-[#1a1f25] text-white rounded-xl border border-white/10 shadow-xl"
+                    sideOffset={12}
+                    className="w-64 bg-[#111827]/95 backdrop-blur-xl text-white rounded-3xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-2.5"
                   >
-                    <DropdownMenuLabel className="text-white/50 text-xs font-medium px-3 py-2">
-                      Account
-                    </DropdownMenuLabel>
+                    <div className="space-y-1">
+                      <Link href="/dashboard">
+                        <DropdownMenuItem className="cursor-pointer flex items-center gap-3.5 text-white/70 hover:text-white hover:bg-white/5 px-4 py-3 rounded-[20px] transition-all group outline-none">
+                          <div className="p-2 rounded-xl bg-white/5 group-hover:bg-[#6FE7C1]/10 group-hover:text-[#6FE7C1] transition-all duration-300">
+                            <LayoutDashboard className="w-5 h-5" />
+                          </div>
+                          <span className="font-semibold text-[15px]">Dashboard</span>
+                        </DropdownMenuItem>
+                      </Link>
 
-                    <DropdownMenuSeparator className="bg-white/10" />
+                      <Link href="/profile">
+                        <DropdownMenuItem className="cursor-pointer flex items-center gap-3.5 text-white/70 hover:text-white hover:bg-white/5 px-4 py-3 rounded-[20px] transition-all group outline-none">
+                          <div className="p-2 rounded-xl bg-white/5 group-hover:bg-[#6FE7C1]/10 group-hover:text-[#6FE7C1] transition-all duration-300">
+                            <UserIcon className="w-5 h-5" />
+                          </div>
+                          <span className="font-semibold text-[15px]">Profile</span>
+                        </DropdownMenuItem>
+                      </Link>
+                    </div>
+
+                    <div className="my-2.5 h-[1px] bg-white/5 mx-2" />
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <DropdownMenuItem
                           onSelect={(e) => e.preventDefault()}
-                          className="cursor-pointer flex items-center gap-2 text-red-400 hover:text-red-300 hover:bg-white/5 px-3 py-2 mx-1 rounded-lg"
+                          className="cursor-pointer flex items-center gap-3.5 text-red-400/80 hover:text-red-400 hover:bg-red-400/5 px-4 py-3 rounded-[20px] transition-all group outline-none"
                         >
-                          <LogOut className="w-4 h-4" />
-                          Log out
+                          <div className="p-2 rounded-xl bg-red-400/5 group-hover:bg-red-400/10 transition-all duration-300">
+                            <LogOut className="w-5 h-5" />
+                          </div>
+                          <span className="font-semibold text-[15px]">Sign Out</span>
                         </DropdownMenuItem>
                       </AlertDialogTrigger>
 
-                      <AlertDialogContent className="bg-[#1a1f25] border border-white/10">
-                        <AlertDialogHeader>
-                          <AlertDialogTitle className="text-white">
-                            Log out?
-                          </AlertDialogTitle>
-                          <AlertDialogDescription className="text-white/60">
-                            You will be signed out from your account.
-                          </AlertDialogDescription>
-                        </AlertDialogHeader>
+                      <AlertDialogContent className="bg-[#111827] border border-white/10 rounded-3xl p-8 max-w-[400px]">
+                        <div className="flex flex-col items-center text-center space-y-4">
+                          <div className="w-16 h-16 rounded-2xl bg-red-400/10 flex items-center justify-center mb-2">
+                            <LogOut className="w-8 h-8 text-red-400" />
+                          </div>
 
-                        <AlertDialogFooter>
-                          <AlertDialogCancel className="bg-white/5 border-white/10 text-white hover:bg-white/10">
-                            Cancel
-                          </AlertDialogCancel>
-                          <AlertDialogAction
-                            onClick={handleLogout}
-                            className="bg-red-500 hover:bg-red-600"
-                          >
-                            Log out
-                          </AlertDialogAction>
-                        </AlertDialogFooter>
+                          <AlertDialogHeader className="space-y-2">
+                            <AlertDialogTitle className="text-2xl font-bold text-white tracking-tight">
+                              Sign Out?
+                            </AlertDialogTitle>
+                            <AlertDialogDescription className="text-base text-white/50 leading-relaxed">
+                              Are you sure you want to sign out? You'll need to sign back in to access your dashboard.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+
+                          <AlertDialogFooter className="flex flex-col sm:flex-row gap-3 w-full mt-6">
+                            <AlertDialogCancel className="w-full cursor-pointer sm:flex-1 h-12 rounded-xl bg-white/5 border-white/10 text-white hover:bg-white/10 hover:text-white transition-all font-semibold text-base py-0">
+                              No, stay here
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={handleLogout}
+                              className="w-full cursor-pointer sm:flex-1 h-12 rounded-xl bg-red-500 hover:bg-red-600 text-white border-0 transition-all font-semibold text-base shadow-[0_4px_20px_rgba(239,68,68,0.25)] py-0"
+                            >
+                              Yes, sign out
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </div>
                       </AlertDialogContent>
                     </AlertDialog>
                   </DropdownMenuContent>
@@ -323,34 +344,49 @@ const Navigation = () => {
                 )}
 
                 {!loading && user && (
-                  <div className="flex items-center justify-between px-3 sm:px-4 py-2">
-                    <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-                      <Avatar className="w-9 h-9 sm:w-10 sm:h-10 border-2 border-[#6FE7C1]/30 flex-shrink-0">
+                  <div className="space-y-4 pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-3 px-3">
+                      <Avatar className="w-12 h-12 border-2 border-[#6FE7C1]/30">
                         <AvatarImage src={avatar} />
-                        <AvatarFallback className="bg-[#1a1f25] text-white text-sm">
+                        <AvatarFallback className="bg-[#1a1f25] text-white text-lg">
                           {user.email?.[0]?.toUpperCase() || "U"}
                         </AvatarFallback>
                       </Avatar>
-                      <span className="text-white/70 text-xs sm:text-sm truncate">
-                        {user.email}
-                      </span>
+                      <div className="flex flex-col min-w-0">
+                        <span className="text-white font-semibold truncate">
+                          {user.email?.split('@')[0]}
+                        </span>
+                        <span className="text-white/40 text-xs truncate">
+                          {user.email}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Link href="/badge" onClick={() => setIsMenuOpen(false)}>
+
+                    <div className="grid grid-cols-2 gap-2 px-1">
+                      <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group">
+                        <LayoutDashboard className="w-5 h-5 text-[#6FE7C1]" />
+                        <span className="text-white/70 font-medium text-sm">Dashboard</span>
+                      </Link>
+                      <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors group">
+                        <UserIcon className="w-5 h-5 text-[#6FE7C1]" />
+                        <span className="text-white/70 font-medium text-sm">Profile</span>
+                      </Link>
+                    </div>
+
+                    <div className="flex items-center gap-2 px-1">
+                      <Link href="/badge" onClick={() => setIsMenuOpen(false)} className="flex-1">
                         <Button
-                          size="sm"
-                          className="bg-[#6FE7C1] text-[#0B0F17] hover:bg-[#5ad4af] rounded-lg text-xs sm:text-sm cursor-pointer"
+                          className="w-full bg-[#6FE7C1] text-[#0B0F17] hover:bg-[#5ad4af] rounded-xl font-bold h-11 transition-all active:scale-95"
                         >
-                          Create badge
+                          Create Badge
                         </Button>
                       </Link>
 
                       <Button
                         onClick={handleLogout}
-                        size="sm"
-                        className="bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-lg text-xs sm:text-sm flex-shrink-0"
+                        className="bg-red-500/10 text-red-400 hover:bg-red-500/20 rounded-xl h-11 px-4 transition-all active:scale-95"
                       >
-                        Logout
+                        <LogOut className="w-5 h-5" />
                       </Button>
                     </div>
                   </div>

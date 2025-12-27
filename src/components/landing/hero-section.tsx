@@ -12,80 +12,80 @@ import LumaEmbed from "./lumaEmbed";
 import { createPortal } from "react-dom";
 
 // Shader background hook
-const useShaderBackground = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number | undefined>(undefined);
-  const rendererRef = useRef<any>(null);
-  const pointersRef = useRef<any>(null);
+// const useShaderBackground = () => {
+//   const canvasRef = useRef<HTMLCanvasElement>(null);
+//   const animationFrameRef = useRef<number | undefined>(undefined);
+//   const rendererRef = useRef<any>(null);
+//   const pointersRef = useRef<any>(null);
 
-  useEffect(() => {
-    if (typeof window === "undefined" || !canvasRef.current) return;
+//   useEffect(() => {
+//     if (typeof window === "undefined" || !canvasRef.current) return;
 
-    // Dynamic import to avoid SSR issues
-    import("@/lib/shader-renderer")
-      .then(({ WebGLRenderer, PointerHandler, defaultShaderSource }) => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+//     // Dynamic import to avoid SSR issues
+//     import("@/lib/shader-renderer")
+//       .then(({ WebGLRenderer, PointerHandler, defaultShaderSource }) => {
+//         const canvas = canvasRef.current;
+//         if (!canvas) return;
 
-        const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+//         const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
 
-        rendererRef.current = new WebGLRenderer(canvas, dpr);
-        pointersRef.current = new PointerHandler(canvas, dpr);
+//         rendererRef.current = new WebGLRenderer(canvas, dpr);
+//         pointersRef.current = new PointerHandler(canvas, dpr);
 
-        rendererRef.current.setup();
-        rendererRef.current.init();
+//         rendererRef.current.setup();
+//         rendererRef.current.init();
 
-        const resize = () => {
-          if (!canvas) return;
-          canvas.width = window.innerWidth * dpr;
-          canvas.height = window.innerHeight * dpr;
-          if (rendererRef.current) {
-            rendererRef.current.updateScale(dpr);
-          }
-        };
+//         const resize = () => {
+//           if (!canvas) return;
+//           canvas.width = window.innerWidth * dpr;
+//           canvas.height = window.innerHeight * dpr;
+//           if (rendererRef.current) {
+//             rendererRef.current.updateScale(dpr);
+//           }
+//         };
 
-        resize();
+//         resize();
 
-        if (rendererRef.current.test(defaultShaderSource) === null) {
-          rendererRef.current.updateShader(defaultShaderSource);
-        }
+//         if (rendererRef.current.test(defaultShaderSource) === null) {
+//           rendererRef.current.updateShader(defaultShaderSource);
+//         }
 
-        const loop = (now: number) => {
-          if (!rendererRef.current || !pointersRef.current) return;
+//         const loop = (now: number) => {
+//           if (!rendererRef.current || !pointersRef.current) return;
 
-          rendererRef.current.updateMouse(pointersRef.current.first);
-          rendererRef.current.updatePointerCount(pointersRef.current.count);
-          rendererRef.current.updatePointerCoords(pointersRef.current.coords);
-          rendererRef.current.updateMove(pointersRef.current.move);
-          rendererRef.current.render(now);
-          animationFrameRef.current = requestAnimationFrame(loop);
-        };
+//           rendererRef.current.updateMouse(pointersRef.current.first);
+//           rendererRef.current.updatePointerCount(pointersRef.current.count);
+//           rendererRef.current.updatePointerCoords(pointersRef.current.coords);
+//           rendererRef.current.updateMove(pointersRef.current.move);
+//           rendererRef.current.render(now);
+//           animationFrameRef.current = requestAnimationFrame(loop);
+//         };
 
-        loop(0);
+//         loop(0);
 
-        window.addEventListener("resize", resize);
+//         window.addEventListener("resize", resize);
 
-        return () => {
-          window.removeEventListener("resize", resize);
-          if (animationFrameRef.current) {
-            cancelAnimationFrame(animationFrameRef.current);
-          }
-          if (rendererRef.current) {
-            rendererRef.current.reset();
-          }
-        };
-      })
-      .catch((err) => {
-        console.error("Failed to load shader:", err);
-      });
-  }, []);
+//         return () => {
+//           window.removeEventListener("resize", resize);
+//           if (animationFrameRef.current) {
+//             cancelAnimationFrame(animationFrameRef.current);
+//           }
+//           if (rendererRef.current) {
+//             rendererRef.current.reset();
+//           }
+//         };
+//       })
+//       .catch((err) => {
+//         console.error("Failed to load shader:", err);
+//       });
+//   }, []);
 
-  return canvasRef;
-};
+//   return canvasRef;
+// };
 
 const HeroSection = () => {
   const [user, setUser] = useState<User | null>(null);
-  const canvasRef = useShaderBackground();
+  // const canvasRef = useShaderBackground();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -123,12 +123,12 @@ const HeroSection = () => {
   return (
     <>
     <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
-      {/* Animated Shader Background */}
+      {/* Animated Shader Background
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full object-cover touch-none opacity-60 mix-blend-screen"
         style={{ background: "transparent" }}
-      />
+      /> */}
 
       {/* Gradient fade to next section */}
       <div

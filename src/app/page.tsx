@@ -12,7 +12,6 @@ import BackToTop from "@/components/ui/BackToTop";
 export default function Home() {
   return (
     <div>
-      <Navigation />
       <HeroSection />
       <CoreValues />
       <ProjectsSection />

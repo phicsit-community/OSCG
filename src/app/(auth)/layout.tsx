@@ -1,5 +1,3 @@
-import Navigation from "@/components/landing/navigation";
-
 import { ReactNode } from "react";
 
 interface AuthLayoutProps {
@@ -9,7 +7,6 @@ interface AuthLayoutProps {
 const AuthLayout = ({ children }: AuthLayoutProps) => {
   return (
     <div>
-      <Navigation />
       {children}
     </div>
   );
