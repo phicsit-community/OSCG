@@ -23,8 +23,16 @@ const applyLinks = [
   { label: "Become a Speaker", href: "#" },
   { label: "Become a Mentor", href: "#" },
   { label: "Become Project Admin", href: "#" },
-  { label: "Become Campus Lead", href: "#" },
-  { label: "Become State Lead", href: "#" },
+  {
+    label: "Become Campus Lead",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLSffTnzw6voymzgbWKycMZoQYrCMbqBfan_lCNisK2SPlxErWA/viewform",
+    target: "_blank"
+  },
+  {
+    label: "Become State Lead",
+    href: "https://docs.google.com/forms/d/e/1FAIpQLScVbMGn5ntgASDbMr0kir4I7T3HGqLClTJZmXtdInv0reGQqA/viewform",
+    target: "_blank"
+  },
   { label: "Become Sponsor", href: "#" },
 ];
 
@@ -107,10 +115,12 @@ const Footer = () => {
               Apply
             </h4>
             <ul className="space-y-4">
-              {applyLinks.map(({ label, href }) => (
+              {applyLinks.map(({ label, href, target }) => (
                 <li key={label} className="group/link">
                   <Link
                     href={href}
+                    target={target}
+                    rel={target === "_blank" ? "noopener noreferrer" : undefined}
                     className="text-[var(--text-muted)] hover:text-white transition-all duration-300 text-sm font-medium inline-block"
                   >
                     {label}
