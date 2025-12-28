@@ -11,8 +11,7 @@ import {
   Award,
   GraduationCap,
   MapPin,
-  Heart,
-  ChevronRight
+  Heart
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -111,9 +110,8 @@ const Footer = () => {
                 <li key={label} className="group/link">
                   <Link
                     href={href}
-                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
+                    className="text-[var(--text-muted)] hover:text-white transition-all duration-300 text-sm font-medium inline-block"
                   >
-                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-[var(--accent-secondary)]" />
                     {label}
                   </Link>
                 </li>
@@ -131,9 +129,8 @@ const Footer = () => {
                 <li key={label} className="group/link">
                   <Link
                     href={href}
-                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
+                    className="text-[var(--text-muted)] hover:text-white transition-all duration-300 text-sm font-medium inline-block"
                   >
-                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-(--accent-primary)" />
                     {label}
                   </Link>
                 </li>
@@ -151,9 +148,8 @@ const Footer = () => {
                 <li key={label} className="group/link">
                   <Link
                     href={href}
-                    className="flex items-center gap-2 text-[var(--text-muted)] group-hover/link:text-white translate-x-0 group-hover/link:translate-x-1 transition-all duration-300 text-sm font-medium"
+                    className="text-[var(--text-muted)] hover:text-white transition-all duration-300 text-sm font-medium inline-block"
                   >
-                    <ChevronRight className="h-3 w-3 opacity-0 -ml-4 group-hover/link:opacity-100 group-hover/link:ml-0 transition-all duration-300 text-orange-400" />
                     {label}
                   </Link>
                 </li>
