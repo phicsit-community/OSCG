@@ -15,7 +15,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -252,7 +251,7 @@ const Navigation = () => {
                               Sign Out?
                             </AlertDialogTitle>
                             <AlertDialogDescription className="text-base text-white/50 leading-relaxed">
-                              Are you sure you want to sign out? You'll need to sign back in to access your dashboard.
+                              Are you sure you want to sign out? You&apos;ll need to sign back in to access your dashboard.
                             </AlertDialogDescription>
                           </AlertDialogHeader>
 

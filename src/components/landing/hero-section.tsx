@@ -105,143 +105,143 @@ const HeroSection = () => {
 
   const modal = open && true
     ? createPortal(
-        <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
-          <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-6">
-            <button
-              onClick={() => setOpen(false)}
-              className="absolute right-8 top-6 text-white cursor-pointer z-10"
-            >
-              <X />
-            </button>
-            <LumaEmbed />
-          </div>
-        </div>,
-        document.body
-      )
+      <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
+        <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-6">
+          <button
+            onClick={() => setOpen(false)}
+            className="absolute right-8 top-6 text-white cursor-pointer z-10"
+          >
+            <X />
+          </button>
+          <LumaEmbed />
+        </div>
+      </div>,
+      document.body
+    )
     : null;
 
   return (
     <>
-    <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
-      {/* Animated Shader Background
+      <section className="relative min-h-dvh flex items-center justify-center overflow-hidden">
+        {/* Animated Shader Background
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full object-cover touch-none opacity-60 mix-blend-screen"
         style={{ background: "transparent" }}
       /> */}
 
-      {/* Gradient fade to next section */}
-      <div
-        className="absolute inset-x-0 bottom-0 h-48 z-10 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%)",
-        }}
-      />
+        {/* Gradient fade to next section */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-48 z-10 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%)",
+          }}
+        />
 
-      <div className="relative container pt-16 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="flex flex-col items-center"
-        >
-          {/* Badge */}
+        <div className="relative container pt-28 sm:pt-36 lg:pt-44 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm backdrop-blur-md"
-          >
-            <Github className="h-4 w-4 text-[var(--accent-secondary)]" />
-            <span className="text-white/90 font-medium">
-              Global Edition • 2026
-            </span>
-          </motion.div>
-
-          {/* Main Heading */}
-          <h1 className="mb-6 max-w-4xl text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
-            Connecting the World Through{" "}
-            <span className="text-accent-gradient">Open Source</span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="mb-12 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
-            Join thousands of developers, innovators, and open source
-            enthusiasts celebrating global collaboration and technological
-            excellence.
-          </p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-4"
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="flex flex-col items-center"
           >
-            {user ? (
-              <Link href="/dashboard">
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm backdrop-blur-md"
+            >
+              <Github className="h-4 w-4 text-[var(--accent-secondary)]" />
+              <span className="text-white/90 font-medium">
+                Global Edition • 2026
+              </span>
+            </motion.div>
+
+            {/* Main Heading */}
+            <h1 className="mb-6 max-w-4xl text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+              Connecting the World Through{" "}
+              <span className="text-accent-gradient">Open Source</span>
+            </h1>
+
+            {/* Subheading */}
+            <p className="mb-12 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
+              Join thousands of developers, innovators, and open source
+              enthusiasts celebrating global collaboration and technological
+              excellence.
+            </p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.5 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
+            >
+              {user ? (
+                <Link href="/dashboard">
+                  <Button
+                    size="lg"
+                    className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
+                  >
+                    Dashboard
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </Link>
+              ) : (
+                <>
+                  <Button
+                    size="lg"
+                    className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
+                    onClick={() => setOpen(true)}
+                  >
+                    Register Now
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+
+                </>
+              )}
+
+              <Link href="/projects">
                 <Button
                   size="lg"
-                  className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
+                  variant="outline"
+                  className="border-white/20 bg-white/5 cursor-pointer text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all w-full sm:w-auto"
                 >
-                  Dashboard
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  Explore Projects
                 </Button>
               </Link>
-            ) : (
-              <>
-                <Button
-                  size="lg"
-                  className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
-                  onClick={() => setOpen(true)}
+            </motion.div>
+
+            {/* Stats Row */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6, duration: 1 }}
+              className="mt-20 grid w-full max-w-3xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
+            >
+              {[
+                ["25,000+", "Participants"],
+                ["60+", "Speakers"],
+                ["100+", "Projects"],
+                ["Global", "Community"],
+              ].map(([value, label], i) => (
+                <div
+                  key={i}
+                  className="flex flex-col items-center p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/5"
                 >
-                  Register Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                
-              </>
-            )}
-
-            <Link href="/projects">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/20 bg-white/5  cursor-pointer text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all hidden min-[500px]:block"
-              >
-                Explore Projects
-              </Button>
-            </Link>
-          </motion.div>
-
-          {/* Stats Row */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="mt-20 grid w-full max-w-3xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
-          >
-            {[
-              ["25,000+", "Participants"],
-              ["60+", "Speakers"],
-              ["100+", "Projects"],
-              ["Global", "Community"],
-            ].map(([value, label], i) => (
-              <div
-                key={i}
-                className="flex flex-col items-center p-5 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/5"
-              >
-                <div className="mb-1 font-bold text-2xl sm:text-3xl text-[var(--accent-secondary)]">
-                  {value}
+                  <div className="mb-1 font-bold text-2xl sm:text-3xl text-[var(--accent-secondary)]">
+                    {value}
+                  </div>
+                  <div className="text-sm text-white/60">{label}</div>
                 </div>
-                <div className="text-sm text-white/60">{label}</div>
-              </div>
-            ))}
+              ))}
+            </motion.div>
           </motion.div>
-        </motion.div>
-      </div>
-    </section>
-    {modal}
+        </div>
+      </section>
+      {modal}
     </>
   );
 };

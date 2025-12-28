@@ -52,7 +52,7 @@ const Footer = () => {
       <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="grid gap-12 lg:grid-cols-12 mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-12 mb-20">
           {/* Brand Column */}
           <div className="lg:col-span-3 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
@@ -157,7 +157,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-3">
             <div className="p-[1px] rounded-3xl bg-linear-to-br from-white/10 to-transparent">
               <div className="bg-[#050505]/40 backdrop-blur-sm rounded-[23px] p-6 border border-white/5">
                 <h4 className="mb-2 text-sm font-bold text-white tracking-tight">
@@ -203,7 +203,7 @@ const Footer = () => {
             </Link>
             <Link
               href="/terms"
-              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors md:mr-20"
+              className="text-sm text-[var(--text-muted)] hover:text-white transition-colors"
             >
               Terms
             </Link>
