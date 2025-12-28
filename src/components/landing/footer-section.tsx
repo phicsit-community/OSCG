@@ -5,13 +5,7 @@ import {
   Twitter,
   Linkedin,
   Github,
-  Send,
-  Users,
-  Mic,
-  Award,
-  GraduationCap,
-  MapPin,
-  Heart
+  Send
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -23,15 +17,6 @@ const resources = [
   { label: "Code of Conduct", href: "/code-of-conduct" },
   { label: "Media Kit", href: "/media" },
   { label: "Help Center", href: "/help" },
-];
-
-const quickLinks = [
-  { label: "About", href: "/about" },
-  { label: "Event Overview", href: "/timeline" },
-  { label: "Speakers", href: "/speakers" },
-  { label: "Sponsors", href: "#sponsors" },
-  { label: "Blog", href: "/blog" },
-  { label: "Contact Us", href: "mailto:hello@osconnect.org" },
 ];
 
 const applyLinks = [
@@ -53,7 +38,6 @@ const Footer = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-12 mb-20">
-          {/* Brand Column */}
           <div className="lg:col-span-3 flex flex-col items-start">
             <Link href="/" className="mb-6 flex items-center gap-3 group">
               <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-(--accent-primary)/30 to-(--accent-secondary)/10 border border-(--accent-primary)/20 group-hover:border-(--accent-primary)/50 transition-all duration-500 overflow-hidden shadow-lg shadow-(--accent-primary)/10">
@@ -99,29 +83,8 @@ const Footer = () => {
               ))}
             </div>
           </div>
-
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 lg:col-start-5">
             <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
-              <span className="w-8 h-[1px] bg-linear-to-r from-[var(--accent-secondary)] to-transparent"></span>
-              Quick Links
-            </h4>
-            <ul className="space-y-4">
-              {quickLinks.map(({ label, href }) => (
-                <li key={label} className="group/link">
-                  <Link
-                    href={href}
-                    className="text-[var(--text-muted)] hover:text-white transition-all duration-300 text-sm font-medium inline-block"
-                  >
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
-              <span className="w-8 h-[1px] bg-linear-to-r from-(--accent-primary) to-transparent"></span>
               Resources
             </h4>
             <ul className="space-y-4">
@@ -140,7 +103,7 @@ const Footer = () => {
 
           <div className="lg:col-span-2">
             <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
-              <span className="w-8 h-[1px] bg-linear-to-r from-[var(--accent-primary)] to-transparent"></span>
+
               Apply
             </h4>
             <ul className="space-y-4">
@@ -157,7 +120,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="sm:col-span-2 md:col-span-3 lg:col-span-3">
+          <div className="sm:col-span-2 md:col-span-3 lg:col-span-4 lg:col-start-9">
             <div className="p-[1px] rounded-3xl bg-linear-to-br from-white/10 to-transparent">
               <div className="bg-[#050505]/40 backdrop-blur-sm rounded-[23px] p-6 border border-white/5">
                 <h4 className="mb-2 text-sm font-bold text-white tracking-tight">

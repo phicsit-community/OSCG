@@ -94,7 +94,7 @@ const CoreValues = () => {
 
         {/* Values Cards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
           variants={containerVariants}
         >
           {values.map((value, index) => (
@@ -137,24 +137,6 @@ const CoreValues = () => {
           ))}
         </motion.div>
 
-        {/* Bottom CTA */}
-        <motion.div className="flex justify-center" variants={fadeUp}>
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-            <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-primary)]" />
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-tertiary)]" />
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-primary)]" />
-            </div>
-            <span className="text-sm font-medium text-white/80">
-              Join us in building the future of open source
-            </span>
-            <div className="flex gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-primary)]" />
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-tertiary)]" />
-              <div className="w-2 h-2 rounded-full bg-[var(--accent-primary)]" />
-            </div>
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );

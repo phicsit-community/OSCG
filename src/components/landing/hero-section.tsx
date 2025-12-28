@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/lib/supabase/client";
-import { ArrowRight, Github, X } from "lucide-react";
+import { ArrowRight, Globe, X } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import type { User } from "@supabase/supabase-js";
@@ -130,16 +130,9 @@ const HeroSection = () => {
         style={{ background: "transparent" }}
       /> */}
 
-        {/* Gradient fade to next section */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-48 z-10 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, var(--bg-dark) 100%)",
-          }}
-        />
 
-        <div className="relative container pt-28 sm:pt-36 lg:pt-44 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
+
+        <div className="relative container pt-16 sm:pt-20 lg:pt-24 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -151,22 +144,22 @@ const HeroSection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-8 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm backdrop-blur-md"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 px-5 py-2.5 text-sm backdrop-blur-md"
             >
-              <Github className="h-4 w-4 text-[var(--accent-secondary)]" />
+              <Globe className="h-4 w-4 text-[var(--accent-secondary)]" />
               <span className="text-white/90 font-medium">
                 Global Edition • 2026
               </span>
             </motion.div>
 
             {/* Main Heading */}
-            <h1 className="mb-6 max-w-4xl text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+            <h1 className="mb-4 max-w-4xl text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
               Connecting the World Through{" "}
               <span className="text-accent-gradient">Open Source</span>
             </h1>
 
             {/* Subheading */}
-            <p className="mb-12 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
+            <p className="mb-10 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
               Join thousands of developers, innovators, and open source
               enthusiasts celebrating global collaboration and technological
               excellence.
@@ -180,38 +173,26 @@ const HeroSection = () => {
               className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
             >
               {user ? (
-                <Link href="/dashboard">
+                <Link href="/badge" className="w-full sm:w-auto">
                   <Button
                     size="lg"
                     className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
                   >
-                    Dashboard
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    Create Your Badge
                   </Button>
                 </Link>
               ) : (
-                <>
-                  <Button
-                    size="lg"
-                    className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
-                    onClick={() => setOpen(true)}
-                  >
-                    Register Now
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-
-                </>
-              )}
-
-              <Link href="/projects">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="border-white/20 bg-white/5 cursor-pointer text-white backdrop-blur-sm h-14 px-10 text-base font-semibold rounded-2xl transition-all w-full sm:w-auto"
+                  className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
+                  onClick={() => setOpen(true)}
                 >
-                  Explore Projects
+                  Register Now
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-              </Link>
+              )}
+
+
             </motion.div>
 
             {/* Stats Row */}
@@ -219,7 +200,7 @@ const HeroSection = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6, duration: 1 }}
-              className="mt-20 grid w-full max-w-3xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
+              className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4"
             >
               {[
                 ["25,000+", "Participants"],

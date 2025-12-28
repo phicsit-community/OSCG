@@ -4,8 +4,8 @@ import { useEffect, useRef } from "react";
 
 const GlobalBackground = () => {
     return (
-        <div className="fixed inset-0 z-[-1] bg-[#05080F] overflow-hidden">
-            {/* Primary Gradient Orbs - positioned to blend with hero shader */}
+        <div className="fixed inset-0 z-[-1] bg-transparent overflow-hidden">
+
             <div
                 className="absolute top-[-5%] left-[-5%] w-[50%] h-[50%] rounded-full blur-[150px] animate-pulse"
                 style={{
@@ -34,21 +34,12 @@ const GlobalBackground = () => {
                 }}
             />
 
-            {/* Grid Pattern - subtle and unified */}
-            <div
-                className="absolute inset-0 opacity-[0.18]"
-                style={{
-                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)`,
-                    backgroundSize: "4rem 4rem",
-                    maskImage: "radial-gradient(ellipse at 50% 30%, black 0%, transparent 70%)",
-                }}
-            />
 
-            {/* Subtle vignette for depth */}
             <div
-                className="absolute inset-0 pointer-events-none"
+                className="absolute inset-0 opacity-[0.1]"
                 style={{
-                    background: 'radial-gradient(ellipse at center, transparent 0%, rgba(5, 8, 15, 0.4) 100%)'
+                    backgroundImage: `linear-gradient(to right, rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.2) 1px, transparent 1px)`,
+                    backgroundSize: "4rem 4rem",
                 }}
             />
         </div>

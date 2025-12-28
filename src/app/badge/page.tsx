@@ -53,8 +53,10 @@ export default function BadgePage() {
       setIsDownloading(true);
       const dataUrl = await toPng(badgeRef.current, {
         cacheBust: true,
-        backgroundColor: "#0B1220",
-        pixelRatio: 2,
+        pixelRatio: 3,
+        style: {
+          borderRadius: "2.5rem",
+        },
       });
       const link = document.createElement("a");
       const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"}.png`;
@@ -212,26 +214,15 @@ export default function BadgePage() {
               <motion.div
                 ref={badgeRef}
                 layoutId="badge-card"
-                className="
-        relative aspect-[3/4.2]
-        rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem]
-        overflow-hidden isolate group
-      "
+                className="relative aspect-[3/4.2] rounded-[2.5rem] overflow-hidden group bg-[#0B1220]"
               >
-                <div className="absolute inset-0 rounded-inherit overflow-hidden pointer-events-none">
-                  <div className="absolute inset-0 bg-[#00D6B2]/5 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
-                  <div className="absolute inset-0 bg-linear-to-br from-white/20 via-white/5 to-white/10" />
+                {/* Background base layers */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-white/5 opacity-50" />
+                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] scale-150" />
                 </div>
-                <div
-                  className="
-          relative w-full h-full rounded-inherit
-          bg-[#0B1220] overflow-hidden
-          flex flex-col
-          p-4 sm:p-6 md:p-8 lg:p-10
-          bg-[radial-gradient(circle_at_top_right,rgba(0,214,178,0.08),transparent_50%)]
-        "
-                >
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] scale-150 pointer-events-none" />
+
+                <div className="relative z-10 w-full h-full flex flex-col p-6 sm:p-8 md:p-10">
                   <div className="relative z-10 w-full mb-4 sm:mb-6 flex justify-center items-center gap-3">
                     <Image
                       src="/logo1.png"
@@ -374,7 +365,7 @@ export default function BadgePage() {
                     placeholder="Enter your full name"
                     value={name}
                     onChange={(e) => setName(e.target.value.slice(0, 30))}
-                    className="h-14 border-white/5 rounded-2xl px-4 focus:border-[#00D6B2]/30 focus:ring-0 text-lg font-medium transition-all placeholder:text-white/70 bg-[#0E1726]"
+                    className="h-14 border-white/15 rounded-2xl px-4 focus:border-[#00D6B2]/30 focus:ring-0 text-lg font-medium transition-all placeholder:text-white/70 bg-[#0E1726]"
                   />
                 </div>
 
@@ -431,7 +422,7 @@ export default function BadgePage() {
                       onDragOver={(e) => e.preventDefault()}
                       onDrop={handleDrop}
                       className={cn(
-                        "relative h-64 rounded-4xl border-2 border-dashed border-white/5 bg-white/2 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all hover:bg-white/4 hover:border-[#00D6B2]/20 group overflow-hidden",
+                        "relative h-64 rounded-4xl border-2 border-dashed border-white/15 bg-white/2 flex flex-col items-center justify-center gap-4 cursor-pointer transition-all hover:bg-white/4 hover:border-[#00D6B2]/20 group overflow-hidden",
                         image && "border-[#00D6B2]/30 bg-[#00D6B2]/1"
                       )}
                     >
@@ -683,7 +674,7 @@ export default function BadgePage() {
                 <div className="flex flex-col sm:flex-row gap-5 pt-4">
                   <Button
                     variant="outline"
-                    className="flex-1 h-16 rounded-2xl border-white/5 bg-white/2 hover:bg-white/5 hover:border-white/10 text-sm font-bold cursor-pointer hover:text-white uppercase tracking-[0.2em] transition-all group"
+                    className="flex-1 h-16 rounded-2xl border-white/15 bg-white/2 hover:bg-white/5 hover:border-white/10 text-sm font-bold cursor-pointer hover:text-white uppercase tracking-[0.2em] transition-all group"
                     onClick={() => fileInputRef.current?.click()}
                   >
                     <Upload className="w-4 h-4 mr-3  transition-transform text-[#00D6B2]" />

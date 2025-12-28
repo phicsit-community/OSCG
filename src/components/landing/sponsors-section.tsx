@@ -176,7 +176,7 @@ const SponsersSection = () => {
             <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,var(--gradient-color),transparent_70%)] before:opacity-40" />
 
             {/* Curved horizon line - cards follow this curve */}
-            <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/20 bg-[#05080F]" />
+            <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-white/10 bg-[#0A0F15]" />
 
             {/* Sparkles particles */}
             <Sparkles
