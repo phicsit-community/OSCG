@@ -84,13 +84,13 @@ const guidelines = [
 
 const CommunityGuidelines = () => {
   return (
-    <div className="min-h-screen bg-[#090E1A] mt-10 section-container">
+    <div className="min-h-screen mt-10 section-container">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+  <div className="relative z-10 max-w-7xl mx-auto pt-[80px]">
 
         <div className="section-header">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
@@ -130,8 +130,8 @@ const CommunityGuidelines = () => {
 
         <div className="text-center pb-20 b">
           <div className="inline-flex items-center gap-3 bg-white px-6 py-4 rounded-full border border-primary/20 backdrop-blur-sm">
-            <CheckCircle className="w-6 h-6 text-primary" />
-            <p className="text-sm md:text-base font-medium">
+            <CheckCircle className="w-6 h-6 text-green-500" />
+            <p className="text-sm md:text-base font-medium text-black">
               By joining Open Source Connect, you agree to uphold these values.
             </p>
           </div>

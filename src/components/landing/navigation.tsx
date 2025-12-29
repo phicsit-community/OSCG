@@ -62,9 +62,9 @@ const Navigation = () => {
       const currentUser = data?.user || null;
 
       setUser(currentUser);
-      setAvatar(
-        currentUser?.user_metadata?.avatar_url || "/default-avatar.png"
-      );
+      const seed = currentUser?.email || "user";
+      const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
+      setAvatar(dicebearUrl);
 
       setLoading(false);
     };
@@ -76,9 +76,9 @@ const Navigation = () => {
         const currentUser = session?.user || null;
 
         setUser(currentUser);
-        setAvatar(
-          currentUser?.user_metadata?.avatar_url || "/default-avatar.png"
-        );
+        const seed = currentUser?.email || "user";
+        const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
+        setAvatar(dicebearUrl);
       }
     );
 
@@ -160,45 +160,83 @@ const Navigation = () => {
               <>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer w-8 h-8 lg:w-9 lg:h-9 border-2 border-transparent hover:border-[#6FE7C1]/50 transition-all">
-                      <AvatarImage src={avatar} />
-                      <AvatarFallback className="bg-[#1a1f25] text-white text-xs lg:text-sm">
-                        {user.email?.[0]?.toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
+                    <div className="relative cursor-pointer group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-20 group-hover:opacity-40 transition items-center justify-center"></div>
+                      <Avatar className="relative w-8 h-8 lg:w-9 lg:h-9 border border-white/10 transition-all">
+                        <img
+                          src={avatar}
+                          alt="Avatar"
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            // Fallback if image fails
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                        <AvatarFallback className="bg-[#1a1f25] text-white text-xs lg:text-sm">
+                          {user.email?.[0]?.toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
                   </DropdownMenuTrigger>
 
                   <DropdownMenuContent
                     align="end"
-                    sideOffset={8}
-                    className="w-48 bg-[#0A0F15] border border-white/10 shadow-2xl rounded-xl p-1 outline-none"
+                    sideOffset={12}
+                    className="w-64 bg-[#0A0F15]/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl p-2 outline-none"
                   >
+                    <div className="px-3 py-4 mb-2 flex items-center gap-3 border-b border-white/5">
+                      <div className="relative">
+                        <Avatar className="w-10 h-10 border border-white/10">
+                          <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                        </Avatar>
+                        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#6FE7C1] border-2 border-[#0A0F15] rounded-full" />
+                      </div>
+                      <div className="flex flex-col min-w-0">
+                        <p className="text-sm font-semibold text-white truncate leading-none mb-1">
+                          {user.user_metadata?.full_name || user.email?.split('@')[0] || "User"}
+                        </p>
+                        <p className="text-[11px] text-white/40 truncate font-medium">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+
                     <div className="space-y-1">
                       <Link href="/dashboard">
-                        <DropdownMenuItem className="cursor-pointer flex items-center gap-2.5 text-white/70 hover:text-white hover:bg-white/5 px-2.5 py-1.5 rounded-lg transition-all outline-none">
-                          <LayoutDashboard className="w-4 h-4 opacity-50 group-hover:opacity-100" />
-                          <span className="text-[13px] font-medium">Dashboard</span>
+                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-3 text-white/60 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-white/60">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
+                            <LayoutDashboard className="w-4 h-4 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
+                          </div>
+                          <span className="text-[14px] font-medium transition-colors group-hover:text-[#6FE7C1]">
+                            Dashboard
+                          </span>
                         </DropdownMenuItem>
                       </Link>
 
                       <Link href="/profile">
-                        <DropdownMenuItem className="cursor-pointer flex items-center gap-2.5 text-white/70 hover:text-white hover:bg-white/5 px-2.5 py-1.5 rounded-lg transition-all outline-none">
-                          <UserIcon className="w-4 h-4 opacity-50 group-hover:opacity-100" />
-                          <span className="text-[13px] font-medium">Profile</span>
+                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-3 text-white/60 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-white/60">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
+                            <UserIcon className="w-4 h-4 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
+                          </div>
+                          <span className="text-[14px] font-medium transition-colors group-hover:text-[#6FE7C1]">
+                            Profile
+                          </span>
                         </DropdownMenuItem>
                       </Link>
                     </div>
 
-                    <div className="my-1 h-[1px] bg-white/5" />
+                    <div className="my-2 h-[1px] bg-white/5 mx-1" />
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <DropdownMenuItem
                           onSelect={(e) => e.preventDefault()}
-                          className="cursor-pointer flex items-center gap-2.5 text-red-400/80 hover:text-red-400 hover:bg-red-400/5 px-2.5 py-1.5 rounded-lg transition-all outline-none"
+                          className="group cursor-pointer flex items-center gap-3 text-red-400/70 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-red-400/70"
                         >
-                          <LogOut className="w-4 h-4 opacity-70" />
-                          <span className="text-[13px] font-medium">Sign Out</span>
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-400/5 transition-colors group-hover:bg-red-400/10">
+                            <LogOut className="w-4 h-4 transition-colors group-hover:text-red-400" />
+                          </div>
+                          <span className="text-[14px] font-medium transition-colors group-hover:text-red-400">Sign Out</span>
                         </DropdownMenuItem>
                       </AlertDialogTrigger>
 
@@ -231,7 +269,6 @@ const Navigation = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
           <div className="md:hidden">
             <Button
               variant="ghost"
@@ -300,42 +337,46 @@ const Navigation = () => {
 
                 {!loading && user && (
                   <div className="space-y-4 pt-4 border-t border-white/5">
-                    <div className="flex items-center justify-between px-1">
-                      <div className="flex items-center gap-3 px-2">
-                        <Avatar className="w-10 h-10 border border-white/10">
-                          <AvatarImage src={avatar} />
-                          <AvatarFallback className="bg-white/5 text-white text-sm">
-                            {user.email?.[0]?.toUpperCase() || "U"}
-                          </AvatarFallback>
-                        </Avatar>
+                    <div className="flex flex-col gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-4">
+                        <div className="relative group">
+                          <div className="absolute -inset-1 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-25" />
+                          <Avatar className="relative w-14 h-14 border border-white/10">
+                            <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                            <AvatarFallback className="bg-[#1a1f25] text-white">
+                              {user.email?.[0]?.toUpperCase()}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#6FE7C1] border-2 border-[#0A0F15] rounded-full shadow-lg" />
+                        </div>
                         <div className="flex flex-col min-w-0">
-                          <span className="text-white text-sm font-medium truncate">
-                            {user.email?.split('@')[0]}
+                          <span className="text-white text-base font-semibold truncate leading-none mb-1.5">
+                            {user.user_metadata?.full_name || user.email?.split('@')[0]}
                           </span>
-                          <span className="text-white/30 text-xs truncate">
+                          <span className="text-white/40 text-xs truncate">
                             {user.email}
                           </span>
                         </div>
                       </div>
+
+                      <div className="grid grid-cols-2 gap-2">
+                        <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+                          <LayoutDashboard className="w-4 h-4 text-[#6FE7C1]" />
+                          <span className="text-white/80 font-medium text-[13px]">Dashboard</span>
+                        </Link>
+                        <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
+                          <UserIcon className="w-4 h-4 text-[#6FE7C1]" />
+                          <span className="text-white/80 font-medium text-[13px]">Profile</span>
+                        </Link>
+                      </div>
+
                       <Button
                         onClick={handleLogout}
-                        variant="ghost"
-                        size="icon"
-                        className="text-red-400/70 hover:text-red-400 hover:bg-red-400/5 rounded-xl h-10 w-10 transition-all"
+                        className="w-full justify-center gap-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 bg-red-400/5 border border-red-400/10 rounded-xl h-12 font-semibold transition-all"
                       >
-                        <LogOut className="w-5 h-5" />
+                        <LogOut className="w-4 h-4" />
+                        Log Out
                       </Button>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-2 px-1">
-                      <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2.5 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                        <LayoutDashboard className="w-4 h-4 text-[#6FE7C1]/80" />
-                        <span className="text-white/80 font-medium text-sm">Dashboard</span>
-                      </Link>
-                      <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2.5 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                        <UserIcon className="w-4 h-4 text-[#6FE7C1]/80" />
-                        <span className="text-white/80 font-medium text-sm">Profile</span>
-                      </Link>
                     </div>
                   </div>
                 )}
