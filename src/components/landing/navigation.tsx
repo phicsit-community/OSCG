@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, LogOut, Menu, User as UserIcon, X } from "lucide-react";
+import { Bed, LayoutDashboard, LogOut, Menu, User as UserIcon, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -113,7 +113,7 @@ const Navigation = () => {
             className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0"
           >
             <Image
-              src="/logo.png"
+              src="/logo1.png"
               alt="Logo"
               width={32}
               height={32}
@@ -162,7 +162,7 @@ const Navigation = () => {
                   <DropdownMenuTrigger asChild>
                     <div className="relative cursor-pointer group">
                       <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-20 group-hover:opacity-40 transition items-center justify-center"></div>
-                      <Avatar className="relative w-8 h-8 lg:w-9 lg:h-9 border border-white/10 transition-all">
+                      <Avatar className="relative w-8 h-8 lg:w-9 lg:h-9  transition-all">
                         <img
                           src={avatar}
                           alt="Avatar"
@@ -182,61 +182,65 @@ const Navigation = () => {
                   <DropdownMenuContent
                     align="end"
                     sideOffset={12}
-                    className="w-64 bg-[#0A0F15]/95 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl p-2 outline-none"
+                    className="w-[230px] bg-[#0A0F15]/98 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] rounded-[1.75rem] p-1.5 outline-none"
                   >
-                    <div className="px-3 py-4 mb-2 flex items-center gap-3 border-b border-white/5">
+                    <div className="px-3.5 py-3 mb-1 flex items-center gap-3">
                       <div className="relative">
-                        <Avatar className="w-10 h-10 border border-white/10">
+                        <Avatar className="w-9 h-9 ">
                           <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
                         </Avatar>
-                        <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#6FE7C1] border-2 border-[#0A0F15] rounded-full" />
+
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <p className="text-sm font-semibold text-white truncate leading-none mb-1">
+                        <p className="text-[13px] font-bold text-white truncate leading-none mb-1">
                           {user.user_metadata?.full_name || user.email?.split('@')[0] || "User"}
                         </p>
-                        <p className="text-[11px] text-white/40 truncate font-medium">
+                        <p className="text-[10px] text-white/40 truncate font-medium">
                           {user.email}
                         </p>
                       </div>
                     </div>
 
-                    <div className="space-y-1">
-                      <Link href="/dashboard">
-                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-3 text-white/60 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-white/60">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
-                            <LayoutDashboard className="w-4 h-4 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
+                    <div className="h-[1px] bg-white/5 mx-2 mb-1" />
+
+                    <div className="space-y-0.5">
+                      <Link href="/profile">
+                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-2.5 text-white/70 px-2.5 py-1.25 rounded-xl outline-none focus:bg-white/5 focus:text-white transition-all">
+                          <div className="flex items-center justify-center w-6.5 h-6.5 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
+                            <UserIcon className="w-3.5 h-3.5 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
                           </div>
-                          <span className="text-[14px] font-medium transition-colors group-hover:text-[#6FE7C1]">
-                            Dashboard
+                          <span className="text-[13px] font-medium transition-colors group-hover:text-white">
+                            Profile
                           </span>
                         </DropdownMenuItem>
                       </Link>
 
-                      <Link href="/profile">
-                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-3 text-white/60 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-white/60">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
-                            <UserIcon className="w-4 h-4 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
+
+
+                      <Link href="/dashboard">
+                        <DropdownMenuItem className="group cursor-pointer flex items-center gap-2.5 text-white/70 px-2.5 py-1.25 rounded-xl outline-none focus:bg-white/5 focus:text-white transition-all">
+                          <div className="flex items-center justify-center w-6.5 h-6.5 rounded-lg bg-white/5 transition-colors group-hover:bg-[#6FE7C1]/10">
+                            <LayoutDashboard className="w-3.5 h-3.5 text-white/60 transition-colors group-hover:text-[#6FE7C1]" />
                           </div>
-                          <span className="text-[14px] font-medium transition-colors group-hover:text-[#6FE7C1]">
-                            Profile
+                          <span className="text-[13px] font-medium transition-colors group-hover:text-white">
+                            Dashboard
                           </span>
                         </DropdownMenuItem>
                       </Link>
                     </div>
 
-                    <div className="my-2 h-[1px] bg-white/5 mx-1" />
+                    <div className="h-[1px] bg-white/5 mx-2 my-1" />
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <DropdownMenuItem
                           onSelect={(e) => e.preventDefault()}
-                          className="group cursor-pointer flex items-center gap-3 text-red-400/70 px-3 py-2.5 rounded-xl outline-none focus:bg-transparent focus:text-red-400/70"
+                          className="group cursor-pointer flex items-center gap-2.5 text-red-500/90 px-2.5 py-1.25 rounded-xl outline-none focus:bg-red-500/5 transition-all"
                         >
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-red-400/5 transition-colors group-hover:bg-red-400/10">
-                            <LogOut className="w-4 h-4 transition-colors group-hover:text-red-400" />
+                          <div className="flex items-center justify-center w-6.5 h-6.5 rounded-lg bg-red-400/5 transition-colors group-hover:bg-red-400/10">
+                            <LogOut className="w-3.5 h-3.5 transition-colors group-hover:text-red-500" />
                           </div>
-                          <span className="text-[14px] font-medium transition-colors group-hover:text-red-400">Sign Out</span>
+                          <span className="text-[13px] font-bold transition-colors group-hover:text-red-500">Logout</span>
                         </DropdownMenuItem>
                       </AlertDialogTrigger>
 
@@ -256,9 +260,9 @@ const Navigation = () => {
                           </AlertDialogCancel>
                           <AlertDialogAction
                             onClick={handleLogout}
-                            className="h-9 px-4 rounded-lg bg-white text-black hover:bg-white/90 transition-all text-xs font-bold border-0 py-0 cursor-pointer"
+                            className="h-9 px-4 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-all text-xs font-bold border-0 py-0 cursor-pointer"
                           >
-                            Sign Out
+                            Logout
                           </AlertDialogAction>
                         </AlertDialogFooter>
                       </AlertDialogContent>
@@ -288,7 +292,6 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -298,90 +301,102 @@ const Navigation = () => {
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="p-3 sm:p-4 space-y-1">
+            <div className="p-3 space-y-0.5">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: index * 0.05,
+                    duration: 0.3,
+                    ease: "easeOut"
+                  }}
                 >
                   <Link
                     href={item.href}
-                    className="block px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5 rounded-lg sm:rounded-xl transition-colors"
+                    className="block w-full py-2.5 text-center text-[15px] font-medium text-white/60 hover:text-white transition-colors"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.label}
                   </Link>
                 </motion.div>
               ))}
+            </div>
+            <div className="px-3 pb-3 space-y-4">
+              {!loading && !user && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="flex flex-col gap-3 w-full"
+                >
+                  <Link href="/sign-in" onClick={() => setIsMenuOpen(false)} className="w-full">
+                    <Button
+                      variant="ghost"
+                      className="w-full h-14 justify-center text-base text-white/70 hover:text-white hover:bg-white/5 cursor-pointer rounded-2xl"
+                    >
+                      Login
+                    </Button>
+                  </Link>
+                  <Link href="/sign-up" onClick={() => setIsMenuOpen(false)} className="w-full">
+                    <Button className="w-full h-14 text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-bold rounded-2xl cursor-pointer shadow-lg shadow-[#6FE7C1]/10">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </motion.div>
+              )}
+            </div>
 
-              <div className="pt-3 sm:pt-4 mt-3 sm:mt-4 border-t border-white/5 space-y-2">
-                {!loading && !user && (
-                  <>
-                    <Link href="/sign-in" onClick={() => setIsMenuOpen(false)}>
-                      <Button
-                        variant="ghost"
-                        className="w-full justify-center text-sm sm:text-base text-white/70 hover:text-white hover:bg-white/5 cursor-pointer"
-                      >
-                        Login
-                      </Button>
-                    </Link>
-                    <Link href="/sign-up" onClick={() => setIsMenuOpen(false)}>
-                      <Button className="w-full text-sm sm:text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-semibold rounded-xl cursor-pointer">
-                        Sign Up
-                      </Button>
-                    </Link>
-                  </>
-                )}
-
-                {!loading && user && (
-                  <div className="space-y-4 pt-4 border-t border-white/5">
-                    <div className="flex flex-col gap-4 p-4 rounded-2xl bg-white/5 border border-white/10">
-                      <div className="flex items-center gap-4">
-                        <div className="relative group">
-                          <div className="absolute -inset-1 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-25" />
-                          <Avatar className="relative w-14 h-14 border border-white/10">
-                            <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
-                            <AvatarFallback className="bg-[#1a1f25] text-white">
-                              {user.email?.[0]?.toUpperCase()}
-                            </AvatarFallback>
-                          </Avatar>
-                          <div className="absolute bottom-0 right-0 w-4 h-4 bg-[#6FE7C1] border-2 border-[#0A0F15] rounded-full shadow-lg" />
-                        </div>
-                        <div className="flex flex-col min-w-0">
-                          <span className="text-white text-base font-semibold truncate leading-none mb-1.5">
-                            {user.user_metadata?.full_name || user.email?.split('@')[0]}
-                          </span>
-                          <span className="text-white/40 text-xs truncate">
-                            {user.email}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-2">
-                        <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                          <LayoutDashboard className="w-4 h-4 text-[#6FE7C1]" />
-                          <span className="text-white/80 font-medium text-[13px]">Dashboard</span>
-                        </Link>
-                        <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5">
-                          <UserIcon className="w-4 h-4 text-[#6FE7C1]" />
-                          <span className="text-white/80 font-medium text-[13px]">Profile</span>
-                        </Link>
-                      </div>
-
-                      <Button
-                        onClick={handleLogout}
-                        className="w-full justify-center gap-2 text-red-400 hover:text-red-300 hover:bg-red-400/10 bg-red-400/5 border border-red-400/10 rounded-xl h-12 font-semibold transition-all"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        Log Out
-                      </Button>
+            {!loading && user && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="px-3 pb-5"
+              >
+                <div className="flex flex-col gap-3.5 p-3.5 rounded-[1.5rem] bg-white/[0.03] border border-white/5 shadow-sm">
+                  <div className="flex items-center gap-4">
+                    <div className="relative group">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-25" />
+                      <Avatar className="relative w-12 h-12">
+                        <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
+                        <AvatarFallback className="bg-[#1a1f25] text-white">
+                          {user?.user_metadata?.full_name?.[0] || user?.email?.[0]?.toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                      <span className="text-white text-[15px] font-bold truncate leading-none mb-1.5">
+                        {user?.user_metadata?.full_name || user?.email?.split('@')[0]}
+                      </span>
+                      <span className="text-white/40 text-[10px] truncate font-medium tracking-tight">
+                        {user?.email}
+                      </span>
                     </div>
                   </div>
-                )}
-              </div>
-            </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                      <LayoutDashboard className="w-4 h-4 text-[#6FE7C1]" />
+                      <span className="text-white/80 font-medium text-[13px]">Dashboard</span>
+                    </Link>
+                    <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                      <UserIcon className="w-4 h-4 text-[#6FE7C1]" />
+                      <span className="text-white/80 font-medium text-[13px]">Profile</span>
+                    </Link>
+                  </div>
+
+                  <Button
+                    onClick={handleLogout}
+                    className="w-full h-10 justify-center gap-2 text-red-500 hover:text-red-400 hover:bg-red-500/5 bg-transparent border border-red-500/10 rounded-xl font-bold transition-all active:scale-[0.98] text-[13px]"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    Logout
+                  </Button>
+                </div>
+              </motion.div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

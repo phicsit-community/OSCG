@@ -87,7 +87,7 @@ const SpeakersSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Speakers Grid */}
+
 
         <motion.div
           className="text-center py-20"
@@ -102,7 +102,6 @@ const SpeakersSection = () => {
             </p>
             <p className="text-[var(--text-secondary)]">
               We&apos;re lining up industry leaders, builders, and researchers.
-              Speaker announcements will roll out shortly.
             </p>
           </div>
         </motion.div>
