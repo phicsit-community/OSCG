@@ -77,7 +77,7 @@ const Footer = () => {
               {[
                 { icon: Twitter, href: "https://x.com/osconnect1/" },
                 { icon: Linkedin, href: "https://www.linkedin.com/company/open-source-connect/" },
-                { icon: Github, href: "https://github.com/phicsit-community/OSCG" },
+                { icon: Github, href: "https://github.com/" },
                 { icon: Instagram, href: "https://www.instagram.com/osconnect.official/" }
               ].map((social, i) => (
                 <Link

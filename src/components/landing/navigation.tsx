@@ -107,7 +107,7 @@ const Navigation = () => {
             : "h-16 sm:h-20 bg-transparent border border-transparent"
             }`}
         >
-          {/* Logo */}
+
           <Link
             href="/"
             className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0"
@@ -115,12 +115,12 @@ const Navigation = () => {
             <Image
               src="/logo1.png"
               alt="Logo"
-              width={32}
-              height={32}
-              className="sm:w-[38px] sm:h-[38px] rounded-lg"
+              width={40}
+              height={40}
+              className="sm:w-[42px] sm:h-[42px] rounded-lg"
             />
-            <span className="text-white font-semibold text-lg sm:text-xl">
-              OSC<span className="text-[#6FE7C1]">G</span>
+            <span className="text-white font-semibold text-xl sm:text-2xl">
+              <span className="hover:text-[#6FE7C1] transition-colors duration-300">OSCG</span><span className="text-[#6FE7C1]"> ’26</span>
             </span>
           </Link>
 

@@ -93,7 +93,6 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning={true} className={`${roboto.className}`}>
         <GlobalBackground />
-        {/* <SmoothCursor /> */}
         <Navigation />
         <SmoothScroll>{children}</SmoothScroll>
         <SpeedInsights />
