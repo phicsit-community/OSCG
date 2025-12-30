@@ -55,13 +55,12 @@ export default function BadgePage() {
         cacheBust: true,
         pixelRatio: 3,
         style: {
-          borderRadius: "2.5rem",
+          borderRadius: "0",
         },
       });
       const link = document.createElement("a");
-      const fileName = `oscg-contributor-${
-        name.toLowerCase().replace(/\s+/g, "-") || "user"
-      }.png`;
+      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"
+        }.png`;
       link.download = fileName;
       link.href = dataUrl;
       link.click();
@@ -216,7 +215,7 @@ export default function BadgePage() {
               <motion.div
                 ref={badgeRef}
                 layoutId="badge-card"
-                className="relative aspect-[3/4.2] rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
+                className="relative aspect-[3/4.2] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
               >
                 {/* Background base layers */}
                 <div className="absolute inset-0 pointer-events-none">
@@ -597,11 +596,9 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
-                                      ((scale - 0.5) / 1.5) * 100
-                                    }%, #1a2535 ${
-                                      ((scale - 0.5) / 1.5) * 100
-                                    }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${((scale - 0.5) / 1.5) * 100
+                                      }%, #1a2535 ${((scale - 0.5) / 1.5) * 100
+                                      }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <Search className="w-5 h-5 text-[#64748B]" />
@@ -658,11 +655,9 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
-                                      (rotation / 360) * 100
-                                    }%, #1a2535 ${
-                                      (rotation / 360) * 100
-                                    }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${(rotation / 360) * 100
+                                      }%, #1a2535 ${(rotation / 360) * 100
+                                      }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <RefreshCw className="w-4 h-4 text-[#64748B]" />
