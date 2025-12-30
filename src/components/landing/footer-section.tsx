@@ -59,7 +59,7 @@ const Footer = () => {
               </div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black text-white tracking-tighter leading-none uppercase">
-                  OSCG
+                  OSC
                 </span>
                 <span className="text-xs font-medium text-[var(--accent-secondary)] tracking-widest uppercase">
                   Global 2026
