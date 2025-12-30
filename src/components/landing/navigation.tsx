@@ -144,7 +144,6 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Right side - Auth buttons */}
           <div className="hidden md:flex items-center gap-2 lg:gap-3">
             {!loading && !user && (
               <>
@@ -176,7 +175,7 @@ const Navigation = () => {
                           alt="Avatar"
                           className="w-full h-full object-cover"
                           onError={(e) => {
-                            // Fallback if image fails
+
                             e.currentTarget.style.display = 'none';
                           }}
                         />
@@ -190,7 +189,7 @@ const Navigation = () => {
                   <DropdownMenuContent
                     align="end"
                     sideOffset={12}
-                    className="w-[230px] bg-[#0A0F15]/98 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] rounded-[1.75rem] p-1.5 outline-none"
+                    className="w-[300px] bg-[#0A0F15]/98 backdrop-blur-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] rounded-[1.75rem] p-1.5 outline-none"
                   >
                     <div className="px-3.5 py-3 mb-1 flex items-center gap-3">
                       <div className="relative">
@@ -200,10 +199,10 @@ const Navigation = () => {
 
                       </div>
                       <div className="flex flex-col min-w-0">
-                        <p className="text-[13px] font-bold text-white truncate leading-none mb-1">
+                        <p className="text-[14px] font-bold text-white truncate leading-none mb-1">
                           {user.user_metadata?.full_name || user.email?.split('@')[0] || "User"}
                         </p>
-                        <p className="text-[10px] text-white/40 truncate font-medium">
+                        <p className="text-[12px] text-white/40 truncate font-medium">
                           {user.email}
                         </p>
                       </div>
