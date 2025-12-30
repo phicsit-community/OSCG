@@ -42,7 +42,6 @@ const Footer = () => {
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-(--accent-secondary)/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-(--accent-primary)/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="section-divider mb-16" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-12 gap-12 mb-20">
@@ -92,7 +91,7 @@ const Footer = () => {
             </div>
           </div>
           <div className="lg:col-span-2 lg:col-start-5">
-            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
+            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] flex items-center gap-2">
               Resources
             </h4>
             <ul className="space-y-4">
@@ -110,8 +109,7 @@ const Footer = () => {
           </div>
 
           <div className="lg:col-span-2">
-            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-secondary)] flex items-center gap-2">
-
+            <h4 className="mb-8 text-xs font-bold uppercase tracking-[0.2em] text-[var(--text-muted)] flex items-center gap-2">
               Apply
             </h4>
             <ul className="space-y-4">

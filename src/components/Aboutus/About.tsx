@@ -194,9 +194,9 @@ export default function AboutUs() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {[
               { label: "Community Members", end: 25000 },
-              { label: "Countries Reached", end: 60 },
+              { label: "Speakers", end: 60 },
               { label: "Active Projects", end: 100 },
-              { label: "Events Hosted", end: 50 }
+              { label: "Sponsors", end: 50 }
             ].map((stat, i) => (
               <motion.div
                 key={i}
