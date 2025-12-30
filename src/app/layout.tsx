@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import GlobalBackground from "@/components/global-background";
 import Navigation from "@/components/landing/navigation";
+import ScrollToTop from "@/components/scroll-to-top";
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -94,6 +95,7 @@ export default function RootLayout({
       <body suppressHydrationWarning={true} className={`${roboto.className}`}>
         <GlobalBackground />
         <Navigation />
+        <ScrollToTop />
         <SmoothScroll>{children}</SmoothScroll>
         <SpeedInsights />
         <Toaster />

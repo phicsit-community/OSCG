@@ -42,7 +42,7 @@ const EventTimeline = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#090E1A]">
+    <div className="min-h-screen">
       <div className="container mx-auto px-4 sm:px-6 py-8 pt-24">
         <div className="text-center my-12 mb-16">
           <h2 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white">

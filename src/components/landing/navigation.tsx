@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import type { User } from "@supabase/supabase-js";
 import Link from "next/link";
 import Image from "next/image";
@@ -45,6 +46,8 @@ const Navigation = () => {
   const [loading, setLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const pathname = usePathname();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -55,6 +58,11 @@ const Navigation = () => {
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  // Reset scroll state on route change
+  useEffect(() => {
+    setIsScrolled(false);
+  }, [pathname]);
 
   useEffect(() => {
     const loadUser = async () => {
