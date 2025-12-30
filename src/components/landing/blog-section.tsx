@@ -163,7 +163,7 @@ const LatestInsights = () => {
             size="lg"
             className="cursor-pointer text-black bg-[var(--accent-primary)] hover:bg-[#00c4a3] rounded-2xl px-10 h-14 font-semibold shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all text-base"
           >
-            View All Articles
+            View All Blogs
           </Button>
         </motion.div>
       </div>

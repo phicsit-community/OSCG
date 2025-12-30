@@ -70,7 +70,7 @@ const SpeakersSection = () => {
   return (
     <section className="section-container bg-transparent">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
+
         <motion.div
           className="section-header"
           variants={containerVariants}
@@ -83,7 +83,7 @@ const SpeakersSection = () => {
           </motion.h2>
           <motion.p variants={fadeUp}>
             Learn from industry leaders and open source pioneers who are driving
-            innovation forward
+            innovation forward.
           </motion.p>
         </motion.div>
 

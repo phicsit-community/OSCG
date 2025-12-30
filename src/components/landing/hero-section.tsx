@@ -170,32 +170,73 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-4 sm:px-0"
+              className="flex flex-col sm:flex-row items-center justify-center gap-8 w-full px-4 sm:px-0"
             >
               {user ? (
                 <Link href="/badge" className="w-full sm:w-auto">
-                  <Button
-                    size="lg"
-                    className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
+                  <motion.div
+                    whileHover={{ scale: 1.06 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="relative group"
                   >
-                    Create Your Badge
-                  </Button>
+                    <div className="absolute -inset-1 rounded-2xl border-2 border-[var(--accent-primary)]/60 group-hover:border-[var(--accent-primary)] transition-colors" />
+
+                    <div className="absolute -inset-2 rounded-2xl bg-[var(--accent-primary)]/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity" />
+
+                    <Button
+                      size="lg"
+                      className="relative h-16 px-12 w-full rounded-2xl 
+        bg-linear-to-r from-[var(--accent-primary)] to-[#4FD1D0]
+        text-black text-lg font-extrabold tracking-tight
+        shadow-[0_20px_50px_rgba(0,0,0,0.4)] cursor-pointer
+        overflow-hidden"
+                    >
+                      <span className="relative z-10 flex items-center gap-3">
+                        Create Your Badge
+                      </span>
+
+
+                      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
+        -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                    </Button>
+                  </motion.div>
                 </Link>
               ) : (
-                <Button
-                  size="lg"
-                  className="bg-[var(--accent-primary)] hover:bg-[#00c4a3] text-black border-0 cursor-pointer h-14 px-10 text-base font-semibold rounded-2xl shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all w-full sm:w-auto"
+                <motion.div
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="relative w-full sm:w-auto group cursor-pointer"
                   onClick={() => setOpen(true)}
                 >
-                  Register Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              )}
 
+                  <div className="absolute -inset-1 rounded-2xl border-2 border-[var(--accent-primary)]/60 group-hover:border-[var(--accent-primary)] transition-colors" />
+
+
+                  <div className="absolute -inset-2 rounded-2xl bg-[var(--accent-primary)]/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity" />
+
+                  <Button
+                    size="lg"
+                    className="relative h-16 px-12 w-full rounded-2xl 
+      bg-linear-to-r from-[var(--accent-primary)] to-[#4FD1D0]
+      text-black text-lg font-extrabold tracking-tight
+      shadow-[0_20px_50px_rgba(0,0,0,0.4)] cursor-pointer
+      overflow-hidden"
+                  >
+                    <span className="relative z-10 flex items-center gap-3">
+                      Register Now
+                      <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                    </span>
+
+
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
+      -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                  </Button>
+                </motion.div>
+              )}
 
             </motion.div>
 
-            {/* Stats Row */}
+
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -204,8 +245,8 @@ const HeroSection = () => {
             >
               {[
                 ["25,000+", "Participants"],
-                ["60+", "Speakers"],
-                ["100+", "Projects"],
+                ["60+", "Projects"],
+                ["100+", "Mentors"],
                 ["Global", "Community"],
               ].map(([value, label], i) => (
                 <div

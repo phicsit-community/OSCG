@@ -1,8 +1,11 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { toPng } from "html-to-image";
 import { motion, AnimatePresence } from "framer-motion";
+import { getProfile, incrementBadgeCount } from "@/lib/supabase/database";
+import { supabase } from "@/lib/supabase/client";
+import { toast } from "sonner";
 import {
   Camera,
   Download,
@@ -43,9 +46,29 @@ export default function BadgePage() {
   const [adjustmentsDone, setAdjustmentsDone] = useState<boolean>(false);
   const badgeRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
+  const [badgeCount, setBadgeCount] = useState<number | null>(null);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUserAndCount = async () => {
+      const { data: { user: currentUser } } = await supabase.auth.getUser();
+      setUser(currentUser);
+
+      if (currentUser) {
+        const { data: profile } = await getProfile(currentUser.id);
+        if (profile) {
+          setBadgeCount(profile.badges_created || 0);
+        }
+      }
+    };
+    fetchUserAndCount();
+  }, []);
 
   const handleDownload = useCallback(async () => {
-    if (badgeRef.current === null) {
+    if (badgeRef.current === null) return;
+
+    if (user && badgeCount !== null && badgeCount >= 3) {
+      toast.error("You have reached the limit of 3 badges per account.");
       return;
     }
 
@@ -58,18 +81,30 @@ export default function BadgePage() {
           borderRadius: "0",
         },
       });
+
+      // Increment count in database
+      if (user) {
+        const { error } = await incrementBadgeCount(user.id);
+        if (error) {
+          console.error("Error incrementing badge count:", error);
+        } else {
+          setBadgeCount(prev => (prev !== null ? prev + 1 : 1));
+        }
+      }
+
       const link = document.createElement("a");
-      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"
-        }.png`;
+      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"}.png`;
       link.download = fileName;
       link.href = dataUrl;
       link.click();
+      toast.success("Badge downloaded successfully!");
     } catch (err) {
       console.error("Oops, something went wrong!", err);
+      toast.error("Failed to generate badge. Please try again.");
     } finally {
       setIsDownloading(false);
     }
-  }, [badgeRef, name]);
+  }, [badgeRef, name, user, badgeCount]);
 
   const saveToHistory = (newScale: number, newRotation: number) => {
     const newHistory = history.slice(0, historyIndex + 1);
@@ -177,6 +212,41 @@ export default function BadgePage() {
             </span>
           </motion.div>
 
+          {user && badgeCount !== null && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-12"
+            >
+              <div className="inline-flex flex-col items-center gap-2">
+                <div className="flex items-center gap-3 px-6 py-2.5 rounded-2xl bg-[#00D6B2]/5 border border-[#00D6B2]/10 backdrop-blur-md shadow-[0_0_20px_rgba(0,214,178,0.05)]">
+                  <div className="flex items-center gap-2">
+                    <div className={cn(
+                      "w-2 h-2 rounded-full shadow-[0_0_8px]",
+                      badgeCount >= 3 ? "bg-red-500 shadow-red-500" : "bg-[#00D6B2] shadow-[#00D6B2]"
+                    )} />
+                    <span className="text-[13px] font-bold tracking-wide text-[#94A3B8]">
+                      Account Limit: <span className={badgeCount >= 3 ? "text-red-400" : "text-white"}>{badgeCount}</span> / <span className="text-white">3</span>
+                    </span>
+                  </div>
+                  <div className="w-px h-4 bg-white/10" />
+                  <span className="text-[11px] font-black uppercase tracking-widest text-[#00D6B2]">
+                    {3 - badgeCount > 0 ? `${3 - badgeCount} Left` : "Limit Reached"}
+                  </span>
+                </div>
+                {badgeCount >= 3 && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-[10px] font-bold text-red-400/60 uppercase tracking-widest"
+                  >
+                    Maximum badge creations reached for this account
+                  </motion.p>
+                )}
+              </div>
+            </motion.div>
+          )}
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -184,8 +254,7 @@ export default function BadgePage() {
             className=" origin text-4xl md:text-6xl font-bold mb-8"
           >
             <span className="text-accent-gradient">Contributor</span>
-            <br />
-            <span className="text-white">Badge</span>
+            <span className="text-white"> Badge</span>
           </motion.h1>
 
           <motion.p
@@ -214,40 +283,47 @@ export default function BadgePage() {
 
               <motion.div
                 ref={badgeRef}
+                whileHover={{
+                  boxShadow: "0 0 70px rgba(0,214,178,0.25), 0 35px 80px rgba(0,0,0,0.7)",
+                  y: -0.5,
+                }}
                 layoutId="badge-card"
-                className="relative aspect-[3/4.2] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
+                className="relative aspect-[3/4.2] overflow-hidden group
+  bg-[#081517]
+  border border-[#00D6B2]/20
+  shadow-[0_0_40px_rgba(0,214,178,0.15),_0_25px_60px_rgba(0,0,0,0.6)]
+  rounded-xl"
               >
-                {/* Background base layers */}
+                <div className="pointer-events-none absolute -inset-3 rounded-2xl 
+    bg-[#00D6B2]/10 blur-3xl opacity-70" />
                 <div className="absolute inset-0 pointer-events-none">
-                  {/* Subtle glows to match the image */}
                   <div className="absolute top-[10%] left-[10%] w-[80%] h-[30%] bg-[#00D6B2]/10 blur-[60px] rounded-full" />
                   <div className="absolute bottom-[10%] right-[10%] w-[80%] h-[30%] bg-[#00D6B2]/5 blur-[60px] rounded-full" />
                   <div className="absolute inset-0 bg-linear-to-b from-[#0d1f23] via-[#091619] to-[#081416]" />
                 </div>
 
                 <div className="relative z-10 w-full h-full flex flex-col items-center lg:p-5">
-                  {/* Header: Globe + Text */}
-                  <div className="w-full flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-5 mt-4">
+                  <div className="w-full flex items-center justify-center gap-1.5 sm:gap-2 mb-2 sm:mb-4 mt-4">
                     <Image
                       src="/logo1.png"
                       alt="OSCG Globe"
                       width={54}
                       height={54}
-                      className="w-10 min-[400px]:w-12 sm:w-16 h-auto"
+                      className="w-9 min-[400px]:w-11 sm:w-14 h-auto"
                     />
-                    <div className="flex flex-col gap-2">
-                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-none">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-tight">
                         Open Source
                       </span>
-                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-none">
+                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-tight">
                         Connect <span className="text-[#00D6B2]">Global</span>
                       </span>
                     </div>
                   </div>
 
-                  {/* Avatar Area */}
+
                   <div className="relative mb-1 sm:mb-4">
-                    {/* Glowing ring */}
+
                     <div className="absolute inset-[-12%] rounded-full bg-[#00D6B2]/20 blur-2xl animate-pulse" />
                     <div className="relative w-36 h-36 min-[400px]:w-40 min-[400px]:h-40 sm:w-42 sm:h-42 md:w-48 md:h-48 rounded-full p-[2px] sm:p-[3px] bg-linear-to-tr from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2] shadow-[0_0_30px_rgba(0,214,178,0.4)]">
                       <div className="w-full h-full rounded-full bg-[#081416] overflow-hidden flex items-center justify-center">
@@ -269,12 +345,9 @@ export default function BadgePage() {
                       </div>
                     </div>
 
-                    {/* Verified Tick Icon */}
+
                     <div className="absolute bottom-[8%] right-[8%] sm:bottom-[4%] sm:right-[4%] w-5 h-5 min-[400px]:w-7 min-[400px]:h-7 sm:w-10 sm:h-10 flex items-center justify-center">
                       <div className="relative w-full h-full text-[#00D6B2] drop-shadow-[0_0_12px_rgba(0,214,178,0.6)]">
-                        {/* <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
-                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
-                         </svg> */}
                         <Image
                           src="/badgeCheck.png"
                           alt=""
@@ -286,10 +359,10 @@ export default function BadgePage() {
                     </div>
                   </div>
 
-                  {/* Main content area that pushes NexFellow to bottom */}
+
                   <div className="flex-1 w-full flex flex-col items-center justify-between">
                     <div className="flex flex-col items-center w-full">
-                      {/* Sparkle "glowing thing" with lines on side */}
+
                       <div className="flex items-center gap-2 sm:gap-4 w-full mb-2 sm:mb-4">
                         <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#00D6B2]/30 to-transparent" />
                         <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 text-[#00D6B2] drop-shadow-[0_0_8px_rgba(0,214,178,0.8)]" />
@@ -300,7 +373,7 @@ export default function BadgePage() {
                         {name || "Your Name"}
                       </h2>
 
-                      {/* Contributor Pill */}
+
                       <div className="inline-flex items-center gap-1 sm:gap-2.5 px-2 sm:px-6 py-1 sm:py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20 mb-2 md:mb-4 lg:mb-8">
                         <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00D6B2] shadow-[0_0_10px_rgba(0,214,178,0.8)]" />
                         <span className="text-[8px] sm:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.25em] text-[#00D6B2] uppercase">
@@ -308,7 +381,7 @@ export default function BadgePage() {
                         </span>
                       </div>
 
-                      {/* 2026 Section with dots and lines */}
+
                       <div className="flex items-center justify-center gap-2 sm:gap-4 w-full opacity-60">
                         <div className="h-[1px] flex-1 bg-linear-to-r from-transparent to-white/20" />
                         <div className="flex items-center gap-1 sm:gap-2 text-white">
@@ -326,7 +399,6 @@ export default function BadgePage() {
                       </div>
                     </div>
 
-                    {/* NexFellow Logo at bottom */}
                     <div className="w-full flex justify-center my-auto pb-1 sm:pb-4 lg:pb-0">
                       <Image
                         src="/nex1.png"

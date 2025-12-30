@@ -196,7 +196,7 @@ const Signup = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="John Doe"
+                  placeholder="Enter your name"
                   autoComplete="name"
                   className="w-full h-10 pl-9 pr-3 text-[13px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg outline-none transition-all placeholder:text-[#94A3B8] focus:border-[#11D392] focus:shadow-[0_0_0_2px_rgba(17,211,146,0.15)]"
                 />
@@ -215,7 +215,7 @@ const Signup = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="you@example.com"
+                  placeholder="Enter your email"
                   autoComplete="email"
                   className="w-full h-10 pl-9 pr-3 text-[13px] text-[#F8FAFC] bg-[#101318] border border-[#3A3C43] rounded-lg outline-none transition-all placeholder:text-[#94A3B8] focus:border-[#11D392] focus:shadow-[0_0_0_2px_rgba(17,211,146,0.15)]"
                 />

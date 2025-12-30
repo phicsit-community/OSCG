@@ -121,3 +121,27 @@ export async function signInWithGitHub(): Promise<OAuthResponse> {
     return { data: null, error: error as AuthError };
   }
 }
+
+export async function resetPasswordForEmail(email: string) {
+  try {
+    const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    return { data, error };
+  } catch (err) {
+    const error = err instanceof Error ? err : new Error("Something went wrong");
+    return { data: null, error: error as AuthError };
+  }
+}
+
+export async function updateUserPassword(password: string) {
+  try {
+    const { data, error } = await supabase.auth.updateUser({
+      password: password,
+    });
+    return { data, error };
+  } catch (err) {
+    const error = err instanceof Error ? err : new Error("Something went wrong");
+    return { data: null, error: error as AuthError };
+  }
+}

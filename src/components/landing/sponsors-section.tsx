@@ -17,7 +17,7 @@ const partnersRow2 = [
   { name: "Ignite Room", logo: "/partners/igniteroom.jpeg" },
   { name: "Vibe X Community", logo: "/partners/vibex.png" },
   { name: "Digital Dominators", logo: "/partners/digitaldom.png" },
-  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gdgoncampuse.jpg" },
+  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
 ];
 
 const SponsersSection = () => {
@@ -25,7 +25,7 @@ const SponsersSection = () => {
 
   const marqueeVariantsLeft = {
     animate: {
-      x: [0, -(partnersRow1.length * (260 + 24))],
+      x: [0, -(partnersRow1.length * (180 + 24))],
       transition: {
         x: {
           repeat: Infinity,
@@ -39,7 +39,7 @@ const SponsersSection = () => {
 
   const marqueeVariantsRight = {
     animate: {
-      x: [-(partnersRow2.length * (260 + 24)), 0],
+      x: [-(partnersRow2.length * (180 + 24)), 0],
       transition: {
         x: {
           repeat: Infinity,
@@ -59,15 +59,15 @@ const SponsersSection = () => {
       key={`${partner.name}-${index}`}
       className="relative group flex-shrink-0 cursor-pointer transition-transform duration-700 scale-[0.96] hover:scale-100"
     >
-      <div className="relative w-[260px] h-[160px] rounded-[2.5rem] bg-[#111] overflow-hidden flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:border-[#00D6B2]/50 group-hover:shadow-[0_0_30px_rgba(0,214,178,0.2)]">
+      <div className="relative w-[180px] h-[180px] rounded-[2rem] bg-[#111] overflow-hidden flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:border-[#00D6B2]/50 group-hover:shadow-[0_0_30px_rgba(0,214,178,0.2)]">
         <img
           src={partner.logo}
           alt={partner.name}
           className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute inset-x-0 bottom-0 p-6 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-4 group-hover:translate-y-0 text-center">
-          <p className="text-white text-sm font-black tracking-[0.1em] uppercase drop-shadow-2xl">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-center pointer-events-none">
+          <p className="text-white text-[10px] font-black tracking-[0.1em] uppercase drop-shadow-2xl">
             {partner.name}
           </p>
         </div>
@@ -140,24 +140,7 @@ const SponsersSection = () => {
         </div>
       </div>
 
-      <div className="mt-20 text-center relative z-10 px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-        >
-          <p className="text-[var(--text-secondary)] mb-8 text-lg font-medium">
-            Interested in sponsoring? Join the global open source community.
-          </p>
-          <Link
-            href="mailto:hello@osconnect.org"
-            className="inline-flex items-center justify-center px-12 py-5 rounded-full bg-[#00D6B2] text-black font-extrabold text-lg transition-all duration-300 hover:scale-105 active:scale-95 shadow-lg active:shadow-inner"
-          >
-            Become a Sponsor
-          </Link>
-        </motion.div>
-      </div>
+      
     </section>
   );
 };

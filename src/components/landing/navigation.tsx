@@ -29,10 +29,12 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { toast } from "sonner";
 
 const navItems = [
   { label: "About", href: "/about" },
   { label: "Projects", href: "/projects" },
+  { label: "Speakers", href: "/speakers" },
   { label: "Timeline", href: "/timeline" },
   { label: "Leaderboard", href: "/leaderboard" },
   { label: "Team", href: "/team" },
@@ -97,6 +99,7 @@ const Navigation = () => {
     await supabase.auth.signOut();
     setUser(null);
     setAvatar("");
+    toast.success("Logged out successfully");
     window.location.href = "/";
   };
 
@@ -155,9 +158,13 @@ const Navigation = () => {
                     Login
                   </Button>
                 </Link>
-                <Link href="/sign-up">
-                  <Button className="bg-[#6FE7C1] cursor-pointer hover:bg-[#5ad4af] text-[#0B0F17] text-sm lg:text-base font-semibold rounded-xl px-4 lg:px-6 py-2 lg:py-2.5">
-                    Sign Up
+                <Link href="/sign-up" className="relative group">
+               
+
+                  <Button className="relative bg-[#6FE7C1] hover:bg-[#6FE7C1] cursor-pointer text-[#0B0F17] text-sm lg:text-base font-black rounded-lg px-4 lg:px-6 py-2 lg:py-2.5 transition-all overflow-hidden cursor-pointer">
+                    <span className="relative z-10">Sign Up</span>
+                    {/* Interior Light Streak */}
+                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/60 to-transparent -translate-x-[200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
                   </Button>
                 </Link>
               </>
@@ -346,9 +353,11 @@ const Navigation = () => {
                       Login
                     </Button>
                   </Link>
-                  <Link href="/sign-up" onClick={() => setIsMenuOpen(false)} className="w-full">
-                    <Button className="w-full h-14 text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-bold rounded-2xl cursor-pointer shadow-lg shadow-[#6FE7C1]/10">
-                      Sign Up
+                  <Link href="/sign-up" onClick={() => setIsMenuOpen(false)} className="w-full relative group">
+                    <div className="absolute -inset-1 bg-linear-to-r from-[#6FE7C1] to-[#4FD1D0] rounded-2xl blur-md opacity-30 animate-pulse" />
+                    <Button className="relative w-full h-14 text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-bold rounded-2xl cursor-pointer shadow-lg overflow-hidden group">
+                      <span className="relative z-10">Sign Up</span>
+                      <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
                     </Button>
                   </Link>
                 </motion.div>

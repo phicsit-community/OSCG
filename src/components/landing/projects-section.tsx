@@ -113,7 +113,7 @@ const ProjectsSection = () => {
           </h2>
           <p>
             Discover innovative open source projects that are shaping the future
-            of technology
+            of technology.
           </p>
         </motion.div>
 
