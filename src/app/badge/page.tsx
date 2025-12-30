@@ -59,7 +59,8 @@ export default function BadgePage() {
         },
       });
       const link = document.createElement("a");
-      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"}.png`;
+      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"
+        }.png`;
       link.download = fileName;
       link.href = dataUrl;
       link.click();
@@ -214,99 +215,117 @@ export default function BadgePage() {
               <motion.div
                 ref={badgeRef}
                 layoutId="badge-card"
-                className="relative aspect-[3/4.2] rounded-[2.5rem] overflow-hidden group bg-[#0B1220]"
+                className="relative aspect-[3/4.2] rounded-[2.5rem] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
               >
                 {/* Background base layers */}
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="absolute inset-0 bg-linear-to-br from-white/10 via-transparent to-white/5 opacity-50" />
-                  <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.03] scale-150" />
+                  {/* Subtle glows to match the image */}
+                  <div className="absolute top-[10%] left-[10%] w-[80%] h-[30%] bg-[#00D6B2]/10 blur-[60px] rounded-full" />
+                  <div className="absolute bottom-[10%] right-[10%] w-[80%] h-[30%] bg-[#00D6B2]/5 blur-[60px] rounded-full" />
+                  <div className="absolute inset-0 bg-linear-to-b from-[#0d1f23] via-[#091619] to-[#081416]" />
                 </div>
 
-                <div className="relative z-10 w-full h-full flex flex-col p-6 sm:p-8 md:p-10">
-                  <div className="relative z-10 w-full mb-4 sm:mb-6 flex justify-center items-center gap-3">
+                <div className="relative z-10 w-full h-full flex flex-col items-center p-7 sm:p-9">
+                  {/* Header: Globe + Text */}
+                  <div className="w-full flex items-center justify-center gap-3 mb-8 sm:mb-10">
                     <Image
                       src="/logo1.png"
-                      alt="OSCG Logo"
-                      width={90}
-                      height={40}
-                      className="opacity-90 w-12 sm:w-16 md:w-20 lg:w-[90px] h-auto"
+                      alt="OSCG Globe"
+                      width={54}
+                      height={54}
+                      className="w-16 sm:w-18 h-auto"
                     />
-                    <div className="text-white font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl leading-tight">
-                      <h1>Open Source</h1>
-                      <h1>
-                        Connect <span className="text-[#00D4AA]">Global</span>
-                      </h1>
+                    <div className="flex flex-col">
+                      <span className="text-white font-bold text-lg sm:text-2xl leading-none">
+                        Open Source
+                      </span>
+                      <span className="text-white font-bold text-lg sm:text-2xl leading-none">
+                        Connect <span className="text-[#00D6B2]">Global</span>
+                      </span>
                     </div>
                   </div>
-                  <div className="relative z-10 flex flex-col items-center">
-                    <div className="relative group/photo">
-                      <div className="absolute inset-[-12%] bg-[#00D6B2]/10 blur-[30px] rounded-full opacity-60 group-hover/photo:opacity-100 transition-opacity" />
-                      <div
-                        className="
-                relative w-24 h-24 sm:w-36 sm:h-36 md:w-44 md:h-44 lg:w-48 lg:h-48
-                rounded-full p-1
-                bg-linear-to-tr from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2]/20
-                shadow-[0_0_40px_rgba(0,214,178,0.35)]
-              "
-                      >
-                        <div className="w-full h-full rounded-full bg-[#0B1220] overflow-hidden flex items-center justify-center ring-2 ring-black/50">
-                          {image ? (
-                            <motion.img
-                              src={image}
-                              alt="Preview"
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale, rotate: rotation }}
-                              transition={{
-                                type: "spring",
-                                stiffness: 120,
-                                damping: 20,
-                              }}
-                              className="w-full h-full object-cover"
-                            />
-                          ) : (
-                            <UserIcon className="w-14 h-14 text-white/30" />
-                          )}
-                        </div>
+
+                  {/* Avatar Area */}
+                  <div className="relative mb-8 sm:mb-10">
+                    {/* Glowing ring */}
+                    <div className="absolute inset-[-12%] rounded-full bg-[#00D6B2]/20 blur-2xl animate-pulse" />
+                    <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full p-[3px] bg-linear-to-tr from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2] shadow-[0_0_30px_rgba(0,214,178,0.4)]">
+                      <div className="w-full h-full rounded-full bg-[#081416] overflow-hidden flex items-center justify-center">
+                        {image ? (
+                          <motion.img
+                            src={image}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                            animate={{ scale, rotate: rotation }}
+                            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                          />
+                        ) : (
+                          <UserIcon className="w-16 h-16 text-white/20" />
+                        )}
                       </div>
-                      <div className="absolute inset-[-4%] border border-[#00D6B2]/20 rounded-full animate-[spin_10s_linear_infinite]" />
                     </div>
-                    <div className="mt-5 sm:mt-6 text-center space-y-4">
-                      <div className="flex items-center justify-center gap-3">
-                        <div className="h-px w-10 bg-linear-to-l from-[#00D6B2] via-[#00D6B2]/50 to-transparent" />
-                        <Sparkles className="w-4 h-4 text-[#00D6B2]" />
-                        <div className="h-px w-10 bg-linear-to-r from-[#00D6B2] via-[#00D6B2]/50 to-transparent" />
+
+                    {/* Verified Tick Icon */}
+                    <div className="absolute bottom-[4%] right-[4%] w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center">
+                      <div className="relative w-full h-full text-[#00D6B2] drop-shadow-[0_0_12px_rgba(0,214,178,0.6)]">
+                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+                            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
+                         </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Main content area that pushes NexFellow to bottom */}
+                  <div className="flex-1 w-full flex flex-col items-center justify-between">
+                    <div className="flex flex-col items-center w-full">
+                      {/* Sparkle "glowing thing" with lines on side */}
+                      <div className="flex items-center gap-4 w-full mb-4">
+                        <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#00D6B2]/30 to-transparent" />
+                        <Sparkles className="w-5 h-5 text-[#00D6B2] drop-shadow-[0_0_8px_rgba(0,214,178,0.8)]" />
+                        <div className="h-px flex-1 bg-linear-to-l from-transparent via-[#00D6B2]/30 to-transparent" />
                       </div>
 
-                      <h2 className="text-lg sm:text-3xl md:text-4xl font-bold text-white truncate max-w-[300px] mx-auto">
+                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
                         {name || "Your Name"}
                       </h2>
 
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#00D6B2]" />
-                        <span className="text-[10px] font-bold tracking-widest text-[#00D6B2] uppercase">
-                          Open Source Contributor
+                      {/* Contributor Pill */}
+                      <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20 mb-8">
+                        <span className="w-2 h-2 rounded-full bg-[#00D6B2] shadow-[0_0_10px_rgba(0,214,178,0.8)]" />
+                        <span className="text-[11px] font-bold tracking-[0.25em] text-[#00D6B2] uppercase">
+                          Contributor
                         </span>
                       </div>
 
-                      <div className="text-[10px] uppercase tracking-[0.3em] text-[#94A3B8] font-bold">
-                        Open Source Connect Global
+                      {/* 2026 Section with dots and lines */}
+                      <div className="flex items-center justify-center gap-4 w-full opacity-60">
+                        <div className="h-[1px] flex-1 bg-linear-to-r from-transparent to-white/20" />
+                        <div className="flex items-center gap-2 text-white">
+                           <span className="text-lg leading-none">•</span>
+                           <span className="text-base font-bold tracking-[0.2em]">2026</span>
+                           <span className="text-lg leading-none">•</span>
+                        </div>
+                        <div className="h-[1px] flex-1 bg-linear-to-l from-transparent to-white/20" />
                       </div>
+                    </div>
 
-                      <div className="flex items-center justify-center gap-3">
-                        <div className="h-px w-16 bg-linear-to-r from-transparent to-[#1F2B47]" />
-                        <span className="text-xs tracking-widest text-white/40">
-                          2026
-                        </span>
-                        <div className="h-px w-16 bg-linear-to-r from-[#1F2B47] to-transparent" />
-                      </div>
+                    {/* NexFellow Logo at bottom */}
+                    <div className="w-full flex justify-center mt-6">
+                      <Image
+                        src="/nex.png"
+                        alt="NexFellow"
+                        width={180}
+                        height={50}
+                        className="h-10 sm:h-12 w-auto object-contain opacity-95"
+                      />
                     </div>
                   </div>
                 </div>
               </motion.div>
 
-              <div className="mt-6 sm:mt-8 md:mt-10 flex items-center justify-center gap-2 sm:gap-3 text-white/30 group">
-                <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-[#00D6B2] shadow-[0_0_8px_#1AD5BD] group-hover:scale-125 transition-transform" />
-                <span className="text-[9px] sm:text-[10px] md:text-[11px] font-semibold tracking-wide">
+              <div className="mt-8 flex items-center justify-center gap-3 text-white/40">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#00D6B2] shadow-[0_0_8px_#00D6B2]" />
+                <span className="text-xs font-semibold tracking-wide">
                   Your badge updates in real-time
                 </span>
               </div>
@@ -627,7 +646,6 @@ export default function BadgePage() {
                                 <RefreshCw className="w-4 h-4 text-[#64748B]" />
                               </div>
 
-
                               <div className="flex items-center gap-2 pt-1">
                                 {[0, 90, 180, 270].map((deg) => (
                                   <button
@@ -645,7 +663,6 @@ export default function BadgePage() {
                                 ))}
                               </div>
                             </div>
-
 
                             <div className="flex items-center gap-3 pt-2">
                               <Button

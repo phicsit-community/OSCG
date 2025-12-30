@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import GlobalBackground from "@/components/global-background";
 import Navigation from "@/components/landing/navigation";
-
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
     "Open Source Connect",
     "OSCG 2026",
     "OSCG",
-    "osconnect"
+    "osconnect",
   ],
 
   robots: {
@@ -50,12 +49,13 @@ export const metadata: Metadata = {
     canonical: "/",
   },
 
-  icons: [
-    {
-      rel: "icon",
-      url: "/logo.png",
-    },
-  ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.jpg", type: "image/jpg", sizes: "512x512" },
+    ],
+    apple: "/favicon.jpg",
+  },
 
   openGraph: {
     title: "Open Source Connect Global 2026",
@@ -84,7 +84,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -96,9 +95,7 @@ export default function RootLayout({
         <GlobalBackground />
         {/* <SmoothCursor /> */}
         <Navigation />
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+        <SmoothScroll>{children}</SmoothScroll>
         <SpeedInsights />
         <Toaster />
       </body>
