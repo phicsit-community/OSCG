@@ -59,8 +59,9 @@ export default function BadgePage() {
         },
       });
       const link = document.createElement("a");
-      const fileName = `oscg-contributor-${name.toLowerCase().replace(/\s+/g, "-") || "user"
-        }.png`;
+      const fileName = `oscg-contributor-${
+        name.toLowerCase().replace(/\s+/g, "-") || "user"
+      }.png`;
       link.download = fileName;
       link.href = dataUrl;
       link.click();
@@ -201,8 +202,8 @@ export default function BadgePage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-start">
           <div className="flex flex-col items-center order-2 lg:order-1">
-            <div className="w-full max-w-[280px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-105">
-              <div className="flex items-center justify-center gap-4 sm:gap-6 mb-6 sm:mb-8">
+            <div className="w-full max-w-[260px] min-[400px]:max-w-[280px] sm:max-w-[340px] md:max-w-[380px] lg:max-w-105">
+              <div className="flex items-center justify-center gap-3 sm:gap-6 mb-4 sm:mb-8">
                 <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#0C4C4B] to-transparent" />
 
                 <span className="text-[11px] sm:text-[13px] md:text-[15px] font-semibold tracking-[0.25em] sm:tracking-[0.35em] text-[#92A4B9] uppercase whitespace-nowrap">
@@ -215,7 +216,7 @@ export default function BadgePage() {
               <motion.div
                 ref={badgeRef}
                 layoutId="badge-card"
-                className="relative aspect-[3/4.2] rounded-[2.5rem] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
+                className="relative aspect-[3/4.2] rounded-[1.5rem] sm:rounded-[2rem] md:rounded-[2.5rem] overflow-hidden group bg-[#081517] border border-white/5 shadow-2xl"
               >
                 {/* Background base layers */}
                 <div className="absolute inset-0 pointer-events-none">
@@ -225,31 +226,31 @@ export default function BadgePage() {
                   <div className="absolute inset-0 bg-linear-to-b from-[#0d1f23] via-[#091619] to-[#081416]" />
                 </div>
 
-                <div className="relative z-10 w-full h-full flex flex-col items-center p-7 sm:p-9">
+                <div className="relative z-10 w-full h-full flex flex-col items-center lg:p-5">
                   {/* Header: Globe + Text */}
-                  <div className="w-full flex items-center justify-center gap-3 mb-8 sm:mb-10">
+                  <div className="w-full flex items-center justify-center gap-2 sm:gap-3 mb-2 sm:mb-5 mt-4">
                     <Image
                       src="/logo1.png"
                       alt="OSCG Globe"
                       width={54}
                       height={54}
-                      className="w-16 sm:w-18 h-auto"
+                      className="w-10 min-[400px]:w-12 sm:w-16 h-auto"
                     />
-                    <div className="flex flex-col">
-                      <span className="text-white font-bold text-lg sm:text-2xl leading-none">
+                    <div className="flex flex-col gap-2">
+                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-none">
                         Open Source
                       </span>
-                      <span className="text-white font-bold text-lg sm:text-2xl leading-none">
+                      <span className="text-white font-bold text-sm min-[400px]:text-md sm:text-xl leading-none">
                         Connect <span className="text-[#00D6B2]">Global</span>
                       </span>
                     </div>
                   </div>
 
                   {/* Avatar Area */}
-                  <div className="relative mb-8 sm:mb-10">
+                  <div className="relative mb-1 sm:mb-4">
                     {/* Glowing ring */}
                     <div className="absolute inset-[-12%] rounded-full bg-[#00D6B2]/20 blur-2xl animate-pulse" />
-                    <div className="relative w-36 h-36 sm:w-44 sm:h-44 md:w-48 md:h-48 rounded-full p-[3px] bg-linear-to-tr from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2] shadow-[0_0_30px_rgba(0,214,178,0.4)]">
+                    <div className="relative w-36 h-36 min-[400px]:w-40 min-[400px]:h-40 sm:w-42 sm:h-42 md:w-48 md:h-48 rounded-full p-[2px] sm:p-[3px] bg-linear-to-tr from-[#00D6B2] via-[#00D6B2]/50 to-[#00D6B2] shadow-[0_0_30px_rgba(0,214,178,0.4)]">
                       <div className="w-full h-full rounded-full bg-[#081416] overflow-hidden flex items-center justify-center">
                         {image ? (
                           <motion.img
@@ -257,7 +258,11 @@ export default function BadgePage() {
                             alt="Preview"
                             className="w-full h-full object-cover"
                             animate={{ scale, rotate: rotation }}
-                            transition={{ type: "spring", stiffness: 120, damping: 20 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 120,
+                              damping: 20,
+                            }}
                           />
                         ) : (
                           <UserIcon className="w-16 h-16 text-white/20" />
@@ -266,11 +271,18 @@ export default function BadgePage() {
                     </div>
 
                     {/* Verified Tick Icon */}
-                    <div className="absolute bottom-[4%] right-[4%] w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center">
+                    <div className="absolute bottom-[8%] right-[8%] sm:bottom-[4%] sm:right-[4%] w-5 h-5 min-[400px]:w-7 min-[400px]:h-7 sm:w-10 sm:h-10 flex items-center justify-center">
                       <div className="relative w-full h-full text-[#00D6B2] drop-shadow-[0_0_12px_rgba(0,214,178,0.6)]">
-                         <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+                        {/* <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
                             <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 15l-4-4 1.41-1.41L10 13.17l7.59-7.59L19 7l-9 9z" />
-                         </svg>
+                         </svg> */}
+                        <Image
+                          src="/badgeCheck.png"
+                          alt=""
+                          width={36}
+                          height={36}
+                          className="w-full h-full"
+                        />
                       </div>
                     </div>
                   </div>
@@ -279,44 +291,50 @@ export default function BadgePage() {
                   <div className="flex-1 w-full flex flex-col items-center justify-between">
                     <div className="flex flex-col items-center w-full">
                       {/* Sparkle "glowing thing" with lines on side */}
-                      <div className="flex items-center gap-4 w-full mb-4">
+                      <div className="flex items-center gap-2 sm:gap-4 w-full mb-2 sm:mb-4">
                         <div className="h-px flex-1 bg-linear-to-r from-transparent via-[#00D6B2]/30 to-transparent" />
-                        <Sparkles className="w-5 h-5 text-[#00D6B2] drop-shadow-[0_0_8px_rgba(0,214,178,0.8)]" />
+                        <Sparkles className="w-3 h-3 sm:w-5 sm:h-5 text-[#00D6B2] drop-shadow-[0_0_8px_rgba(0,214,178,0.8)]" />
                         <div className="h-px flex-1 bg-linear-to-l from-transparent via-[#00D6B2]/30 to-transparent" />
                       </div>
 
-                      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight">
+                      <h2 className="text-xl min-[400px]:text-lg sm:text-2xl md:text-4xl font-bold text-white mb-2 sm:mb-3 md:mb-6 tracking-tight text-center px-1 break-words max-w-full overflow-hidden">
                         {name || "Your Name"}
                       </h2>
 
                       {/* Contributor Pill */}
-                      <div className="inline-flex items-center gap-2.5 px-6 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20 mb-8">
-                        <span className="w-2 h-2 rounded-full bg-[#00D6B2] shadow-[0_0_10px_rgba(0,214,178,0.8)]" />
-                        <span className="text-[11px] font-bold tracking-[0.25em] text-[#00D6B2] uppercase">
+                      <div className="inline-flex items-center gap-1 sm:gap-2.5 px-2 sm:px-6 py-1 sm:py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20 mb-2 md:mb-4 lg:mb-8">
+                        <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-[#00D6B2] shadow-[0_0_10px_rgba(0,214,178,0.8)]" />
+                        <span className="text-[8px] sm:text-[11px] font-bold tracking-[0.15em] sm:tracking-[0.25em] text-[#00D6B2] uppercase">
                           Contributor
                         </span>
                       </div>
 
                       {/* 2026 Section with dots and lines */}
-                      <div className="flex items-center justify-center gap-4 w-full opacity-60">
+                      <div className="flex items-center justify-center gap-2 sm:gap-4 w-full opacity-60">
                         <div className="h-[1px] flex-1 bg-linear-to-r from-transparent to-white/20" />
-                        <div className="flex items-center gap-2 text-white">
-                           <span className="text-lg leading-none">•</span>
-                           <span className="text-base font-bold tracking-[0.2em]">2026</span>
-                           <span className="text-lg leading-none">•</span>
+                        <div className="flex items-center gap-1 sm:gap-2 text-white">
+                          <span className="text-xs sm:text-lg leading-none">
+                            •
+                          </span>
+                          <span className="text-[10px] sm:text-base font-bold tracking-[0.15em] sm:tracking-[0.2em]">
+                            2026
+                          </span>
+                          <span className="text-xs sm:text-lg leading-none">
+                            •
+                          </span>
                         </div>
                         <div className="h-[1px] flex-1 bg-linear-to-l from-transparent to-white/20" />
                       </div>
                     </div>
 
                     {/* NexFellow Logo at bottom */}
-                    <div className="w-full flex justify-center mt-6">
+                    <div className="w-full flex justify-center my-auto pb-1 sm:pb-4 lg:pb-0">
                       <Image
-                        src="/nex.png"
+                        src="/nex1.png"
                         alt="NexFellow"
                         width={180}
                         height={50}
-                        className="h-10 sm:h-12 w-auto object-contain opacity-95"
+                        className="w-[35%] sm:w-[50%] h-auto"
                       />
                     </div>
                   </div>
@@ -579,9 +597,11 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${((scale - 0.5) / 1.5) * 100
-                                      }%, #1a2535 ${((scale - 0.5) / 1.5) * 100
-                                      }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
+                                      ((scale - 0.5) / 1.5) * 100
+                                    }%, #1a2535 ${
+                                      ((scale - 0.5) / 1.5) * 100
+                                    }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <Search className="w-5 h-5 text-[#64748B]" />
@@ -638,9 +658,11 @@ export default function BadgePage() {
                                   }
                                   className="flex-1 h-2 bg-[#1a2535] rounded-full appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-[#00D6B2] [&::-webkit-slider-thumb]:shadow-[0_0_10px_rgba(0,214,178,0.5)] [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#0B1220]"
                                   style={{
-                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${(rotation / 360) * 100
-                                      }%, #1a2535 ${(rotation / 360) * 100
-                                      }%, #1a2535 100%)`,
+                                    background: `linear-gradient(to right, #00D6B2 0%, #00D6B2 ${
+                                      (rotation / 360) * 100
+                                    }%, #1a2535 ${
+                                      (rotation / 360) * 100
+                                    }%, #1a2535 100%)`,
                                   }}
                                 />
                                 <RefreshCw className="w-4 h-4 text-[#64748B]" />
