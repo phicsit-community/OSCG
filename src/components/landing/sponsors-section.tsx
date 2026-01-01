@@ -10,6 +10,10 @@ const partnersRow1 = [
   { name: "Future Minds United", logo: "/partners/FMU.jpeg" },
   { name: "Cloud Loop", logo: "/partners/cloudloop.jpg" },
   { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
+  { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
+  { name: "DevPath Community", logo: "/partners/devpathcommunity.jpg" },
+  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgocitm.jpeg" },
+  { name: "Learn hub", logo: "/partners/learnhub.jpg" },
 ];
 
 const partnersRow2 = [
@@ -18,6 +22,11 @@ const partnersRow2 = [
   { name: "Vibe X Community", logo: "/partners/vibex.png" },
   { name: "Digital Dominators", logo: "/partners/digitaldom.png" },
   { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
+  { name: "NEXGEN", logo: "/partners/nexgen.jpg" },
+  { name: "PICT OSS Community", logo: "/partners/pictoss.png" },
+  { name: "Student Council Of Information Technology - SCIT CLUB", logo: "/partners/scitclub.jpg" },
+  { name: "XoR", logo: "/partners/xor.png" },
+  { name: "Codasauras Community", logo: "/partners/codesaurus.png" },
 ];
 
 const SponsersSection = () => {
@@ -67,7 +76,7 @@ const SponsersSection = () => {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
         <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-center pointer-events-none">
-          <p className="text-white text-[10px] font-black tracking-[0.1em] uppercase drop-shadow-2xl">
+          <p className="text-white text-[10px] font-black tracking-[0.1em] uppercase drop-shadow-2xl whitespace-normal line-clamp-2">
             {partner.name}
           </p>
         </div>
@@ -140,7 +149,7 @@ const SponsersSection = () => {
         </div>
       </div>
 
-      
+
     </section>
   );
 };

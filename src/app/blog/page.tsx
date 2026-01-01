@@ -137,21 +137,20 @@ const containerVariants: Variants = {
 };
 
 const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+        transition: { duration: 0.5, ease: "easeOut" },
     },
 };
 
 const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    hidden: { opacity: 0, y: 20 },
     visible: {
         opacity: 1,
         y: 0,
-        scale: 1,
-        transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+        transition: { duration: 0.5, ease: "easeOut" },
     },
 };
 
@@ -194,7 +193,7 @@ const BlogPage = () => {
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.02] mix-blend-overlay" />
             </div>
 
-            <main className="relative z-10 pt-44 pb-24 container mx-auto px-10 max-w-7xl">
+            <main className="relative z-10 pt-24 pb-24 container mx-auto px-10 max-w-7xl">
                 <motion.div
                     className="section-header text-center mb-16"
                     variants={containerVariants}
@@ -246,7 +245,7 @@ const BlogPage = () => {
                                 variants={cardVariants}
                                 initial="hidden"
                                 animate="visible"
-                                exit={{ opacity: 0, y: 30, scale: 0.95 }}
+                                exit={{ opacity: 0, y: 20 }}
                                 className="group unified-card overflow-hidden cursor-pointer"
                             >
                                 <div className="relative h-48 bg-gradient-to-br cursor-pointer from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
@@ -301,55 +300,12 @@ const BlogPage = () => {
 
                 {isLoading && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="flex justify-center items-center py-12"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="flex flex-col items-center justify-center py-12 gap-4"
                     >
-                        <div className="relative">
-                            <div className="absolute inset-0 bg-[#00D6B2]/20 blur-xl rounded-full" />
-
-
-                            <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center gap-4">
-
-                                <div className="relative">
-                                    <div className="h-16 w-16 rounded-full border-4 border-white/10" />
-                                    <Loader2 className="h-16 w-16 absolute top-0 left-0 text-[#00D6B2] animate-spin" />
-
-
-                                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                        <div className="h-3 w-3 bg-[#00D6B2] rounded-full animate-ping" />
-                                        <div className="h-3 w-3 bg-[#00D6B2] rounded-full" />
-                                    </div>
-                                </div>
-
-
-                                <div className="text-center">
-                                    <p className="text-lg font-semibold text-white mb-2">Loading Articles</p>
-                                    <p className="text-sm text-[var(--text-muted)]">
-                                        Fetching the latest insights for you...
-                                    </p>
-                                </div>
-
-
-                                <div className="flex gap-2 mt-4">
-                                    {[0, 1, 2].map((i) => (
-                                        <motion.div
-                                            key={i}
-                                            className="h-2 w-2 bg-[#00D6B2] rounded-full"
-                                            animate={{
-                                                scale: [1, 1.5, 1],
-                                                opacity: [0.5, 1, 0.5],
-                                            }}
-                                            transition={{
-                                                duration: 1,
-                                                repeat: Infinity,
-                                                delay: i * 0.2,
-                                            }}
-                                        />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                        <Loader2 className="h-8 w-8 text-[#00D6B2] animate-spin" />
+                        <p className="text-[var(--text-muted)] text-sm animate-pulse">Loading articles...</p>
                     </motion.div>
                 )}
 
@@ -367,26 +323,13 @@ const BlogPage = () => {
                             disabled={isLoading}
                             className="cursor-pointer text-black bg-[var(--accent-primary)] hover:bg-[#00c4a3] rounded-2xl px-10 h-14 font-semibold shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all text-base disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Load More Articles ({visibleCount}/{filteredPosts.length})
+                            Load More Articles
                         </Button>
                     </motion.div>
                 )}
 
 
-                {!hasMorePosts && filteredPosts.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-8"
-                    >
-                        <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl px-6 py-4">
-                            <div className="h-3 w-3 bg-[#00D6B2] rounded-full animate-pulse" />
-                            <p className="text-[var(--text-muted)] font-medium">
-                                You've reached the end! No more articles to load.
-                            </p>
-                        </div>
-                    </motion.div>
-                )}
+
             </main>
 
             <Footer />
