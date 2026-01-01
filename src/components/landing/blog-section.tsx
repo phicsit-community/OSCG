@@ -66,7 +66,7 @@ const LatestInsights = () => {
   return (
     <section className="section-container bg-transparent">
       <div className="max-w-6xl mx-auto">
-        {/* Section Header */}
+
         <motion.div
           className="section-header"
           variants={containerVariants}
@@ -83,7 +83,7 @@ const LatestInsights = () => {
           </motion.p>
         </motion.div>
 
-        {/* Articles Grid */}
+
         <motion.div
           className="grid gap-6 md:grid-cols-3 mb-12"
           variants={containerVariants}
@@ -95,9 +95,9 @@ const LatestInsights = () => {
             <motion.div
               key={index}
               variants={cardVariants}
-              className="group unified-card overflow-hidden"
+              whileHover={{ y: -5 }}
+              className="group unified-card overflow-hidden cursor-pointer transition-all duration-300"
             >
-              {/* Image Placeholder */}
               <div className="relative h-48 bg-gradient-to-br from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
                 <div className="text-[var(--text-muted)] text-sm">Article Image</div>
                 <div className="absolute left-4 top-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 text-xs font-medium text-white">
@@ -105,9 +105,9 @@ const LatestInsights = () => {
                 </div>
               </div>
 
-              {/* Content */}
+
               <div className="p-6">
-                {/* Meta */}
+
                 <div className="mb-4 flex items-center gap-4 text-xs text-[var(--text-muted)]">
                   <div className="flex items-center gap-1.5">
                     <Calendar className="h-3.5 w-3.5" />
@@ -119,8 +119,8 @@ const LatestInsights = () => {
                   </div>
                 </div>
 
-                {/* Title */}
-                <h3 className="mb-3 text-lg font-semibold text-white group-hover:text-[var(--accent-secondary)] transition-colors line-clamp-2">
+
+                <h3 className="mb-3 text-lg cursor-pointer font-semibold text-white group-hover:text-[var(--accent-secondary)] transition-colors line-clamp-2">
                   {article.title}
                 </h3>
 
@@ -152,7 +152,6 @@ const LatestInsights = () => {
           ))}
         </motion.div>
 
-        {/* CTA Button */}
         <motion.div
           className="text-center"
           variants={fadeUp}
