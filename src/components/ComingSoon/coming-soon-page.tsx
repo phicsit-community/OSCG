@@ -2,7 +2,7 @@ import React from "react";
 
 export default function ComingSoon() {
   return (
-    <div className="min-h-screen w-full bg-gradient-to-b from-[#050A0A] via-[#071017] to-[#050A0A] flex items-center justify-center relative overflow-hidden p-4">
+    <div className="min-h-screen w-full  flex items-center justify-center relative overflow-hidden p-4">
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
           className="w-[500px] h-[500px] rounded-full opacity-30"

@@ -278,7 +278,7 @@ const Signup = () => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full h-10 text-[14px] font-semibold text-[#090E1A] bg-gradient-to-br from-[#11D392] to-[#2AAE6F] rounded-lg cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(17,211,146,0.3)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
+              className="w-full h-10 text-[14px] font-semibold text-[#090E1A] bg-linear-to-br from-[#11D392] to-[#2AAE6F] rounded-lg cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(17,211,146,0.3)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
             >
               {emailLoading ? "Creating..." : "Create Account"}
             </button>
