@@ -7,10 +7,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { supabase } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Bed, LayoutDashboard, LogOut, Menu, User as UserIcon, X } from "lucide-react";
+import { Bed, LayoutDashboard, LogOut, Menu, User as UserIcon, X, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
 import {
   DropdownMenu,
@@ -44,6 +45,7 @@ const navItems = [
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [avatar, setAvatar] = useState("");
   const [loading, setLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -56,12 +58,12 @@ const Navigation = () => {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial scroll position
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Reset scroll state on route change
+
   useEffect(() => {
     setIsScrolled(false);
   }, [pathname]);
@@ -72,6 +74,18 @@ const Navigation = () => {
       const currentUser = data?.user || null;
 
       setUser(currentUser);
+
+      if (currentUser) {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("is_admin")
+          .eq("id", currentUser.id)
+          .single();
+        setIsAdmin(!!profile?.is_admin);
+      } else {
+        setIsAdmin(false);
+      }
+
       const seed = currentUser?.email || "user";
       const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
       setAvatar(dicebearUrl);
@@ -82,10 +96,22 @@ const Navigation = () => {
     loadUser();
 
     const { data: subscription } = supabase.auth.onAuthStateChange(
-      (_, session) => {
+      async (_, session) => {
         const currentUser = session?.user || null;
 
         setUser(currentUser);
+
+        if (currentUser) {
+          const { data: profile } = await supabase
+            .from("profiles")
+            .select("is_admin")
+            .eq("id", currentUser.id)
+            .single();
+          setIsAdmin(!!profile?.is_admin);
+        } else {
+          setIsAdmin(false);
+        }
+
         const seed = currentUser?.email || "user";
         const dicebearUrl = `https://api.dicebear.com/7.x/bottts/svg?seed=${encodeURIComponent(seed)}`;
         setAvatar(dicebearUrl);
@@ -103,9 +129,12 @@ const Navigation = () => {
     window.location.href = "/";
   };
 
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
-      {/* Main navbar container */}
       <div
         className={`transition-all duration-500 ease-out ${isScrolled
           ? "mx-3 sm:mx-4 mt-3 md:mx-auto md:max-w-5xl lg:max-w-6xl xl:max-w-[1400px]"
@@ -121,7 +150,7 @@ const Navigation = () => {
 
           <Link
             href="/"
-            className="flex items-center gap-2 sm:gap-2.5 flex-shrink-0"
+            className="flex items-center gap-2 sm:gap-2.5 shrink-0"
           >
             <Image
               src="/logo1.png"
@@ -159,9 +188,9 @@ const Navigation = () => {
                   </Button>
                 </Link>
                 <Link href="/sign-up" className="relative group">
-               
 
-                  <Button className="relative bg-[#6FE7C1] hover:bg-[#6FE7C1] cursor-pointer text-[#0B0F17] text-sm lg:text-base font-black rounded-lg px-4 lg:px-6 py-2 lg:py-2.5 transition-all overflow-hidden cursor-pointer">
+
+                  <Button className="relative bg-[#6FE7C1] hover:bg-[#6FE7C1] cursor-pointer text-[#0B0F17] text-sm lg:text-base font-black rounded-lg px-4 lg:px-6 py-2 lg:py-2.5 transition-all overflow-hidden">
                     <span className="relative z-10">Sign Up</span>
                     {/* Interior Light Streak */}
                     <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/60 to-transparent -translate-x-[200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-in-out" />
@@ -175,7 +204,7 @@ const Navigation = () => {
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <div className="relative cursor-pointer group">
-                      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-20 group-hover:opacity-40 transition items-center justify-center"></div>
+                      <div className="absolute -inset-0.5 bg-linear-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-20 group-hover:opacity-40 transition items-center justify-center"></div>
                       <Avatar className="relative w-8 h-8 lg:w-9 lg:h-9  transition-all">
                         <img
                           src={avatar}
@@ -215,7 +244,7 @@ const Navigation = () => {
                       </div>
                     </div>
 
-                    <div className="h-[1px] bg-white/5 mx-2 mb-1" />
+                    <div className="h-px bg-white/5 mx-2 mb-1" />
 
                     <div className="space-y-0.5">
                       <Link href="/profile">
@@ -229,7 +258,18 @@ const Navigation = () => {
                         </DropdownMenuItem>
                       </Link>
 
-
+                      {isAdmin && (
+                        <Link href="/admin">
+                          <DropdownMenuItem className="group cursor-pointer flex items-center gap-2.5 text-[#11D392] px-2.5 py-1.25 rounded-xl outline-none focus:bg-[#11D392]/5 focus:text-[#11D392] transition-all">
+                            <div className="flex items-center justify-center w-6.5 h-6.5 rounded-lg bg-[#11D392]/5 transition-colors group-hover:bg-[#11D392]/10">
+                              <ShieldCheck className="w-3.5 h-3.5 text-[#11D392]/70 transition-colors group-hover:text-[#11D392]" />
+                            </div>
+                            <span className="text-[13px] font-bold transition-colors group-hover:text-[#11D392]">
+                              Admin Portal
+                            </span>
+                          </DropdownMenuItem>
+                        </Link>
+                      )}
 
                       <Link href="/dashboard">
                         <DropdownMenuItem className="group cursor-pointer flex items-center gap-2.5 text-white/70 px-2.5 py-1.25 rounded-xl outline-none focus:bg-white/5 focus:text-white transition-all">
@@ -243,7 +283,7 @@ const Navigation = () => {
                       </Link>
                     </div>
 
-                    <div className="h-[1px] bg-white/5 mx-2 my-1" />
+                    <div className="h-px bg-white/5 mx-2 my-1" />
 
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -309,7 +349,7 @@ const Navigation = () => {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="md:hidden fixed inset-x-3 sm:inset-x-4 top-[4.5rem] sm:top-20 bg-[#0A0F15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100vh-6rem)] overflow-y-auto"
+            className="md:hidden fixed inset-x-3 sm:inset-x-4 top-18 sm:top-20 bg-[#0A0F15]/95 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden max-h-[calc(100vh-6rem)] overflow-y-auto"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -357,7 +397,7 @@ const Navigation = () => {
                     <div className="absolute -inset-1 bg-linear-to-r from-[#6FE7C1] to-[#4FD1D0] rounded-2xl blur-md opacity-30 animate-pulse" />
                     <Button className="relative w-full h-14 text-base bg-[#6FE7C1] hover:bg-[#5ad4af] text-[#0B0F17] font-bold rounded-2xl cursor-pointer shadow-lg overflow-hidden group">
                       <span className="relative z-10">Sign Up</span>
-                      <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                      <div className="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
                     </Button>
                   </Link>
                 </motion.div>
@@ -371,10 +411,10 @@ const Navigation = () => {
                 transition={{ delay: 0.3 }}
                 className="px-3 pb-5"
               >
-                <div className="flex flex-col gap-3.5 p-3.5 rounded-[1.5rem] bg-white/[0.03] border border-white/5 shadow-sm">
+                <div className="flex flex-col gap-3.5 p-3.5 rounded-3xl bg-white/3 border border-white/5 shadow-sm">
                   <div className="flex items-center gap-4">
                     <div className="relative group">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-25" />
+                      <div className="absolute -inset-1 bg-linear-to-r from-[#6FE7C1] to-[#5ad4af] rounded-full blur opacity-25" />
                       <Avatar className="relative w-12 h-12">
                         <img src={avatar} alt="Avatar" className="w-full h-full object-cover" />
                         <AvatarFallback className="bg-[#1a1f25] text-white">
@@ -392,15 +432,21 @@ const Navigation = () => {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2">
-                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                  <div className={cn("grid gap-2", isAdmin ? "grid-cols-3" : "grid-cols-2")}>
+                    <Link href="/dashboard" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
                       <LayoutDashboard className="w-4 h-4 text-[#6FE7C1]" />
-                      <span className="text-white/80 font-medium text-[13px]">Dashboard</span>
+                      <span className="text-white/80 font-medium text-[11px]">Dashboard</span>
                     </Link>
-                    <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
+                    <Link href="/profile" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-1.5 py-3 rounded-xl bg-white/5 hover:bg-white/10 transition-all border border-white/5">
                       <UserIcon className="w-4 h-4 text-[#6FE7C1]" />
-                      <span className="text-white/80 font-medium text-[13px]">Profile</span>
+                      <span className="text-white/80 font-medium text-[11px]">Profile</span>
                     </Link>
+                    {isAdmin && (
+                      <Link href="/admin" onClick={() => setIsMenuOpen(false)} className="flex flex-col items-center justify-center gap-1.5 py-3 rounded-xl bg-[#11D392]/5 hover:bg-[#11D392]/10 transition-all border border-[#11D392]/10">
+                        <ShieldCheck className="w-4 h-4 text-[#11D392]" />
+                        <span className="text-[#11D392] font-bold text-[11px]">Admin</span>
+                      </Link>
+                    )}
                   </div>
 
                   <Button

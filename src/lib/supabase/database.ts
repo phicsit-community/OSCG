@@ -4,6 +4,8 @@ export interface Profile {
   id: string;
   badges_created: number;
   full_name?: string;
+  email?: string;
+  is_admin: boolean;
 }
 
 export async function getProfile(userId: string) {
@@ -24,6 +26,8 @@ export async function getProfile(userId: string) {
             id: userId,
             badges_created: 0,
             full_name: userData.user?.user_metadata?.full_name || "",
+            email: userData.user?.email || "",
+            is_admin: false,
           },
         ])
         .select()

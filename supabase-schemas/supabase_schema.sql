@@ -1,8 +1,9 @@
--- Create a table for public profiles
 CREATE TABLE public.profiles (
   id UUID REFERENCES auth.users ON DELETE CASCADE NOT NULL PRIMARY KEY,
   badges_created INTEGER DEFAULT 0,
   full_name TEXT,
+  email TEXT,
+  is_admin BOOLEAN DEFAULT FALSE,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -23,8 +24,8 @@ CREATE POLICY "Users can update own profile." ON public.profiles
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
-  INSERT INTO public.profiles (id, full_name)
-  VALUES (new.id, new.raw_user_meta_data->>'full_name');
+  INSERT INTO public.profiles (id, full_name, email)
+  VALUES (new.id, new.raw_user_meta_data->>'full_name', new.email);
   RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
