@@ -51,12 +51,14 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: [
-      { url: "/favicon.ico" },
-      { url: "/favicon.jpg", type: "image/jpg", sizes: "512x512" },
-    ],
-    apple: "/favicon.jpg",
-  },
+  icon: [
+    { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+    { url: "/favicon.png", type: "image/png", sizes: "192x192" },
+    { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+  ],
+  apple: "/favicon.png",
+},
+
 
   openGraph: {
     title: "Open Source Connect Global 2026",
