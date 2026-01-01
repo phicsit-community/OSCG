@@ -2789,7 +2789,7 @@ The best project to contribute to is the one you choose today and actually work 
     date: "December 31, 2025",
     readTime: "22 min read",
     author: {
-        name: "Aryan Sharma",
+        name: "Ayush Sharma",
         role: "Lead Architect",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
     },
