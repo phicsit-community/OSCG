@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { Toaster } from "sonner";
+import { Toaster } from "@/components/ui/sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import GlobalBackground from "@/components/global-background";
 import Navigation from "@/components/landing/navigation";

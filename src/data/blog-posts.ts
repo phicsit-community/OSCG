@@ -111,7 +111,7 @@ Open source works best when it's truly open - not just in code, but in participa
     date: "October 18, 2025",
     readTime: "12 min read",
     author: {
-        name: "Marcus Rodriguez",
+        name: "Dev Agarwal",
         role: "Architecture Lead",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
     },
@@ -349,7 +349,7 @@ The developers who take open source seriously - who contribute consistently, lea
     date: "November 12, 2025",
     readTime: "6 min read",
     author: {
-        name: "Sarah Chen",
+        name: "Durgeshwar",
         role: "Lead Developer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
@@ -487,7 +487,7 @@ Innovation in open source isn't about being exceptional. It's about being persis
     date: "November 10, 2025",
     readTime: "7 min read",
     author: {
-        name: "Marcus Rodriguez",
+        name: "Santhosh",
         role: "Architecture Lead",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
     },
@@ -962,7 +962,7 @@ That's the path. Start small, learn the process, build from there.
     date: "December 15, 2025",
     readTime: "12 min read",
     author: {
-        name: "Narendra Modi",
+        name: "Deependra Gaur",
         role: "Community Manager",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Modi"
     },
@@ -1333,8 +1333,8 @@ That's a good bet.
     date: "November 8, 2025",
     readTime: "15 min read",
     author: {
-        name: "Priya Sharma",
-        role: "Community Manager",
+        name: "Priyansh Narang",
+        role: "Lead Developer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     },
     featuredImage: "/blogs/blog8.png",
@@ -2244,7 +2244,7 @@ That's how it works for most people who succeed at this.
     readTime: "18 min read",
     author: {
         name: "Priyansh Narang",
-        role: "Community Manager",
+        role: "Lead Developer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priyansh"
     },
     featuredImage: "/blogs/blog10.png",
@@ -2789,7 +2789,7 @@ The best project to contribute to is the one you choose today and actually work 
     date: "December 31, 2025",
     readTime: "22 min read",
     author: {
-        name: "Ramesh",
+        name: "Aryan Hardeniya",
         role: "Lead Architect",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
     },
@@ -3319,8 +3319,8 @@ That's not just good for your career. It's a better way to spend your time.
     date: "December 12, 2025",
     readTime: "15 min read",
     author: {
-        name: "Ramesh",
-        role: "Lead Architect",
+        name: "Priyansh Narang",
+        role: "Lead Developer",
         avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
     },
     featuredImage: "/blogs/blog12.png",

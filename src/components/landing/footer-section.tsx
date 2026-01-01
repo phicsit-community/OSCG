@@ -21,7 +21,7 @@ const resources = [
 
 const applyLinks = [
   { label: "Speak With Us", href: "https://docs.google.com/forms/d/e/1FAIpQLSebMVP6o26ZtW2yTU2tc4ZRtebOxU_8Z5fw2DwBeVmeKEQLuQ/viewform?usp=header", target: "_blank" },
-  { label: "Become a Mentor", href: "#" },
+  { label: "Become a Mentor", href: "http://docs.google.com/forms/d/e/1FAIpQLSebuqxmKNDuIgXYZzbOZ1nhJp38fHxthFGDyDN0j4V6cX3sFQ/viewform" },
   { label: "Become Project Admin", href: "#" },
   {
     label: "Become Campus Lead",

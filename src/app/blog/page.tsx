@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { ArrowRight, Calendar, Clock, User, Loader2 } from "lucide-react";
 import Navigation from "@/components/landing/navigation";
 import Footer from "@/components/landing/footer-section";
-import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blog-posts";
 import Link from "next/link";
 
@@ -49,6 +48,7 @@ const BlogPage = () => {
     const [activeCategory, setActiveCategory] = useState("All");
     const [visibleCount, setVisibleCount] = useState(6);
     const [isLoading, setIsLoading] = useState(false);
+    const observerTarget = useRef(null);
 
     const filteredPosts = activeCategory === "All"
         ? blogPosts
@@ -57,17 +57,37 @@ const BlogPage = () => {
     const visiblePosts = filteredPosts.slice(0, visibleCount);
     const hasMorePosts = visibleCount < filteredPosts.length;
 
-    const loadMorePosts = () => {
-        if (isLoading) return;
+    const loadMorePosts = useCallback(() => {
+        if (isLoading || !hasMorePosts) return;
 
         setIsLoading(true);
-
 
         setTimeout(() => {
             setVisibleCount(prev => prev + 6);
             setIsLoading(false);
-        }, 1000);
-    };
+        }, 800);
+    }, [isLoading, hasMorePosts]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting && hasMorePosts && !isLoading) {
+                    loadMorePosts();
+                }
+            },
+            { threshold: 0.1, rootMargin: "100px" }
+        );
+
+        if (observerTarget.current) {
+            observer.observe(observerTarget.current);
+        }
+
+        return () => {
+            if (observerTarget.current) {
+                observer.unobserve(observerTarget.current);
+            }
+        };
+    }, [loadMorePosts, hasMorePosts, isLoading]);
 
     const handleCategoryChange = (cat: string) => {
         setActiveCategory(cat);
@@ -113,8 +133,8 @@ const BlogPage = () => {
                             key={cat}
                             onClick={() => handleCategoryChange(cat)}
                             className={`px-8 py-2.5 cursor-pointer rounded-full text-[11px] font-black tracking-widest uppercase transition-all duration-500 border ${activeCategory === cat
-                                ? "bg-[#00D6B2] border-[#00D6B2] cursor-pointer text-black shadow-[0_0_30px_rgba(0,214,178,0.4)]"
-                                : "bg-white/5 border-white/10 text-[#64748B] cursor-pointer hover:text-white hover:border-[#00D6B2]/30 hover:bg-white/5"
+                                ? "bg-[#00D6B2] border-[#00D6B2] text-black shadow-[0_0_30px_rgba(0,214,178,0.4)]"
+                                : "bg-white/5 border-white/10 text-[#64748B] hover:text-white hover:border-[#00D6B2]/30 hover:bg-white/5"
                                 }`}
                         >
                             {cat}
@@ -141,11 +161,11 @@ const BlogPage = () => {
                                     initial="hidden"
                                     animate="visible"
                                     exit={{ opacity: 0, y: 20 }}
-                                    className="group unified-card overflow-hidden cursor-pointer h-full cursor-pointer"
+                                    className="group unified-card overflow-hidden cursor-pointer h-full"
                                 >
-                                    <div className="relative h-48 bg-linear-to-br cursor-pointer from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
+                                    <div className="relative h-48 bg-linear-to-br from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
                                         <div className="text-(--text-muted) text-sm text-center px-4">Article Image</div>
-                                        <div className="absolute left-4 top-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 text-xs font-medium text-white cursor-pointer">
+                                        <div className="absolute left-4 top-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 text-xs font-medium text-white">
                                             {article.category}
                                         </div>
                                     </div>
@@ -162,7 +182,7 @@ const BlogPage = () => {
                                             </div>
                                         </div>
 
-                                        <h3 className="mb-3 text-lg font-semibold cursor-pointer text-white group-hover:text-(--accent-secondary) transition-colors line-clamp-2 cursor-pointer">
+                                        <h3 className="mb-3 text-lg font-semibold text-white group-hover:text-(--accent-secondary) transition-colors line-clamp-2">
                                             {article.title}
                                         </h3>
 
@@ -191,6 +211,8 @@ const BlogPage = () => {
                 </motion.div>
 
 
+                <div ref={observerTarget} className="h-10 w-full" />
+
                 {isLoading && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -198,30 +220,9 @@ const BlogPage = () => {
                         className="flex flex-col items-center justify-center py-12 gap-4"
                     >
                         <Loader2 className="h-8 w-8 text-[#00D6B2] animate-spin" />
-                        <p className="text-[var(--text-muted)] text-sm animate-pulse">Loading articles...</p>
+                        <p className="text-[var(--text-muted)] text-sm animate-pulse">Loading more insights...</p>
                     </motion.div>
                 )}
-
-
-                {hasMorePosts && !isLoading && (
-                    <motion.div
-                        className="text-center"
-                        variants={fadeUp}
-                        initial="hidden"
-                        animate="visible"
-                    >
-                        <Button
-                            size="lg"
-                            onClick={loadMorePosts}
-                            disabled={isLoading}
-                            className="cursor-pointer text-black bg-[var(--accent-primary)] hover:bg-[#00c4a3] rounded-2xl px-10 h-14 font-semibold shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all text-base disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            Load More Articles
-                        </Button>
-                    </motion.div>
-                )}
-
-
 
             </main>
 

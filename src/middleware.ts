@@ -74,7 +74,6 @@ export async function middleware(request: NextRequest) {
       .single()
 
     if (!profile?.is_admin) {
-      console.log("Access Denied: Not an admin", user.email)
       const url = request.nextUrl.clone()
       url.pathname = '/'
       return NextResponse.redirect(url)
