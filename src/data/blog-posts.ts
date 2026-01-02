@@ -962,7 +962,7 @@ That's the path. Start small, learn the process, build from there.
         date: "December 15, 2025",
         readTime: "12 min read",
         author: {
-            name: "Deependra Gaur",
+            name: "Dev Agarwal",
             role: "Community Manager",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Modi"
         },
