@@ -311,18 +311,6 @@ const BlogPage = () => {
                     </motion.div>
                 )}
 
-                {/* No More Posts */}
-                {!hasMorePosts && filteredPosts.length > 0 && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        className="text-center py-12"
-                    >
-                        <p className="text-[#64748B] text-sm">
-                            You&apos;ve reached the end • {filteredPosts.length} articles total
-                        </p>
-                    </motion.div>
-                )}
 
                 {/* Empty State */}
                 {filteredPosts.length === 0 && (

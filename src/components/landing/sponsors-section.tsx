@@ -34,7 +34,7 @@ const SponsersSection = () => {
 
   const marqueeVariantsLeft = {
     animate: {
-      x: [0, -(partnersRow1.length * (180 + 24))],
+      x: [0, -(partnersRow1.length * (120 + 16))],
       transition: {
         x: {
           repeat: Infinity,
@@ -48,7 +48,7 @@ const SponsersSection = () => {
 
   const marqueeVariantsRight = {
     animate: {
-      x: [-(partnersRow2.length * (180 + 24)), 0],
+      x: [-(partnersRow2.length * (120 + 16)), 0],
       transition: {
         x: {
           repeat: Infinity,
@@ -63,20 +63,20 @@ const SponsersSection = () => {
   const duplicatedRow1 = [...partnersRow1, ...partnersRow1, ...partnersRow1, ...partnersRow1];
   const duplicatedRow2 = [...partnersRow2, ...partnersRow2, ...partnersRow2, ...partnersRow2];
 
-  const PartnerCard = ({ partner, index }: { partner: any, index: number }) => (
+  const PartnerCard = ({ partner, index }: { partner: any; index: number }) => (
     <div
       key={`${partner.name}-${index}`}
-      className="relative group flex-shrink-0 cursor-pointer transition-transform duration-700 scale-[0.96] hover:scale-100"
+      className="relative group shrink-0 cursor-pointer transition-all duration-500 scale-[0.98] hover:scale-100"
     >
-      <div className="relative w-[180px] h-[180px] rounded-[2rem] bg-[#111] overflow-hidden flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:border-[#00D6B2]/50 group-hover:shadow-[0_0_30px_rgba(0,214,178,0.2)]">
+      <div className="relative w-[120px] h-[120px] rounded-2xl bg-white/2 backdrop-blur-md overflow-hidden flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:border-[#00D6B2]/40 group-hover:bg-[#00D6B2]/5 group-hover:shadow-[0_0_20px_rgba(0,214,178,0.15)]">
         <img
           src={partner.logo}
           alt={partner.name}
-          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-110"
+          className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-2 group-hover:translate-y-0 text-center pointer-events-none">
-          <p className="text-white text-[10px] font-black tracking-[0.1em] uppercase drop-shadow-2xl whitespace-normal line-clamp-2">
+        <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+        <div className="absolute inset-x-0 bottom-0 p-2 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-1 group-hover:translate-y-0 text-center pointer-events-none bg-linear-to-t from-black/80 via-black/40 to-transparent">
+          <p className="text-white text-[8px] font-bold tracking-wider uppercase whitespace-normal line-clamp-1 px-1">
             {partner.name}
           </p>
         </div>
@@ -105,7 +105,7 @@ const SponsersSection = () => {
           <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             Network <span className="text-accent-gradient">Partners</span>
           </h2>
-          <p className="text-[var(--text-secondary)] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+          <p className="text-(--text-secondary) text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
             Leading the way in open-source innovation through powerful global collaborations.
           </p>
         </motion.div>
@@ -115,12 +115,12 @@ const SponsersSection = () => {
         <div
           className="relative w-full overflow-hidden py-4"
           style={{
-            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
           }}
         >
           <motion.div
-            className="flex gap-6 whitespace-nowrap will-change-transform"
+            className="flex gap-4 whitespace-nowrap will-change-transform"
             variants={marqueeVariantsLeft}
             animate="animate"
           >
@@ -133,12 +133,12 @@ const SponsersSection = () => {
         <div
           className="relative w-full overflow-hidden py-4"
           style={{
-            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%)",
           }}
         >
           <motion.div
-            className="flex gap-6 whitespace-nowrap will-change-transform"
+            className="flex gap-4 whitespace-nowrap will-change-transform"
             variants={marqueeVariantsRight}
             animate="animate"
           >

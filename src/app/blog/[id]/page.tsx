@@ -142,18 +142,18 @@ const BlogDetailPage = () => {
                 >
                     <Link
                         href="/blog"
-                        className="inline-flex items-center gap-2 text-sm font-medium text-[#64748B] hover:text-[#00D6B2] transition-colors duration-300 group"
+                        className="group inline-flex items-center gap-2 text-sm font-medium text-[#64748B] transition-colors hover:text-[#00D6B2]"
                     >
-                        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white/[0.03] border border-white/10 group-hover:border-[#00D6B2]/30 group-hover:bg-[#00D6B2]/10 transition-all duration-300">
-                            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
-                        </div>
-                        <span>Back to Blog</span>
+                        <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-0.5" />
+                        <span className="relative">
+                            Back to Blog
+                            <span className="absolute left-0 -bottom-0.5 h-px w-0 bg-[#00D6B2] transition-all group-hover:w-full" />
+                        </span>
                     </Link>
+
                 </motion.div>
 
-                {/* Hero Section */}
                 <div className="grid lg:grid-cols-2 gap-12 items-center mb-16">
-                    {/* Left: Content */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
