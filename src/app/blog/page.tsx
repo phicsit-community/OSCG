@@ -185,7 +185,7 @@ const BlogPage = () => {
                     <AnimatePresence mode="popLayout">
                         {visiblePosts.map((article) => (
                             <Link
-                                href={`/blog/${article.id}`}
+                                href={`/blog/${article.slug}`}
                                 key={article.id}
                                 className="group block"
                             >

@@ -61,9 +61,9 @@ const BlogDetailPage = () => {
     };
 
     const post = useMemo(() => {
-        const postId = parseInt(params.id as string);
-        return blogPosts.find((p) => p.id === postId) || null;
-    }, [params.id]);
+        const slug = params.slug as string;
+        return blogPosts.find((p) => p.slug === slug) || null;
+    }, [params.slug]);
 
     const toc = useMemo(() => {
         if (!post) return [];

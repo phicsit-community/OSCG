@@ -18,7 +18,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
     {
         id: 1,
-        slug: "how-uniting-developers",
+        slug: "uniting-developers-with-oscg",
         category: "Best Practices",
         title: "How Open Source Connect Global is Uniting Developers",
         description: "Learn how to make meaningful contributions to open source projects and become a valued community member.",
@@ -104,7 +104,7 @@ Open source works best when it's truly open - not just in code, but in participa
     },
     {
         id: 2,
-        slug: "boosting-resume",
+        slug: "boost-resume-with-open-source",
         category: "Tutorial",
         title: "How Contributing to Open Source Boosts Your Resume",
         description: "A comprehensive guide to designing and implementing scalable API architectures that can handle millions of requests.",
@@ -232,7 +232,7 @@ Your resume is a summary. Your open-source contributions are the evidence. Toget
     },
     {
         id: 3,
-        slug: "reasons-to-contribute",
+        slug: "top-reasons-to-contribute",
         category: "Insights",
         title: "Top 5 Reasons to Contribute to Open Source Projects",
         description: "Discover the top reasons why contributing to open source projects is beneficial for your career and the community.",
@@ -342,7 +342,7 @@ The developers who take open source seriously - who contribute consistently, lea
     },
     {
         id: 4,
-        slug: "stories-of-innovation",
+        slug: "open-source-innovation-stories",
         category: "Security",
         title: "Stories of Innovation Born in Open Source",
         description: "Explore the inspiring stories of innovation born in open source projects and how they have transformed the industry.",
@@ -480,7 +480,7 @@ Innovation in open source isn't about being exceptional. It's about being persis
     },
     {
         id: 5,
-        slug: "non-cs-students",
+        slug: "non-cs-students-open-source-guide",
         category: "Development",
         title: "How Non-CS Students Can Thrive in Open Source",
         description: "Discover how non-CS students can make meaningful contributions to open source projects and succeed in the tech industry.",
@@ -619,7 +619,7 @@ If you're not studying computer science but you're interested in open source, do
     },
     {
         id: 6,
-        slug: "first-contribution",
+        slug: "first-contribution-step-by-step",
         category: "Best Practices",
         title: "How to Make Your First Open Source Code Contribution",
         description: "A step-by-step guide to making your first open source contribution and getting started with open source development.",
@@ -955,7 +955,7 @@ That's the path. Start small, learn the process, build from there.
 
     {
         id: 7,
-        slug: "happening-opensource",
+        slug: "oscg-community-events-experience",
         category: "Community",
         title: "What Happens at Open Source Connect Events",
         description: "An inside look at our community events and what you can expect when you join or organize one.",
@@ -1326,9 +1326,9 @@ That's a good bet.
 
     {
         id: 8,
-        slug: "happening-opensource",
+        slug: "ai-development-open-source-landscape",
         category: "Insights",
-        title: "What Happens at Open Source Connect Events",
+        title: "The Open Source AI Revolution",
         description: "An inside look at our community events and what you can expect when you join or organize one.",
         date: "November 8, 2025",
         readTime: "15 min read",
@@ -1753,7 +1753,7 @@ The tools are available. The community is welcoming. The barrier to entry keeps 
 
     {
         id: 9,
-        slug: "happening-opensource",
+        slug: "building-career-with-contributions",
         category: "Insights",
         title: "Building a Career through Open Source Contributions",
         description: "Learn how contributing to open source can help you build a professional network, gain real-world experience, and accelerate your career in the rapidly evolving AI landscape.",
@@ -2782,7 +2782,7 @@ The best project to contribute to is the one you choose today and actually work 
     },
     {
         id: 11,
-        slug: "career-growth-through-open-source",
+        slug: "career-growth-giving-back",
         category: "Insights",
         title: "Grow Your Career by Giving Back Through Open Source",
         description: "Open source is a powerful tool for career growth. By contributing to open source projects, you can gain valuable experience, build your portfolio, and network with other professionals. In this article, we'll explore how open source can help you grow your career.",
@@ -3312,7 +3312,7 @@ That's not just good for your career. It's a better way to spend your time.
     },
     {
         id: 12,
-        slug: "importance-of-ui-design",
+        slug: "importance-of-ui-ux-design",
         category: "Insights",
         title: "The Importance of UI/UX in Open Source Projects",
         description: "UI/UX design plays a crucial role in open source projects. It can make or break a project's success. In this article, we'll explore the importance of UI/UX in open source projects and how it can impact the success of a project.",

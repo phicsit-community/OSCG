@@ -93,7 +93,7 @@ const LatestInsights = () => {
           {insights.map((article, index) => (
             <Link
               key={article.id}
-              href={`/blog/${article.id}`}
+              href={`/blog/${article.slug}`}
               className="group block"
             >
               <motion.article

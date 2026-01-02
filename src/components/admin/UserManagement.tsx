@@ -66,13 +66,13 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   const downloadCSV = () => {
     const headers = ["Name", "Email", "Badges Created", "Joined Date"];
     const csvData = filteredUsers.map((user: Profile) => [
-      user.full_name || "N/A",
-      user.email || "N/A",
+      `"${(user.full_name || "N/A").replace(/"/g, '""')}"`,
+      `"${(user.email || "N/A").replace(/"/g, '""')}"`,
       user.badges_created,
-      new Date(user.updated_at).toLocaleDateString()
+      `"${new Date(user.updated_at).toISOString().split('T')[0]}"`
     ]);
 
-    const csvContent = [headers, ...csvData].map(e => e.join(",")).join("\n");
+    const csvContent = [headers.map(h => `"${h}"`), ...csvData].map(e => e.join(",")).join("\n");
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
