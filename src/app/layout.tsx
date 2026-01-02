@@ -51,13 +51,13 @@ export const metadata: Metadata = {
   },
 
   icons: {
-  icon: [
-    { url: "/favicon.png", type: "image/png", sizes: "32x32" },
-    { url: "/favicon.png", type: "image/png", sizes: "192x192" },
-    { url: "/favicon.png", type: "image/png", sizes: "512x512" },
-  ],
-  apple: "/favicon.png",
-},
+    icon: [
+      { url: "/logo.png", type: "image/png", sizes: "32x32" },
+      { url: "/logo.png", type: "image/png", sizes: "192x192" },
+      { url: "/logo.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: "/logo.png",
+  },
 
 
   openGraph: {
