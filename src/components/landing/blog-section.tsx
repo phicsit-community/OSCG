@@ -1,25 +1,26 @@
 "use client";
 
-import { ArrowRight, Calendar, Clock, User } from "lucide-react";
+import { ArrowRight, Calendar, Clock, BookOpen, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { blogPosts } from "@/data/blog-posts";
+import Image from "next/image";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
   },
 };
 
 const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
@@ -29,107 +30,176 @@ const cardVariants: Variants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
   },
 };
 
 const LatestInsights = () => {
-  // Use the first 3 real blog posts
   const insights = blogPosts.slice(0, 3);
 
   return (
-    <section className="section-container bg-transparent">
-      <div className="max-w-6xl mx-auto">
+    <section className="relative py-28 overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#00D6B2]/8 rounded-full blur-[120px] opacity-60" />
+        <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#4FD1D0]/6 rounded-full blur-[100px] opacity-50" />
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00D6B2]/20 to-transparent" />
+      </div>
 
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        {/* Section Header */}
         <motion.div
-          className="section-header"
+          className="text-center mb-20"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.h2 variants={fadeUp}>
-            Latest <span className="text-accent-gradient">Insights</span>
+          {/* Label */}
+          <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-6">
+            <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#00D6B2]/10 border border-[#00D6B2]/20">
+              <Sparkles className="w-4 h-4 text-[#00D6B2]" />
+              <span className="text-[#00D6B2] text-sm font-bold tracking-wider uppercase">
+                Knowledge Hub
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Title */}
+          <motion.h2
+            variants={fadeUp}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
+          >
+            Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0]">Insights</span>
           </motion.h2>
-          <motion.p variants={fadeUp}>
-            Stay updated with the latest news, tutorials, and insights from the
-            open source community
+
+          {/* Subtitle */}
+          <motion.p
+            variants={fadeUp}
+            className="text-[#94A3B8] text-lg md:text-xl max-w-2xl mx-auto leading-relaxed"
+          >
+            Explore tutorials, best practices, and stories from the open source community
           </motion.p>
         </motion.div>
 
-
+        {/* Blog Cards Grid */}
         <motion.div
-          className="grid gap-6 md:grid-cols-3 mb-12"
+          className="grid gap-8 lg:grid-cols-3 md:grid-cols-2"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
+          viewport={{ once: true, amount: 0.05 }}
         >
-          {insights.map((article) => (
+          {insights.map((article, index) => (
             <Link
               key={article.id}
               href={`/blog/${article.id}`}
-              className="contents"
+              className="group block"
             >
-              <motion.div
+              <motion.article
                 variants={cardVariants}
-                whileHover={{ y: -5 }}
-                className="group unified-card overflow-hidden cursor-pointer transition-all duration-300"
+                className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-gradient-to-b from-[#0D1520] to-[#080C14] border border-white/[0.08] transition-all duration-500 hover:border-[#00D6B2]/40 hover:shadow-[0_0_80px_-20px_rgba(0,214,178,0.4)] hover:-translate-y-2"
               >
-                <div className="relative h-48 bg-linear-to-br from-white/5 to-white/0 flex items-center justify-center border-b border-white/5">
-                  <div className="text-(--text-muted) text-sm">Article Image</div>
-                  <div className="absolute left-4 top-4 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 px-3 py-1 text-xs font-medium text-white">
-                    {article.category}
+                {/* Image Container */}
+                <div className="relative h-56 overflow-hidden">
+                  {/* Animated Gradient Border on Hover */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00D6B2] to-transparent" />
                   </div>
+
+                  {/* Image with Ken Burns Effect */}
+                  <div className="absolute inset-0">
+                    <Image
+                      src={article.featuredImage}
+                      alt={article.title}
+                      fill
+                      className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    {/* Gradient Overlays */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-[#080C14]/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#00D6B2]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
+
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-30">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#0A0F15]/90 backdrop-blur-sm border border-[#00D6B2]/40 text-[#00D6B2] shadow-lg">
+                      <BookOpen className="w-3 h-3" />
+                      {article.category}
+                    </span>
+                  </div>
+
+                  {/* Read Time Badge */}
+                  <div className="absolute top-4 right-4 z-30">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-lg">
+                      <Clock className="w-3 h-3" />
+                      {article.readTime}
+                    </span>
+                  </div>
+
+                  {/* Floating Orb Effect */}
+                  <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-[#00D6B2]/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
-
-                <div className="p-6">
-
-                  <div className="mb-4 flex items-center gap-4 text-xs text-(--text-muted)">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5" />
-                      {article.date}
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Clock className="h-3.5 w-3.5" />
-                      {article.readTime}
-                    </div>
+                {/* Content */}
+                <div className="flex flex-col flex-1 p-6">
+                  {/* Date */}
+                  <div className="flex items-center gap-2 text-xs text-[#64748B] mb-4">
+                    <Calendar className="w-3.5 h-3.5 text-[#00D6B2]" />
+                    <time className="font-medium">{article.date}</time>
                   </div>
 
-
-                  <h3 className="mb-3 text-lg font-semibold text-white group-hover:text-(--accent-secondary) transition-colors line-clamp-2">
+                  {/* Title */}
+                  <h3 className="text-xl font-bold text-white mb-4 leading-tight line-clamp-2 group-hover:text-[#00D6B2] transition-colors duration-300">
                     {article.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="mb-5 text-sm text-(--text-muted) leading-relaxed line-clamp-2">
+                  <p className="text-sm text-[#94A3B8] leading-relaxed line-clamp-2 mb-6 flex-1">
                     {article.description}
                   </p>
 
-                  {/* Divider */}
-                  <div className="h-px bg-white/10 mb-4" />
-
                   {/* Footer */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-(--text-secondary)">
-                      <User className="h-4 w-4" />
-                      {article.author.name}
+                  <div className="flex items-center justify-between pt-5 border-t border-white/[0.06]">
+                    {/* Author */}
+                    <div className="flex items-center gap-3">
+                      <div className="relative">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-70 blur transition-all duration-500" />
+                        <img
+                          src={article.author.avatar}
+                          alt={article.author.name}
+                          className="relative w-10 h-10 rounded-full border-2 border-white/10 bg-[#1a1f2e] group-hover:border-[#00D6B2]/50 transition-all duration-300"
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold text-white">
+                          {article.author.name}
+                        </span>
+                        <span className="text-xs text-[#64748B]">
+                          {article.author.role}
+                        </span>
+                      </div>
                     </div>
 
-                    <div className="inline-flex items-center text-(--accent-primary) group-hover:text-(--accent-secondary) font-medium text-sm transition-colors">
-                      Read
-                      <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-1" />
+                    {/* Read More Arrow */}
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-[#64748B] group-hover:bg-[#00D6B2] group-hover:border-[#00D6B2] group-hover:text-black transition-all duration-300">
+                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>
                 </div>
-              </motion.div>
+
+                {/* Card Glow Effect */}
+                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#00D6B2]/10 via-transparent to-transparent rounded-3xl" />
+                </div>
+              </motion.article>
             </Link>
           ))}
         </motion.div>
 
+        {/* View All Button */}
         <motion.div
-          className="text-center"
+          className="flex justify-center mt-20"
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
@@ -138,12 +208,18 @@ const LatestInsights = () => {
           <Link href="/blog">
             <Button
               size="lg"
-              className="cursor-pointer text-black bg-(--accent-primary) hover:bg-[#00c4a3] rounded-2xl px-10 h-14 font-semibold shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all text-base"
+              className="group cursor-pointer relative overflow-hidden bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] hover:from-[#00c4a3] hover:to-[#3fc1c0] text-black rounded-full px-10 h-14 font-bold tracking-wide shadow-[0_10px_40px_-10px_rgba(0,214,178,0.5)] hover:shadow-[0_20px_60px_-15px_rgba(0,214,178,0.6)] transition-all duration-500 hover:-translate-y-1"
             >
-              View All Blogs
+              <span className="flex items-center gap-3">
+                Explore All Articles
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+              </span>
             </Button>
           </Link>
         </motion.div>
+
+        {/* Bottom Decorative Line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00D6B2]/20 to-transparent" />
       </div>
     </section>
   );

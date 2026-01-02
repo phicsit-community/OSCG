@@ -1,36 +1,36 @@
 export interface BlogPost {
-  id: number;
-  slug: string;
-  category: string;
-  title: string;
-  description: string;
-  content: string;
-  date: string;
-  readTime: string;
-  author: {
-    name: string;
-    role: string;
-    avatar: string;
-  };
-  featuredImage: string;
+    id: number;
+    slug: string;
+    category: string;
+    title: string;
+    description: string;
+    content: string;
+    date: string;
+    readTime: string;
+    author: {
+        name: string;
+        role: string;
+        avatar: string;
+    };
+    featuredImage: string;
 }
 
 export const blogPosts: BlogPost[] = [
-  {
-    id: 1,
-    slug: "how-uniting-developers",
-    category: "Best Practices",
-    title: "How Open Source Connect Global is Uniting Developers",
-    description: "Learn how to make meaningful contributions to open source projects and become a valued community member.",
-    date: "October 20, 2025",
-    readTime: "8 min read",
-    author: {
-      name: "Priyansh Narang",
-      role: "Lead Developer",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sample"
-    },
-    featuredImage: "/blogs/blog1.png", 
-    content: `
+    {
+        id: 1,
+        slug: "how-uniting-developers",
+        category: "Best Practices",
+        title: "How Open Source Connect Global is Uniting Developers",
+        description: "Learn how to make meaningful contributions to open source projects and become a valued community member.",
+        date: "October 20, 2025",
+        readTime: "8 min read",
+        author: {
+            name: "Priyansh Narang",
+            role: "Lead Developer",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sample"
+        },
+        featuredImage: "/blogs/blog1.png",
+        content: `
 Most developers work in isolation - stuck in their local communities, limited by language barriers, or unsure how to find collaborators beyond their immediate network. [**Open Source Connect Global**](https://osconnect.org) (OSCG) exists to change that. It's not about flashy campaigns or corporate sponsorships. It's about creating real connections between people who build software, solve problems, and want to learn from each other.
 
 ## Why Global Collaboration Matters
@@ -101,22 +101,22 @@ The goal isn't to create another platform with badges and gamification. It's to 
 
 Open source works best when it's truly open - not just in code, but in participation. OSCG removes barriers, creates pathways, and reminds developers that they're part of something bigger than a single repository. Global collaboration isn't a trend. It's how good software gets built.
 `
-  },
-  {
-    id: 2,
-    slug: "boosting-resume",
-    category: "Tutorial",
-    title: "How Contributing to Open Source Boosts Your Resume",
-    description: "A comprehensive guide to designing and implementing scalable API architectures that can handle millions of requests.",
-    date: "October 18, 2025",
-    readTime: "12 min read",
-    author: {
-        name: "Dev Agarwal",
-        role: "Architecture Lead",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
     },
-    featuredImage: "/blogs/blog2.png",
-    content: `
+    {
+        id: 2,
+        slug: "boosting-resume",
+        category: "Tutorial",
+        title: "How Contributing to Open Source Boosts Your Resume",
+        description: "A comprehensive guide to designing and implementing scalable API architectures that can handle millions of requests.",
+        date: "October 18, 2025",
+        readTime: "12 min read",
+        author: {
+            name: "Dev Agarwal",
+            role: "Architecture Lead",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
+        },
+        featuredImage: "/blogs/blog2.png",
+        content: `
     **Resumes** are tricky. You list your education, maybe an internship or two, some personal projects, and hope someone notices. But here's the thing: everyone applying for that developer role has similar credentials. Open-source contributions change the equation. They provide proof - visible, verifiable proof - that you can write code, work with others, and ship real software.
 
 This isn't about gaming the system or padding your resume with meaningless commits. It's about demonstrating skills that traditional credentials can't capture.
@@ -229,22 +229,22 @@ It's not about being the best coder. It's about being visible, reliable, and col
 
 Your resume is a summary. Your open-source contributions are the evidence. Together, they tell a story that recruiters can't ignore. If you're serious about your career, contributing to open source isn't optional - it's one of the smartest investments you can make.
     `
-  },
-  {
-    id: 3,
-    slug: "reasons-to-contribute",
-    category: "Insights",
-    title: "Top 5 Reasons to Contribute to Open Source Projects",
-    description: "Discover the top reasons why contributing to open source projects is beneficial for your career and the community.",
-    date: "October 15, 2025",
-    readTime: "10 min read",
-    author: {
-        name: "Priya Sharma",
-        role: "Community Manager",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     },
-    featuredImage: "/blogs/blog3.png",
-    content: `
+    {
+        id: 3,
+        slug: "reasons-to-contribute",
+        category: "Insights",
+        title: "Top 5 Reasons to Contribute to Open Source Projects",
+        description: "Discover the top reasons why contributing to open source projects is beneficial for your career and the community.",
+        date: "October 15, 2025",
+        readTime: "10 min read",
+        author: {
+            name: "Priya Sharma",
+            role: "Community Manager",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+        },
+        featuredImage: "/blogs/blog3.png",
+        content: `
     Everyone says open source is great for learning. That's true, but it's also the most obvious answer. If you dig deeper, the real reasons to contribute go beyond just picking up new skills. They're about career growth, confidence building, and becoming part of something that outlasts your individual contributions.
 
 Here are five reasons that actually matter - not the usual motivational fluff.
@@ -339,22 +339,22 @@ Open source isn't a magic solution to career problems. It won't turn you into a 
 
 The developers who take open source seriously - who contribute consistently, learn from feedback, and build relationships - end up with careers that look very different from those who don't. It's not about being exceptional. It's about showing up, doing the work, and letting your contributions speak for themselves.
     `
-  },
-  {
-    id: 4,
-    slug: "stories-of-innovation",
-    category: "Security",
-    title: "Stories of Innovation Born in Open Source",
-    description: "Explore the inspiring stories of innovation born in open source projects and how they have transformed the industry.",
-    date: "November 12, 2025",
-    readTime: "6 min read",
-    author: {
-        name: "Durgeshwar",
-        role: "Lead Developer",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
-    featuredImage: "/blogs/blog4.png",
-    content: `
+    {
+        id: 4,
+        slug: "stories-of-innovation",
+        category: "Security",
+        title: "Stories of Innovation Born in Open Source",
+        description: "Explore the inspiring stories of innovation born in open source projects and how they have transformed the industry.",
+        date: "November 12, 2025",
+        readTime: "6 min read",
+        author: {
+            name: "Durgeshwar",
+            role: "Lead Developer",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
+        },
+        featuredImage: "/blogs/blog4.png",
+        content: `
     Innovation doesn't always start in corporate labs or well-funded startups. Some of the most impactful tools and ideas in tech emerged from open-source projects - developers scratching their own itch, solving problems they faced, and sharing solutions with others.
 
 These stories matter because they show what's possible when people collaborate without gatekeepers, budgets, or permission. Here are a few examples of how open-source contributions turned into something bigger.
@@ -477,22 +477,22 @@ Some contributions become Docker or Rust. Most don't. But every contribution mak
 Innovation in open source isn't about being exceptional. It's about being persistent, open to feedback, and willing to share your work. The tools you use every day probably started as someone's weekend project. Yours might too.
     
     `
-  },
-  {
-    id: 5,
-    slug: "non-cs-students",
-    category: "Development",
-    title: "How Non-CS Students Can Thrive in Open Source",
-    description: "Discover how non-CS students can make meaningful contributions to open source projects and succeed in the tech industry.",
-    date: "November 10, 2025",
-    readTime: "7 min read",
-    author: {
-        name: "Santhosh",
-        role: "Architecture Lead",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
     },
-    featuredImage: "/partners/orbiton.jpg",
-    content: `
+    {
+        id: 5,
+        slug: "non-cs-students",
+        category: "Development",
+        title: "How Non-CS Students Can Thrive in Open Source",
+        description: "Discover how non-CS students can make meaningful contributions to open source projects and succeed in the tech industry.",
+        date: "November 10, 2025",
+        readTime: "7 min read",
+        author: {
+            name: "Santhosh",
+            role: "Architecture Lead",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
+        },
+        featuredImage: "/blogs/blog5.png",
+        content: `
     There's a persistent myth that open source is only for computer science students or experienced developers. That's not true, and it never has been. Some of the most valuable contributors to open-source projects don't write a single line of code.
 
 If you're studying design, business, linguistics, psychology, or literally anything else, there's a place for you in open source. The challenge isn't whether you belong - it's figuring out where you fit.
@@ -616,22 +616,22 @@ Open source works best when it includes perspectives from people with different 
 
 If you're not studying computer science but you're interested in open source, don't wait for permission. Find a project that aligns with your interests and skills. Start contributing. The community needs what you bring, even if you never touch the code.
     `
-  },
-  {
-    id: 6,
-    slug: "first-contribution",
-    category: "Best Practices",
-    title: "How to Make Your First Open Source Code Contribution",
-    description: "A step-by-step guide to making your first open source contribution and getting started with open source development.",
-    date: "December 8, 2025",
-    readTime: "25 min read",
-    author: {
-        name: "Priya Sharma",
-        role: "Community Manager",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     },
-    featuredImage: "/blogs/blog6.png",
-    content: `
+    {
+        id: 6,
+        slug: "first-contribution",
+        category: "Best Practices",
+        title: "How to Make Your First Open Source Code Contribution",
+        description: "A step-by-step guide to making your first open source contribution and getting started with open source development.",
+        date: "December 8, 2025",
+        readTime: "25 min read",
+        author: {
+            name: "Priya Sharma",
+            role: "Community Manager",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+        },
+        featuredImage: "/blogs/blog6.png",
+        content: `
     ## The Part Nobody Talks About
 
 Everyone says "*just make a pull request.*" As if that explains anything.
@@ -951,23 +951,23 @@ These skills compound. Your second contribution will be easier. Your tenth will 
 
 That's the path. Start small, learn the process, build from there.
     `
-  },
-  
-  {
-    id: 7,
-    slug: "happening-opensource",
-    category: "Community",
-    title: "What Happens at Open Source Connect Events",
-    description: "An inside look at our community events and what you can expect when you join or organize one.",
-    date: "December 15, 2025",
-    readTime: "12 min read",
-    author: {
-        name: "Deependra Gaur",
-        role: "Community Manager",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Modi"
     },
-    featuredImage: "/blogs/blog7.png",
-    content: `
+
+    {
+        id: 7,
+        slug: "happening-opensource",
+        category: "Community",
+        title: "What Happens at Open Source Connect Events",
+        description: "An inside look at our community events and what you can expect when you join or organize one.",
+        date: "December 15, 2025",
+        readTime: "12 min read",
+        author: {
+            name: "Deependra Gaur",
+            role: "Community Manager",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Modi"
+        },
+        featuredImage: "/blogs/blog7.png",
+        content: `
     ## Not Your Typical Meetup
 
 If you're picturing rows of chairs with someone presenting slides for an hour, that's not what this is.
@@ -1322,23 +1322,23 @@ The worst case scenario is you spend a few hours learning something new and meet
 That's a good bet.
 
     `
-  },
-
-  {
-    id: 8,
-    slug: "happening-opensource",
-    category: "Insights",
-    title: "What Happens at Open Source Connect Events",
-    description: "An inside look at our community events and what you can expect when you join or organize one.",
-    date: "November 8, 2025",
-    readTime: "15 min read",
-    author: {
-        name: "Priyansh Narang",
-        role: "Lead Developer",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
     },
-    featuredImage: "/blogs/blog8.png",
-    content: `
+
+    {
+        id: 8,
+        slug: "happening-opensource",
+        category: "Insights",
+        title: "What Happens at Open Source Connect Events",
+        description: "An inside look at our community events and what you can expect when you join or organize one.",
+        date: "November 8, 2025",
+        readTime: "15 min read",
+        author: {
+            name: "Priyansh Narang",
+            role: "Lead Developer",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
+        },
+        featuredImage: "/blogs/blog8.png",
+        content: `
 ## Why AI Development Looks Different
 
 Most software development happens behind closed doors. Companies build products, release them, and that's that. You don't see the code. You don't know how decisions were made.
@@ -1749,23 +1749,23 @@ The tools are available. The community is welcoming. The barrier to entry keeps 
 
     `
 
-  },
-  
-  {
-    id: 9,
-    slug: "happening-opensource",
-    category: "Insights",
-    title: "Building a Career through Open Source Contributions",
-    description: "Learn how contributing to open source can help you build a professional network, gain real-world experience, and accelerate your career in the rapidly evolving AI landscape.",
-    date: "January 1, 2026",
-    readTime: "10 min read",
-    author: {
-        name: "Priyansh Narang",
-        role: "Community Manager",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priyansh"
     },
-    featuredImage: "/blogs/blog9.png",
-    content: `
+
+    {
+        id: 9,
+        slug: "happening-opensource",
+        category: "Insights",
+        title: "Building a Career through Open Source Contributions",
+        description: "Learn how contributing to open source can help you build a professional network, gain real-world experience, and accelerate your career in the rapidly evolving AI landscape.",
+        date: "January 1, 2026",
+        readTime: "10 min read",
+        author: {
+            name: "Priyansh Narang",
+            role: "Community Manager",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priyansh"
+        },
+        featuredImage: "/blogs/blog9.png",
+        content: `
 ## The Non-Linear Path
 
 Career advice usually follows a straight line: get degree, apply to jobs, climb ladder. Open source creates a different path - one where your work speaks before your credentials do.
@@ -2233,22 +2233,22 @@ If you approach open source purely as a career strategy, you'll probably give up
 
 That's how it works for most people who succeed at this.
     `
-  },
-  {
-     id: 10,
-    slug: "choosing-right-open-source-project",
-    category: "Insights",
-    title: "How to Choose the Right Open Source Project to Contribute To",
-    description: "Finding the right project is the first step to a successful open-source journey. Learn how to evaluate projects based on your skills, interests, and community health.",
-    date: "December 25, 2025",
-    readTime: "18 min read",
-    author: {
-        name: "Priyansh Narang",
-        role: "Lead Developer",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priyansh"
     },
-    featuredImage: "/blogs/blog10.png",
-    content: `
+    {
+        id: 10,
+        slug: "choosing-right-open-source-project",
+        category: "Insights",
+        title: "How to Choose the Right Open Source Project to Contribute To",
+        description: "Finding the right project is the first step to a successful open-source journey. Learn how to evaluate projects based on your skills, interests, and community health.",
+        date: "December 25, 2025",
+        readTime: "18 min read",
+        author: {
+            name: "Priyansh Narang",
+            role: "Lead Developer",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priyansh"
+        },
+        featuredImage: "/blogs/blog10.png",
+        content: `
 ## The Paradox of Choice
 
 There are millions of open-source projects. Most people handle this abundance by doing nothing.
@@ -2779,22 +2779,22 @@ You'll learn more in one week of actually contributing than in a month of resear
 
 The best project to contribute to is the one you choose today and actually work on. Everything else is procrastination.
     `
-  },
-  {
-    id: 11,
-    slug: "career-growth-through-open-source",
-    category: "Insights",
-    title: "Grow Your Career by Giving Back Through Open Source",
-    description: "Open source is a powerful tool for career growth. By contributing to open source projects, you can gain valuable experience, build your portfolio, and network with other professionals. In this article, we'll explore how open source can help you grow your career.",
-    date: "December 31, 2025",
-    readTime: "22 min read",
-    author: {
-        name: "Ayush Sharma",
-        role: "Lead Architect",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
     },
-    featuredImage: "/blogs/blog11.png",
-    content: `
+    {
+        id: 11,
+        slug: "career-growth-through-open-source",
+        category: "Insights",
+        title: "Grow Your Career by Giving Back Through Open Source",
+        description: "Open source is a powerful tool for career growth. By contributing to open source projects, you can gain valuable experience, build your portfolio, and network with other professionals. In this article, we'll explore how open source can help you grow your career.",
+        date: "December 31, 2025",
+        readTime: "22 min read",
+        author: {
+            name: "Ayush Sharma",
+            role: "Lead Architect",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
+        },
+        featuredImage: "/blogs/blog11.png",
+        content: `
     ## The Counter-Intuitive Truth
 
 The best way to advance your own career is often to help other people advance theirs.
@@ -3309,22 +3309,22 @@ That's not just good for your career. It's a better way to spend your time.
 
 
     `
-  },
-  {
-    id: 12,
-    slug: "importance-of-ui-design",
-    category: "Insights",
-    title: "The Importance of UI/UX in Open Source Projects",
-    description: "UI/UX design plays a crucial role in open source projects. It can make or break a project's success. In this article, we'll explore the importance of UI/UX in open source projects and how it can impact the success of a project.",
-    date: "December 12, 2025",
-    readTime: "15 min read",
-    author: {
-        name: "Priyansh Narang",
-        role: "Lead Developer",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
     },
-    featuredImage: "/blogs/blog12.png",
-    content:`
+    {
+        id: 12,
+        slug: "importance-of-ui-design",
+        category: "Insights",
+        title: "The Importance of UI/UX in Open Source Projects",
+        description: "UI/UX design plays a crucial role in open source projects. It can make or break a project's success. In this article, we'll explore the importance of UI/UX in open source projects and how it can impact the success of a project.",
+        date: "December 12, 2025",
+        readTime: "15 min read",
+        author: {
+            name: "Priyansh Narang",
+            role: "Lead Developer",
+            avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Ramesh"
+        },
+        featuredImage: "/blogs/blog12.png",
+        content: `
     ## The Tool Nobody Wants to Use
 
 A powerful open-source library solves a real problem. The documentation is sparse. The command-line interface is confusing. The error messages are cryptic. The configuration requires reading source code to understand.
@@ -3955,6 +3955,6 @@ Open source needs to take UX seriously. The tools are powerful, but power withou
 
 Good UX in open source isn't about making things pretty. It's about making powerful tools accessible to more people. That's worth prioritizing.
 `
-  }
+    }
 
 ];
