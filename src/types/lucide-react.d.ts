@@ -1,0 +1,142 @@
+// Type declarations for lucide-react
+// This file provides type definitions for the lucide-react package
+
+declare module 'lucide-react' {
+    import { ForwardRefExoticComponent, RefAttributes, SVGProps } from 'react';
+
+    export interface LucideProps extends Partial<SVGProps<SVGSVGElement>> {
+        size?: string | number;
+        absoluteStrokeWidth?: boolean;
+        color?: string;
+        strokeWidth?: string | number;
+    }
+
+    export type LucideIcon = ForwardRefExoticComponent<LucideProps & RefAttributes<SVGSVGElement>>;
+
+    // All icons used in the project - base names
+    export const AlertCircle: LucideIcon;
+    export const AlertOctagon: LucideIcon;
+    export const AlertTriangle: LucideIcon;
+    export const ArrowDown: LucideIcon;
+    export const ArrowLeft: LucideIcon;
+    export const ArrowRight: LucideIcon;
+    export const ArrowUp: LucideIcon;
+    export const Award: LucideIcon;
+    export const Bell: LucideIcon;
+    export const BookOpen: LucideIcon;
+    export const Calendar: LucideIcon;
+    export const Camera: LucideIcon;
+    export const Check: LucideIcon;
+    export const CheckCircle: LucideIcon;
+    export const CheckCircle2: LucideIcon;
+    export const ChevronDown: LucideIcon;
+    export const ChevronLeft: LucideIcon;
+    export const ChevronRight: LucideIcon;
+    export const ChevronUp: LucideIcon;
+    export const Circle: LucideIcon;
+    export const Clock: LucideIcon;
+    export const Code: LucideIcon;
+    export const Copy: LucideIcon;
+    export const Database: LucideIcon;
+    export const Download: LucideIcon;
+    export const Edit: LucideIcon;
+    export const ExternalLink: LucideIcon;
+    export const Eye: LucideIcon;
+    export const EyeOff: LucideIcon;
+    export const File: LucideIcon;
+    export const FileCheck: LucideIcon;
+    export const FileText: LucideIcon;
+    export const Filter: LucideIcon;
+    export const Flag: LucideIcon;
+    export const Folder: LucideIcon;
+    export const Gavel: LucideIcon;
+    export const GitBranch: LucideIcon;
+    export const GitFork: LucideIcon;
+    export const GitPullRequest: LucideIcon;
+    export const Github: LucideIcon;
+    export const Globe: LucideIcon;
+    export const GraduationCap: LucideIcon;
+    export const GripVertical: LucideIcon;
+    export const HandshakeIcon: LucideIcon;
+    export const Heart: LucideIcon;
+    export const HelpCircle: LucideIcon;
+    export const Home: LucideIcon;
+    export const Image: LucideIcon;
+    export const Info: LucideIcon;
+    export const Instagram: LucideIcon;
+    export const LayoutDashboard: LucideIcon;
+    export const Lightbulb: LucideIcon;
+    export const Linkedin: LucideIcon;
+    export const Link: LucideIcon;
+    export const Loader: LucideIcon;
+    export const Loader2: LucideIcon;
+    export const Lock: LucideIcon;
+    export const LogOut: LucideIcon;
+    export const Mail: LucideIcon;
+    export const MapPin: LucideIcon;
+    export const Megaphone: LucideIcon;
+    export const Menu: LucideIcon;
+    export const MessageCircle: LucideIcon;
+    export const Mic: LucideIcon;
+    export const Minus: LucideIcon;
+    export const MoreHorizontal: LucideIcon;
+    export const MoreVertical: LucideIcon;
+    export const Move: LucideIcon;
+    export const PanelLeft: LucideIcon;
+    export const Pause: LucideIcon;
+    export const Pencil: LucideIcon;
+    export const Play: LucideIcon;
+    export const Plus: LucideIcon;
+    export const Redo2: LucideIcon;
+    export const RefreshCw: LucideIcon;
+    export const Rocket: LucideIcon;
+    export const RotateCcw: LucideIcon;
+    export const Save: LucideIcon;
+    export const Scale: LucideIcon;
+    export const Scissors: LucideIcon;
+    export const ScrollText: LucideIcon;
+    export const Search: LucideIcon;
+    export const Send: LucideIcon;
+    export const Settings: LucideIcon;
+    export const Share: LucideIcon;
+    export const Share2: LucideIcon;
+    export const Shield: LucideIcon;
+    export const ShieldAlert: LucideIcon;
+    export const ShieldCheck: LucideIcon;
+    export const Sparkles: LucideIcon;
+    export const Star: LucideIcon;
+    export const Target: LucideIcon;
+    export const Trash: LucideIcon;
+    export const Trash2: LucideIcon;
+    export const Twitter: LucideIcon;
+    export const Undo2: LucideIcon;
+    export const Upload: LucideIcon;
+    export const User: LucideIcon;
+    export const UserCheck: LucideIcon;
+    export const UserPlus: LucideIcon;
+    export const Users: LucideIcon;
+    export const X: LucideIcon;
+    export const XCircle: LucideIcon;
+    export const Zap: LucideIcon;
+
+    // Icon suffixed versions (used by shadcn/ui components)
+    export const AlertCircleIcon: LucideIcon;
+    export const AlertOctagonIcon: LucideIcon;
+    export const AlertTriangleIcon: LucideIcon;
+    export const ArrowDownIcon: LucideIcon;
+    export const ArrowLeftIcon: LucideIcon;
+    export const ArrowRightIcon: LucideIcon;
+    export const ArrowUpIcon: LucideIcon;
+    export const CheckIcon: LucideIcon;
+    export const ChevronDownIcon: LucideIcon;
+    export const ChevronLeftIcon: LucideIcon;
+    export const ChevronRightIcon: LucideIcon;
+    export const ChevronUpIcon: LucideIcon;
+    export const CircleIcon: LucideIcon;
+    export const GripVerticalIcon: LucideIcon;
+    export const MinusIcon: LucideIcon;
+    export const MoreHorizontalIcon: LucideIcon;
+    export const PanelLeftIcon: LucideIcon;
+    export const SearchIcon: LucideIcon;
+    export const XIcon: LucideIcon;
+}
