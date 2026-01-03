@@ -16,6 +16,8 @@ import { toast } from "sonner";
 
 const DashboardPage = () => {
     const [username, setUsername] = useState("");
+    const [fullName, setFullName] = useState("");
+    const [linkedin, setLinkedin] = useState("");
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -25,12 +27,14 @@ const DashboardPage = () => {
                 if (session?.user) {
                     const { data: profile } = await supabase
                         .from("profiles")
-                        .select("github_username")
+                        .select("github, full_name, linkedin")
                         .eq("id", session.user.id)
                         .single();
 
-                    if (profile?.github_username) {
-                        setUsername(profile.github_username);
+                    if (profile) {
+                        if (profile.github) setUsername(profile.github);
+                        if (profile.full_name) setFullName(profile.full_name);
+                        if (profile.linkedin) setLinkedin(profile.linkedin);
                     } else {
                         toast.warning("GitHub profile not found", {
                             description: "Please connect your GitHub in profile settings to track contributions.",
@@ -71,12 +75,12 @@ const DashboardPage = () => {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <ProfileCard username={username} />
+                <ProfileCard username={username} fullName={fullName} linkedin={linkedin} />
                 <RankProgress />
                 <Streak />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
                 <TechStack />
                 <PRDistribution />
             </div>

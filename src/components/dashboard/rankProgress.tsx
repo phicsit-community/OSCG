@@ -3,7 +3,7 @@ import { Star } from "lucide-react";
 
 export default function RankProgress() {
   return (
-    <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl p-6 h-full hover:border-[#00D6B2]/40 transition-all duration-300">
+    <div className="w-full rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl p-6 h-full hover:border-[#00D6B2]/40 transition-all duration-300 cursor-pointer">
       {/* ===== TOP STATS ROW ===== */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <StatCard title="Current Rank" value="#50" sub="Top 100%" />

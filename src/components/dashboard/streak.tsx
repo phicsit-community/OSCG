@@ -3,7 +3,7 @@ import { Calendar } from "lucide-react";
 
 export default function Streak() {
   return (
-    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300">
+    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300 cursor-pointer">
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
         <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-[#00D6B2]/10 border border-[#00D6B2]/20 text-2xl shadow-lg">

@@ -6,8 +6,16 @@ export default function ContributionActivity({
 }: {
   username: string;
 }) {
+  const cleanUsername = React.useMemo(() => {
+    if (!username) return "";
+    if (username.includes("github.com")) {
+      return username.split('/').filter(Boolean).pop() || "";
+    }
+    return username;
+  }, [username]);
+
   return (
-    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300">
+    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300 cursor-pointer group/card">
       {/* Header */}
       <div className="mb-8">
         <h3 className="text-white text-xl font-bold tracking-tight">Contribution Activity</h3>
@@ -34,10 +42,10 @@ export default function ContributionActivity({
 
         {/* Image Wrapper */}
         <div className="relative w-full h-[140px] flex items-center justify-center overflow-hidden rounded-xl">
-          {username ? (
+          {cleanUsername ? (
             <Image
-              src={`https://github-contributions-api.deno.dev/${username}.svg`}
-              alt={`${username} contribution graph`}
+              src={`https://github-contributions-api.deno.dev/${cleanUsername}.svg`}
+              alt={`${cleanUsername} contribution graph`}
               fill
               className="object-contain filter invert opacity-80 group-hover:opacity-100 transition-opacity"
               priority

@@ -7,7 +7,7 @@ export default function Achievements() {
   return (
     <div className="w-full">
       {/* Card */}
-      <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300">
+      <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300 cursor-pointer">
         {/* Header Row */}
         <div className="flex items-center justify-between mb-8">
           <div>

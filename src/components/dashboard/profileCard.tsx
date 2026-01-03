@@ -5,16 +5,27 @@ import { toast } from "sonner";
 
 type ProfileCardProps = {
   username: string;
+  fullName?: string;
+  linkedin?: string;
 };
 
-export default function ProfileCard({ username }: ProfileCardProps) {
+export default function ProfileCard({ username, fullName, linkedin }: ProfileCardProps) {
+  // Extract handle if user pasted a full URL
+  const cleanUsername = React.useMemo(() => {
+    if (!username) return "";
+    if (username.includes("github.com")) {
+      return username.split('/').filter(Boolean).pop() || "";
+    }
+    return username;
+  }, [username]);
+
   const handleSocialClick = (platform: "github" | "linkedin", e: React.MouseEvent) => {
-    if (platform === "github" && !username) {
+    if (platform === "github" && !cleanUsername) {
       e.preventDefault();
       toast.warning("GitHub not linked", {
         description: "Please connect your GitHub in profile settings.",
       });
-    } else if (platform === "linkedin") {
+    } else if (platform === "linkedin" && !linkedin) {
       e.preventDefault();
       toast.warning("LinkedIn not linked", {
         description: "Please connect your LinkedIn in profile settings.",
@@ -23,89 +34,83 @@ export default function ProfileCard({ username }: ProfileCardProps) {
   };
 
   return (
-    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-5 sm:p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300">
+    <div className="bg-white/5  backdrop-blur-xl rounded-[2.5rem] p-8 w-full border border-white/5 h-full hover:border-[#00D6B2]/20 transition-all duration-500 shadow-2xl">
       <div className="flex flex-col items-center">
-        <div className="relative">
-          <div className="p-1 rounded-full bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] shadow-[0_0_20px_rgba(0,214,178,0.3)]">
-            <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden bg-[#0A0F15] flex items-center justify-center border-4 border-[#0A0F15]">
+        <div className="relative group">
+          <div className="absolute -inset-1 bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full blur opacity-20 group-hover:opacity-40 transition duration-500" />
+          <div className="relative p-1 rounded-full bg-linear-to-br from-white/10 to-transparent">
+            <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-[#0A0F15] flex items-center justify-center border-2 border-white/5">
               <Image
-                src={username ? `https://github.com/${username}.png` : "/default-avatar.png"}
-                alt={`${username || "User"} avatar`}
-                width={128}
-                height={128}
-                className="object-cover"
+                src={cleanUsername ? `https://github.com/${cleanUsername}.png` : "/default-avatar.png"}
+                alt={`${cleanUsername || "User"} avatar`}
+                width={112}
+                height={112}
+                className="object-cover transition duration-500 group-hover:scale-110"
                 priority
               />
             </div>
           </div>
 
-          {username && (
-            <div className="absolute bottom-1 right-1 sm:bottom-2 sm:right-2 shadow-lg scale-90 sm:scale-100">
-              <svg
-                width="28"
-                height="28"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <circle cx="16" cy="16" r="15.6" fill="#00D6B2" />
-                <path
-                  d="M10.5 16.5L14.5 20.5L22.5 12.5"
-                  stroke="white"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+          {cleanUsername && (
+            <div className="absolute bottom-1 right-1 sm:bottom-1 sm:right-1 shadow-lg scale-90">
+              <div className="bg-[#00D6B2] p-1.5 rounded-full border-4 border-[#0B0F17]">
+                <Check className="w-3 h-3 text-white stroke-4" />
+              </div>
             </div>
           )}
         </div>
 
-        <h1 className="text-white text-xl sm:text-2xl font-black mt-6 mb-1 tracking-tighter text-center break-all uppercase">
-          {username || "Adventurer"}
-        </h1>
+        <div className="mt-8 text-center">
+          <h1 className="text-white text-2xl sm:text-3xl font-black tracking-tighter uppercase leading-tight">
+            {fullName || cleanUsername || "Adventurer"}
+          </h1>
 
-        <div className="text-white/40 text-[10px] font-bold uppercase tracking-[0.2em] mb-4 text-center">
-          {username ? `@${username}` : "Profile not linked"}
+          <div className="flex items-center justify-center gap-1.5 mt-2 bg-white/5 px-3 py-1 rounded-full border border-white/5 w-fit mx-auto">
+            <Github className="w-3 h-3 text-[#00D6B2]" />
+            <span className="text-white/40 text-[11px] font-bold tracking-wider lowercase">
+              {cleanUsername ? `@${cleanUsername}` : "unlinked"}
+            </span>
+          </div>
         </div>
 
-        <div className="flex gap-4 mb-6">
+        <div className="flex gap-4 mt-8">
           <a
-            href={username ? `https://github.com/${username}` : "#"}
-            target={username ? "_blank" : "_self"}
+            href={cleanUsername ? `https://github.com/${cleanUsername}` : "#"}
+            target={cleanUsername ? "_blank" : "_self"}
             rel="noopener noreferrer"
             onClick={(e) => handleSocialClick("github", e)}
-            className="p-3 rounded-2xl bg-white/5 border border-white/10 text-white/50 hover:text-[#00D6B2] hover:border-[#00D6B2]/30 hover:bg-[#00D6B2]/5 transition-all duration-300"
+            className="p-3.5 rounded-2xl bg-white/5 border border-white/10 text-white/40 hover:text-[#00D6B2] hover:border-[#00D6B2]/20 hover:bg-[#00D6B2]/5 transition-all duration-300"
           >
             <Github className="w-5 h-5" />
           </a>
           <a
-            href="#"
+            href={linkedin || "#"}
+            target={linkedin ? "_blank" : "_self"}
+            rel="noopener noreferrer"
             onClick={(e) => handleSocialClick("linkedin", e)}
-            className="p-3 rounded-2xl bg-white/5 border border-white/10 text-white/50 hover:text-[#00D6B2] hover:border-[#00D6B2]/30 hover:bg-[#00D6B2]/5 transition-all duration-300"
+            className="p-3.5 rounded-2xl cursor-pointer bg-white/5 border border-white/10 text-white/40 hover:text-[#00D6B2] hover:border-[#00D6B2]/20 hover:bg-[#00D6B2]/5 transition-all duration-300"
           >
             <Linkedin className="w-5 h-5" />
           </a>
         </div>
 
-        <div className="flex gap-2 sm:gap-3 mt-2 flex-wrap justify-center">
-          <span className="bg-[#00D6B2]/10 text-[#00D6B2] text-[10px] sm:text-xs px-4 py-1.5 rounded-xl font-black uppercase tracking-widest border border-[#00D6B2]/20">
+        <div className="flex gap-2 sm:gap-3 mt-8">
+          <span className="bg-[#00D6B2]/10 text-[#00D6B2] text-[10px] px-4 py-1.5 rounded-xl font-black uppercase tracking-widest border border-[#00D6B2]/10">
             Contributor
           </span>
-          <span className="bg-white/5 text-white/70 text-[10px] sm:text-xs px-4 py-1.5 rounded-xl flex items-center gap-1.5 border border-white/10 font-bold uppercase tracking-wider">
-            <Check className="w-3.5 h-3.5 text-[#00D6B2]" />
+          <span className="bg-white/5 text-white/40 text-[10px] px-4 py-1.5 rounded-xl flex items-center gap-1.5 border border-white/10 font-bold uppercase tracking-widest">
             Verified
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 mt-8 w-full">
-          <div className="bg-white/5 rounded-2xl p-4 sm:p-6 text-center border border-white/10 group/stat hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/30 transition-all">
-            <div className="text-2xl sm:text-4xl font-black text-white mb-1 group-hover/stat:text-[#00D6B2] transition-colors tracking-tighter">0</div>
-            <div className="text-white/40 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em]">Points</div>
+        <div className="grid grid-cols-2 gap-4 mt-10 w-full">
+          <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/20 transition-all">
+            <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
+            <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Points</div>
           </div>
-          <div className="bg-white/5 rounded-2xl p-4 sm:p-6 text-center border border-white/10 group/stat hover:bg-[#4FD1D0]/5 hover:border-[#4FD1D0]/30 transition-all">
-            <div className="text-2xl sm:text-4xl font-black text-white mb-1 group-hover/stat:text-[#4FD1D0] transition-colors tracking-tighter">0</div>
-            <div className="text-white/40 text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.2em]">Merged</div>
+          <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#4FD1D0]/5 hover:border-[#4FD1D0]/20 transition-all">
+            <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
+            <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Merged</div>
           </div>
         </div>
       </div>

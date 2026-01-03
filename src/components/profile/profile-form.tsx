@@ -150,13 +150,23 @@ const ProfileForm = () => {
 
         setSaving(true);
         try {
+            // Sanitize social URLs to store only usernames if possible
+            const sanitizeHandle = (url: string) => {
+                if (!url) return "";
+                return url.split('/').filter(Boolean).pop() || "";
+            };
+
+            const githubHandle = formData.github.includes("github.com")
+                ? sanitizeHandle(formData.github)
+                : formData.github;
+
             const { error } = await supabase.from("profiles").upsert({
                 id: user.id,
                 full_name: formData.full_name,
                 country_code: formData.country_code,
                 phone: formData.phone,
                 linkedin: formData.linkedin,
-                github: formData.github,
+                github: githubHandle,
                 nexfellow_id: formData.nexfellow_id,
                 country: formData.country,
                 updated_at: new Date().toISOString(),
