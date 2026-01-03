@@ -23,6 +23,7 @@ import { toast } from "sonner";
 interface ProfileData {
     full_name: string;
     email: string;
+    country_code: string;
     phone: string;
     linkedin: string;
     github: string;
@@ -30,6 +31,29 @@ interface ProfileData {
     country: string;
     avatar_url?: string;
 }
+
+const COUNTRY_CODES = [
+    { country: "India", code: "+91", flag: "🇮🇳" },
+    { country: "United States", code: "+1", flag: "🇺🇸" },
+    { country: "United Kingdom", code: "+44", flag: "🇬🇧" },
+    { country: "Canada", code: "+1", flag: "🇨🇦" },
+    { country: "Australia", code: "+61", flag: "🇦🇺" },
+    { country: "Germany", code: "+49", flag: "🇩🇪" },
+    { country: "France", code: "+33", flag: "🇫🇷" },
+    { country: "Japan", code: "+81", flag: "🇯🇵" },
+    { country: "China", code: "+86", flag: "🇨🇳" },
+    { country: "Brazil", code: "+55", flag: "🇧🇷" },
+    { country: "Singapore", code: "+65", flag: "🇸🇬" },
+    { country: "United Arab Emirates", code: "+971", flag: "🇦🇪" },
+    { country: "Russia", code: "+7", flag: "🇷🇺" },
+    { country: "South Africa", code: "+27", flag: "🇿🇦" },
+    { country: "Nigeria", code: "+234", flag: "🇳🇬" },
+    { country: "Mexico", code: "+52", flag: "🇲🇽" },
+    { country: "Spain", code: "+34", flag: "🇪🇸" },
+    { country: "Italy", code: "+39", flag: "🇮🇹" },
+    { country: "South Korea", code: "+82", flag: "🇰🇷" },
+    { country: "Netherlands", code: "+31", flag: "🇳🇱" },
+].sort((a, b) => a.country.localeCompare(b.country));
 
 const COUNTRIES = [
     "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan",
@@ -65,6 +89,7 @@ const ProfileForm = () => {
     const [formData, setFormData] = useState<ProfileData>({
         full_name: "",
         email: "",
+        country_code: "+91",
         phone: "",
         linkedin: "",
         github: "",
@@ -88,6 +113,7 @@ const ProfileForm = () => {
                         setFormData({
                             full_name: profile.full_name || user.user_metadata?.full_name || "",
                             email: user.email || "",
+                            country_code: profile.country_code || "+91",
                             phone: profile.phone || "",
                             linkedin: profile.linkedin || "",
                             github: profile.github || "",
@@ -127,6 +153,7 @@ const ProfileForm = () => {
             const { error } = await supabase.from("profiles").upsert({
                 id: user.id,
                 full_name: formData.full_name,
+                country_code: formData.country_code,
                 phone: formData.phone,
                 linkedin: formData.linkedin,
                 github: formData.github,
@@ -197,16 +224,35 @@ const ProfileForm = () => {
 
                             <div className="space-y-3">
                                 <Label htmlFor="phone" className="text-sm font-medium text-white/80 tracking-tight">Phone Number</Label>
-                                <div className="relative group">
-                                    <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-focus-within:text-[#11D392] transition-colors" />
-                                    <Input
-                                        id="phone"
-                                        name="phone"
-                                        value={formData.phone}
-                                        onChange={handleChange}
-                                        className="bg-transparent border-white/10 pl-11 h-12 text-white focus:border-[#11D392]/50 transition-all rounded-xl [box-shadow:0_0_0_30px_#0B0F17_inset_!important] [text-fill-color:white_!important]"
-                                        placeholder="Your contact number"
-                                    />
+                                <div className="flex gap-3">
+                                    <div className="relative group w-[140px] shrink-0">
+                                        <div className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-focus-within:text-[#11D392] transition-colors z-10">
+                                            <Globe className="w-full h-full" />
+                                        </div>
+                                        <select
+                                            name="country_code"
+                                            value={formData.country_code}
+                                            onChange={handleChange}
+                                            className="w-full h-12 cursor-pointer bg-transparent border border-white/10 rounded-xl pl-11 pr-4 text-sm font-medium text-white outline-none focus:border-[#11D392]/50 transition-all appearance-none"
+                                        >
+                                            {COUNTRY_CODES.map(item => (
+                                                <option key={`${item.country}-${item.code}`} value={item.code} className="bg-[#0B0F17]">
+                                                    {item.flag} {item.code}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                    <div className="relative group flex-1">
+                                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-focus-within:text-[#11D392] transition-colors" />
+                                        <Input
+                                            id="phone"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            className="bg-transparent border-white/10 pl-11 h-12 text-white focus:border-[#11D392]/50 transition-all rounded-xl [box-shadow:0_0_0_30px_#0B0F17_inset_!important] [text-fill-color:white_!important]"
+                                            placeholder="Your contact number"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
