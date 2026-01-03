@@ -43,7 +43,6 @@ const LatestInsights = () => {
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#00D6B2]/8 rounded-full blur-[120px] opacity-60" />
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#4FD1D0]/6 rounded-full blur-[100px] opacity-50" />
-        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00D6B2]/20 to-transparent" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -70,7 +69,7 @@ const LatestInsights = () => {
             variants={fadeUp}
             className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight"
           >
-            Latest <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0]">Insights</span>
+            Latest <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00D6B2] to-[#4FD1D0]">Insights</span>
           </motion.h2>
 
           {/* Subtitle */}
@@ -98,13 +97,13 @@ const LatestInsights = () => {
             >
               <motion.article
                 variants={cardVariants}
-                className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-gradient-to-b from-[#0D1520] to-[#080C14] border border-white/[0.08] transition-all duration-500 hover:border-[#00D6B2]/40 hover:shadow-[0_0_80px_-20px_rgba(0,214,178,0.4)] hover:-translate-y-2"
+                className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-linear-to-b from-[#0D1520] to-[#080C14] border border-white/8 transition-all duration-500 hover:border-[#00D6B2]/40 hover:shadow-[0_0_80px_-20px_rgba(0,214,178,0.4)] hover:-translate-y-2"
               >
                 {/* Image Container */}
                 <div className="relative h-56 overflow-hidden">
                   {/* Animated Gradient Border on Hover */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#00D6B2] to-transparent" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-[#00D6B2] to-transparent" />
                   </div>
 
                   {/* Image with Ken Burns Effect */}
@@ -117,8 +116,8 @@ const LatestInsights = () => {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     {/* Gradient Overlays */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#080C14] via-[#080C14]/50 to-transparent" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#00D6B2]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-0 bg-linear-to-t from-[#080C14] via-[#080C14]/50 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-br from-[#00D6B2]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
                   {/* Category Badge */}
@@ -160,11 +159,11 @@ const LatestInsights = () => {
                   </p>
 
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-5 border-t border-white/[0.06]">
+                  <div className="flex items-center justify-between pt-5 border-t border-white/6">
                     {/* Author */}
                     <div className="flex items-center gap-3">
                       <div className="relative">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-70 blur transition-all duration-500" />
+                        <div className="absolute -inset-1 bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-70 blur transition-all duration-500" />
                         <img
                           src={article.author.avatar}
                           alt={article.author.name}
@@ -190,7 +189,7 @@ const LatestInsights = () => {
 
                 {/* Card Glow Effect */}
                 <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#00D6B2]/10 via-transparent to-transparent rounded-3xl" />
+                  <div className="absolute inset-0 bg-linear-to-t from-[#00D6B2]/10 via-transparent to-transparent rounded-3xl" />
                 </div>
               </motion.article>
             </Link>
@@ -208,7 +207,7 @@ const LatestInsights = () => {
           <Link href="/blog">
             <Button
               size="lg"
-              className="group cursor-pointer relative overflow-hidden bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] hover:from-[#00c4a3] hover:to-[#3fc1c0] text-black rounded-full px-10 h-14 font-bold tracking-wide shadow-[0_10px_40px_-10px_rgba(0,214,178,0.5)] hover:shadow-[0_20px_60px_-15px_rgba(0,214,178,0.6)] transition-all duration-500 hover:-translate-y-1"
+              className="group cursor-pointer relative overflow-hidden bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] hover:from-[#00c4a3] hover:to-[#3fc1c0] text-black rounded-full px-10 h-14 font-bold tracking-wide shadow-[0_10px_40px_-10px_rgba(0,214,178,0.5)] hover:shadow-[0_20px_60px_-15px_rgba(0,214,178,0.6)] transition-all duration-500 hover:-translate-y-1"
             >
               <span className="flex items-center gap-3">
                 Explore All Articles
@@ -218,8 +217,6 @@ const LatestInsights = () => {
           </Link>
         </motion.div>
 
-        {/* Bottom Decorative Line */}
-        <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00D6B2]/20 to-transparent" />
       </div>
     </section>
   );

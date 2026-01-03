@@ -104,12 +104,7 @@ const BlogPage = () => {
         <div className="min-h-screen text-white overflow-x-hidden selection:bg-[#00D6B2]/30">
             <Navigation />
 
-            {/* Background Effects */}
-            <div className="fixed inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-[-30%] left-[-20%] w-[70%] h-[70%] bg-[#00D6B2]/[0.03] blur-[180px] rounded-full" />
-                <div className="absolute bottom-[-30%] right-[-20%] w-[70%] h-[70%] bg-[#4FD1D0]/[0.03] blur-[180px] rounded-full" />
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-[0.015] mix-blend-overlay" />
-            </div>
+          
 
             <main className="relative z-10 pt-28 pb-24 container mx-auto px-6 lg:px-10 max-w-7xl">
                 {/* Hero Header */}
@@ -121,7 +116,7 @@ const BlogPage = () => {
                 >
                     <motion.div variants={fadeUp} className="flex items-center justify-center gap-3 mb-6">
                         <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#00D6B2]" />
-                        <span className="text-[#00D6B2] text-xs font-bold tracking-[0.2em] uppercase">
+                        <span className="text-[ #00D6B2] text-xs font-bold tracking-[0.2em] uppercase">
                             Knowledge Hub
                         </span>
                         <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#00D6B2]" />

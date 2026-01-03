@@ -163,6 +163,23 @@ html {
   background: radial-gradient(circle, #1AD5BD 0%, rgba(26, 213, 189, 0) 70%);
 }
 
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 214, 178, 0.2);
+  border-radius: 20px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 214, 178, 0.5);
+}
+
 /* ========================================
    OSCG Design System Tokens
    ======================================== */

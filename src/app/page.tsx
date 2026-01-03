@@ -7,7 +7,7 @@ import IndustrySection from "@/components/landing/industry-section";
 import Navigation from "@/components/landing/navigation";
 import ProjectsSection from "@/components/landing/projects-section";
 import SpeakersSection from "@/components/landing/speakers-section";
-import SponsersSection from "@/components/landing/sponsors-section";
+import SponsorsSection from "@/components/landing/sponsors-section";
 
 
 export default function Home() {
@@ -18,7 +18,7 @@ export default function Home() {
       <ProjectsSection />
       <SpeakersSection />
       <IndustrySection />
-      <SponsersSection />
+      <SponsorsSection />
       <LatestInsights />
       <FAQ />
       <Footer />

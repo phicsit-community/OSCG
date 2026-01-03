@@ -12,7 +12,7 @@ const partnersRow1 = [
   { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
   { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
   { name: "DevPath Community", logo: "/partners/devpathcommunity.jpg" },
-  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgocitm.jpeg" },
+  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgg.jpeg" },
   { name: "Learn hub", logo: "/partners/learnhub.jpg" },
 ];
 
@@ -29,7 +29,7 @@ const partnersRow2 = [
   { name: "Codasauras Community", logo: "/partners/codesaurus.png" },
 ];
 
-const SponsersSection = () => {
+const SponsorsSection = () => {
   const speedFactor = 8;
 
   const marqueeVariantsLeft = {
@@ -75,8 +75,8 @@ const SponsersSection = () => {
           className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-        <div className="absolute inset-x-0 bottom-0 p-2 opacity-0 group-hover:opacity-100 hidden md:block transition-all duration-300 translate-y-1 group-hover:translate-y-0 text-center pointer-events-none bg-linear-to-t from-black/80 via-black/40 to-transparent">
-          <p className="text-white text-[8px] font-bold tracking-wider uppercase whitespace-normal line-clamp-1 px-1">
+        <div className="absolute inset-x-0 bottom-0 p-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 text-center pointer-events-none bg-linear-to-t from-black/90 via-black/70 to-transparent">
+          <p className="text-white text-[10px] font-bold tracking-wider uppercase whitespace-normal line-clamp-2 px-1 leading-tight drop-shadow-md">
             {partner.name}
           </p>
         </div>
@@ -154,4 +154,4 @@ const SponsersSection = () => {
   );
 };
 
-export default SponsersSection;
+export default SponsorsSection;
