@@ -35,7 +35,7 @@ export default function ComingSoon() {
         <div className="w-full max-w-xs h-px mt-6 bg-gradient-to-r from-transparent via-[#FFFFFF22] to-transparent"></div>
 
         <p className="text-[#7A8F92] text-xs tracking-wide mt-2">
-          © 2025 OSCG Designs. All rights reserved.
+          © 2026 OSCG Designs. All rights reserved.
         </p>
       </div>
     </div>
