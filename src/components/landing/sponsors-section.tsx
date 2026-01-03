@@ -5,26 +5,26 @@ import Link from "next/link";
 import { Sparkles } from "../ui/sparkles";
 
 const partnersRow1 = [
-  { name: "Orbiton", logo: "/partners/orbiton.jpg" },
-  { name: "Asura Legion", logo: "/partners/asuralegion.jpg" },
-  { name: "Future Minds United", logo: "/partners/FMU.jpeg" },
   { name: "Cloud Loop", logo: "/partners/cloudloop.jpg" },
-  { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
-  { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
+  { name: "Orbiton", logo: "/partners/orbiton.jpg" },
   { name: "DevPath Community", logo: "/partners/devpathcommunity.jpg" },
-  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgg.jpeg" },
-  { name: "Learn hub", logo: "/partners/learnhub.jpg" },
+  { name: "Asura Legion", logo: "/partners/asuralegion.jpg" },
+  { name: "LearnHub", logo: "/partners/learnhub.jpg" },
+  { name: "Future Minds United", logo: "/partners/FMU.jpeg" },
+  { name: "PICT OSS Community", logo: "/partners/pictoss.png" },
+  { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
+  { name: "SCIT CLUB", logo: "/partners/scitclub.jpg" },
 ];
 
 const partnersRow2 = [
-  { name: "Cluster Neuron", logo: "/partners/clusterneuron.jpg" },
   { name: "Ignite Room", logo: "/partners/igniteroom.jpeg" },
+  { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
   { name: "Vibe X Community", logo: "/partners/vibex.png" },
+  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgg.jpeg" },
   { name: "Digital Dominators", logo: "/partners/digitaldom.png" },
-  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
+  { name: "Cluster Neuron", logo: "/partners/clusterneuron.jpg" },
   { name: "NEXGEN", logo: "/partners/nexgen.jpg" },
-  { name: "PICT OSS Community", logo: "/partners/pictoss.png" },
-  { name: "Student Council Of Information Technology - SCIT CLUB", logo: "/partners/scitclub.jpg" },
+  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
   { name: "XoR", logo: "/partners/xor.png" },
   { name: "Codasauras Community", logo: "/partners/codesaurus.png" },
 ];
