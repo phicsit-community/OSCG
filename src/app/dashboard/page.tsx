@@ -72,7 +72,7 @@ const DashboardPage = () => {
   const handleSocialClick = (url: string | null, platform: string) => {
     if (!url || url.trim() === "" || url === "N/A") {
       toast.warning(`Please add your ${platform} in profile settings first!`, {
-        description: "Go to Profile > Edit to update your details.",
+        description: "Go to your Profile to update your details.",
         style: {
           background: "#0B0F17",
           border: "1px solid rgba(255,255,255,0.1)",
