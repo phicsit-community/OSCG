@@ -80,13 +80,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/badge')) {
-  //   if (!user) {
-  //     const url = request.nextUrl.clone()
-  //     url.pathname = '/sign-in'
-  //     return NextResponse.redirect(url)
-  //   }
-  // }
+  if (request.nextUrl.pathname.startsWith('/dashboard') || request.nextUrl.pathname.startsWith('/badge')) {
+    if (!user) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/sign-in'
+      return NextResponse.redirect(url)
+    }
+  }
 
   return response
 }
