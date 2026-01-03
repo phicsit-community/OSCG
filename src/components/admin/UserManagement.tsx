@@ -22,6 +22,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -150,19 +157,23 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
             <div className="w-px h-4 bg-white/10 mx-1" />
 
             <div className="flex items-center gap-2">
-              <select
-                value={itemsPerPage}
-                onChange={(e) => {
-                  setItemsPerPage(parseInt(e.target.value));
+              <Select
+                value={itemsPerPage.toString()}
+                onValueChange={(value) => {
+                  setItemsPerPage(parseInt(value));
                   setCurrentPage(1);
                 }}
-                className="bg-transparent text-[11px] font-black text-slate-400 uppercase tracking-tighter cursor-pointer outline-none hover:text-white transition-colors"
               >
-                <option value={10}>10 rows</option>
-                <option value={30}>30 rows</option>
-                <option value={50}>50 rows</option>
-                <option value={100}>100 rows</option>
-              </select>
+                <SelectTrigger className="h-7 bg-transparent border-none text-[11px] font-black text-slate-400 uppercase tracking-tighter cursor-pointer focus:ring-0 focus:ring-offset-0 hover:text-white transition-colors gap-1.5 p-0">
+                  <SelectValue placeholder={`${itemsPerPage} rows`} />
+                </SelectTrigger>
+                <SelectContent className="bg-[#0B0F17] border-white/10 text-slate-400 min-w-[100px]">
+                  <SelectItem value="10" className="text-[11px] font-black uppercase tracking-tighter hover:bg-white/5 focus:bg-white/5 focus:text-[#11D392] cursor-pointer">10 rows</SelectItem>
+                  <SelectItem value="30" className="text-[11px] font-black uppercase tracking-tighter hover:bg-white/5 focus:bg-white/5 focus:text-[#11D392] cursor-pointer">30 rows</SelectItem>
+                  <SelectItem value="50" className="text-[11px] font-black uppercase tracking-tighter hover:bg-white/5 focus:bg-white/5 focus:text-[#11D392] cursor-pointer">50 rows</SelectItem>
+                  <SelectItem value="100" className="text-[11px] font-black uppercase tracking-tighter hover:bg-white/5 focus:bg-white/5 focus:text-[#11D392] cursor-pointer">100 rows</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div className="w-px h-4 bg-white/10 mx-1" />

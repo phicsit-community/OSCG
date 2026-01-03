@@ -20,7 +20,7 @@ export async function getAdminData() {
   const { data: users, error } = await supabase
     .from("profiles")
     .select("*")
-    .order("updated_at", { ascending: false });
+    .order("updated_at", { ascending: true });
 
   if (error) {
     console.error("Error fetching admin data:", error);
