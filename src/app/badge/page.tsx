@@ -168,14 +168,61 @@ export default function BadgePage() {
     saveToHistory(scale, deg);
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
+  const processFile = async (file: File) => {
+    try {
+      let fileToProcess = file;
+
+      // Check if file is HEIC/HEIF
+      if (
+        file.type === "image/heic" ||
+        file.type === "image/heif" ||
+        file.name.toLowerCase().endsWith(".heic") ||
+        file.name.toLowerCase().endsWith(".heif")
+      ) {
+        toast.info("Converting HEIC image...", { duration: 2000 });
+        try {
+          // Dynamically import heic2any inside the client-side code to avoid SSR issues
+          const heic2any = (await import("heic2any")).default;
+
+          // Convert to JPEG
+          const convertedBlob = await heic2any({
+            blob: file,
+            toType: "image/jpeg",
+            quality: 0.8,
+          });
+
+          // heic2any can return Blob or Blob[], handle both
+          const normalizeBlob = Array.isArray(convertedBlob)
+            ? convertedBlob[0]
+            : convertedBlob;
+
+          fileToProcess = new File(
+            [normalizeBlob],
+            file.name.replace(/\.(heic|heif)$/i, ".jpg"),
+            { type: "image/jpeg" }
+          );
+        } catch (err) {
+          console.error("HEIC conversion failed:", err);
+          toast.error("Could not convert HEIC image. Please try a JPG/PNG.");
+          return;
+        }
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result as string);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(fileToProcess);
+    } catch (error) {
+      console.error("Error processing file:", error);
+      toast.error("Failed to process image.");
+    }
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      processFile(file);
     }
   };
 
@@ -183,11 +230,7 @@ export default function BadgePage() {
     e.preventDefault();
     const file = e.dataTransfer.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      processFile(file);
     }
   };
 
