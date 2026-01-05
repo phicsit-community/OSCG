@@ -30,28 +30,28 @@ export const speakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
-    image: "/speakers/Sebastino.png",
+    image: "/speakers/Sebastiano1.png",
     name: "Sebastiano Fuccio",
     title: "Founder & CEO | Managing Partner",
     expertise: "AI Strategy & Sovereign Innovation",
-    linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
+    linkedin: "https://www.linkedin.com/in/sebastiano-fuccio/?originalSubdomain=ch"
   },
   {
-    image: "/speakers/Olena.png",
+    image: "/speakers/DavidBekoe.png",
     name: "Abdulwadud Muhammad",
     title: "Founder, Yara Agency",
     expertise: "Marketing Strategist",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
-    image: "/speakers/Olena.png",
+    image: "/speakers/DavidBekoe.png",
     name: "Dishant Gandhi",
     title: "AI/ML Consultant",
     expertise: "AI Strategy & Sovereign Innovation",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
-    image: "/speakers/Olena.png",
+    image: "/speakers/TarunGupta.png",
     name: "Tarun Gupta",
     title: "Founder & CTO",
     expertise: "Salesforce Marketing Champion",
