@@ -11,22 +11,23 @@ const partnersRow1 = [
   { name: "Asura Legion", logo: "/partners/asuralegion.jpg" },
   { name: "LearnHub", logo: "/partners/learnhub.jpg" },
   { name: "Future Minds United", logo: "/partners/FMU.jpeg" },
-  { name: "PICT OSS Community", logo: "/partners/pictoss.png" },
-  { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
   { name: "SCIT CLUB", logo: "/partners/scitclub.jpg" },
+  { name: "PICT OSS Community", logo: "/partners/pictoss.png" },
+  { name: "Ignite Room", logo: "/partners/igniteroom.jpeg" },
+  { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
 ];
 
 const partnersRow2 = [
-  { name: "Ignite Room", logo: "/partners/igniteroom.jpeg" },
-  { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
   { name: "Vibe X Community", logo: "/partners/vibex.png" },
-  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgg.jpeg" },
+  { name: "Code kutumb", logo: "/partners/codekutumb.jpg" },
   { name: "Digital Dominators", logo: "/partners/digitaldom.png" },
-  { name: "Cluster Neuron", logo: "/partners/clusterneuron.jpg" },
+  { name: "GDGoc ITM SLS BARODA UNIVERSITY", logo: "/partners/gdgg.jpeg" },
   { name: "NEXGEN", logo: "/partners/nexgen.jpg" },
-  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
+  { name: "Cluster Neuron", logo: "/partners/clusterneuron.jpg" },
   { name: "XoR", logo: "/partners/xor.png" },
+  { name: "GDG on Campus Techno Main Saltlake", logo: "/partners/gd.png" },
   { name: "Codasauras Community", logo: "/partners/codesaurus.png" },
+  { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
 ];
 
 const SponsorsSection = () => {
