@@ -80,41 +80,42 @@ const SpeakersSection = () => {
             variants={cardVariants}
           >
             <div className="relative z-10">
-                {/* Avatar */}
-                <div className="mb-4 flex justify-center">
-                  <div className="relative flex h-42.5 w-42.5 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
-                    <Image
-                      src={""}
-                      alt={""}
-                      fill
-                      sizes="112px"
-                      className="object-cover rounded-full"
-                      priority
-                    />
-                    <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
-                  </div>
-                </div>
-
-                <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
-                  {/* Name */}
-                  <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
-                    Tanisha Bansal
-                  </h3>
-                  {/* Title */}
-                  <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
-                    Software Development Engineer at SITA
-                  </p>
-                  {/* Expertise */}
-                  <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                    ML & AWS Community Builder
-                  </p>
+              {/* Avatar */}
+              <div className="mb-4 flex justify-center">
+                <div className="relative flex h-42.5 w-42.5 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
+                  <Image
+                    src={""}
+                    alt={""}
+                    fill
+                    sizes="112px"
+                    className="object-cover rounded-full"
+                    priority
+                  />
+                  <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
                 </div>
               </div>
+
+              <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
+                {/* Name */}
+                <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
+                  Dummy
+                </h3>
+                {/* Title */}
+                <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
+                  Dummy
+                </p>
+                {/* Expertise */}
+                <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                  Dummy
+                </p>
+              </div>
+            </div>
           </motion.div>
 
-          {/* Actual speaker cards at positions 2 and 3 */}
+          {topSpeakers.map((speaker, index) => (
             <motion.div
-              className={`group unified-card text-center w-62.5 h-95 flex justify-center items-center`}
+              key={index}
+              className="group unified-card text-center w-62.5 h-90.75 flex justify-center items-center"
               variants={cardVariants}
             >
               <div className="relative z-10">
@@ -122,8 +123,8 @@ const SpeakersSection = () => {
                 <div className="mb-4 flex justify-center">
                   <div className="relative flex h-42.5 w-42.5 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
                     <Image
-                      src="/speakers/OlenaYara.png"
-                      alt="Olena Yara"
+                      src={speaker.image}
+                      alt={speaker.name}
                       fill
                       sizes="112px"
                       className="object-cover rounded-full"
@@ -136,21 +137,22 @@ const SpeakersSection = () => {
                 <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
                   {/* Name */}
                   <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
-                    Olena Yara
+                    {speaker.name}
                   </h3>
                   {/* Title */}
                   <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
-                    Founder, Yara Agency
+                    {speaker.title}
                   </p>
                   {/* Expertise */}
                   <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                    Marketing Strategist
+                    {speaker.expertise}
                   </p>
                 </div>
 
                 {/* Social Links */}
                 <div className="flex justify-center gap-3">
-                    <a href="https://www.linkedin.com/in/olena-yara-a26567223/" target="_blank">
+                  {speaker.linkedin && (
+                    <a href={speaker.linkedin} target="_blank">
                       <Button
                         variant="ghost"
                         size="icon"
@@ -159,7 +161,9 @@ const SpeakersSection = () => {
                         <Linkedin className="h-5 w-5" />
                       </Button>
                     </a>
-                  {/* {speaker.twitter && (
+                  )}
+
+                  {speaker.twitter && (
                     <a href={speaker.twitter} target="_blank">
                       <Button
                         variant="ghost"
@@ -169,59 +173,11 @@ const SpeakersSection = () => {
                         <Twitter className="h-5 w-5" />
                       </Button>
                     </a>
-                  )} */}
+                  )}
                 </div>
               </div>
             </motion.div>
-            <motion.div
-              className={`group unified-card text-center w-62.5 h-95 flex justify-center items-center`}
-              variants={cardVariants}
-            >
-              <div className="relative z-10">
-                {/* Avatar */}
-                <div className="mb-4 flex justify-center">
-                  <div className="relative flex h-38 w-38 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
-                    <Image
-                      src="/speakers/Sebastiano.png"
-                      alt="Sebastiano Fuccio"
-                      fill
-                      sizes="112px"
-                      className="object-cover rounded-full"
-                      priority
-                    />
-                    <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
-                  </div>
-                </div>
-
-                <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
-                  {/* Name */}
-                  <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
-                    Sebastiano Fuccio
-                  </h3>
-                  {/* Title */}
-                  <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
-                    Founder & CEO | Managing Partner
-                  </p>
-                  {/* Expertise */}
-                  <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                    AI Strategy & Sovereign Innovation
-                  </p>
-                </div>
-
-                {/* Social Links */}
-                <div className="flex justify-center gap-3">
-                    <a href="https://www.linkedin.com/in/sebastiano-fuccio/" target="_blank">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </Button>
-                    </a>
-                </div>
-              </div>
-            </motion.div>
+          ))}
 
           {/* Empty placeholder for position 4 */}
           <motion.div
@@ -229,63 +185,63 @@ const SpeakersSection = () => {
             variants={cardVariants}
           >
             <div className="relative z-10">
-                {/* Avatar */}
-                <div className="mb-4 flex justify-center">
-                  <div className="relative flex h-42.5 w-42.5 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
-                    <Image
-                      src=""
-                      alt=""
-                      fill
-                      sizes="112px"
-                      className="object-cover rounded-full"
-                      priority
-                    />
-                    <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
-                  </div>
-                </div>
-
-                <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
-                  {/* Name */}
-                  <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
-                    Tarun Gupta
-                  </h3>
-                  {/* Title */}
-                  <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
-                    Founder & CTO
-                  </p>
-                  {/* Expertise */}
-                  <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
-                    Salesforce Marketing Champion
-                  </p>
-                </div>
-
-                {/* Social Links */}
-                <div className="flex justify-center gap-3">
-                  {false && (
-                    <a href="" target="_blank">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </Button>
-                    </a>
-                  )}
-
-                  {false && (
-                    <a href="" target="_blank">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
-                      >
-                        <Twitter className="h-5 w-5" />
-                      </Button>
-                    </a>
-                  )}
+              {/* Avatar */}
+              <div className="mb-4 flex justify-center">
+                <div className="relative flex h-42.5 w-42.5 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_40px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
+                  <Image
+                    src=""
+                    alt=""
+                    fill
+                    sizes="112px"
+                    className="object-cover rounded-full"
+                    priority
+                  />
+                  <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
                 </div>
               </div>
+
+              <div className="flex flex-col justify-center gap-2 mb-4 mx-[24.8px]">
+                {/* Name */}
+                <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
+                  Dummy
+                </h3>
+                {/* Title */}
+                <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
+                  Dummy
+                </p>
+                {/* Expertise */}
+                <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                  Dummy
+                </p>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex justify-center gap-3">
+                {false && (
+                  <a href="" target="_blank">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
+                    >
+                      <Linkedin className="h-5 w-5" />
+                    </Button>
+                  </a>
+                )}
+
+                {false && (
+                  <a href="" target="_blank">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-10 w-10 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
+                    >
+                      <Twitter className="h-5 w-5" />
+                    </Button>
+                  </a>
+                )}
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

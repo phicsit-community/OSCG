@@ -61,13 +61,6 @@ export const speakers: Speaker[] = [
 
 export const topSpeakers: Speaker[] = [
   {
-    image: "",
-    name: "Tanisha Bansal",
-    title: "Software Development Engineer at SITA",
-    expertise: "ML & AWS Community Builder",
-    linkedin: ""
-  },
-  {
     image: "/speakers/OlenaYara.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
@@ -75,17 +68,10 @@ export const topSpeakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
-    image: "/speakers/Sebastiano.png",
+    image: "/speakers/Sebastiano1.png",
     name: "Sebastiano Fuccio",
     title: "Founder & CEO | Managing Partner",
     expertise: "AI Strategy & Sovereign Innovation",
     linkedin: "https://www.linkedin.com/in/sebastiano-fuccio/"
-  },
-  {
-    image: "",
-    name: "Tarun Gupta",
-    title: "Founder & CTO",
-    expertise: "Salesforce Marketing Champion",
-    linkedin: ""
   },
 ];
