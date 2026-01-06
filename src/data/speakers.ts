@@ -9,7 +9,7 @@ export type Speaker = {
 
 export const speakers: Speaker[] = [
   {
-    image: "/speakers/OlenaYara.png",
+    image: "/speakers/Olena.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
     expertise: "Marketing & Brand Strategist",
@@ -37,11 +37,11 @@ export const speakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/sebastiano-fuccio/?originalSubdomain=ch"
   },
   {
-    image: "/speakers/DavidBekoe.png",
-    name: "Abdulwadud Muhammad",
-    title: "Founder, Yara Agency",
-    expertise: "Marketing Strategist",
-    linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
+    image: "/speakers/MesutDurukal.png",
+    name: "Mesut Durukal",
+    title: "Founder and Head of Tokyo Test Fest",
+    expertise: "Technical Quality Engineering & Test Automation Manager",
+    linkedin: "https://www.linkedin.com/in/mesutdurukal?originalSubdomain=jp"
   },
   {
     image: "/speakers/DavidBekoe.png",

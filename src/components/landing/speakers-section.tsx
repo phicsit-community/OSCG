@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import Image from "next/image";
 import { Linkedin, Twitter } from "lucide-react";
@@ -47,11 +48,9 @@ const SpeakersSection = () => {
     { ...speakers[0] },
     { ...speakers[3] },
     {
-      name: "Aisha Khan",
-      title: "Developer Advocate",
-      expertise: "Infrastructure & Scalability",
-      image: "/default-avatar.png"
+      ...speakers[4]
     },
+
   ];
 
   return (
