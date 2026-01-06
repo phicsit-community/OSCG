@@ -38,10 +38,20 @@ const fadeUp: Variants = {
 const SpeakersSection = () => {
 
   const displaySpeakers = [
-    { type: "dummy", id: "dummy-1" },
-    { type: "speaker", data: speakers[0] },
-    { type: "speaker", data: speakers[3] },
-    { type: "dummy", id: "dummy-2" },
+    {
+      name: "Aisha Khan",
+      title: "Principal Engineer",
+      expertise: "Open Source Strategy",
+      image: "/default-avatar.png"
+    },
+    { ...speakers[0] }, 
+    { ...speakers[3] }, 
+    {
+      name: "Aisha Khan",
+      title: "Developer Advocate",
+      expertise: "Infrastructure & Scalability",
+      image: "/default-avatar.png"
+    },
   ];
 
   return (
@@ -77,69 +87,58 @@ const SpeakersSection = () => {
               align: "start",
               loop: true,
             }}
-            className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-6xl"
+            className="w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-5xl xl:max-w-7xl"
           >
             <CarouselContent className="-ml-4 py-10">
-              {displaySpeakers.map((item, index) => (
-                <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3">
-                  <div className="group unified-card text-center h-[420px] flex flex-col justify-center items-center py-8 relative overflow-visible transition-all duration-300 hover:border-[var(--accent-primary)]/50">
+              {displaySpeakers.map((item: any, index: number) => (
+                <CarouselItem key={index} className="pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
+                  <div className="group unified-card text-center h-[420px] flex flex-col justify-center items-center py-8 relative overflow-visible transition-all duration-300 hover:border-(--accent-primary)/50">
                     <div className="relative z-10 w-full px-4">
 
                       <div className="mb-6 flex justify-center">
-                        <div className="relative flex h-40 w-40 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-[var(--accent-secondary)] to-[var(--accent-primary)] shadow-lg group-hover:shadow-[0_0_30px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
-                          {item.type === "speaker" && item.data ? (
-                            <>
-                              <Image
-                                src={item.data.image}
-                                alt={item.data.name}
-                                fill
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                priority={true}
-                              />
-                              <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
-                            </>
-                          ) : (
-                            <div className="w-full h-full bg-[var(--card-bg)]/50 backdrop-blur-sm" />
-                          )}
+                        <div className="relative flex h-40 w-40 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-(--accent-secondary) to-(--accent-primary) shadow-lg group-hover:shadow-[0_0_30px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            priority={true}
+                          />
+                          <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
                         </div>
                       </div>
 
                       <div className="flex flex-col justify-center gap-2 mb-6 min-h-[5rem]">
-                        {/* Name */}
-                        <h3 className="text-xl text-white font-bold group-hover:text-[var(--accent-secondary)] transition-colors">
-                          {item.type === "speaker" && item.data ? item.data.name : "Dummy"}
+                        <h3 className="text-xl text-white font-bold group-hover:text-(--accent-secondary) transition-colors">
+                          {item.name}
                         </h3>
-                        {/* Title */}
-                        <p className="text-sm text-[var(--accent-secondary)] font-medium tracking-wide">
-                          {item.type === "speaker" && item.data ? item.data.title : "Dummy"}
+                        <p className="text-sm text-(--accent-secondary) font-medium tracking-wide">
+                          {item.title}
                         </p>
-                        {/* Expertise */}
-                        <p className="text-xs text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors uppercase tracking-wider mt-1">
-                          {item.type === "speaker" && item.data ? item.data.expertise : "Dummy"}
+                        <p className="text-xs text-(--text-muted) group-hover:text-(--text-secondary) transition-colors uppercase tracking-wider mt-1">
+                          {item.expertise}
                         </p>
                       </div>
 
-                      {/* Social Links */}
-                      <div className={`flex justify-center gap-3 transition-opacity ${item.type === "dummy" ? "opacity-0 invisible" : "opacity-80 group-hover:opacity-100"}`}>
-                        {item.type === "speaker" && item.data?.linkedin && (
-                          <a href={item.data.linkedin} target="_blank" rel="noopener noreferrer">
+                      <div className="flex justify-center gap-3 opacity-80 group-hover:opacity-100 transition-opacity">
+                        {item.linkedin && (
+                          <a href={item.linkedin} target="_blank" rel="noopener noreferrer">
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-9 w-9 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
+                              className="h-9 w-9 rounded-full bg-white/5 border border-white/10 text-white hover:bg-(--accent-primary) hover:border-(--accent-primary) hover:text-black transition-all duration-300 cursor-pointer"
                             >
                               <Linkedin className="h-4 w-4" />
                             </Button>
                           </a>
                         )}
-
-                        {item.type === "speaker" && item.data?.twitter && (
-                          <a href={item.data.twitter} target="_blank" rel="noopener noreferrer">
+                        {item.twitter && (
+                          <a href={item.twitter} target="_blank" rel="noopener noreferrer">
                             <Button
                               variant="ghost"
                               size="icon"
-                              className="h-9 w-9 rounded-full bg-white/5 border border-white/10 text-white hover:bg-[var(--accent-primary)] hover:border-[var(--accent-primary)] hover:text-black transition-all duration-300 cursor-pointer"
+                              className="h-9 w-9 rounded-full bg-white/5 border border-white/10 text-white hover:bg-(--accent-primary) hover:border-(--accent-primary) hover:text-black transition-all duration-300 cursor-pointer"
                             >
                               <Twitter className="h-4 w-4" />
                             </Button>
@@ -147,16 +146,13 @@ const SpeakersSection = () => {
                         )}
                       </div>
                     </div>
-
-                    {/* Background decoration */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-xl" />
                   </div>
                 </CarouselItem>
               ))}
             </CarouselContent>
             <div className="hidden sm:block">
-              <CarouselPrevious className="border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)] hover:text-black text-[var(--accent-primary)]" />
-              <CarouselNext className="border-[var(--accent-primary)]/30 hover:bg-[var(--accent-primary)] hover:text-black text-[var(--accent-primary)]" />
+              <CarouselPrevious className="border-(--accent-primary)/30 hover:bg-(--accent-primary) hover:text-black text-(--accent-primary)" />
+              <CarouselNext className="border-(--accent-primary)/30 hover:bg-(--accent-primary) hover:text-black text-(--accent-primary)" />
             </div>
           </Carousel>
         </motion.div>
