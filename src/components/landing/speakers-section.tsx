@@ -44,8 +44,8 @@ const SpeakersSection = () => {
       expertise: "Open Source Strategy",
       image: "/default-avatar.png"
     },
-    { ...speakers[0] }, 
-    { ...speakers[3] }, 
+    { ...speakers[0] },
+    { ...speakers[3] },
     {
       name: "Aisha Khan",
       title: "Developer Advocate",
@@ -96,7 +96,7 @@ const SpeakersSection = () => {
                     <div className="relative z-10 w-full px-4">
 
                       <div className="mb-6 flex justify-center">
-                        <div className="relative flex h-40 w-40 items-center justify-center rounded-full overflow-hidden bg-gradient-to-br from-(--accent-secondary) to-(--accent-primary) shadow-lg group-hover:shadow-[0_0_30px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
+                        <div className="relative flex h-40 w-40 items-center justify-center rounded-full overflow-hidden bg-linear-to-br from-(--accent-secondary) to-(--accent-primary) shadow-lg group-hover:shadow-[0_0_30px_var(--accent-glow)] transition-all duration-500 border-2 border-[#00D6B2]">
                           <Image
                             src={item.image}
                             alt={item.name}
@@ -109,7 +109,7 @@ const SpeakersSection = () => {
                         </div>
                       </div>
 
-                      <div className="flex flex-col justify-center gap-2 mb-6 min-h-[5rem]">
+                      <div className="flex flex-col justify-center gap-2 mb-6 min-h-20">
                         <h3 className="text-xl text-white font-bold group-hover:text-(--accent-secondary) transition-colors">
                           {item.name}
                         </h3>

@@ -12,7 +12,7 @@ export const speakers: Speaker[] = [
     image: "/speakers/OlenaYara.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
-    expertise: "Marketing Strategist",
+    expertise: "Marketing & Brand Strategist",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
