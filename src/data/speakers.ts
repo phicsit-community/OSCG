@@ -9,48 +9,32 @@ export type Speaker = {
 
 export const speakers: Speaker[] = [
   {
-    image: "/speakers/Luiz.png",
-    name: "Luiz Carneiro",
-    title: "Solution Engineer, smapiot GmbH",
-    expertise: "Google Cloud Community Organizer",
-    linkedin: "https://www.linkedin.com/in/carneirodotdev/"
-  },
-  {
     image: "/speakers/Olena.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
     expertise: "Marketing & Brand Strategist",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
-   {
+  {
+    image: "/speakers/Dishantgandhi.png",
+    name: "Dishant Gandhi",
+    title: "AI/ML Consultant",
+    expertise: "AI Strategy & Sovereign Innovation",
+    linkedin: "https://www.linkedin.com/in/dishant-gandhi/?originalSubdomain=in"
+  },
+  {
     image: "/speakers/Sebastiano1.png",
     name: "Sebastiano Fuccio",
     title: "Founder & CEO | Managing Partner",
     expertise: "AI Strategy & Sovereign Innovation",
     linkedin: "https://www.linkedin.com/in/sebastiano-fuccio/?originalSubdomain=ch"
   },
-   {
-    image: "/speakers/MesutDurukal.png",
-    name: "Mesut Durukal",
-    title: "Founder and Head of Tokyo Test Fest",
-    expertise: "Technical Quality Engineering & Test Automation Manager",
-    linkedin: "https://www.linkedin.com/in/mesutdurukal?originalSubdomain=jp"
-  },
   {
-    image: "/speakers/DavidBekoe.png",
-    name: "David Bekoe",
-    title: "Founder, Yara Agency",
-    expertise: "Marketing Strategist",
-    linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
-  },
- 
- 
-  {
-    image: "/speakers/DavidBekoe.png",
-    name: "Dishant Gandhi",
-    title: "AI/ML Consultant",
-    expertise: "AI Strategy & Sovereign Innovation",
-    linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
+    image: "/speakers/Luiz.jpeg",
+    name: "Luiz Carneiro",
+    title: "Solution Engineer, smapiot GmbH",
+    expertise: "Google Cloud Community Organizer",
+    linkedin: "https://www.linkedin.com/in/carneirodotdev/"
   },
   {
     image: "/speakers/TarunGupta.png",
@@ -58,6 +42,34 @@ export const speakers: Speaker[] = [
     title: "Founder & CTO",
     expertise: "Salesforce Marketing Champion",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
+  },
+  {
+    image: "/speakers/Praneetha.png",
+    name: "Praneetha Kotla",
+    title: "Lead Robotic Process Automation Developer",
+    expertise: "ERP Smartlabs",
+    linkedin: "https://www.linkedin.com/in/praneetha-kotla/"
+  },
+  {
+    image: "/speakers/MesutDurukal.png",
+    name: "Mesut Durukal",
+    title: "Founder and Head of Tokyo Test Fest",
+    expertise: "Technical Quality Engineering & Test Automation Manager",
+    linkedin: "https://www.linkedin.com/in/mesutdurukal?originalSubdomain=jp"
+  },
+  {
+    image: "/speakers/TanishaBansal.png",
+    name: "Tanisha Bansal",
+    title: "Software Development Engineer at SITA",
+    expertise: "ML & AWS Community Builder",
+    linkedin: "https://www.linkedin.com/in/tanishabansal110902/?originalSubdomain=in"
+  },
+  {
+    image: "/speakers/Aarya.png",
+    name: "Aarya Pandey",
+    title: "Intel OpenVINO",
+    expertise: "ERP Smartlabs",
+    linkedin: "https://www.linkedin.com/in/aaryavjti/?originalSubdomain=in"
   },
 ];
 
