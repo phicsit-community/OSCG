@@ -4,6 +4,7 @@ CREATE TABLE public.profiles (
   full_name TEXT,
   email TEXT,
   is_admin BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 

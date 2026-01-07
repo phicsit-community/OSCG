@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,7 +12,6 @@ import {
     Save,
     Loader2,
     Mail,
-    Camera
 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -169,7 +169,6 @@ const ProfileForm = () => {
                 github: githubHandle,
                 nexfellow_id: formData.nexfellow_id,
                 country: formData.country,
-                updated_at: new Date().toISOString(),
             });
 
             if (error) throw error;
@@ -319,7 +318,7 @@ const ProfileForm = () => {
 
 
                             <div className="space-y-3">
-                                <Label htmlFor="nexfellow_id" className="text-sm font-medium text-white/80 tracking-tight">NexFellow ID</Label>
+                                <Label htmlFor="nexfellow_id" className="text-sm font-medium text-white/80 tracking-tight">NexFellow Username</Label>
                                 <div className="relative group">
                                     <IdCard className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40 group-focus-within:text-[#11D392] transition-colors" />
                                     <Input
@@ -328,7 +327,7 @@ const ProfileForm = () => {
                                         value={formData.nexfellow_id}
                                         onChange={handleChange}
                                         className="bg-transparent border-white/10 pl-11 h-12 text-white focus:border-[#11D392]/50 transition-all rounded-xl [box-shadow:0_0_0_30px_#0B0F17_inset_!important] [text-fill-color:white_!important]"
-                                        placeholder="Your community ID"
+                                        placeholder="Your nexfellow username"
                                     />
                                 </div>
                             </div>
