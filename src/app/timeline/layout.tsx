@@ -9,6 +9,7 @@ const TimeLayout = ({ children }: TimeLayoutProps) => {
   return (
     <div>
       {children}
+      <Footer/>
     </div>
   );
 };
