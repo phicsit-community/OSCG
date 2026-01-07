@@ -41,7 +41,7 @@ export const speakers: Speaker[] = [
     name: "Tarun Gupta",
     title: "Founder & CTO",
     expertise: "Salesforce Marketing Champion",
-    linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
+    linkedin: "https://www.linkedin.com/in/thetarungupta"
   },
   {
     image: "/speakers/Praneetha.png",
