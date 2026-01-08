@@ -211,13 +211,12 @@ const BlogDetailPage = () => {
                         className="relative hidden lg:block"
                     >
                         <div className="absolute -inset-4 bg-gradient-to-r from-[#00D6B2]/20 to-[#4FD1D0]/10 blur-3xl rounded-3xl opacity-50" />
-                        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group">
+                        <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl group w-full aspect-video">
                             <Image
                                 src={post.featuredImage}
                                 alt={post.title}
-                                width={800}
-                                height={450}
-                                className="w-full aspect-video object-cover transition-transform duration-700 group-hover:scale-105"
+                                fill
+                                className="object-fill transition-transform duration-700 group-hover:scale-105"
                             />
                             {/* Image Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F15]/50 via-transparent to-transparent" />

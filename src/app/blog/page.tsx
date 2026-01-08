@@ -104,7 +104,7 @@ const BlogPage = () => {
         <div className="min-h-screen text-white overflow-x-hidden selection:bg-[#00D6B2]/30">
             <Navigation />
 
-          
+
 
             <main className="relative z-10 pt-28 pb-24 container mx-auto px-6 lg:px-10 max-w-7xl">
                 {/* Hero Header */}
@@ -193,9 +193,9 @@ const BlogPage = () => {
                                     className="relative flex flex-col h-full bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.06] rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-[#00D6B2]/30 hover:shadow-[0_0_60px_-15px_rgba(0,214,178,0.3)]"
                                 >
                                     {/* Cover Image Container */}
-                                    <div className="relative h-52 overflow-hidden">
+                                    <div className="relative aspect-video w-full overflow-hidden bg-[#0A0F15]">
                                         {/* Gradient Overlay */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F15] via-transparent to-transparent z-10" />
+                                        {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F15] via-transparent to-transparent z-10" /> */}
 
                                         {/* Image */}
                                         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F15] via-[#0F1A24] to-[#0A0F15]">
@@ -203,37 +203,36 @@ const BlogPage = () => {
                                                 src={article.featuredImage}
                                                 alt={article.title}
                                                 fill
-                                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                                className="object-fill transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                             />
                                         </div>
 
-                                        {/* Category Badge */}
-                                        <div className="absolute top-4 left-4 z-20">
+                                        {/* Category Badge - Moved to bottom */}
+                                        <div className="absolute bottom-4 left-4 z-20">
                                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#0A0F15]/90 backdrop-blur-sm border border-[#00D6B2]/40 text-[#00D6B2] shadow-lg">
                                                 <BookOpen className="w-3 h-3" />
                                                 {article.category}
                                             </span>
                                         </div>
 
-                                        {/* Read Time Badge */}
-                                        <div className="absolute top-4 right-4 z-20">
-                                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-full text-[10px] font-medium bg-black/40 backdrop-blur-md border border-white/10 text-white/80">
-                                                <Clock className="w-3 h-3" />
-                                                {article.readTime}
-                                            </span>
-                                        </div>
+
 
                                         {/* Bottom Gradient */}
-                                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0A0F15] to-transparent z-10" />
+                                        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0A0F15] to-transparent z-10 pointer-events-none opacity-50" />
                                     </div>
 
                                     {/* Content */}
                                     <div className="flex flex-col flex-1 p-6 pt-4">
-                                        {/* Date */}
-                                        <div className="flex items-center gap-2 text-xs text-[#64748B] mb-3">
-                                            <Calendar className="w-3.5 h-3.5" />
-                                            <time>{article.date}</time>
+                                        <div className="flex items-center justify-between text-xs text-[#64748B] mb-3">
+                                            <div className="flex items-center gap-2">
+                                                <Calendar className="w-3.5 h-3.5" />
+                                                <time>{article.date}</time>
+                                            </div>
+                                            <div className="flex items-center gap-1.5 text-white/50">
+                                                <Clock className="w-3.5 h-3.5" />
+                                                <span>{article.readTime}</span>
+                                            </div>
                                         </div>
 
                                         {/* Title */}

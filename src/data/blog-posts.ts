@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
             role: "Lead Developer",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=sample"
         },
-        featuredImage: "/blogs/blog1.png",
+        featuredImage: "/blogs/HowOpenSource.png",
         content: `
 Most developers work in isolation - stuck in their local communities, limited by language barriers, or unsure how to find collaborators beyond their immediate network. [**Open Source Connect Global**](https://osconnect.org) (OSCG) exists to change that. It's not about flashy campaigns or corporate sponsorships. It's about creating real connections between people who build software, solve problems, and want to learn from each other.
 
@@ -115,7 +115,7 @@ Open source works best when it's truly open - not just in code, but in participa
             role: "Architecture Lead",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus"
         },
-        featuredImage: "/blogs/blog2.png",
+        featuredImage: "/blogs/boostresume.png",
         content: `
     **Resumes** are tricky. You list your education, maybe an internship or two, some personal projects, and hope someone notices. But here's the thing: everyone applying for that developer role has similar credentials. Open-source contributions change the equation. They provide proof - visible, verifiable proof - that you can write code, work with others, and ship real software.
 
@@ -243,7 +243,7 @@ Your resume is a summary. Your open-source contributions are the evidence. Toget
             role: "Community Manager",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
         },
-        featuredImage: "/blogs/blog3.png",
+        featuredImage: "/blogs/TopFiveReasons.png",
         content: `
     Everyone says open source is great for learning. That's true, but it's also the most obvious answer. If you dig deeper, the real reasons to contribute go beyond just picking up new skills. They're about career growth, confidence building, and becoming part of something that outlasts your individual contributions.
 
@@ -353,7 +353,7 @@ The developers who take open source seriously - who contribute consistently, lea
             role: "Lead Developer",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
         },
-        featuredImage: "/blogs/blog4.png",
+        featuredImage: "/blogs/stories.png",
         content: `
     Innovation doesn't always start in corporate labs or well-funded startups. Some of the most impactful tools and ideas in tech emerged from open-source projects - developers scratching their own itch, solving problems they faced, and sharing solutions with others.
 

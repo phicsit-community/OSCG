@@ -100,41 +100,35 @@ const LatestInsights = () => {
                 className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-linear-to-b from-[#0D1520] to-[#080C14] border border-white/8 transition-all duration-500 hover:border-[#00D6B2]/40 hover:shadow-[0_0_80px_-20px_rgba(0,214,178,0.4)] hover:-translate-y-2"
               >
                 {/* Image Container */}
-                <div className="relative h-56 overflow-hidden">
+                <div className="relative aspect-video w-full overflow-hidden bg-[#080C14]">
                   {/* Animated Gradient Border on Hover */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
                     <div className="absolute top-0 left-0 right-0 h-1 bg-linear-to-r from-transparent via-[#00D6B2] to-transparent" />
                   </div>
 
                   {/* Image with Ken Burns Effect */}
-                  <div className="absolute inset-0">
+                  <div className="absolute inset-0 p-2">
                     <Image
                       src={article.featuredImage}
                       alt={article.title}
                       fill
-                      className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                      className="object-fill transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     {/* Gradient Overlays */}
-                    <div className="absolute inset-0 bg-linear-to-t from-[#080C14] via-[#080C14]/50 to-transparent" />
+                    {/* <div className="absolute inset-0 bg-linear-to-t from-[#080C14]/40 via-transparent to-transparent" /> */}
                     <div className="absolute inset-0 bg-linear-to-br from-[#00D6B2]/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
 
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-30">
+                  {/* Category Badge - Moved to bottom */}
+                  <div className="absolute bottom-4 left-4 z-30">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#0A0F15]/90 backdrop-blur-sm border border-[#00D6B2]/40 text-[#00D6B2] shadow-lg">
                       <BookOpen className="w-3 h-3" />
                       {article.category}
                     </span>
                   </div>
 
-                  {/* Read Time Badge */}
-                  <div className="absolute top-4 right-4 z-30">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold bg-black/60 backdrop-blur-md border border-white/20 text-white shadow-lg">
-                      <Clock className="w-3 h-3" />
-                      {article.readTime}
-                    </span>
-                  </div>
+
 
                   {/* Floating Orb Effect */}
                   <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-[#00D6B2]/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -143,9 +137,15 @@ const LatestInsights = () => {
                 {/* Content */}
                 <div className="flex flex-col flex-1 p-6">
                   {/* Date */}
-                  <div className="flex items-center gap-2 text-xs text-[#64748B] mb-4">
-                    <Calendar className="w-3.5 h-3.5 text-[#00D6B2]" />
-                    <time className="font-medium">{article.date}</time>
+                  <div className="flex items-center justify-between text-xs text-[#64748B] mb-4">
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-3.5 h-3.5 text-[#00D6B2]" />
+                      <time className="font-medium">{article.date}</time>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-white/50">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span>{article.readTime}</span>
+                    </div>
                   </div>
 
                   {/* Title */}
