@@ -47,7 +47,6 @@ const SpeakersPage = () => {
   return (
     <div className="min-h-screen text-white selection:bg-[var(--accent-primary)]/30 py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
         <motion.div
           className="section-header mb-12"
           variants={containerVariants}
@@ -55,13 +54,15 @@ const SpeakersPage = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          <motion.h2 variants={fadeUp} className="text-3xl md:text-5xl font-bold text-center mb-4">
+         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-[1.05] tracking-tight mt-14"
+          >
             Our <span className="text-accent-gradient">Speakers</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-center text-[var(--text-muted)] max-w-2xl mx-auto text-lg">
+
+          </h1>
+          <p className="text-center text-[var(--text-muted)] max-w-2xl mx-auto text-lg">
             Learn from industry leaders and open source pioneers who are driving
             innovation forward
-          </motion.p>
+          </p>
         </motion.div>
 
         {/* Speakers Grid */}
