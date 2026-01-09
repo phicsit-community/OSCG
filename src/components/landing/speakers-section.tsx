@@ -1,14 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { motion, Variants } from "framer-motion";
 import { speakers } from "@/data/speakers";
 import { SpeakerCard } from "@/components/SpeakerCard";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "../ui/carousel";
-import AutoScroll from "embla-carousel-auto-scroll";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -32,9 +25,6 @@ const fadeUp: Variants = {
     },
   },
 };
-
-
-
 const SpeakersSection = () => {
   const displaySpeakers = speakers.slice(0, 4);
 
@@ -57,49 +47,19 @@ const SpeakersSection = () => {
           </motion.p>
         </motion.div>
 
-        {/* Desktop View: Grid (Only 4) */}
+        {/* Responsive Grid: 1 col on mobile, 2 on tablet, 4 on desktop */}
         <motion.div
-          variants={fadeUp}
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="hidden lg:grid grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {displaySpeakers.map((item, index) => (
-            <SpeakerCard key={index} item={item} />
+            <motion.div key={index} variants={fadeUp}>
+              <SpeakerCard item={item} />
+            </motion.div>
           ))}
-        </motion.div>
-
-        {/* Mobile View: Carousel */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="lg:hidden w-full relative group/carousel [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-        >
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              AutoScroll({
-                speed: 1.5,
-                stopOnInteraction: false,
-                stopOnMouseEnter: true,
-              }),
-            ]}
-            className="w-full flex justify-center"
-          >
-            <CarouselContent className="-ml-2 py-10">
-              {displaySpeakers.map((item: any, index: number) => (
-                <CarouselItem key={index} className="pl-2 basis-full sm:basis-1/2 md:basis-1/3">
-                  <SpeakerCard item={item} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
         </motion.div>
       </div>
     </section>

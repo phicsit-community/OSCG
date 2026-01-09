@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Linkedin, Twitter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SpeakerCard = ({ item }: { item: any }) => (
     <div className="group unified-card text-center h-[420px] flex flex-col justify-center items-center py-8 relative overflow-visible transition-all duration-300 hover:border-(--accent-primary)/50">
         <div className="relative z-10 w-full px-4">
