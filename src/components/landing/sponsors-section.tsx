@@ -1,8 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Sparkles } from "../ui/sparkles";
+import Image from "next/image";
 
 const partnersRow1 = [
   { name: "Cloud Loop", logo: "/partners/cloudloop.jpg" },
@@ -29,6 +28,11 @@ const partnersRow2 = [
   { name: "Codasauras Community", logo: "/partners/codesaurus.png" },
   { name: "GDG Amity University", logo: "/partners/googledevgroup.jpg" },
 ];
+
+interface Partner {
+  name: string;
+  logo: string;
+}
 
 const SponsorsSection = () => {
   const speedFactor = 8;
@@ -64,15 +68,17 @@ const SponsorsSection = () => {
   const duplicatedRow1 = [...partnersRow1, ...partnersRow1, ...partnersRow1, ...partnersRow1];
   const duplicatedRow2 = [...partnersRow2, ...partnersRow2, ...partnersRow2, ...partnersRow2];
 
-  const PartnerCard = ({ partner, index }: { partner: any; index: number }) => (
+  const PartnerCard = ({ partner, index }: { partner: Partner; index: number }) => (
     <div
       key={`${partner.name}-${index}`}
       className="relative group shrink-0 cursor-pointer transition-all duration-500 scale-[0.98] hover:scale-100"
     >
       <div className="relative w-[120px] h-[120px] rounded-2xl bg-white/2 backdrop-blur-md overflow-hidden flex items-center justify-center border border-white/10 transition-all duration-500 group-hover:border-[#00D6B2]/40 group-hover:bg-[#00D6B2]/5 group-hover:shadow-[0_0_20px_rgba(0,214,178,0.15)]">
-        <img
+        <Image
           src={partner.logo}
           alt={partner.name}
+          width={120}
+          height={120}
           className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />

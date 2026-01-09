@@ -39,11 +39,11 @@ export function Globe({ className }: GlobeProps) {
     const clock = new THREE.Clock();
 
     // ---------------- INIT SCENE ----------------
-    const renderer = new THREE.WebGLRenderer({ 
-      canvas: canvas3D, 
-      alpha: true, 
-      antialias: false, 
-      powerPreference: "high-performance" 
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas3D,
+      alpha: true,
+      antialias: false,
+      powerPreference: "high-performance"
     });
     // Cap pixel ratio for performance (original was 2, now adaptive)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
@@ -68,8 +68,8 @@ export function Globe({ className }: GlobeProps) {
 
     // Function to initialize the globe with texture
     function initGlobe(earthTexture: THREE.Texture) {
-      // Reduced geometry complexity: 14 vs 22 = ~100k vertices vs ~2.5M
-      const globeGeometry = new THREE.IcosahedronGeometry(1, 14);
+      // Optimized geometry complexity: 8 detail is plenty for an animated background
+      const globeGeometry = new THREE.IcosahedronGeometry(1, 8);
 
       const vertexShader = `
         uniform sampler2D u_map_tex;

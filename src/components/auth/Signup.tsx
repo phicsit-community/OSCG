@@ -9,7 +9,7 @@ import {
   signUpWithEmail,
 } from "@/lib/supabase/auth";
 import { toast } from "sonner";
-import { GlobeVibrant } from "@/components/ui/GlobeVibrant";
+import AuthFeatureCards from "@/components/ui/AuthFeatureCards";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -129,9 +129,7 @@ const Signup = () => {
       <div className="hidden lg:flex w-1/2 h-screen relative overflow-hidden">
         {/* Globe */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-[65%] h-[65%]">
-            <GlobeVibrant className="w-full h-full" />
-          </div>
+          <AuthFeatureCards />
         </div>
       </div>
 

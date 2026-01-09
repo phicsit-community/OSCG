@@ -93,8 +93,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning={true} className={`${roboto.className}`}>
+    <html lang="en" suppressHydrationWarning className={roboto.className}>
+      <head>
+        <link rel="preconnect" href={process.env.NEXT_PUBLIC_SUPABASE_URL!} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      </head>
+      <body suppressHydrationWarning className="antialiased">
         <GlobalBackground />
         <Navigation />
         <ScrollToTop />

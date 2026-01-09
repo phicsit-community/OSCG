@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -169,7 +168,14 @@ const Navigation = () => {
           )}
         >
           <Link href="/" className="flex items-center gap-2 sm:gap-2.5 shrink-0">
-            <Image src="/logo1.png" alt="Logo" width={40} height={40} className="sm:w-[42px] sm:h-[42px] rounded-lg" />
+            <Image
+              src="/logo1.png"
+              alt="Logo"
+              width={40}
+              height={40}
+              priority
+              className="sm:w-[42px] sm:h-[42px] rounded-lg"
+            />
             <span className="text-white font-semibold text-xl sm:text-2xl">
               <span className="hover:text-[#6FE7C1] transition-colors duration-300">OSCG</span>
               <span className="text-[#6FE7C1]"> ’26</span>
@@ -282,7 +288,7 @@ const Navigation = () => {
                     <AlertDialogContent className="bg-[#0A0F15] border border-white/10 rounded-xl p-6 max-w-[440px] outline-none shadow-2xl">
                       <AlertDialogHeader className="space-y-3">
                         <AlertDialogTitle className="text-lg font-semibold text-white tracking-tight">Are you sure?</AlertDialogTitle>
-                        <AlertDialogDescription className="text-[13px] text-white/50 leading-normal">You will be signed out of your session. You'll need to log in again to access your dashboard.</AlertDialogDescription>
+                        <AlertDialogDescription className="text-[13px] text-white/50 leading-normal">You will be signed out of your session. You&apos;ll need to log in again to access your dashboard.</AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter className="flex items-center justify-end gap-3 mt-6">
                         <AlertDialogCancel className="h-9 px-4 rounded-lg bg-white/5 border-white/10 text-white hover:bg-white/10 transition-all text-xs font-semibold py-0 cursor-pointer">Cancel</AlertDialogCancel>
