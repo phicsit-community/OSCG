@@ -15,7 +15,7 @@ export const SpeakerCard = ({ item }: { item: any }) => (
                         alt={item.name}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className={`object-cover ${item.imagePosition || 'object-top'} transition-transform duration-500 group-hover:scale-110`}
                         priority={true}
                     />
                     <div className="absolute inset-0 rounded-full border-2 border-white/20 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
@@ -29,7 +29,7 @@ export const SpeakerCard = ({ item }: { item: any }) => (
                 <p className="text-sm text-(--accent-secondary) font-medium tracking-wide">
                     {item.title}
                 </p>
-                <p className="text-xs text-(--text-muted) group-hover:text-(--text-secondary) transition-colors uppercase tracking-wider mt-1">
+                <p className="text-xs text-(--text-muted) group-hover:text-(--text-secondary) transition-colors tracking-wider mt-1">
                     {item.expertise}
                 </p>
             </div>
