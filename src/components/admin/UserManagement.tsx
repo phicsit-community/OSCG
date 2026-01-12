@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useState, useMemo, useDeferredValue, useEffect } from "react";
+import { useState, useMemo, useDeferredValue } from "react";
 import {
   Search,
   Download,
@@ -38,6 +37,7 @@ interface Profile {
   email: string;
   badges_created: number;
   is_admin: boolean;
+  created_at: string;
   updated_at: string;
 }
 
@@ -60,9 +60,11 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   }, [initialUsers, deferredSearchTerm]);
 
   // Reset to page 1 when search changes
-  useEffect(() => {
+  const [prevSearchTerm, setPrevSearchTerm] = useState(deferredSearchTerm);
+  if (deferredSearchTerm !== prevSearchTerm) {
+    setPrevSearchTerm(deferredSearchTerm);
     setCurrentPage(1);
-  }, [deferredSearchTerm]);
+  }
 
   const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
   const paginatedUsers = useMemo(() => {
@@ -76,7 +78,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
       `"${(user.full_name || "N/A").replace(/"/g, '""')}"`,
       `"${(user.email || "N/A").replace(/"/g, '""')}"`,
       user.badges_created,
-      `"${new Date(user.updated_at).toISOString().split('T')[0]}"`
+      `"${new Date(user.created_at).toISOString().split('T')[0]}"`
     ]);
 
     const csvContent = [headers.map(h => `"${h}"`), ...csvData].map(e => e.join(",")).join("\n");
@@ -237,7 +239,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                       <TableCell className="py-4">
                         <span className="text-xs text-slate-500 uppercase font-bold">
                           {(() => {
-                            const date = new Date(user.updated_at);
+                            const date = new Date(user.created_at);
                             const day = String(date.getDate()).padStart(2, '0');
                             const month = String(date.getMonth() + 1).padStart(2, '0');
                             const year = date.getFullYear();

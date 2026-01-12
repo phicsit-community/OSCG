@@ -15,14 +15,14 @@ export async function getAdminData() {
   const { count: newSignups } = await supabase
     .from("profiles")
     .select("*", { count: "exact", head: true })
-    .gte("updated_at", yesterday.toISOString());
+    .gte("created_at", yesterday.toISOString());
 
   const { data: users, error } = await supabase
     .from("profiles")
     .select("*")
-    .order("updated_at", { ascending: false })
-    .order("id", { ascending: false })
-    .limit(5000); 
+    .order("created_at", { ascending: true })
+    .order("id", { ascending: true })
+    .limit(100000); 
 
   if (error) {
     console.error("Error fetching admin data:", error);
