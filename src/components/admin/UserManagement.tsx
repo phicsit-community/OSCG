@@ -73,12 +73,13 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   }, [filteredUsers, currentPage, itemsPerPage]);
 
   const downloadCSV = () => {
-    const headers = ["Name", "Email", "Badges Created", "Joined Date"];
-    const csvData = filteredUsers.map((user: Profile) => [
+    const headers = ["S.No", "Name", "Email", "Badges Created", "Joined Date"];
+    const csvData = filteredUsers.map((user: Profile, index: number) => [
+      index + 1,
       `"${(user.full_name || "N/A").replace(/"/g, '""')}"`,
       `"${(user.email || "N/A").replace(/"/g, '""')}"`,
       user.badges_created,
-      `"${new Date(user.created_at).toISOString().split('T')[0]}"`
+      `"${new Date(user.updated_at).toISOString().split('T')[0]}"`
     ]);
 
     const csvContent = [headers.map(h => `"${h}"`), ...csvData].map(e => e.join(",")).join("\n");
@@ -200,7 +201,8 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
           <Table>
             <TableHeader className="bg-white/2">
               <TableRow className="border-white/5 hover:bg-transparent">
-                <TableHead className="text-slate-500 font-bold h-14 pl-6">Participant</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 pl-6 w-16">#</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14">Participant</TableHead>
                 <TableHead className="text-slate-500 font-bold h-14">Email Address</TableHead>
                 <TableHead className="text-slate-500 font-bold h-14">Badges</TableHead>
                 <TableHead className="text-slate-500 font-bold h-14">Joined Date</TableHead>
@@ -220,6 +222,11 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                       className="border-white/5 hover:bg-white/2 transition-colors group"
                     >
                       <TableCell className="pl-6 py-4">
+                        <span className="text-xs font-bold text-slate-500">
+                          {(currentPage - 1) * itemsPerPage + paginatedUsers.indexOf(user) + 1}
+                        </span>
+                      </TableCell>
+                      <TableCell className="py-4">
                         <div className="flex items-center gap-3">
                           <Avatar className="h-9 w-9 border border-white/10">
                             <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`} />
@@ -239,7 +246,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                       <TableCell className="py-4">
                         <span className="text-xs text-slate-500 uppercase font-bold">
                           {(() => {
-                            const date = new Date(user.created_at);
+                            const date = new Date(user.updated_at);
                             const day = String(date.getDate()).padStart(2, '0');
                             const month = String(date.getMonth() + 1).padStart(2, '0');
                             const year = date.getFullYear();
