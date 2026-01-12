@@ -7,9 +7,10 @@ type ProfileCardProps = {
   username: string;
   fullName?: string;
   linkedin?: string;
+  role?: string;
 };
 
-export default function ProfileCard({ username, fullName, linkedin }: ProfileCardProps) {
+export default function ProfileCard({ username, fullName, linkedin, role }: ProfileCardProps) {
   // Extract handle if user pasted a full URL
   const cleanUsername = React.useMemo(() => {
     if (!username) return "";
@@ -96,23 +97,25 @@ export default function ProfileCard({ username, fullName, linkedin }: ProfileCar
 
         <div className="flex gap-2 sm:gap-3 mt-8">
           <span className="bg-[#00D6B2]/10 text-[#00D6B2] text-[10px] px-4 py-1.5 rounded-xl font-black uppercase tracking-widest border border-[#00D6B2]/10">
-            Contributor
+            {role === 'project-admin' ? 'Project Admin' : 'Contributor'}
           </span>
           <span className="bg-white/5 text-white/40 text-[10px] px-4 py-1.5 rounded-xl flex items-center gap-1.5 border border-white/10 font-bold uppercase tracking-widest">
             Verified
           </span>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mt-10 w-full">
-          <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/20 transition-all">
-            <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
-            <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Points</div>
+        {role !== 'project-admin' && (
+          <div className="grid grid-cols-2 gap-4 mt-10 w-full">
+            <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/20 transition-all">
+              <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
+              <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Points</div>
+            </div>
+            <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#4FD1D0]/5 hover:border-[#4FD1D0]/20 transition-all">
+              <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
+              <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Merged</div>
+            </div>
           </div>
-          <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#4FD1D0]/5 hover:border-[#4FD1D0]/20 transition-all">
-            <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
-            <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Merged</div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

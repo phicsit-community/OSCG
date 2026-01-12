@@ -92,3 +92,19 @@ export async function updateUserRole(userId: string, role: string) {
 
   return { success: true };
 }
+
+export async function updateUserScore(userId: string, score: number) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ score, updated_at: new Date().toISOString() })
+    .eq("id", userId);
+
+  if (error) {
+    console.error("Error updating user score:", error);
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
