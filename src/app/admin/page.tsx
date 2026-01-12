@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Suspense } from "react";
 import {
   Users,
@@ -10,6 +9,8 @@ import UserManagement from "@/components/admin/UserManagement";
 export const metadata = {
   title: "Admin Command Center | OSCG",
 };
+
+export const dynamic = "force-dynamic";
 
 export default async function AdminDashboardPage() {
   const data = await getAdminData();
