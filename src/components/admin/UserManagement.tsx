@@ -30,6 +30,7 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
+import { updateUserRole } from "@/lib/actions/admin";
 
 interface Profile {
   id: string;
@@ -37,6 +38,7 @@ interface Profile {
   email: string;
   badges_created: number;
   is_admin: boolean;
+  role: string;
   created_at: string;
   updated_at: string;
 }
@@ -98,6 +100,21 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
+    }
+  };
+
+  const handleRoleChange = async (userId: string, newRole: string) => {
+    const loadingToast = toast.loading("Updating role...");
+    try {
+      const result = await updateUserRole(userId, newRole);
+      if (result.success) {
+        toast.success("Role updated successfully", { id: loadingToast });
+      } else {
+        toast.error(result.error || "Failed to update role", { id: loadingToast });
+      }
+    } catch (error) {
+      console.error("Role update error:", error);
+      toast.error("An unexpected error occurred", { id: loadingToast });
     }
   };
 
@@ -201,12 +218,13 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
           <Table>
             <TableHeader className="bg-white/2">
               <TableRow className="border-white/5 hover:bg-transparent">
-                <TableHead className="text-slate-500 font-bold h-14 pl-6 w-16">#</TableHead>
-                <TableHead className="text-slate-500 font-bold h-14">Participant</TableHead>
-                <TableHead className="text-slate-500 font-bold h-14">Email Address</TableHead>
-                <TableHead className="text-slate-500 font-bold h-14">Badges</TableHead>
-                <TableHead className="text-slate-500 font-bold h-14">Joined Date</TableHead>
-                <TableHead className="text-slate-500 font-bold h-14 text-right pr-6">Actions</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 pl-6 w-12 text-center">#</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 w-48">Participant</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 w-64">Email Address</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 w-40 text-center">Role</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 text-center w-24">Badges</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 text-center w-32">Joined Date</TableHead>
+                <TableHead className="text-slate-500 font-bold h-14 text-right pr-6 w-20">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -221,30 +239,45 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                       key={user.id}
                       className="border-white/5 hover:bg-white/2 transition-colors group"
                     >
-                      <TableCell className="pl-6 py-4">
+                      <TableCell className="pl-6 py-4 text-center">
                         <span className="text-xs font-bold text-slate-500">
                           {(currentPage - 1) * itemsPerPage + paginatedUsers.indexOf(user) + 1}
                         </span>
                       </TableCell>
                       <TableCell className="py-4">
-                        <div className="flex items-center gap-3">
-                          <Avatar className="h-9 w-9 border border-white/10">
+                        <div className="flex items-center gap-2.5">
+                          <Avatar className="h-8 w-8 border border-white/10 shrink-0">
                             <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email}`} />
-                            <AvatarFallback className="bg-slate-800 text-xs">{user.full_name?.[0] || 'U'}</AvatarFallback>
+                            <AvatarFallback className="bg-slate-800 text-[10px]">{user.full_name?.[0] || 'U'}</AvatarFallback>
                           </Avatar>
-                          <span className="font-semibold text-slate-200">{user.full_name || "Anonymous"}</span>
+                          <span className="font-semibold text-slate-200 text-sm truncate max-w-[140px]">{user.full_name || "Anonymous"}</span>
                         </div>
                       </TableCell>
                       <TableCell className="py-4">
-                        <span className="text-sm text-slate-400 font-medium">{user.email || "No Email"}</span>
+                        <span className="text-sm text-slate-400 font-medium truncate inline-block max-w-[200px]">{user.email || "No Email"}</span>
                       </TableCell>
-                      <TableCell className="py-4">
-                        <Badge variant="outline" className="border-[#11D392]/30 text-[#11D392] bg-[#11D392]/5">
+                      <TableCell className="py-4 text-center px-2">
+                        <Select
+                          defaultValue={user.role || "contributor"}
+                          onValueChange={(value) => handleRoleChange(user.id, value)}
+                        >
+                          <SelectTrigger className="h-8 w-32 bg-white/5 border-white/10 text-[10px] font-bold text-slate-300 uppercase tracking-wider hover:bg-white/10 transition-all cursor-pointer mx-auto">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent className="bg-[#0B0F17] border-white/10 text-slate-300">
+                            <SelectItem value="contributor" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Contributor</SelectItem>
+                            <SelectItem value="project-admin" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Project Admin</SelectItem>
+                            <SelectItem value="mentor" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Mentor</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                      <TableCell className="py-4 text-center p-2">
+                        <Badge variant="outline" className="border-[#11D392]/30 text-[#11D392] bg-[#11D392]/5 text-[10px] px-2 py-0 h-5">
                           {user.badges_created}
                         </Badge>
                       </TableCell>
-                      <TableCell className="py-4">
-                        <span className="text-xs text-slate-500 uppercase font-bold">
+                      <TableCell className="py-4 text-center px-2">
+                        <span className="text-[10px] text-slate-500 uppercase font-bold whitespace-nowrap">
                           {(() => {
                             const date = new Date(user.updated_at);
                             const day = String(date.getDate()).padStart(2, '0');
@@ -255,14 +288,14 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                         </span>
                       </TableCell>
                       <TableCell className="pr-6 py-4 text-right">
-                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex justify-end pr-1">
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="h-8 w-8 text-slate-400 cursor-pointer hover:text-white hover:bg-white/5"
+                            className="h-8 w-8 text-[#11D392] cursor-pointer  hover:bg-transparent hover:text-green-400 rounded-lg border border-[#11D392]/20"
                             onClick={() => window.location.href = `mailto:${user.email}`}
                           >
-                            <Mail className="h-6 w-6" />
+                            <Mail className="h-4 w-4" />
                           </Button>
                         </div>
                       </TableCell>

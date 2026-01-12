@@ -23,6 +23,7 @@ export async function getAdminData() {
     full_name: string;
     email: string;
     is_admin: boolean;
+    role: string;
     created_at: string;
     updated_at: string;
   }
@@ -74,4 +75,20 @@ export async function getAdminData() {
     },
     users: users || [],
   };
+}
+
+export async function updateUserRole(userId: string, role: string) {
+  const supabase = await createClient();
+
+  const { error } = await supabase
+    .from("profiles")
+    .update({ role, updated_at: new Date().toISOString() })
+    .eq("id", userId);
+
+  if (error) {
+    console.error("Error updating user role:", error);
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
 }
