@@ -21,8 +21,8 @@ const resources = [
 
 const applyLinks = [
   { label: "Speak With Us", href: "https://docs.google.com/forms/d/e/1FAIpQLSebMVP6o26ZtW2yTU2tc4ZRtebOxU_8Z5fw2DwBeVmeKEQLuQ/viewform?usp=header", target: "_blank" },
-  { label: "Become a Mentor", href: "http://docs.google.com/forms/d/e/1FAIpQLSebuqxmKNDuIgXYZzbOZ1nhJp38fHxthFGDyDN0j4V6cX3sFQ/viewform" },
-  { label: "Become Project Admin", href: "#" },
+  { label: "Become a Mentor", href: "https://docs.google.com/forms/d/e/1FAIpQLSebuqxmKNDuIgXYZzbOZ1nhJp38fHxthFGDyDN0j4V6cX3sFQ/viewform", target: "_blank" },
+  { label: "Become Project Admin", href: "https://docs.google.com/forms/d/e/1FAIpQLSfnWgjErOia0Kj6IFOeK8zEb8K7NFXUHFr8F4oYsaGC-Qh8OQ/viewform?usp=header", target: "_blank" },
   {
     label: "Become Campus Lead",
     href: "https://docs.google.com/forms/d/e/1FAIpQLSffTnzw6voymzgbWKycMZoQYrCMbqBfan_lCNisK2SPlxErWA/viewform",
@@ -33,7 +33,7 @@ const applyLinks = [
     href: "https://docs.google.com/forms/d/e/1FAIpQLScVbMGn5ntgASDbMr0kir4I7T3HGqLClTJZmXtdInv0reGQqA/viewform",
     target: "_blank"
   },
-  { label: "Become Sponsor", href: "#" },
+  { label: "Become Sponsor", href: "mailto:hello@osconnect.org" },
 ];
 
 const Footer = () => {
