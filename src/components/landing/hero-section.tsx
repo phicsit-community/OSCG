@@ -103,22 +103,23 @@ const HeroSection = () => {
     return () => listener.subscription.unsubscribe();
   }, []);
 
-  const modal = open && true
-    ? createPortal(
-      <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
-        <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-6">
-          <button
-            onClick={() => setOpen(false)}
-            className="absolute right-8 top-6 text-white cursor-pointer z-10"
-          >
-            <X />
-          </button>
-          <LumaEmbed />
-        </div>
-      </div>,
-      document.body
-    )
-    : null;
+  const modal =
+    open && true
+      ? createPortal(
+          <div className="fixed inset-0 z-[1000] flex items-center justify-center backdrop-blur bg-black/50">
+            <div className="relative w-full max-w-4xl rounded-2xl bg-black p-4 flex items-center justify-center pt-6">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute right-8 top-6 text-white cursor-pointer z-10"
+              >
+                <X />
+              </button>
+              <LumaEmbed />
+            </div>
+          </div>,
+          document.body
+        )
+      : null;
 
   return (
     <>
@@ -129,8 +130,6 @@ const HeroSection = () => {
         className="absolute inset-0 w-full h-full object-cover touch-none opacity-60 mix-blend-screen"
         style={{ background: "transparent" }}
       /> */}
-
-
 
         <div className="relative container pt-16 sm:pt-20 lg:pt-24 z-20 mx-auto px-6 sm:px-8 lg:px-16 text-center max-w-6xl">
           <motion.div
@@ -160,9 +159,9 @@ const HeroSection = () => {
 
             {/* Subheading */}
             <p className="mb-10 max-w-2xl text-lg sm:text-xl text-white/70 leading-relaxed">
-              Join thousands of developers, innovators, and open source
-              enthusiasts celebrating global collaboration and technological
-              excellence.
+              Open Source Connect Global is a global open-source platform and
+              annual event that connects developers, and organizations to collaborate,
+              learn, and build real-world projects together.
             </p>
 
             {/* CTA Buttons */}
@@ -195,9 +194,10 @@ const HeroSection = () => {
                         Create Your Badge
                       </span>
 
-
-                      <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
-        -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                      <div
+                        className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
+        -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                      />
                     </Button>
                   </motion.div>
                 </Link>
@@ -208,9 +208,7 @@ const HeroSection = () => {
                   className="relative w-full sm:w-auto group cursor-pointer"
                   onClick={() => setOpen(true)}
                 >
-
                   <div className="absolute -inset-1 rounded-2xl border-2 border-[var(--accent-primary)]/60 group-hover:border-[var(--accent-primary)] transition-colors" />
-
 
                   <div className="absolute -inset-2 rounded-2xl bg-[var(--accent-primary)]/30 blur-xl opacity-70 group-hover:opacity-100 transition-opacity" />
 
@@ -227,15 +225,14 @@ const HeroSection = () => {
                       <ArrowRight className="h-6 w-6 group-hover:translate-x-1 transition-transform" />
                     </span>
 
-
-                    <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
-      -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                    <div
+                      className="absolute inset-0 bg-linear-to-r from-transparent via-white/40 to-transparent 
+      -translate-x-full group-hover:translate-x-full transition-transform duration-700"
+                    />
                   </Button>
                 </motion.div>
               )}
-
             </motion.div>
-
 
             <motion.div
               initial={{ opacity: 0 }}
