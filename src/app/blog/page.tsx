@@ -8,6 +8,7 @@ import Footer from "@/components/landing/footer-section";
 import { blogPosts } from "@/data/blog-posts";
 import Link from "next/link";
 import Image from "next/image";
+import ComingSoon from "@/components/ComingSoon/coming-soon-page";
 
 const categories = [
     "All",
@@ -104,10 +105,16 @@ const BlogPage = () => {
         <div className="min-h-screen text-white overflow-x-hidden selection:bg-[#00D6B2]/30">
             <Navigation />
 
+            {/* 
 
 
-            <main className="relative z-10 pt-28 pb-24 container mx-auto px-6 lg:px-10 max-w-7xl">
-                {/* Hero Header */}
+*/}
+
+
+            <ComingSoon />
+
+            {/* Main Content Commented Out */}
+            {/* 
                 <motion.div
                     className="text-center mb-16"
                     variants={containerVariants}
@@ -137,7 +144,6 @@ const BlogPage = () => {
                     </motion.p>
                 </motion.div>
 
-                {/* Category Filter */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -158,7 +164,6 @@ const BlogPage = () => {
                     ))}
                 </motion.div>
 
-                {/* Results Count */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -170,7 +175,6 @@ const BlogPage = () => {
                     </p>
                 </motion.div>
 
-                {/* Blog Cards Grid */}
                 <motion.div
                     className="grid gap-8 lg:grid-cols-3 md:grid-cols-2"
                     variants={containerVariants}
@@ -192,12 +196,7 @@ const BlogPage = () => {
                                     exit="exit"
                                     className="relative flex flex-col h-full bg-gradient-to-b from-white/[0.04] to-transparent border border-white/[0.06] rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:border-[#00D6B2]/30 hover:shadow-[0_0_60px_-15px_rgba(0,214,178,0.3)]"
                                 >
-                                    {/* Cover Image Container */}
                                     <div className="relative aspect-video w-full overflow-hidden bg-[#0A0F15]">
-                                        {/* Gradient Overlay */}
-                                        {/* <div className="absolute inset-0 bg-gradient-to-t from-[#0A0F15] via-transparent to-transparent z-10" /> */}
-
-                                        {/* Image */}
                                         <div className="absolute inset-0 bg-gradient-to-br from-[#0A0F15] via-[#0F1A24] to-[#0A0F15]">
                                             <Image
                                                 src={article.featuredImage}
@@ -208,7 +207,6 @@ const BlogPage = () => {
                                             />
                                         </div>
 
-                                        {/* Category Badge - Moved to bottom */}
                                         <div className="absolute bottom-4 left-4 z-20">
                                             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold tracking-wider uppercase bg-[#0A0F15]/90 backdrop-blur-sm border border-[#00D6B2]/40 text-[#00D6B2] shadow-lg">
                                                 <BookOpen className="w-3 h-3" />
@@ -216,13 +214,9 @@ const BlogPage = () => {
                                             </span>
                                         </div>
 
-
-
-                                        {/* Bottom Gradient */}
                                         <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0A0F15] to-transparent z-10 pointer-events-none opacity-50" />
                                     </div>
 
-                                    {/* Content */}
                                     <div className="flex flex-col flex-1 p-6 pt-4">
                                         <div className="flex items-center justify-between text-xs text-[#64748B] mb-3">
                                             <div className="flex items-center gap-2">
@@ -235,19 +229,15 @@ const BlogPage = () => {
                                             </div>
                                         </div>
 
-                                        {/* Title */}
                                         <h3 className="text-lg font-bold text-white mb-3 leading-snug line-clamp-2 group-hover:text-[#00D6B2] transition-colors duration-300">
                                             {article.title}
                                         </h3>
 
-                                        {/* Description */}
                                         <p className="text-sm text-[#64748B] leading-relaxed line-clamp-2 mb-5 flex-1">
                                             {article.description}
                                         </p>
 
-                                        {/* Footer */}
                                         <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                                            {/* Author */}
                                             <div className="flex items-center gap-3">
                                                 <div className="relative">
                                                     <div className="absolute -inset-0.5 bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-50 blur transition-opacity duration-500" />
@@ -267,7 +257,6 @@ const BlogPage = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Read More */}
                                             <div className="flex items-center gap-1 text-sm font-semibold text-[#00D6B2] opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-300">
                                                 <span>Read</span>
                                                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -275,7 +264,6 @@ const BlogPage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Hover Glow Effect */}
                                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
                                         <div className="absolute inset-0 bg-gradient-to-t from-[#00D6B2]/5 via-transparent to-transparent" />
                                     </div>
@@ -285,10 +273,8 @@ const BlogPage = () => {
                     </AnimatePresence>
                 </motion.div>
 
-                {/* Infinite Scroll Observer */}
                 <div ref={observerTarget} className="h-10 w-full" />
 
-                {/* Loading State */}
                 {isLoading && (
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -305,8 +291,6 @@ const BlogPage = () => {
                     </motion.div>
                 )}
 
-
-                {/* Empty State */}
                 {filteredPosts.length === 0 && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -322,7 +306,9 @@ const BlogPage = () => {
                         </p>
                     </motion.div>
                 )}
-            </main>
+                */}
+
+
 
             <Footer />
         </div>
