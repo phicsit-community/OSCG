@@ -7,21 +7,19 @@ import Footer from "@/components/landing/footer-section";
 
 export default function SwagsPage() {
     return (
-        <main className="min-h-screen bg-[#090E1A] selection:bg-[#2BEEAD]/30 selection:text-[#2BEEAD] flex flex-col overflow-hidden">
+        <main className="min-h-screen flex flex-col overflow-hidden">
             <Navigation />
 
             <div className="flex-1 w-full max-w-[1440px] mx-auto min-h-[850px] pt-[65px] px-6 lg:px-12 flex flex-col justify-center">
                 <div className="w-full">
-                    {/* Top Content: Image and Headline */}
                     <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 mb-8 lg:mb-12">
-                        {/* Left: Swag Image */}
                         <motion.div
                             initial={{ opacity: 0, scale: 0.98 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.8 }}
                             className="flex justify-center shrink-0"
                         >
-                            <div className="relative w-full lg:w-[550px] lg:h-[423px] aspect-[634/488] rounded-b-[48px] rounded-t-[0px] overflow-hidden">
+                            <div className="relative w-full lg:w-[550px] lg:h-[423px] aspect-634/488 rounded-b-[48px] rounded-t-none overflow-hidden">
                                 <Image
                                     src="/swags.png"
                                     alt="OSCG Swags"
@@ -32,14 +30,13 @@ export default function SwagsPage() {
                             </div>
                         </motion.div>
 
-                        {/* Right: Headline */}
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.2 }}
                             className="shrink-0 lg:-mt-24"
                         >
-                            <h1 className="text-[40px] sm:text-[50px] lg:text-[70px] xl:text-[85px] font-bold text-white leading-[1] tracking-[-0.1em] text-center lg:text-left uppercase">
+                            <h1 className="text-[40px] sm:text-[50px] lg:text-[70px] xl:text-[85px] font-bold text-white leading-none tracking-tighter text-center lg:text-left uppercase">
                                 GRAB YOUR SWAG
                                 <br />
                                 AND POWER UP
@@ -51,9 +48,7 @@ export default function SwagsPage() {
                         </motion.div>
                     </div>
 
-                    {/* Bottom Content: Highlight Cards */}
                     <div className="flex flex-col xl:flex-row items-center justify-center gap-24 w-full">
-                        {/* Card 1 */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -86,7 +81,6 @@ export default function SwagsPage() {
                             </div>
                         </motion.div>
 
-                        {/* Card 2 */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
