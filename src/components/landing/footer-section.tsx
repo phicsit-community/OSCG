@@ -15,7 +15,7 @@ const resources = [
   { label: "Projects", href: "/projects" },
   { label: "Community Guidelines", href: "/community-guidelines" },
   { label: "Code of Conduct", href: "/code-of-conduct" },
-  { label: "Media Kit", href: "/media" },
+  { label: "Swags", href: "/swags" },
   { label: "Help Center", href: "/help" },
 ];
 
