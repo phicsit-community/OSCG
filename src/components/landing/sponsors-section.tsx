@@ -34,6 +34,19 @@ interface Partner {
   logo: string;
 }
 
+const platinumSponsors = [
+  { name: "Nexfellow", logo: "/sponsors/nex.png" },
+  // { name: "Google", logo: "/google.png" },
+  // { name: "Azure", logo: "/azure.png" },
+];
+
+const silverSponsors = [
+  { name: "TruScholar", logo: "/sponsors/tru.png" },
+  // { name: "AWS", logo: "/aws.png" },
+  // { name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-tile.svg" },
+  // { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_(container_engine)_logo.svg" },
+];
+
 const SponsorsSection = () => {
   const speedFactor = 8;
 
@@ -101,13 +114,109 @@ const SponsorsSection = () => {
         }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 text-center relative z-10">
+
+      <div className="max-w-7xl mx-auto px-4 text-center relative z-10 mb-32">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-16"
+          className="mb-20"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 tracking-tight">
+            Our <span className="text-accent-gradient">Sponsors</span>
+          </h2>
+          <p className="text-(--text-secondary) text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Leading the way in open-source innovation through powerful global collaborations.
+          </p>
+        </motion.div>
+
+        <div className="space-y-24">
+
+          <div className="space-y-12">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-12 bg-linear-to-r from-transparent to-[#00D6B2]" />
+              <h3 className="text-[#00D6B2] text-sm font-bold tracking-[0.3em] uppercase">
+                Platinum Sponsors
+              </h3>
+              <div className="h-px w-12 bg-linear-to-l from-transparent to-[#00D6B2]" />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
+              {platinumSponsors.map((sponsor) => (
+                <motion.div
+                  key={sponsor.name}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative group w-72 md:w-80 h-40 md:h-48 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center p-8 transition-all duration-500 hover:border-[#00D6B2]/50 hover:bg-[#00D6B2]/10 hover:shadow-[0_0_40px_rgba(0,214,178,0.2)]"
+                >
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    width={200}
+                    height={100}
+                    className="w-full h-full object-contain filter brightness-100 group-hover:brightness-110 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+
+          <div className="space-y-10">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-10 bg-linear-to-r from-transparent to-white/40" />
+              <h3 className="text-white/40 text-sm font-bold tracking-[0.3em] uppercase">
+                Silver Sponsors
+              </h3>
+              <div className="h-px w-10 bg-linear-to-l from-transparent to-white/40" />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              {silverSponsors.map((sponsor) => (
+                <motion.div
+                  key={sponsor.name}
+                  whileHover={{ scale: 1.05 }}
+                  className="relative group w-56 md:w-64 h-32 md:h-36 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center p-6 transition-all duration-500 hover:border-white/30 hover:bg-white/10"
+                >
+                  <Image
+                    src={sponsor.logo}
+                    alt={sponsor.name}
+                    width={150}
+                    height={75}
+                    className="w-full h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-500"
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-20 text-center"
+        >
+          <p className="text-(--text-secondary) mb-8 text-lg font-medium">
+            Interested in sponsoring? Join the global open source community.
+          </p>
+          <a
+            href="mailto:hello@osconnect.org"
+            className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00D6B2] text-black font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,214,178,0.4)] active:scale-95"
+          >
+            Become a Sponsor
+          </a>
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 text-center relative z-10 pt-16 mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mb-12"
         >
           <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             Network <span className="text-accent-gradient">Partners</span>
@@ -155,8 +264,6 @@ const SponsorsSection = () => {
           </motion.div>
         </div>
       </div>
-
-
     </section>
   );
 };
