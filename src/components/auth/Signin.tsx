@@ -80,13 +80,15 @@ const Signin = () => {
     try {
       const { error } = await resetPasswordForEmail(formData.email);
       if (error) {
-        toast.error(error.message);
+        console.error("Forgot password error:", error);
+        toast.error(error.message || "Failed to send reset link. Please check if your email is correct.");
       } else {
-        toast.success("Password reset link sent to your email!");
+        toast.success("Password reset link sent! Please check your email inbox and spam folder.");
         setMode("signin");
       }
-    } catch {
-      toast.error("Failed to send reset link");
+    } catch (err) {
+      console.error("Forgot password fatal error:", err);
+      toast.error("An unexpected error occurred. Please try again later.");
     } finally {
       setForgotLoading(false);
     }
@@ -281,7 +283,7 @@ const Signin = () => {
                   Reset Password
                 </h1>
                 <p className="text-[14px] text-[#94A3B8]">
-                  Enter your email address and we'll send you a link to reset your password
+                  Enter your email address and we&apos;ll send you a link to reset your password
                 </p>
               </div>
 

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Lock, Eye, EyeOff, ArrowRight, ShieldCheck } from "lucide-react";
 import { updateUserPassword } from "@/lib/supabase/auth";
 import { toast } from "sonner";
 import AnimatedSidePanel from "@/components/ui/AnimatedSidePanel";
+import { supabase } from "@/lib/supabase/client";
 
 export default function ResetPasswordPage() {
     const router = useRouter();
@@ -13,6 +14,31 @@ export default function ResetPasswordPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    useEffect(() => {
+        const checkSession = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+
+            // If no session, try to see if there's a code in the URL (fallback for old links)
+            if (!session) {
+                const url = new URL(window.location.href);
+                const code = url.searchParams.get("code");
+
+                if (code) {
+                    const { error } = await supabase.auth.exchangeCodeForSession(code);
+                    if (error) {
+                        toast.error("Invalid or expired reset link. Please request a new one.");
+                        router.push("/sign-in");
+                    }
+                } else {
+                    toast.error("Authentication session missing. Please follow the link from your email.");
+                    // We don't necessarily redirect immediately to allow them to see the page,
+                    // but the form submission will fail anyway if they don't have a session.
+                }
+            }
+        };
+        checkSession();
+    }, [router]);
 
     const handleResetPassword = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -31,10 +57,14 @@ export default function ResetPasswordPage() {
         try {
             const { error } = await updateUserPassword(newPassword);
             if (error) {
-                toast.error(error.message);
+                if (error.message.includes("session missing")) {
+                    toast.error("Auth session missing! Please ensure you clicked the link in your email correctly.");
+                } else {
+                    toast.error(error.message);
+                }
             } else {
                 toast.success("Password updated successfully!");
-                router.push("/login");
+                router.push("/sign-in");
             }
         } catch {
             toast.error("Failed to update password");
