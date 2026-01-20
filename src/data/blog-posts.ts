@@ -239,7 +239,7 @@ Your resume is a summary. Your open-source contributions are the evidence. Toget
         date: "October 15, 2025",
         readTime: "10 min read",
         author: {
-            name: "Priya Sharma",
+            name: "Priyansh Narang",
             role: "Community Manager",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
         },
@@ -626,7 +626,7 @@ If you're not studying computer science but you're interested in open source, do
         date: "December 8, 2025",
         readTime: "25 min read",
         author: {
-            name: "Priya Sharma",
+            name: "Priyansh Narang",
             role: "Community Manager",
             avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya"
         },

@@ -3,6 +3,3 @@
 # Big Global Event
 
 # Open source
-
-
-C, M, PA contributor project admin

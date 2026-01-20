@@ -18,6 +18,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "github-contributions-api.deno.dev",
       },
+      {
+        protocol: "https",
+        hostname: "api.dicebear.com",
+      },
     ],
   },
   compress: true,

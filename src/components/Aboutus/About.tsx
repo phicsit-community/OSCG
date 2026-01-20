@@ -1,32 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Users, BookOpen, Globe, Target, Zap } from "lucide-react";
-import { motion, Variants, useInView } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const Counter = ({ end }: { end: number }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
-  useEffect(() => {
-    if (isInView) {
-      let start = 0;
-      const duration = 2000;
-      const increment = Math.ceil(end / (duration / 16));
-      const counter = setInterval(() => {
-        start += increment;
-        if (start >= end) {
-          start = end;
-          clearInterval(counter);
-        }
-        setCount(start);
-      }, 16);
-      return () => clearInterval(counter);
-    }
-  }, [end, isInView]);
-
-  return <span ref={ref}>{count.toLocaleString()}+</span>;
-};
 
 export default function AboutUs() {
   const containerVariants: Variants = {
@@ -47,7 +24,7 @@ export default function AboutUs() {
   };
 
   return (
-    <div className="min-h-screen  text-white selection:bg-[var(--accent-primary)]/30 overflow-hidden pt-20">
+    <div className="min-h-screen  text-white selection:bg-(--accent-primary)/30 overflow-hidden pt-20">
 
 
       <div className="relative z-10 container mx-auto px-6 py-12 md:py-16 max-w-7xl">
@@ -85,17 +62,17 @@ export default function AboutUs() {
         >
           <motion.div
             variants={fadeUp}
-            className="unified-card p-5 sm:p-6 group hover:border-[var(--accent-primary)]/30 transition-all duration-300"
+            className="unified-card p-5 sm:p-6 group hover:border-(--accent-primary)/30 transition-all duration-300"
           >
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-primary)]/10 flex items-center justify-center mb-5 border border-[var(--accent-primary)]/20 group-hover:scale-105 transition-transform">
-              <Target className="w-5 h-5 text-[var(--accent-primary)]" />
+            <div className="w-10 h-10 rounded-xl bg-(--accent-primary)/10 flex items-center justify-center mb-5 border border-(--accent-primary)/20 group-hover:scale-105 transition-transform">
+              <Target className="w-5 h-5 text-(--accent-primary)" />
             </div>
 
             <h2 className="text-xl font-semibold mb-2 text-white">
               Our Mission
             </h2>
 
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+            <p className="text-sm text-(--text-secondary) leading-relaxed">
               To empower developers worldwide by fostering an inclusive open source
               ecosystem where innovation thrives, knowledge is shared freely, and
               collaboration knows no boundaries.
@@ -104,18 +81,18 @@ export default function AboutUs() {
 
           <motion.div
             variants={fadeUp}
-            className="unified-card p-5 sm:p-6 group hover:border-[var(--accent-secondary)]/30 transition-all duration-300"
+            className="unified-card p-5 sm:p-6 group hover:border-(--accent-secondary)/30 transition-all duration-300"
           >
-            <div className="w-10 h-10 rounded-xl bg-[var(--accent-secondary)]/10 flex items-center justify-center mb-5 border border-[var(--accent-secondary)]/20 group-hover:scale-105 transition-transform">
-              <Globe className="w-5 h-5 text-[var(--accent-secondary)]" />
+            <div className="w-10 h-10 rounded-xl bg-(--accent-secondary)/10 flex items-center justify-center mb-5 border border-(--accent-secondary)/20 group-hover:scale-105 transition-transform">
+              <Globe className="w-5 h-5 text-(--accent-secondary)" />
             </div>
 
             <h2 className="text-xl font-semibold mb-2 text-white">
               Our Vision
             </h2>
 
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-              To become the world's leading platform for open source collaboration,
+            <p className="text-sm text-(--text-secondary) leading-relaxed">
+              To become the world&apos;s leading platform for open source collaboration,
               connecting developers across continents and enabling meaningful,
               world-changing projects.
             </p>
@@ -179,7 +156,7 @@ export default function AboutUs() {
                   {value.title}
                 </h3>
 
-                <p className="text-sm text-[var(--text-secondary)] leading-snug">
+                <p className="text-sm text-(--text-secondary) leading-snug">
                   {value.desc}
                 </p>
               </motion.div>
@@ -188,33 +165,31 @@ export default function AboutUs() {
         </div>
 
 
-        <div className="relative pt-20">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px bg-linear-to-r from-transparent via-[var(--accent-primary)]/30 to-transparent" />
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
-            {[
-              { label: "Community Members", end: 25000 },
-              { label: "Speakers", end: 60 },
-              { label: "Active Projects", end: 100 },
-              { label: "Sponsors", end: 50 }
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-center group"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-white mb-1 group-hover:text-[var(--accent-secondary)] transition-colors">
-                  <Counter end={stat.end} />
-                </div>
-                <div className="text-[9px] uppercase tracking-[0.25em] text-[var(--text-muted)] font-bold">
-                  {stat.label}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="mt-12 grid w-full max-w-4xl mx-auto grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 pt-20"
+        >
+          {[
+            ["25,000+", "Participants"],
+            ["60+", "Projects"],
+            ["100+", "Mentors"],
+            ["Global", "Community"],
+          ].map(([value, label], i) => (
+            <motion.div
+              key={i}
+              variants={fadeUp}
+              className="flex flex-col items-center p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/5 transition-all duration-300 hover:border-(--accent-primary)/20 hover:bg-white/10"
+            >
+              <div className="mb-1 font-bold text-2xl sm:text-3xl text-(--accent-secondary)">
+                {value}
+              </div>
+              <div className="text-sm text-white/60">{label}</div>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </div>
   );
