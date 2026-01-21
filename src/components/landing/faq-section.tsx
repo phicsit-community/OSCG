@@ -139,14 +139,14 @@ const FAQ = () => {
           <h3 className="mb-3 text-2xl font-bold text-white">
             Still have questions?
           </h3>
-          <p className="mb-6 text-[var(--text-secondary)] text-lg max-w-md mx-auto">
+          <p className="mb-6 text-(--text-secondary) text-lg max-w-md mx-auto">
             Can&apos;t find the answer you&apos;re looking for? Our team is here
             to help.
           </p>
           <Link href="mailto:hello@osconnect.org">
             <Button
               size="lg"
-              className="bg-(--accent-secondary) hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
+              className="bg-(--accent-secondary) cursor-pointer hover:bg-[#3bc2c1] text-black font-semibold rounded-2xl px-8 h-12 shadow-[0_0_30px_var(--accent-glow)] hover:shadow-[0_0_50px_var(--accent-glow)] transition-all"
             >
               Contact Support
             </Button>

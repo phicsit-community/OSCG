@@ -6,6 +6,7 @@ export interface Profile {
   full_name?: string;
   email?: string;
   is_admin: boolean;
+  role?: string;
 }
 
 export async function getProfile(userId: string) {
