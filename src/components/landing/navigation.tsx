@@ -103,19 +103,17 @@ const Navigation = () => {
   }, []);
 
   useEffect(() => {
-    // 1. Secure Session Check
-    supabase.auth.getUser().then(({ data: { user } }) => {
+    // 1. Snappy Session Check (Fast UI)
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (mountedRef.current) {
-        updateAuthState(user);
+        updateAuthState(session?.user || null);
       }
     });
 
     // 2. Auth State Listener
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event) => {
-      // Re-verify with getUser() to ensure authenticity as per security warning
-      const { data: { user } } = await supabase.auth.getUser();
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (mountedRef.current) {
-        updateAuthState(user);
+        updateAuthState(session?.user || null);
       }
     });
 
