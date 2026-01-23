@@ -97,7 +97,7 @@ const LatestInsights = () => {
             >
               <motion.article
                 variants={cardVariants}
-                className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-linear-to-b from-[#0D1520] to-[#080C14] border border-white/8 transition-all duration-500 hover:border-[#00D6B2]/40 hover:shadow-[0_0_80px_-20px_rgba(0,214,178,0.4)] hover:-translate-y-2"
+                className="relative h-full flex flex-col rounded-3xl overflow-hidden bg-linear-to-b from-[#0D1520] to-[#080C14] border border-white/8 transition-all duration-500 hover:border-[#00D6B2]/40 hover:-translate-y-2"
               >
                 {/* Image Container */}
                 <div className="relative aspect-video w-full overflow-hidden bg-[#080C14]">
@@ -112,7 +112,7 @@ const LatestInsights = () => {
                       src={article.featuredImage}
                       alt={article.title}
                       fill
-                      className="object-fill transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
+                      className="object-fill transition-all duration-700 group-hover:scale-102 group-hover:brightness-110"
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                     {/* Gradient Overlays */}
@@ -161,7 +161,7 @@ const LatestInsights = () => {
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-5 border-t border-white/6">
                     {/* Author */}
-                    <div className="flex items-center gap-3">
+                    {/* <div className="flex items-center gap-3">
                       <div className="relative">
                         <div className="absolute -inset-1 bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-70 blur transition-all duration-500" />
                         <img
@@ -178,10 +178,11 @@ const LatestInsights = () => {
                           {article.author.role}
                         </span>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Read More Arrow */}
-                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-[#64748B] group-hover:bg-[#00D6B2] group-hover:border-[#00D6B2] group-hover:text-black transition-all duration-300">
+                    <div className="flex items-center justify-center w-full h-10 rounded-full bg-white/5 border border-white/10 text-[#64748B] group-hover:bg-[#00D6B2] group-hover:border-[#00D6B2] group-hover:text-black transition-all duration-300 gap-2">
+                    <span>Read More</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>
