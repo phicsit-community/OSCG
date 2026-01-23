@@ -26,7 +26,7 @@ export const SpeakerCard = ({ item }: { item: any }) => (
                 <h3 className="text-xl text-white font-bold group-hover:text-(--accent-secondary) transition-colors">
                     {item.name}
                 </h3>
-                <p className="text-sm text-(--accent-secondary) font-medium tracking-wide">
+                <p className="text-sm text-[#00D6B2] font-medium tracking-wide">
                     {item.title}
                 </p>
                 <p className="text-xs text-(--text-muted) group-hover:text-(--text-secondary) transition-colors tracking-wider mt-1">

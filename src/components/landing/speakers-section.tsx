@@ -1,8 +1,10 @@
 "use client";
-import { motion, Variants } from "framer-motion";
+import { useState } from "react";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { speakers } from "@/data/speakers";
+import { topSpeakers } from "@/data/speakers";
 import { SpeakerCard } from "@/components/SpeakerCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -26,8 +28,9 @@ const fadeUp: Variants = {
     },
   },
 };
+
 const SpeakersSection = () => {
-  const displaySpeakers = speakers.slice(0, 4);
+  const displaySpeakers = topSpeakers.slice(0, 4);
 
   return (
     <section className="section-container bg-transparent relative z-10">

@@ -8,12 +8,20 @@ export type Speaker = {
   imagePosition?: string;
 };
 
+export const kameshSpeaker: Speaker = {
+  image: "/speakers/kamesh.jpg",
+  name: "Kamesh Sampath",
+  title: "Developer Advocate at Snowflake",
+  expertise: "----",
+  linkedin: "https://www.linkedin.com/in/kameshsampath/"
+};
+
 export const speakers: Speaker[] = [
   {
     image: "/speakers/Olena.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
-    expertise: "Marketing & Brand Strategist",
+    expertise: "Marketing Strategist",
     linkedin: "https://www.linkedin.com/in/olena-yara-a26567223/"
   },
   {
@@ -66,11 +74,18 @@ export const speakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/prasadsawant97/"
   },
   {
-    image: "/speakers/Praneetha.png",
-    name: "Praneetha Kotla",
-    title: "Lead Robotic Process Automation Developer",
-    expertise: "ERP Smartlabs",
-    linkedin: "https://www.linkedin.com/in/praneetha-kotla/"
+    image: "/speakers/shedrack.jpg",
+    name: "Shedrack Akintayo",
+    title: "Software & DevOps Engineer",
+    expertise: "Founder at DevRel Community Africa",
+    linkedin: "https://www.linkedin.com/in/shedrackakintayo/"
+  },
+  {
+    image: "/speakers/kamesh.jpg",
+    name: "Kamesh Sampath",
+    title: "Developer Advocate at Snowflake",
+    expertise: "----",
+    linkedin: "https://www.linkedin.com/in/kameshsampath/"
   },
   {
     image: "/speakers/TanishaBansal.png",
@@ -87,11 +102,28 @@ export const speakers: Speaker[] = [
     expertise: "ERP Smartlabs",
     linkedin: "https://www.linkedin.com/in/aaryavjti/?originalSubdomain=in"
   },
+  {
+    image: "/speakers/Praneetha.png",
+    name: "Praneetha Kotla",
+    title: "Lead Robotic Process Automation Developer",
+    expertise: "ERP Smartlabs",
+    linkedin: "https://www.linkedin.com/in/praneetha-kotla/"
+  },
+  {
+    image: "/speakers/yash.jpg",
+    name: "Yash Thakare",
+    title: "AI-specialized Software Engineer",
+    expertise: "-----",
+    linkedin: "https://www.linkedin.com/in/yashthakare/"
+  },
 ];
 
+export const landingSpeakers = [kameshSpeaker, ...speakers.filter(s => s.name !== "Kamesh Sampath")];
+
 export const topSpeakers: Speaker[] = [
+  kameshSpeaker,
   {
-    image: "/speakers/OlenaYara.png",
+    image: "/speakers/Olena.png",
     name: "Olena Yara",
     title: "Founder, Yara Agency",
     expertise: "Marketing Strategist",
@@ -103,5 +135,12 @@ export const topSpeakers: Speaker[] = [
     title: "Founder & CEO | Managing Partner",
     expertise: "AI Strategy & Sovereign Innovation",
     linkedin: "https://www.linkedin.com/in/sebastiano-fuccio/"
+  },
+  {
+    image: "/speakers/MesutDurukal.png",
+    name: "Mesut Durukal",
+    title: "Founder and Head of Tokyo Test Fest",
+    expertise: "Technical Quality Engineering & Test Automation Manager",
+    linkedin: "https://www.linkedin.com/in/mesutdurukal?originalSubdomain=jp"
   },
 ];
