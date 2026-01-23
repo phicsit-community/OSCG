@@ -1,5 +1,6 @@
 "use client";
 import { motion, Variants } from "framer-motion";
+import Link from "next/link";
 import { speakers } from "@/data/speakers";
 import { SpeakerCard } from "@/components/SpeakerCard";
 
@@ -60,6 +61,24 @@ const SpeakersSection = () => {
               <SpeakerCard item={item} />
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mt-20 text-center"
+        >
+          <p className="text-white/60 mb-8 text-lg font-medium">
+            Discover the industry leaders and pioneers joining us.
+          </p>
+          <Link
+            href="/speakers"
+            className="inline-flex items-center justify-center px-10 py-4 rounded-full bg-[#00D6B2] text-[#0A0F15] font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,214,178,0.4)] active:scale-95"
+          >
+            Explore All Speakers
+          </Link>
         </motion.div>
       </div>
     </section>
