@@ -26,12 +26,12 @@ export default function TechStack() {
   useEffect(() => {
     async function fetchTechStack() {
       try {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session?.user) {
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
           const { data, error } = await supabase
             .from("profiles")
             .select("tech_stack")
-            .eq("id", session.user.id)
+            .eq("id", user.id)
             .single();
 
           if (error) throw error;
@@ -49,13 +49,13 @@ export default function TechStack() {
   const saveTechStack = async (newStack: string[]) => {
     setIsSaving(true);
     try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session?.user) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
       const { error } = await supabase
         .from("profiles")
         .update({ tech_stack: newStack })
-        .eq("id", session.user.id);
+        .eq("id", user.id);
 
       if (error) throw error;
     } catch (error) {

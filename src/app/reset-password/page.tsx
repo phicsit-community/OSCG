@@ -17,10 +17,10 @@ export default function ResetPasswordPage() {
 
     useEffect(() => {
         const checkSession = async () => {
-            const { data: { session } } = await supabase.auth.getSession();
+            const { data: { user } } = await supabase.auth.getUser();
 
-            // If no session, try to see if there's a code in the URL (fallback for old links)
-            if (!session) {
+            // If no user, try to see if there's a code in the URL (fallback for old links)
+            if (!user) {
                 const url = new URL(window.location.href);
                 const code = url.searchParams.get("code");
 

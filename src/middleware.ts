@@ -54,9 +54,8 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Use getSession() followed by getUser() for security & reliability in middleware
-  const { data: { session } } = await supabase.auth.getSession()
-  const user = session?.user
+  // Use getUser() for security & reliability in middleware
+  const { data: { user } } = await supabase.auth.getUser()
 
   // 1. PROTECT ADMIN ROUTES
   if (request.nextUrl.pathname.startsWith('/admin')) {

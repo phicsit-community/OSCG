@@ -77,6 +77,8 @@ export async function getAdminData() {
   };
 }
 
+import { revalidatePath } from "next/cache";
+
 export async function updateUserRole(userId: string, role: string) {
   const supabase = await createClient();
 
@@ -90,6 +92,7 @@ export async function updateUserRole(userId: string, role: string) {
     return { success: false, error: error.message };
   }
 
+  revalidatePath("/admin");
   return { success: true };
 }
 

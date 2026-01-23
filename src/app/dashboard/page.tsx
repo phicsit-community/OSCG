@@ -25,12 +25,12 @@ const DashboardPage = () => {
     useEffect(() => {
         async function getProfile() {
             try {
-                const { data: { session } } = await supabase.auth.getSession();
-                if (session?.user) {
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
                     const { data: profile } = await supabase
                         .from("profiles")
                         .select("github, full_name, linkedin, role")
-                        .eq("id", session.user.id)
+                        .eq("id", user.id)
                         .single();
 
                     if (profile) {

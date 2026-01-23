@@ -44,6 +44,7 @@ interface Profile {
 }
 
 export default function UserManagement({ initialUsers }: { initialUsers: Profile[] }) {
+  const [users, setUsers] = useState<Profile[]>(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
   const deferredSearchTerm = useDeferredValue(searchTerm);
 
@@ -52,14 +53,14 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   const [itemsPerPage, setItemsPerPage] = useState(30);
 
   const filteredUsers = useMemo(() => {
-    return initialUsers.filter((user: Profile) => {
+    return users.filter((user: Profile) => {
       const search = deferredSearchTerm.toLowerCase();
       return (
         (user.full_name || "").toLowerCase().includes(search) ||
         (user.email || "").toLowerCase().includes(search)
       );
     });
-  }, [initialUsers, deferredSearchTerm]);
+  }, [users, deferredSearchTerm]);
 
   // Reset to page 1 when search changes
   const [prevSearchTerm, setPrevSearchTerm] = useState(deferredSearchTerm);
@@ -109,6 +110,9 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
       const result = await updateUserRole(userId, newRole);
       if (result.success) {
         toast.success("Role updated successfully", { id: loadingToast });
+        setUsers((prev) =>
+          prev.map((u) => (u.id === userId ? { ...u, role: newRole } : u))
+        );
       } else {
         toast.error(result.error || "Failed to update role", { id: loadingToast });
       }
@@ -302,8 +306,8 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                     </motion.tr>
                   ))
                 ) : (
-                  <TableRow>
-                    <TableCell colSpan={5} className="h-48 text-center text-slate-500">
+                  <TableRow className="hover:bg-transparent bg-transparent border-none">
+                    <TableCell colSpan={7} className="h-48 text-center text-slate-500 font-medium">
                       No participants found matching your search.
                     </TableCell>
                   </TableRow>
