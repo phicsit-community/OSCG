@@ -7,6 +7,7 @@ import {
   Mail,
   ChevronLeft,
   ChevronRight,
+  Filter,
 } from "lucide-react";
 
 import {
@@ -46,6 +47,7 @@ interface Profile {
 export default function UserManagement({ initialUsers }: { initialUsers: Profile[] }) {
   const [users, setUsers] = useState<Profile[]>(initialUsers);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedRole, setSelectedRole] = useState("all");
   const deferredSearchTerm = useDeferredValue(searchTerm);
 
   // Pagination State
@@ -55,12 +57,16 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
   const filteredUsers = useMemo(() => {
     return users.filter((user: Profile) => {
       const search = deferredSearchTerm.toLowerCase();
-      return (
+      const matchesSearch =
         (user.full_name || "").toLowerCase().includes(search) ||
-        (user.email || "").toLowerCase().includes(search)
-      );
+        (user.email || "").toLowerCase().includes(search);
+
+      const role = user.role || "contributor";
+      const matchesRole = selectedRole === "all" || role === selectedRole;
+
+      return matchesSearch && matchesRole;
     });
-  }, [users, deferredSearchTerm]);
+  }, [users, deferredSearchTerm, selectedRole]);
 
   // Reset to page 1 when search changes
   const [prevSearchTerm, setPrevSearchTerm] = useState(deferredSearchTerm);
@@ -136,6 +142,30 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+          </div>
+
+          {/* Role Filter */}
+          <div className="relative w-full lg:w-48 group shrink-0">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none z-10">
+              <Filter className="w-3.5 h-3.5 text-slate-500" />
+            </div>
+            <Select
+              value={selectedRole}
+              onValueChange={(val) => {
+                setSelectedRole(val);
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger className="h-11 pl-9 cursor-pointer bg-[#0B0F17] border-white/5 rounded-xl text-white text-sm font-medium focus:border-[#11D392]/30 hover:border-white/10 transition-all">
+                <SelectValue placeholder="Filter by Role" />
+              </SelectTrigger>
+              <SelectContent className="bg-[#0B0F17] cursor-pointer border-white/10 text-slate-300">
+                <SelectItem value="all" className="text-sm font-medium  focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">All Roles</SelectItem>
+                <SelectItem value="contributor" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Contributor</SelectItem>
+                <SelectItem value="project-admin" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Project Admin</SelectItem>
+                <SelectItem value="mentor" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Mentor</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Compact Pagination Controls */}
