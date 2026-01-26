@@ -42,7 +42,7 @@ const platinumSponsors = [
 
 const silverSponsors = [
   { name: "TruScholar", logo: "/sponsors/TruScholar.jpg" },
-  // { name: "AWS", logo: "/aws.png" },
+  { name: "CodeCrafters", logo: "/sponsors/codecraflight.png" },
   // { name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-tile.svg" },
   // { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_(container_engine)_logo.svg" },
 ];
