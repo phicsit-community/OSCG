@@ -35,14 +35,14 @@ interface Partner {
 }
 
 const platinumSponsors = [
-  { name: "Nexfellow", logo: "/sponsors/nex.png" },
+  { name: "Nexfellow", logo: "/sponsors/nex.png", url: "https://www.nexfellow.com/" },
   // { name: "Google", logo: "/google.png" },
   // { name: "Azure", logo: "/azure.png" },
 ];
 
 const silverSponsors = [
-  { name: "TruScholar", logo: "/sponsors/TruScholar.jpg" },
-  { name: "CodeCrafters", logo: "/sponsors/codecraflight.png" },
+  { name: "TruScholar", logo: "/sponsors/TruScholar.jpg", url: "https://www.truscholar.io/" },
+  { name: "CodeCrafters", logo: "/sponsors/codecraflight.png", url: "https://codecrafters.io/" },
   // { name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-tile.svg" },
   // { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_(container_engine)_logo.svg" },
 ];
@@ -142,22 +142,28 @@ const SponsorsSection = () => {
               <div className="h-px w-12 bg-linear-to-l from-transparent to-[#00D6B2]" />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              {platinumSponsors.map((sponsor) => (
-                <motion.div
-                  key={sponsor.name}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative group w-72 md:w-80 h-40 md:h-48 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center p-8 transition-all duration-500 hover:border-[#00D6B2]/50 hover:bg-[#00D6B2]/10 hover:shadow-[0_0_40px_rgba(0,214,178,0.2)]"
-                >
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={200}
-                    height={100}
-                    className="w-full h-full object-contain filter brightness-100 group-hover:brightness-110 transition-all duration-500"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-                </motion.div>
-              ))}
+              {platinumSponsors.map((sponsor) => {
+                const Wrapper = sponsor.url ? motion.a : motion.div;
+                return (
+                  <Wrapper
+                    key={sponsor.name}
+                    href={sponsor.url}
+                    target={sponsor.url ? "_blank" : undefined}
+                    rel={sponsor.url ? "noopener noreferrer" : undefined}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group w-72 md:w-80 h-40 md:h-48 rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 flex items-center justify-center p-8 transition-all duration-500 hover:border-[#00D6B2]/50 hover:bg-[#00D6B2]/10 hover:shadow-[0_0_40px_rgba(0,214,178,0.2)]"
+                  >
+                    <Image
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      width={200}
+                      height={100}
+                      className="w-full h-full object-contain filter brightness-100 group-hover:brightness-110 transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                  </Wrapper>
+                );
+              })}
             </div>
           </div>
 
@@ -171,21 +177,27 @@ const SponsorsSection = () => {
               <div className="h-px w-10 bg-linear-to-l from-transparent to-white/40" />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-              {silverSponsors.map((sponsor) => (
-                <motion.div
-                  key={sponsor.name}
-                  whileHover={{ scale: 1.05 }}
-                  className="relative group w-56 md:w-64 h-32 md:h-36 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center p-6 transition-all duration-500 hover:border-white/30 hover:bg-white/10"
-                >
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={150}
-                    height={75}
-                    className="w-full h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-500"
-                  />
-                </motion.div>
-              ))}
+              {silverSponsors.map((sponsor) => {
+                const Wrapper = sponsor.url ? motion.a : motion.div;
+                return (
+                  <Wrapper
+                    key={sponsor.name}
+                    href={sponsor.url}
+                    target={sponsor.url ? "_blank" : undefined}
+                    rel={sponsor.url ? "noopener noreferrer" : undefined}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group w-56 md:w-64 h-32 md:h-36 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 flex items-center justify-center p-6 transition-all duration-500 hover:border-white/30 hover:bg-white/10"
+                  >
+                    <Image
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      width={150}
+                      height={75}
+                      className="w-full h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-500"
+                    />
+                  </Wrapper>
+                );
+              })}
             </div>
           </div>
         </div>

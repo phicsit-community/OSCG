@@ -89,7 +89,7 @@ const LatestInsights = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.05 }}
         >
-          {insights.map((article, index) => (
+          {insights.map((article) => (
             <Link
               key={article.id}
               href={`/blog/${article.slug}`}
@@ -107,7 +107,7 @@ const LatestInsights = () => {
                   </div>
 
                   {/* Image with Ken Burns Effect */}
-                  <div className="absolute inset-0 p-2">
+                  <div className="absolute inset-0">
                     <Image
                       src={article.featuredImage}
                       alt={article.title}
@@ -160,29 +160,10 @@ const LatestInsights = () => {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-5 border-t border-white/6">
-                    {/* Author */}
-                    {/* <div className="flex items-center gap-3">
-                      <div className="relative">
-                        <div className="absolute -inset-1 bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full opacity-0 group-hover:opacity-70 blur transition-all duration-500" />
-                        <img
-                          src={article.author.avatar}
-                          alt={article.author.name}
-                          className="relative w-10 h-10 rounded-full border-2 border-white/10 bg-[#1a1f2e] group-hover:border-[#00D6B2]/50 transition-all duration-300"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-white">
-                          {article.author.name}
-                        </span>
-                        <span className="text-xs text-[#64748B]">
-                          {article.author.role}
-                        </span>
-                      </div>
-                    </div> */}
 
                     {/* Read More Arrow */}
                     <div className="flex items-center justify-center w-full h-10 rounded-full bg-white/5 border border-white/10 text-[#64748B] group-hover:bg-[#00D6B2] group-hover:border-[#00D6B2] group-hover:text-black transition-all duration-300 gap-2">
-                    <span>Read More</span>
+                      <span>Read More</span>
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                     </div>
                   </div>
