@@ -105,15 +105,8 @@ export default function ProfileCard({ username, fullName, linkedin, role }: Prof
         </div>
 
         {role !== 'project-admin' && (
-          <div className="grid grid-cols-2 gap-4 mt-10 w-full">
-            <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/20 transition-all">
-              <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
-              <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Points</div>
-            </div>
-            <div className="bg-white/2 rounded-3xl p-6 text-center border border-white/5 group/stat hover:bg-[#4FD1D0]/5 hover:border-[#4FD1D0]/20 transition-all">
-              <div className="text-3xl font-black text-white mb-1 tracking-tighter">0</div>
-              <div className="text-white/20 text-[9px] font-bold uppercase tracking-[0.3em]">Merged</div>
-            </div>
+          <div className="mt-8">
+            {/* Stats removed to reduce congestion and duplication with ImpactOverview/RankProgress */}
           </div>
         )}
       </div>

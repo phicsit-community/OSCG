@@ -3,14 +3,10 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import Achievements from "@/components/dashboard/achievments";
-import ReadyToContribute from "@/components/dashboard/contribute";
-import ContributionActivity from "@/components/dashboard/contribution";
-import ImpactOverview from "@/components/dashboard/impact";
-import PRDistribution from "@/components/dashboard/prDistribution";
-import ProfileCard from "@/components/dashboard/profileCard";
-import RankProgress from "@/components/dashboard/rankProgress";
-import Streak from "@/components/dashboard/streak";
-import TechStack from "@/components/dashboard/techStack";
+import ProfileCard from "@/components/dashboard/profileCard"; // Kept file, but usage replaced
+import RankProgress from "@/components/dashboard/rankProgress"; // Kept file, but usage replaced
+import UnifiedProfile from "@/components/dashboard/UnifiedProfile";
+import UnifiedMetrics from "@/components/dashboard/UnifiedMetrics";
 import ProjectAdminSection from "@/components/dashboard/ProjectAdminSection";
 
 import { toast } from "sonner";
@@ -67,7 +63,7 @@ const DashboardPage = () => {
         <div className="space-y-8 mt-15 animate-in fade-in duration-700 w-full max-w-full">
             <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-5xl md:text-5xl font-black text-white tracking-tighter mb-4">
+                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
                         <span className="bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] bg-clip-text text-transparent transition-all duration-500 hover:tracking-tight">
                             {role === 'project-admin' ? 'Project Admin Console' : 'Dashboard'}
                         </span>
@@ -75,7 +71,7 @@ const DashboardPage = () => {
                     <p className="text-white/40 text-base font-bold uppercase tracking-[0.3em] max-w-3xl leading-relaxed">
                         {role === 'project-admin'
                             ? 'Lead the community · Manage project impact'
-                            : 'Track your open source journey · Build your legacy'}
+                            : 'Ship, track, and grow your impact.'}
                     </p>
                 </div>
 
@@ -101,25 +97,20 @@ const DashboardPage = () => {
             ) : (
                 // Standard Contributor View
                 <>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <ProfileCard username={username} fullName={fullName} linkedin={linkedin} />
-                        <RankProgress />
-                        <Streak />
+                    {/* Main Stats Row */}
+                    <div className="w-full">
+                        <UnifiedProfile username={username} fullName={fullName} linkedin={linkedin} role={role} />
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-                        <TechStack />
-                        <PRDistribution />
-                    </div>
-
-                    <ContributionActivity username={username} />
-
+                    {/* Achievements Row */}
                     <Achievements />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-12">
-                        <ImpactOverview />
-                        <ReadyToContribute />
+                    {/* Merged Metrics Row */}
+                    <div className="w-full">
+                        <UnifiedMetrics />
                     </div>
+
+
                 </>
             )}
         </div>
