@@ -43,6 +43,7 @@ const platinumSponsors = [
 const silverSponsors = [
   { name: "TruScholar", logo: "/sponsors/TruScholar.jpg", url: "https://www.truscholar.io/" },
   { name: "CodeCrafters", logo: "/sponsors/codecraflight.png", url: "https://codecrafters.io/" },
+  { name: "Zulip", logo: "/sponsors/zulip.svg", url: "https://zulip.com/" },
   // { name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-tile.svg" },
   // { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_(container_engine)_logo.svg" },
 ];
