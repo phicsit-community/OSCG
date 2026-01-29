@@ -39,7 +39,6 @@ const navItems = [
   { label: "Speakers", href: "/speakers" },
   { label: "Timeline", href: "/timeline" },
   { label: "Leaderboard", href: "/leaderboard" },
-  { label: "Team", href: "/team" },
   { label: "Blog", href: "/blog" },
 ];
 

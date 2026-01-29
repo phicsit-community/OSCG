@@ -5,9 +5,8 @@ export default function UnifiedMetrics() {
     return (
         <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] w-full border border-white/5 overflow-hidden hover:border-[#00D6B2]/20 transition-all duration-500 shadow-2xl group">
             <div className="flex flex-col lg:flex-row">
-                {/* ================= LEFT SIDE: PR DISTRIBUTION ================= */}
+          
                 <div className="w-full lg:w-3/5 p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-white/5 relative overflow-hidden">
-                    {/* Decorative background glow */}
                     <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#4FD1D0]/10 blur-[100px] rounded-full group-hover:bg-[#4FD1D0]/20 transition-colors duration-700" />
 
                     <div className="flex items-start justify-between mb-8 relative z-10">
@@ -41,8 +40,8 @@ export default function UnifiedMetrics() {
                     </div>
                 </div>
 
-                {/* ================= RIGHT SIDE: IMPACT OVERVIEW ================= */}
-                <div className="w-full lg:w-2/5 p-6 md:p-8 bg-white/[0.02]">
+
+                <div className="w-full lg:w-2/5 p-6 md:p-8 bg-white/2">
                     <div className="flex items-center justify-between mb-8">
                         <div>
                             <h3 className="text-white text-xl font-bold tracking-tight">Impact Overview</h3>

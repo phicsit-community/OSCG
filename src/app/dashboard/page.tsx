@@ -71,7 +71,7 @@ const DashboardPage = () => {
                     <p className="text-white/40 text-base font-bold uppercase tracking-[0.3em] max-w-3xl leading-relaxed">
                         {role === 'project-admin'
                             ? 'Lead the community · Manage project impact'
-                            : 'Ship, track, and grow your impact.'}
+                            : 'Track your open source journey'}
                     </p>
                 </div>
 
