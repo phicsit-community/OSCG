@@ -36,18 +36,21 @@ interface Partner {
 
 const platinumSponsors = [
   { name: "Nexfellow", logo: "/sponsors/nex.png", url: "https://www.nexfellow.com/" },
-  // { name: "Google", logo: "/google.png" },
-  // { name: "Azure", logo: "/azure.png" },
 ];
 
 const silverSponsors = [
   { name: "TruScholar", logo: "/sponsors/TruScholar.jpg", url: "https://www.truscholar.io/" },
-  { name: "CodeCrafters", logo: "/sponsors/codecraflight.png", url: "https://codecrafters.io/" },
-  { name: "Zulip", logo: "/sponsors/zulip.svg", url: "https://zulip.com/" },
-  // { name: "GitHub", logo: "https://www.vectorlogo.zone/logos/github/github-tile.svg" },
-  // { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_(container_engine)_logo.svg" },
+  { name: "Sylus", logo: "/sponsors/sylus.png", url: "https://sylusai.com/" },
 ];
 
+const bronzeSponsors = [
+  { name: "CodeCrafters", logo: "/sponsors/codecraflight.png", url: "https://codecrafters.io/" },
+  { name: "Zulip", logo: "/sponsors/zulip.svg", url: "https://zulip.com/" },
+];
+
+const ecosystemPartners = [
+  { name: "Siray AI", logo: "/sponsors/siray.png", url: "https://siray.ai/" },
+];
 const SponsorsSection = () => {
   const speedFactor = 8;
 
@@ -169,6 +172,7 @@ const SponsorsSection = () => {
           </div>
 
 
+          {/* Silver Sponsors */}
           <div className="space-y-10">
             <div className="flex items-center justify-center gap-4">
               <div className="h-px w-10 bg-linear-to-r from-transparent to-white/40" />
@@ -195,6 +199,74 @@ const SponsorsSection = () => {
                       width={150}
                       height={75}
                       className="w-full h-full object-contain filter brightness-90 group-hover:brightness-100 transition-all duration-500"
+                    />
+                  </Wrapper>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Bronze Sponsors */}
+          <div className="space-y-10">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-10 bg-linear-to-r from-transparent to-[#CD7F32]/60" />
+              <h3 className="text-[#CD7F32] text-sm font-bold tracking-[0.3em] uppercase">
+                Bronze Sponsors
+              </h3>
+              <div className="h-px w-10 bg-linear-to-l from-transparent to-[#CD7F32]/60" />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+              {bronzeSponsors.map((sponsor) => {
+                const Wrapper = sponsor.url ? motion.a : motion.div;
+                return (
+                  <Wrapper
+                    key={sponsor.name}
+                    href={sponsor.url}
+                    target={sponsor.url ? "_blank" : undefined}
+                    rel={sponsor.url ? "noopener noreferrer" : undefined}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group w-48 md:w-56 h-28 md:h-32 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center p-4 transition-all duration-500 hover:border-[#CD7F32]/30 hover:bg-[#CD7F32]/5"
+                  >
+                    <Image
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      width={120}
+                      height={60}
+                      className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-500"
+                    />
+                  </Wrapper>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Ecosystem Partners */}
+          <div className="space-y-10">
+            <div className="flex items-center justify-center gap-4">
+              <div className="h-px w-10 bg-linear-to-r from-transparent to-[#00D6B2]/40" />
+              <h3 className="text-[#00D6B2]/60 text-sm font-bold tracking-[0.3em] uppercase">
+                Ecosystem Partners
+              </h3>
+              <div className="h-px w-10 bg-linear-to-l from-transparent to-[#00D6B2]/40" />
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              {ecosystemPartners.map((sponsor) => {
+                const Wrapper = sponsor.url ? motion.a : motion.div;
+                return (
+                  <Wrapper
+                    key={sponsor.name}
+                    href={sponsor.url}
+                    target={sponsor.url ? "_blank" : undefined}
+                    rel={sponsor.url ? "noopener noreferrer" : undefined}
+                    whileHover={{ scale: 1.05 }}
+                    className="relative group w-56 md:w-64 h-32 md:h-36 rounded-2xl bg-[#00D6B2]/5 backdrop-blur-md border border-[#00D6B2]/10 flex items-center justify-center p-6 transition-all duration-500 hover:border-[#00D6B2]/40 hover:bg-[#00D6B2]/10"
+                  >
+                    <Image
+                      src={sponsor.logo}
+                      alt={sponsor.name}
+                      width={150}
+                      height={75}
+                      className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-500"
                     />
                   </Wrapper>
                 );
