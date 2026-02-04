@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useDeferredValue } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import {
   Search,
   Download,
@@ -44,47 +45,58 @@ interface Profile {
   updated_at: string;
 }
 
-export default function UserManagement({ initialUsers }: { initialUsers: Profile[] }) {
+interface UserManagementProps {
+  initialUsers: Profile[];
+  totalCount: number;
+  currentPage: number;
+  pageSize: number;
+  initialSearch: string;
+  initialRole: string;
+}
+
+export default function UserManagement({
+  initialUsers,
+  totalCount,
+  currentPage: serverPage,
+  pageSize: serverPageSize,
+  initialSearch,
+  initialRole
+}: UserManagementProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const [users, setUsers] = useState<Profile[]>(initialUsers);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedRole, setSelectedRole] = useState("all");
-  const deferredSearchTerm = useDeferredValue(searchTerm);
+  const [searchTerm, setSearchTerm] = useState(initialSearch);
+  const [selectedRole, setSelectedRole] = useState(initialRole);
+  const [pageSize, setPageSize] = useState(serverPageSize);
 
-  // Pagination State
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(30);
+  // Sync users if props change (server component update)
+  useEffect(() => {
+    setUsers(initialUsers);
+  }, [initialUsers]);
 
-  const filteredUsers = useMemo(() => {
-    return users.filter((user: Profile) => {
-      const search = deferredSearchTerm.toLowerCase();
-      const matchesSearch =
-        (user.full_name || "").toLowerCase().includes(search) ||
-        (user.email || "").toLowerCase().includes(search);
+  // Handle URL updates
+  const updateQuery = useCallback((params: Record<string, string | number | null>) => {
+    const newSearchParams = new URLSearchParams(searchParams.toString());
 
-      const role = user.role || "contributor";
-      const matchesRole = selectedRole === "all" || role === selectedRole;
-
-      return matchesSearch && matchesRole;
+    Object.entries(params).forEach(([key, value]) => {
+      if (value === null || value === "" || (key === "page" && value === 1) || (key === "role" && value === "all")) {
+        newSearchParams.delete(key);
+      } else {
+        newSearchParams.set(key, String(value));
+      }
     });
-  }, [users, deferredSearchTerm, selectedRole]);
 
-  // Reset to page 1 when search changes
-  const [prevSearchTerm, setPrevSearchTerm] = useState(deferredSearchTerm);
-  if (deferredSearchTerm !== prevSearchTerm) {
-    setPrevSearchTerm(deferredSearchTerm);
-    setCurrentPage(1);
-  }
+    router.push(`${pathname}?${newSearchParams.toString()}`);
+  }, [searchParams, pathname, router]);
 
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
-  const paginatedUsers = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return filteredUsers.slice(start, start + itemsPerPage);
-  }, [filteredUsers, currentPage, itemsPerPage]);
+  const totalPages = Math.ceil(totalCount / pageSize);
 
   const downloadCSV = () => {
     const headers = ["S.No", "Name", "Email", "Badges Created", "Joined Date"];
-    const csvData = filteredUsers.map((user: Profile, index: number) => [
-      index + 1,
+    const csvData = users.map((user: Profile, index: number) => [
+      (serverPage - 1) * pageSize + index + 1,
       `"${(user.full_name || "N/A").replace(/"/g, '""')}"`,
       `"${(user.email || "N/A").replace(/"/g, '""')}"`,
       user.badges_created,
@@ -106,11 +118,32 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
 
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
-      setCurrentPage(newPage);
+      updateQuery({ page: newPage });
     }
   };
 
-  const handleRoleChange = async (userId: string, newRole: string) => {
+  // Debounced search
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchTerm !== initialSearch) {
+        updateQuery({ search: searchTerm, page: 1 });
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [searchTerm, initialSearch, updateQuery]);
+
+  const handleRoleFilterChange = (role: string) => {
+    setSelectedRole(role);
+    updateQuery({ role, page: 1 });
+  };
+
+  const handlePageSizeChange = (size: string) => {
+    const newSize = parseInt(size);
+    setPageSize(newSize);
+    updateQuery({ pageSize: newSize, page: 1 });
+  };
+
+  const handleUserRoleUpdate = async (userId: string, newRole: string) => {
     const loadingToast = toast.loading("Updating role...");
     try {
       const result = await updateUserRole(userId, newRole);
@@ -151,10 +184,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
             </div>
             <Select
               value={selectedRole}
-              onValueChange={(val) => {
-                setSelectedRole(val);
-                setCurrentPage(1);
-              }}
+              onValueChange={handleRoleFilterChange}
             >
               <SelectTrigger className="h-11 pl-9 cursor-pointer bg-[#0B0F17] border-white/5 rounded-xl text-white text-sm font-medium focus:border-[#11D392]/30 hover:border-white/10 transition-all">
                 <SelectValue placeholder="Filter by Role" />
@@ -175,8 +205,8 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                 variant="ghost"
                 size="icon"
                 className="w-8 h-8 text-slate-400 hover:text-[#11D392] hover:bg-[#11D392]/10 disabled:opacity-20 cursor-pointer transition-all"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
+                onClick={() => handlePageChange(serverPage - 1)}
+                disabled={serverPage === 1}
               >
                 <ChevronLeft className="w-4 h-4" />
               </Button>
@@ -187,7 +217,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                   type="number"
                   min={1}
                   max={totalPages}
-                  value={currentPage}
+                  value={serverPage}
                   onChange={(e) => {
                     const val = parseInt(e.target.value);
                     if (!isNaN(val)) handlePageChange(val);
@@ -201,8 +231,8 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                 variant="ghost"
                 size="icon"
                 className="w-8 h-8 text-slate-400 hover:text-[#11D392] hover:bg-[#11D392]/10 disabled:opacity-20 cursor-pointer transition-all"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages || totalPages === 0}
+                onClick={() => handlePageChange(serverPage + 1)}
+                disabled={serverPage === totalPages || totalPages === 0}
               >
                 <ChevronRight className="w-4 h-4" />
               </Button>
@@ -212,14 +242,11 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
 
             <div className="flex items-center gap-2">
               <Select
-                value={itemsPerPage.toString()}
-                onValueChange={(value) => {
-                  setItemsPerPage(parseInt(value));
-                  setCurrentPage(1);
-                }}
+                value={pageSize.toString()}
+                onValueChange={handlePageSizeChange}
               >
                 <SelectTrigger className="h-7 bg-transparent border-none text-[11px] font-black text-slate-400 uppercase tracking-tighter cursor-pointer focus:ring-0 focus:ring-offset-0 hover:text-white transition-colors gap-1.5 p-0">
-                  <SelectValue placeholder={`${itemsPerPage} rows`} />
+                  <SelectValue placeholder={`${pageSize} rows`} />
                 </SelectTrigger>
                 <SelectContent className="bg-[#0B0F17] border-white/10 text-slate-400 min-w-[100px]">
                   <SelectItem value="10" className="text-[11px] font-black uppercase tracking-tighter hover:bg-white/5 focus:bg-white/5 focus:text-[#11D392] cursor-pointer">10 rows</SelectItem>
@@ -233,7 +260,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
             <div className="w-px h-4 bg-white/10 mx-1" />
 
             <div className="text-[11px] font-bold text-slate-500 whitespace-nowrap">
-              <span className="text-[#11D392]">{filteredUsers.length}</span> RECORDS
+              <span className="text-[#11D392]">{totalCount}</span> RECORDS
             </div>
           </div>
         </div>
@@ -263,8 +290,8 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
             </TableHeader>
             <TableBody>
               <AnimatePresence mode="popLayout" initial={false}>
-                {paginatedUsers.length > 0 ? (
-                  paginatedUsers.map((user: Profile) => (
+                {users.length > 0 ? (
+                  users.map((user: Profile, index: number) => (
                     <motion.tr
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -275,7 +302,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                     >
                       <TableCell className="pl-6 py-4 text-center">
                         <span className="text-xs font-bold text-slate-500">
-                          {(currentPage - 1) * itemsPerPage + paginatedUsers.indexOf(user) + 1}
+                          {(serverPage - 1) * pageSize + index + 1}
                         </span>
                       </TableCell>
                       <TableCell className="py-4">
@@ -293,7 +320,7 @@ export default function UserManagement({ initialUsers }: { initialUsers: Profile
                       <TableCell className="py-4 text-center px-2">
                         <Select
                           defaultValue={user.role || "contributor"}
-                          onValueChange={(value) => handleRoleChange(user.id, value)}
+                          onValueChange={(value) => handleUserRoleUpdate(user.id, value)}
                         >
                           <SelectTrigger className="h-8 w-32 bg-white/5 border-white/10 text-[10px] font-bold text-slate-300 uppercase tracking-wider hover:bg-white/10 transition-all cursor-pointer mx-auto">
                             <SelectValue />

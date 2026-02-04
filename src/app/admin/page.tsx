@@ -12,8 +12,18 @@ export const metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default async function AdminDashboardPage() {
-  const data = await getAdminData();
+export default async function AdminDashboardPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+  const page = parseInt(params.page as string) || 1;
+  const pageSize = parseInt(params.pageSize as string) || 30;
+  const search = (params.search as string) || "";
+  const role = (params.role as string) || "all";
+
+  const data = await getAdminData(page, pageSize, search, role);
 
   if (!data) {
     return (
@@ -52,7 +62,14 @@ export default async function AdminDashboardPage() {
             Loading participants...
           </div>
         }>
-          <UserManagement initialUsers={users} />
+          <UserManagement
+            initialUsers={users}
+            totalCount={stats.totalUsers}
+            currentPage={page}
+            pageSize={pageSize}
+            initialSearch={search}
+            initialRole={role}
+          />
         </Suspense>
       </div>
     </div>

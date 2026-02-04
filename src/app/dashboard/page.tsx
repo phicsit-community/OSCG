@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase/client";
 import Achievements from "@/components/dashboard/achievments";
-import ProfileCard from "@/components/dashboard/profileCard"; // Kept file, but usage replaced
-import RankProgress from "@/components/dashboard/rankProgress"; // Kept file, but usage replaced
+import ProfileCard from "@/components/dashboard/profileCard";
 import UnifiedProfile from "@/components/dashboard/UnifiedProfile";
 import UnifiedMetrics from "@/components/dashboard/UnifiedMetrics";
 import ProjectAdminSection from "@/components/dashboard/ProjectAdminSection";
@@ -68,7 +67,7 @@ const DashboardPage = () => {
                             {role === 'project-admin' ? 'Project Admin Console' : 'Dashboard'}
                         </span>
                     </h1>
-                    <p className="text-white/40 text-base font-bold uppercase tracking-[0.3em] max-w-3xl leading-relaxed">
+                    <p className="text-white/40 text-base font-semibold max-w-3xl leading-relaxed">
                         {role === 'project-admin'
                             ? 'Lead the community · Manage project impact'
                             : 'Track your open source journey'}
@@ -84,7 +83,6 @@ const DashboardPage = () => {
             </div>
 
             {role === 'project-admin' ? (
-                // Project Admin View
                 <div className="space-y-10">
                     <div className="max-w-md mx-auto">
                         <ProfileCard username={username} fullName={fullName} linkedin={linkedin} role={role} />
@@ -95,17 +93,12 @@ const DashboardPage = () => {
                     </div>
                 </div>
             ) : (
-                // Standard Contributor View
+
                 <>
-                    {/* Main Stats Row */}
                     <div className="w-full">
                         <UnifiedProfile username={username} fullName={fullName} linkedin={linkedin} role={role} />
                     </div>
-
-                    {/* Achievements Row */}
                     <Achievements />
-
-                    {/* Merged Metrics Row */}
                     <div className="w-full">
                         <UnifiedMetrics />
                     </div>
