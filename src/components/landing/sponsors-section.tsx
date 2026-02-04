@@ -51,6 +51,12 @@ const bronzeSponsors = [
 const ecosystemPartners = [
   { name: "Siray AI", logo: "/sponsors/siray.png", url: "https://siray.ai/" },
 ];
+
+const hiringPartners = [
+  // { name: "Dalogic", logo: "/sponsors/dalogic.png", url: "https://www.dalogic.vercel.app/" },
+  { name: "Phicsit", logo: "/sponsors/phic.png", url: "https://phicsit.in/" },
+];
+
 const SponsorsSection = () => {
   const speedFactor = 8;
 
@@ -271,6 +277,39 @@ const SponsorsSection = () => {
                   </Wrapper>
                 );
               })}
+            </div>
+            {/* Hiring Partners */}
+            <div className="space-y-10">
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-px w-10 bg-linear-to-r from-transparent to-[#D946EF]/40" />
+                <h3 className="text-[#D946EF]/80 text-sm font-bold tracking-[0.3em] uppercase">
+                  Hiring Partners
+                </h3>
+                <div className="h-px w-10 bg-linear-to-l from-transparent to-[#D946EF]/40" />
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+                {hiringPartners.map((sponsor) => {
+                  const Wrapper = sponsor.url ? motion.a : motion.div;
+                  return (
+                    <Wrapper
+                      key={sponsor.name}
+                      href={sponsor.url}
+                      target={sponsor.url ? "_blank" : undefined}
+                      rel={sponsor.url ? "noopener noreferrer" : undefined}
+                      whileHover={{ scale: 1.05 }}
+                      className="relative group w-56 md:w-64 h-32 md:h-36 rounded-2xl bg-[#D946EF]/5 backdrop-blur-md border border-[#D946EF]/10 flex items-center justify-center p-6 transition-all duration-500 hover:border-[#D946EF]/40 hover:bg-[#D946EF]/10"
+                    >
+                      <Image
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        width={150}
+                        height={75}
+                        className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-500"
+                      />
+                    </Wrapper>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
