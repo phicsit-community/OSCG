@@ -129,7 +129,7 @@ export default function LeaderBoardPage() {
     },
   };
 
-  const sortedPlayers = players; // Already sorted by our splicing logic
+  const sortedPlayers = players; // Pre-sorted with splicing logic
 
   return (
     <div className="min-h-screen text-white pt-32 pb-14 overflow-hidden relative font-sans">
