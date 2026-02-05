@@ -61,7 +61,7 @@ export default function LeaderBoardPage() {
           { name: 'Lucas Silva', handle: '@lsilva', country: 'br', seed: 'Lucas', rank: 45 },
         ];
 
-        let finalPlayers = [...sortedDb];
+        const finalPlayers = [...sortedDb];
 
         intParticipants.forEach((p) => {
           const targetIdx = p.rank - 1;
@@ -80,7 +80,7 @@ export default function LeaderBoardPage() {
           });
         });
 
-        setPlayers(finalPlayers);
+        setPlayers(finalPlayers.slice(0, 50));
       }
     } catch (err) {
       console.error("Unexpected error in fetchLeaderboard:", err);
