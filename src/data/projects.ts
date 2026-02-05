@@ -2142,4 +2142,446 @@ export const PROJECTS: Project[] = [
       avatar: "https://github.com/ShreyaaRaghav.png"
     },
   },
+  {
+    title: "LOOK-DGC",
+    description: "LOOK-DGC is a comprehensive digital image forensics toolkit developed by Gopichand. It provides a fully integrated environment for analyzing digital images to detect tampering, forgery, and manipulation.",
+    githubRepo: "https://github.com/Gooichand/LOOK_DGC",
+    techStack: ["Perl", "HTML", "Python", "C++", "PostScript", "Makefile"],
+    level: "Intermediate",
+    admin: {
+      name: "Gopichand",
+      linkedin: "",
+      github: "Gooichand",
+      avatar: "https://github.com/Gooichand.png"
+    },
+  },
+  {
+    title: "RWA Tokenization using Aptos Framework",
+    description: "A decentralized protocol for Real-World Asset (RWA) management built using Move on Aptos. The project introduces a structured Invoice Lifecycle (Pending, Funded, Paid) where each invoice is treated as a decoupled, secure Resource.",
+    githubRepo: "https://github.com/Akshith985/Aptos-RWA",
+    liveLink: "https://aptos-rwa.vercel.app/",
+    techStack: ["Move", "Aptos Framework", "React.js", "TypeScript", "Aptos SDK", "Tailwind CSS"],
+    level: "Intermediate",
+    admin: {
+      name: "Akshith",
+      linkedin: "",
+      github: "Akshith985",
+      avatar: "https://github.com/Akshith985.png"
+    },
+  },
+  {
+    title: "CryptoHub",
+    description: "A modern crypto tracking platform to explore real-time cryptocurrency prices, view detailed coin analytics, and stay updated with market trends.",
+    githubRepo: "https://github.com/KaranUnique/CryptoHub",
+    liveLink: "https://crypto-hub-rosy.vercel.app/",
+    techStack: ["JavaScript", "React", "Tailwind", "Node", "Express", "REST API"],
+    level: "Intermediate",
+    admin: {
+      name: "Karan",
+      linkedin: "",
+      github: "KaranUnique",
+      avatar: "https://github.com/KaranUnique.png"
+    },
+  },
+  {
+    title: "AI Council",
+    description: "A revolutionary Python-based system that intelligently coordinates multiple specialized AI models to solve complex problems by treating them as specialized agents.",
+    githubRepo: "https://github.com/shrixtacy/Ai-Council",
+    liveLink: "https://pypi.org/project/ai-council-orchestrator/1.0.0/",
+    techStack: ["Python", "Pydantic", "Httpx", "Tenacity", "Structlog", "PyYAML", "GitHub Actions"],
+    level: "Intermediate",
+    admin: {
+      name: "Shriyansh Dash",
+      linkedin: "https://www.linkedin.com/in/shriyanshdash/",
+      github: "shrixtacy",
+      avatar: "https://github.com/shrixtacy.png"
+    },
+  },
+  {
+    title: "Mapify OS",
+    description: "Mapify OS is a production-ready, open-source application focused on maps and geospatial data, designed as a modern web platform for handling geographic information and interactive mapping solutions.",
+    githubRepo: "https://github.com/Aditya-Karmalkar/MapifyOS",
+    liveLink: "https://mapifyos.netlify.app/",
+    techStack: ["React 18"],
+    level: "Intermediate",
+    admin: {
+      name: "Aditya Karmalkar",
+      linkedin: "https://www.linkedin.com/in/aditya-karmalkar-242274262/",
+      github: "Aditya-Karmalkar",
+      avatar: "https://github.com/Aditya-Karmalkar.png"
+    },
+  },
+  {
+    title: "MCP-Arena",
+    description: "MCP-Arena is a production-ready Python library focused on AI and Machine Learning workflows, designed to work with MCP (Model Context Protocol) and LangChain for building intelligent AI systems.",
+    githubRepo: "https://github.com/SatyamSingh8306/mcp_arena",
+    liveLink: "https://mcparena.vercel.app/",
+    techStack: ["Python", "Machine Learning", "AI", "MCP", "LangChain"],
+    level: "Advanced",
+    admin: {
+      name: "Satyam Singh",
+      linkedin: "https://www.linkedin.com/in/satyam8306/",
+      github: "SatyamSingh8306",
+      avatar: "https://github.com/SatyamSingh8306.png"
+    },
+  },
+  {
+    title: "Intervyo",
+    description: "An intelligent, interactive platform designed to simulate real-world interviews using AI. It helps users practice technical and behavioral questions in a realistic interview environment with feedback and performance tracking.",
+    githubRepo: "https://github.com/santanu-atta03/Intervyo",
+    liveLink: "https://intervyo-sage.vercel.app",
+    techStack: ["React.js", "Node.js", "MongoDB", "Express.js"],
+    level: "Advanced",
+    admin: {
+      name: "Santanu Atta",
+      linkedin: "https://www.linkedin.com/in/santanu-atta-139820363",
+      github: "santanu-atta03",
+      avatar: "https://github.com/santanu-atta03.png"
+    },
+  },
+  {
+    title: "tweakio-sdk",
+    description: "tweakio-sdk is a developer-friendly SDK designed to integrate AI-powered workflows and automation into applications easily. It focuses on simplifying interaction with AI services through structured APIs and tools.",
+    githubRepo: "https://github.com/TweakIO/tweakio-sdk",
+    liveLink: "https://tweak.io/",
+    techStack: ["Python", "SDK Development", "AI Integration", "REST APIs"],
+    level: "Advanced",
+    admin: {
+      name: "TweakIO Team",
+      linkedin: "https://www.linkedin.com/company/tweakio/",
+      github: "TweakIO",
+      avatar: "https://github.com/TweakIO.png"
+    },
+  },
+  {
+    title: "Photoflux (Fediverse)",
+    description: "This project is a Fediverse-compatible photo sharing social platform built to work with decentralized social networks using the ActivityPub protocol. It allows users to share images and interact across different federated platforms.",
+    githubRepo: "https://github.com/avdhut400/Fediverse.git",
+    techStack: ["Node.js", "Express.js", "MongoDB", "ActivityPub Protocol"],
+    level: "Advanced",
+    admin: {
+      name: "Avdhut Magar",
+      linkedin: "https://www.linkedin.com/in/avdhut-magar-94088333b/",
+      github: "avdhut400",
+      avatar: "https://github.com/avdhut400.png"
+    },
+  },
+  {
+    title: "Veren",
+    description: "Veren is a cloud-native deployment platform designed to simplify application deployment and management. It focuses on modern DevOps practices with scalable infrastructure and automation.",
+    githubRepo: "https://github.com/atithi4dev/veren",
+    techStack: ["Node.js", "TypeScript", "Docker", "AWS"],
+    level: "Advanced",
+    admin: {
+      name: "Atithi Singh",
+      linkedin: "https://linkedin.com/in/singhatithi",
+      github: "atithi4dev",
+      avatar: "https://github.com/atithi4dev.png"
+    },
+  },
+  {
+    title: "WalletWise – Behaviour-Aware Personal Finance Assistant",
+    description: "WalletWise is an intelligent personal finance management platform that leverages AI and behavioral analysis to help users track spending, manage budgets, and make smarter financial decisions based on their habits.",
+    githubRepo: "https://github.com/SoumyaMishra-7/WalletWise",
+    techStack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    level: "Advanced",
+    admin: {
+      name: "Soumya Mishra",
+      linkedin: "",
+      github: "SoumyaMishra-7",
+      avatar: "https://github.com/SoumyaMishra-7.png"
+    },
+  },
+  {
+    title: "Hologram-with-AI",
+    description: "Hologram-with-AI is an innovative project that combines holographic display concepts with artificial intelligence to create interactive visual experiences. It focuses on using AI to enhance hologram responses and user interaction.",
+    githubRepo: "https://github.com/ArjunGowda-07/Hologram-with-AI",
+    techStack: ["Python", "AI/ML", "Computer Vision", "Hardware Integration"],
+    level: "Intermediate",
+    admin: {
+      name: "Arjun Gowda",
+      linkedin: "https://www.linkedin.com/in/arjun-gowda-9b1b9a1b4/",
+      github: "ArjunGowda-07",
+      avatar: "https://github.com/ArjunGowda-07.png"
+    },
+  },
+  {
+    title: "PyLabFlow",
+    description: "PyLabFlow is a Python-based automation and workflow management tool designed to streamline laboratory processes and data handling. It focuses on building efficient pipelines for experiments, analysis, and task orchestration.",
+    githubRepo: "https://github.com/Ayushmanrath/PyLabFlow",
+    techStack: ["Python", "Workflow Automation", "Data Processing"],
+    level: "Intermediate",
+    admin: {
+      name: "Ayushman Rath",
+      linkedin: "https://www.linkedin.com/in/ayushman-rath-7b3a5b1a2/",
+      github: "Ayushmanrath",
+      avatar: "https://github.com/Ayushmanrath.png"
+    },
+  },
+  {
+    title: "MooVit",
+    description: "MooVit is a fitness and activity tracking application designed to help users monitor workouts, daily movements, and health progress in a simple and engaging way. It focuses on improving lifestyle habits through data-driven insights.",
+    githubRepo: "https://github.com/harshita-06/MooVit",
+    techStack: ["Flutter", "Firebase", "Mobile App Development"],
+    level: "Intermediate",
+    admin: {
+      name: "Harshita Gupta",
+      linkedin: "https://www.linkedin.com/in/harshita-gupta-3b2a1a...",
+      github: "harshita-06",
+      avatar: "https://github.com/harshita-06.png"
+    },
+  },
+  {
+    title: "PPMM - Python Project Manager",
+    description: "PPMM is a Python-based project management tool designed to help developers organize, track, and manage Python projects efficiently. It focuses on simplifying workflows, dependency handling, and project structure management.",
+    githubRepo: "https://github.com/abhay-sharma-2003/PPMM",
+    techStack: ["Python", "CLI Development", "Project Management Tools"],
+    level: "Intermediate",
+    admin: {
+      name: "Abhay Sharma",
+      linkedin: "https://www.linkedin.com/in/abhay-sharma-5b9280205/",
+      github: "abhay-sharma-2003",
+      avatar: "https://github.com/abhay-sharma-2003.png"
+    },
+  },
+  {
+    title: "Sage Vision",
+    description: "Sage Vision is an AI-powered computer vision application focused on image recognition and intelligent visual analysis. It aims to provide accurate detection and insights from visual data using machine learning models.",
+    githubRepo: "https://github.com/sahil-09/SageVision",
+    techStack: ["Python", "Computer Vision", "Machine Learning", "OpenCV"],
+    level: "Intermediate",
+    admin: {
+      name: "Sahil Sharma",
+      linkedin: "https://www.linkedin.com/in/sahil-sharma-vision/",
+      github: "sahil-09",
+      avatar: "https://github.com/sahil-09.png"
+    },
+  },
+  {
+    title: "Code Guardian",
+    description: "Code Guardian is an intelligent code analysis and security tool designed to scan applications for vulnerabilities, bad practices, and potential threats. It helps developers write safer and more reliable code.",
+    githubRepo: "https://github.com/rahulpatil10/Code-Guardian",
+    techStack: ["Python", "Static Code Analysis", "Security Automation"],
+    level: "Intermediate",
+    admin: {
+      name: "Rahul Patil",
+      linkedin: "",
+      github: "rahulpatil10",
+      avatar: "https://github.com/rahulpatil10.png"
+    },
+  },
+  {
+    title: "DocVerse",
+    description: "DocVerse is a document management and collaboration platform that allows users to upload, organize, and share documents efficiently with smart search and access controls.",
+    githubRepo: "https://github.com/rahulpatil10/DocVerse",
+    techStack: ["React.js", "Node.js", "MongoDB", "Express.js"],
+    level: "Intermediate",
+    admin: {
+      name: "Rahul Patil",
+      linkedin: "",
+      github: "rahulpatil10",
+      avatar: "https://github.com/rahulpatil10.png"
+    },
+  },
+  {
+    title: "NexumDB",
+    description: "NexumDB is a high-performance distributed database system designed for scalable data storage and fast query processing, focusing on modern data-intensive applications.",
+    githubRepo: "https://github.com/riteshkumar2003/NexumDB",
+    techStack: ["C++", "Distributed Systems", "Database Engineering"],
+    level: "Advanced",
+    admin: {
+      name: "Ritesh Kumar",
+      linkedin: "",
+      github: "riteshkumar2003",
+      avatar: "https://github.com/riteshkumar2003.png"
+    },
+  },
+  {
+    title: "OpenMath",
+    description: "OpenMath is an educational platform aimed at solving and visualizing mathematical problems using interactive tools and algorithms to enhance learning experiences.",
+    githubRepo: "https://github.com/riteshkumar2003/OpenMath",
+    techStack: ["Python", "Web Development", "Math Algorithms"],
+    level: "Intermediate",
+    admin: {
+      name: "Ritesh Kumar",
+      linkedin: "",
+      github: "riteshkumar2003",
+      avatar: "https://github.com/riteshkumar2003.png"
+    },
+  },
+  {
+    title: "Achievement Management System",
+    description: "A web-based system that helps institutions manage and track student achievements, awards, and recognitions in an organized digital format.",
+    githubRepo: "https://github.com/Eswaramuthu/Achievement-Management-System",
+    techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
+    level: "Beginner",
+    admin: {
+      name: "Eswaramuthu",
+      linkedin: "",
+      github: "Eswaramuthu",
+      avatar: "https://github.com/Eswaramuthu.png"
+    },
+  },
+  {
+    title: "Innovision",
+    description: "Innovision is a modern web platform designed to showcase innovative projects, ideas, and events with a clean and interactive user interface.",
+    githubRepo: "https://github.com/akshay-innovision/Innovision",
+    techStack: ["React.js", "Node.js", "MongoDB"],
+    level: "Intermediate",
+    admin: {
+      name: "Akshay",
+      linkedin: "",
+      github: "akshay-innovision",
+      avatar: "https://github.com/akshay-innovision.png"
+    },
+  },
+  {
+    title: "Lextransition-AI",
+    description: "Lextransition-AI is an AI-powered language translation system that focuses on accurate contextual translations using modern NLP models.",
+    githubRepo: "https://github.com/lextransition-ai/Lextransition-AI",
+    techStack: ["Python", "Natural Language Processing", "Machine Learning"],
+    level: "Advanced",
+    admin: {
+      name: "Lextransition-AI Team",
+      linkedin: "",
+      github: "lextransition-ai",
+      avatar: "https://github.com/lextransition-ai.png"
+    },
+  },
+  {
+    title: "Transportation & Logistics Management System",
+    description: "A management system built to streamline transportation and logistics operations including vehicle tracking, shipment handling, and delivery management.",
+    githubRepo: "https://github.com/Kush-012/Transportation-and-Logistics",
+    techStack: ["Java", "Spring Boot", "MySQL"],
+    level: "Intermediate",
+    admin: {
+      name: "Kush",
+      linkedin: "",
+      github: "Kush-012",
+      avatar: "https://github.com/Kush-012.png"
+    },
+  },
+  {
+    title: "Event Planner",
+    description: "A full-stack MERN application for creating, managing, and collaborating on events with JWT authentication, role-based access control, and real-time workflows.",
+    githubRepo: "https://github.com/raghavy11",
+    liveLink: "https://event-planner-6dwm.vercel.app/",
+    techStack: ["React.js", "Redux", "Tailwind CSS", "Node.js", "Express.js", "MongoDB", "JWT"],
+    level: "Intermediate",
+    admin: {
+      name: "Raghav Y",
+      linkedin: "",
+      github: "raghavy11",
+      avatar: "https://github.com/raghavy11.png"
+    },
+  },
+  {
+    title: "arduino-cli-interactive",
+    description: "An interactive terminal-based tool to help beginners use arduino-cli easily with guided workflows.",
+    githubRepo: "https://github.com/Vaishnav-Sabari-Girish/arduino-cli-interactive",
+    liveLink: "https://vaishnav.world/arduino-cli-interactive",
+    techStack: ["Bash scripting"],
+    level: "Intermediate",
+    admin: {
+      name: "Vaishnav Sabari Girish",
+      linkedin: "",
+      github: "Vaishnav-Sabari-Girish",
+      avatar: "https://github.com/Vaishnav-Sabari-Girish.png"
+    },
+  },
+  {
+    title: "ComChan",
+    description: "A high-performance serial monitor for embedded engineers to view serial logs efficiently.",
+    githubRepo: "https://github.com/Vaishnav-Sabari-Girish/ComChan",
+    liveLink: "https://vaishnav.world/ComChan/",
+    techStack: ["Rust", "C++", "Tex"],
+    level: "Advanced",
+    admin: {
+      name: "Vaishnav Sabari Girish",
+      linkedin: "",
+      github: "Vaishnav-Sabari-Girish",
+      avatar: "https://github.com/Vaishnav-Sabari-Girish.png"
+    },
+  },
+  {
+    title: "VoucherX",
+    description: "A modern web app for buying, selling, and trading vouchers before expiry, with AI-powered assistance.",
+    githubRepo: "https://github.com/jaiashwinisatish/VoucherX",
+    liveLink: "https://voucher-x-tau.vercel.app/",
+    techStack: ["React", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
+    level: "Intermediate",
+    admin: {
+      name: "Jai Ashwini Satish",
+      linkedin: "",
+      github: "jaiashwinisatish",
+      avatar: "https://github.com/jaiashwinisatish.png"
+    },
+  },
+  {
+    title: "Healconnect",
+    description: "A health monitoring platform connecting doctors and patients digitally.",
+    githubRepo: "https://github.com/Dipanita45/HEALCONNECT",
+    techStack: ["Next.js", "JavaScript", "Firebase", "CSS"],
+    level: "Intermediate",
+    admin: {
+      name: "Dipanita",
+      linkedin: "",
+      github: "Dipanita45",
+      avatar: "https://github.com/Dipanita45.png"
+    },
+  },
+  {
+    title: "AnimateHub",
+    description: "An open-source animation UI library that provides sleek, reusable, and customizable animation components for modern web applications to enhance user experience and simplify frontend development.",
+    githubRepo: "https://github.com/Premkolte/AnimateHub",
+    liveLink: "https://animate-hub.vercel.app/",
+    techStack: ["MongoDB", "Express.js", "React.js", "Node.js (MERN)"],
+    level: "Advanced",
+    admin: {
+      name: "Premkolte",
+      linkedin: "",
+      github: "Premkolte",
+      avatar: "https://github.com/Premkolte.png"
+    },
+  },
+  {
+    title: "SensBot",
+    description: "A remotely operated robotic vehicle integrated with sensors for real-time navigation, terrain stability, and environmental data collection, combining mechanical design with intelligent automation.",
+    githubRepo: "https://github.com/Karthik-v202/SensBot",
+    techStack: ["ESP8266", "DHT/MQ Sensors", "Arduino C/C++", "Motor Controllers"],
+    level: "Intermediate",
+    admin: {
+      name: "Karthik",
+      linkedin: "",
+      github: "Karthik-v202",
+      avatar: "https://github.com/Karthik-v202.png"
+    },
+  },
+  {
+    title: "Civic-Resolve",
+    description: "An AI-powered civic issue detection and resolution platform using computer vision and automated routing for complaint management, priority assessment, and fraud prevention.",
+    githubRepo: "https://github.com/Aditya20032004/CivicResolve.git",
+    liveLink: "https://civic-resolve-orcin.vercel.app/",
+    techStack: ["OpenCV", "YOLO", "AI priority analysis"],
+    level: "Intermediate",
+    admin: {
+      name: "Aditya",
+      linkedin: "",
+      github: "Aditya20032004",
+      avatar: "https://github.com/Aditya20032004.png"
+    },
+  },
+  {
+    title: "Fleetiva-Roadlines",
+    description: "A MERN-based transportation and logistics management platform featuring digital bilty generation, fleet operations, freight workflows, and load management.",
+    githubRepo: "https://github.com/sarojit049/Fleetiva-Roadlines",
+    techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Redis", "Twilio", "PDFKit"],
+    level: "Beginner",
+    admin: {
+      name: "Sarojit",
+      linkedin: "",
+      github: "sarojit049",
+      avatar: "https://github.com/sarojit049.png"
+    },
+  },
 ];
