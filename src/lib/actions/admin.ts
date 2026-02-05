@@ -65,6 +65,22 @@ import { revalidatePath } from "next/cache";
 
 export async function updateUserRole(userId: string, role: string) {
   const supabase = await createClient();
+  const { data: { user: requester } } = await supabase.auth.getUser();
+
+  if (!requester) {
+    return { success: false, error: "Authentication required" };
+  }
+
+  // Verify requester is a super admin
+  const { data: requesterProfile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", requester.id)
+    .single();
+
+  if (requesterProfile?.role !== "admin") {
+    return { success: false, error: "Unauthorized: Super Admin privileges required" };
+  }
 
   const { error } = await supabase
     .from("profiles")
@@ -76,6 +92,7 @@ export async function updateUserRole(userId: string, role: string) {
     return { success: false, error: error.message };
   }
 
+  console.log(`[AUDIT] Role Updated: Super Admin ${requester.email} changed User ${userId} role to ${role}`);
   revalidatePath("/admin");
   return { success: true };
 }
@@ -83,6 +100,25 @@ export async function updateUserRole(userId: string, role: string) {
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export async function updateUserScore(userId: string, score: number) {
+  const supabase = await createClient();
+  const { data: { user: requester } } = await supabase.auth.getUser();
+
+  if (!requester) {
+    return { success: false, error: "Authentication required" };
+  }
+
+  // Verify requester is an admin or project-admin
+  const { data: requesterProfile } = await supabase
+    .from("profiles")
+    .select("role")
+    .eq("id", requester.id)
+    .single();
+
+  if (requesterProfile?.role !== "admin" && requesterProfile?.role !== "project-admin") {
+    return { success: false, error: "Unauthorized: Admin privileges required" };
+  }
+
+  // Use admin client to bypass RLS for updating scores
   const { data, error, status } = await supabaseAdmin
     .from("profiles")
     .update({ score, updated_at: new Date().toISOString() })
@@ -99,6 +135,6 @@ export async function updateUserScore(userId: string, score: number) {
     return { success: false, error: "Profile not found or no update applied" };
   }
 
-  console.log(`Successfully updated score for ${userId} to ${score}. Status: ${status}`);
+  console.log(`[AUDIT] Score Updated: Admin ${requester.email} (${requester.id}) set score for User ${userId} to ${score}. Status: ${status}`);
   return { success: true };
 }

@@ -131,7 +131,7 @@ export default function ProjectAdminSection() {
                     <div>
                         <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-3 leading-none">
                             <Trophy className="w-6 h-6 text-[#00D6B2]" />
-                            {totalCount} Contributors
+                            Contributors
                         </h2>
                         <p className="text-white/40 text-[10px] font-black uppercase tracking-wider mt-1 hidden md:block">
                             Assign points based on impact
@@ -187,6 +187,23 @@ export default function ProjectAdminSection() {
                     )}
                 </div>
             </div>
+
+            {/* Warning Message Box */}
+            <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-4 flex items-start gap-3 shadow-lg"
+            >
+                <AlertCircle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                <div>
+                    <h4 className="text-amber-500 font-bold text-xs uppercase tracking-wider mb-1">Administrative Advisory</h4>
+                    <p className="text-amber-200/80 text-xs font-medium leading-relaxed">
+                        Only assign points to participants actively contributing to <span className="font-bold underline">your specific project</span>.
+                        Unauthorized or &quot;fake&quot; scoring of external participants is strictly prohibited and will result in <span className="font-bold underline italic text-amber-400 uppercase">immediate disqualification and permanent ban</span> from the Project Admin Console.
+                        Every assignment is audited and traceable to your account.
+                    </p>
+                </div>
+            </motion.div>
 
             {loading && contributors.length === 0 ? (
                 <div className="w-full h-64 flex items-center justify-center">
