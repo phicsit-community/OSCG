@@ -2129,4 +2129,17 @@ export const PROJECTS: Project[] = [
       avatar: "https://github.com/IndieHub25.png"
     },
   },
+  {
+    title: "Contexto - Sematic Similarity Trade Off platform",
+    description: "A full-stack semantic word guessing game inspired by Contexto where guesses are ranked by meaning using GloVe and SBERT embeddings.",
+    githubRepo: "https://github.com/ShreyaaRaghav/semantic-word-game",
+    techStack: ["Python", "Flask", "NumPy", "scikit-learn", "HTML", "CSS", "JavaScript"],
+    level: "Intermediate",
+    admin: {
+      name: "Shreya Raghav",
+      linkedin: "https://www.linkedin.com/in/shreya-raghav/",
+      github: "ShreyaaRaghav",
+      avatar: "https://github.com/ShreyaaRaghav.png"
+    },
+  },
 ];
