@@ -19,10 +19,6 @@ interface Player {
 export default function LeaderBoardPage() {
   const [players, setPlayers] = useState<Player[]>([]);
 
-  const sortedPlayers = React.useMemo(() =>
-    [...players].sort((a, b) => b.score - a.score),
-    [players]);
-
   const fetchLeaderboard = useCallback(async () => {
     try {
       const { data, error } = await supabase
@@ -52,45 +48,39 @@ export default function LeaderBoardPage() {
           country: "in",
         }));
 
-        // Inject International Players at specific ranks
-        const intPresets = [
-          { rank: 3, name: 'James Wilson', handle: '@j_wilson', country: 'gb', seed: 'James' },
-          { rank: 5, name: 'Elena Rodriguez', handle: '@elena_rdgz', country: 'es', seed: 'Elena' },
-          { rank: 12, name: 'Hiroshi Tanaka', handle: '@htanaka', country: 'jp', seed: 'Hiroshi' },
-          { rank: 21, name: 'Marcus Schmidt', handle: '@mschmidt', country: 'de', seed: 'Marcus' },
-          { rank: 28, name: 'Sarah Parker', handle: '@sparker', country: 'us', seed: 'Sarah' },
-          { rank: 39, name: 'Chloe Dubois', handle: '@cdubois', country: 'fr', seed: 'Chloe' },
-          { rank: 45, name: 'Lucas Silva', handle: '@lsilva', country: 'br', seed: 'Lucas' },
+        // Sort DB players first
+        const sortedDb = [...dbPlayers].sort((a, b) => b.score - a.score);
+
+        // International participants to be spliced in
+        const intParticipants = [
+          { name: 'Elena Rodriguez', handle: '@elena_rdgz', country: 'es', seed: 'Elena', rank: 5 },
+          { name: 'Hiroshi Tanaka', handle: '@htanaka', country: 'jp', seed: 'Hiroshi', rank: 12 },
+          { name: 'Marcus Schmidt', handle: '@mschmidt', country: 'de', seed: 'Marcus', rank: 21 },
+          { name: 'Sarah Parker', handle: '@sparker', country: 'us', seed: 'Sarah', rank: 28 },
+          { name: 'Chloe Dubois', handle: '@cdubois', country: 'fr', seed: 'Chloe', rank: 39 },
+          { name: 'Lucas Silva', handle: '@lsilva', country: 'br', seed: 'Lucas', rank: 45 },
         ];
 
-        const finalPlayers = [...dbPlayers];
+        let finalPlayers = [...sortedDb];
 
-        // Calculate scores to place them at requested ranks
-        intPresets.forEach(p => {
+        intParticipants.forEach((p) => {
           const targetIdx = p.rank - 1;
-          let calculatedScore = 0;
+          if (targetIdx < 3) return; // Strictly ensure they are not in 1st, 2nd, or 3rd
 
-          if (dbPlayers.length > targetIdx) {
-            const higher = dbPlayers[targetIdx - 1]?.score || dbPlayers[0].score + 50;
-            const lower = dbPlayers[targetIdx]?.score || 0;
-            calculatedScore = Math.floor((higher + lower) / 2) + (Math.random() > 0.5 ? 2 : -2);
-          } else {
-            const lastScore = dbPlayers[dbPlayers.length - 1]?.score || 100;
-            calculatedScore = Math.max(0, lastScore - (p.rank * 2));
-          }
+          // Inherit the score of the current participant at this position to blend in naturally
+          const scoreAtPosition = finalPlayers[targetIdx]?.score || 0;
 
-          finalPlayers.push({
-            id: `int-${p.rank}`,
+          finalPlayers.splice(targetIdx, 0, {
+            id: `int-${p.name.replace(/\s+/g, '-')}`,
             name: p.name,
             handle: p.handle,
-            score: calculatedScore,
+            score: scoreAtPosition,
             avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${p.seed}`,
             country: p.country
           });
         });
 
-        const sorted = finalPlayers.sort((a, b) => b.score - a.score);
-        setPlayers(sorted);
+        setPlayers(finalPlayers);
       }
     } catch (err) {
       console.error("Unexpected error in fetchLeaderboard:", err);
@@ -108,7 +98,6 @@ export default function LeaderBoardPage() {
 
     init();
 
-    // Set up real-time subscription
     const channel = supabase
       .channel("leaderboard_feed")
       .on(
@@ -139,6 +128,8 @@ export default function LeaderBoardPage() {
       },
     },
   };
+
+  const sortedPlayers = players; // Already sorted by our splicing logic
 
   return (
     <div className="min-h-screen text-white pt-32 pb-14 overflow-hidden relative font-sans">
@@ -198,7 +189,7 @@ function PodiumStep({ player, rank, color, isCenter = false }: { player: Player;
             <Crown className="w-10 h-10 fill-current" />
           </motion.div>
         )}
-        <div className={`relative p-1 rounded-full bg-gradient-to-b ${color} ${isCenter ? 'p-1.5' : ''}`}>
+        <div className={`relative p-1 rounded-full bg-linear-to-b ${color} ${isCenter ? 'p-1.5' : ''}`}>
           <Avatar className={`border-4 border-[#050505] ${isCenter ? 'w-24 h-24 md:w-32 md:h-32' : 'w-16 h-16 md:w-20 md:h-20'}`}>
             <AvatarImage src={player.avatar} />
             <AvatarFallback>{player.name[0]}</AvatarFallback>
@@ -222,12 +213,12 @@ function PodiumStep({ player, rank, color, isCenter = false }: { player: Player;
           <p className="text-xs text-slate-400 font-medium">{player.handle}</p>
         </div>
       </motion.div>
-      <motion.div className={`w-full rounded-t-2xl relative overflow-hidden bg-gradient-to-b ${color} opacity-90 backdrop-blur-md border-t border-white/20 shadow-[0_0_30px_rgba(0,0,0,0.3)]`} initial={{ height: 0 }} animate={{ height: isCenter ? '200px' : rank === 2 ? '150px' : '100px' }} transition={{ duration: 0.8, type: "spring", bounce: 0.2 }}>
+      <motion.div className={`w-full rounded-t-2xl relative overflow-hidden bg-linear-to-b ${color} opacity-90 backdrop-blur-md border-t border-white/20 shadow-[0_0_30px_rgba(0,0,0,0.3)]`} initial={{ height: 0 }} animate={{ height: isCenter ? '200px' : rank === 2 ? '150px' : '100px' }} transition={{ duration: 0.8, type: "spring", bounce: 0.2 }}>
         <div className="absolute top-4 w-full text-center">
           <span className="text-3xl md:text-5xl font-black text-[#050505]/80 tracking-tighter drop-shadow-sm">{player.score}</span>
           <p className="text-[10px] uppercase font-bold text-[#050505]/60 tracking-widest mt-1">Points</p>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />
       </motion.div>
     </motion.div>
   );
