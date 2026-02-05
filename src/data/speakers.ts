@@ -117,7 +117,7 @@ export const speakers: Speaker[] = [
     linkedin: "https://www.linkedin.com/in/yashthakare/"
   },
   {
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=sample",
+    image: "/speakers/dev.jpeg",
     name: "Deveesh C. Shetty",
     title: "Software Engineer at Levels.fyi",
     expertise: "FOSS United Mangalore",
