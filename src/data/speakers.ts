@@ -12,7 +12,7 @@ export const kameshSpeaker: Speaker = {
   image: "/speakers/kamesh.jpg",
   name: "Kamesh Sampath",
   title: "Developer Advocate at Snowflake",
-  expertise: "----",
+  expertise: "Data + AI Advocate",
   linkedin: "https://www.linkedin.com/in/kameshsampath/"
 };
 
@@ -28,7 +28,7 @@ export const speakers: Speaker[] = [
     image: "/speakers/Dishantgandhi.png",
     name: "Dishant Gandhi",
     title: "AI/ML Consultant",
-    expertise: "AI Strategy & Sovereign Innovation",
+    expertise: "Generative AI and LLMs",
     linkedin: "https://www.linkedin.com/in/dishant-gandhi/?originalSubdomain=in"
   },
   {
@@ -84,7 +84,7 @@ export const speakers: Speaker[] = [
     image: "/speakers/kamesh.jpg",
     name: "Kamesh Sampath",
     title: "Developer Advocate at Snowflake",
-    expertise: "----",
+    expertise: "Data + AI Advocate",
     linkedin: "https://www.linkedin.com/in/kameshsampath/"
   },
   {
@@ -99,7 +99,7 @@ export const speakers: Speaker[] = [
     image: "/speakers/Aarya.png",
     name: "Aarya Pandey",
     title: "Intel OpenVINO",
-    expertise: "ERP Smartlabs",
+    expertise: "AI, Research and Startups",
     linkedin: "https://www.linkedin.com/in/aaryavjti/?originalSubdomain=in"
   },
   {
@@ -113,8 +113,15 @@ export const speakers: Speaker[] = [
     image: "/speakers/yash.jpg",
     name: "Yash Thakare",
     title: "AI-specialized Software Engineer",
-    expertise: "-----",
+    expertise: "Hackathon Expert",
     linkedin: "https://www.linkedin.com/in/yashthakare/"
+  },
+  {
+    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=sample",
+    name: "Deveesh C. Shetty",
+    title: "Software Engineer at Levels.fyi",
+    expertise: "FOSS United Mangalore",
+    linkedin: "https://www.linkedin.com/in/deveesh-shetty/"
   },
 ];
 
