@@ -5,13 +5,13 @@ export interface Project {
   liveLink?: string;
   techStack: string[];
   level: "Beginner" | "Intermediate" | "Advanced";
+  category: "AI" | "Blockchain" | "Python" | "Web" | "Other";
   admin: {
     name: string;
     linkedin: string;
     github?: string;
     avatar?: string;
   };
-
 }
 
 export const PROJECTS: Project[] = [
@@ -21,6 +21,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Gooichand/blockchain-evidence",
     techStack: ["HTML5", "CSS3", "Vanilla JavaScript", "Socket.IO Client"],
     level: "Advanced",
+    category: "Blockchain",
     liveLink: "https://blockchain-evidence.onrender.com/",
     admin: {
       name: "Gopichand Dandimeni",
@@ -35,6 +36,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Gooichand/LOOK_DGC",
     techStack: ["Perl", "HTML", "Python", "C++", "PostScript", "Makefile"],
     level: "Intermediate",
+    category: "Blockchain",
     admin: {
       name: "Gopichand",
       linkedin: "",
@@ -48,6 +50,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Eswaramuthu/Achievement-Management-System",
     techStack: ["HTML", "CSS", "JavaScript", "PHP", "MySQL"],
     level: "Beginner",
+    category: "Python",
     admin: {
       name: "Eswaramuthu",
       linkedin: "",
@@ -56,24 +59,12 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    title: "Lextransition-AI",
-    description: "Lextransition-AI is an AI-powered language translation system that focuses on accurate contextual translations using modern NLP models.",
-    githubRepo: "https://github.com/lextransition-ai/Lextransition-AI",
-    techStack: ["Python", "Natural Language Processing", "Machine Learning"],
-    level: "Advanced",
-    admin: {
-      name: "Achanta Sharanya",
-      linkedin: "https://www.linkedin.com/in/sharanya-achanta-946297276/",
-      github: "https://github.com/SharanyaAchanta",
-      avatar: "https://github.com/SharanyaAchanta.png"
-    },
-  },
-  {
     title: "Innovision",
     description: "Innovision is a modern web platform designed to showcase innovative projects, ideas, and events with a clean and interactive user interface.",
     githubRepo: "https://github.com/akshay-innovision/Innovision",
     techStack: ["React.js", "Node.js", "MongoDB"],
     level: "Intermediate",
+    category: "Python",
     liveLink: "https://innovision-open-source.vercel.app/",
     admin: {
       name: "Vikas",
@@ -89,6 +80,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://pypi.org/project/ai-council-orchestrator/1.0.0//",
     techStack: ["Python", "Pydantic", "Httpx", "Tenacity", "Structlog", "PyYAML", "GitHub Actions"],
     level: "Intermediate",
+    category: "AI",
     admin: {
       name: "Shriyansh Dash",
       linkedin: "https://www.linkedin.com/in/shriyanshdash/",
@@ -102,6 +94,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Dipanita45/HEALCONNECT",
     techStack: ["Next.js", "JavaScript", "Firebase", "CSS"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Dipanita Mondal",
       linkedin: "https://wwww.linkedin.com/in/dipanita-mondal-6a9257306",
@@ -115,6 +108,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Kush-012/Transportation-and-Logistics",
     techStack: ["Java", "Spring Boot", "MySQL"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Kush Mehta",
       linkedin: "",
@@ -129,6 +123,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://mapifyos.netlify.app/",
     techStack: ["React 18"],
     level: "Intermediate",
+    category: "AI",
     admin: {
       name: "Aditya Karmalkar",
       linkedin: "https://www.linkedin.com/in/aditya-karmalkar-242274262/",
@@ -136,13 +131,13 @@ export const PROJECTS: Project[] = [
       avatar: "https://github.com/Aditya-Karmalkar.png"
     },
   },
-  
   {
     title: "Sage Vision",
     description: "Sage Vision is an AI-powered computer vision application focused on image recognition and intelligent visual analysis. It aims to provide accurate detection and insights from visual data using machine learning models.",
     githubRepo: "https://github.com/sahil-09/SageVision",
     techStack: ["Python", "Computer Vision", "Machine Learning", "OpenCV"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Amitosh Biswas",
       linkedin: "http://www.linkedin.com/in/amitosh-biswas-3b80b9250",
@@ -157,6 +152,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://vaishnav.world/arduino-cli-interactive",
     techStack: ["Bash scripting"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Vaishnav Sabari Girish",
       linkedin: "https://www.linkedin.com/in/vaishnav-sabari-girish",
@@ -171,6 +167,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://vaishnav.world/ComChan/",
     techStack: ["Rust", "C++", "Tex"],
     level: "Advanced",
+    category: "Python",
     admin: {
       name: "Vaishnav Sabari Girish",
       linkedin: "https://www.linkedin.com/in/vaishnav-sabari-girish",
@@ -185,6 +182,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://mcparena.vercel.app/",
     techStack: ["Python", "Machine Learning", "AI", "MCP", "LangChain"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Satyam Singh",
       linkedin: "https://www.linkedin.com/in/satyam8306",
@@ -199,6 +197,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://aptos-rwa.vercel.app/",
     techStack: ["Move", "Aptos Framework", "React.js", "TypeScript", "Aptos SDK", "Tailwind CSS"],
     level: "Intermediate",
+    category: "Blockchain",
     admin: {
       name: "Akshith",
       linkedin: "https://www.linkedin.com/in/akshith-anand-5a5988379/",
@@ -212,6 +211,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Sumangal44/ppmm",
     techStack: ["Python", "CLI Development", "Project Management Tools"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Sumangal Karan",
       linkedin: "https://www.linkedin.com/in/sumangal-karan",
@@ -226,6 +226,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://intervyo-sage.vercel.app",
     techStack: ["React.js", "Node.js", "MongoDB", "Express.js"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Santanu Atta",
       linkedin: "https://www.linkedin.com/in/santanu-atta-139820363",
@@ -240,6 +241,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://pypi.org/project/tweakio-SDK/",
     techStack: ["Python", "SDK Development", "AI Integration", "REST APIs"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Rohit Gupta",
       linkedin: "https://www.linkedin.com/in/rohit-gupta-169931272/",
@@ -253,6 +255,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/SoumyaMishra-7/WalletWise",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Soumya Mishra",
       linkedin: "",
@@ -266,6 +269,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/AshChadha-iitg/OpenMath",
     techStack: ["Python", "Web Development", "Math Algorithms"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Ashish Chadha",
       linkedin: "",
@@ -279,6 +283,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/avdhut400/Fediverse.git",
     techStack: ["Node.js", "Express.js", "MongoDB", "ActivityPub Protocol"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Avdhut Magar",
       linkedin: "https://www.linkedin.com/in/avdhut-magar-94088333b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -293,6 +298,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://voucher-x-tau.vercel.app/",
     techStack: ["React", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Ashwini Jaiswal",
       linkedin: "https://www.linkedin.com/in/ashwini-jaiswal-095165282/",
@@ -306,6 +312,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/aviralgarg05/NexumDB",
     techStack: ["C++", "Distributed Systems", "Database Engineering"],
     level: "Advanced",
+    category: "Python",
     admin: {
       name: "Aviral Garg",
       linkedin: "https://www.linkedin.com/in/aviral-garg-b7b053280/",
@@ -319,6 +326,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/atithi4dev/veren",
     techStack: ["Node.js", "TypeScript", "Docker", "AWS"],
     level: "Advanced",
+    category: "AI",
     admin: {
       name: "Atithi Singh",
       linkedin: "https://linkedin.com/in/singhatithi",
@@ -332,6 +340,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Xenonesis/Docverse",
     techStack: ["React.js", "Node.js", "MongoDB", "Express.js"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Aditya Kumar Tiwari",
       linkedin: "",
@@ -346,6 +355,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://code-guardian-report.vercel.app/",
     techStack: ["Python", "Static Code Analysis", "Security Automation"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Aditya Kumar Tiwari",
       linkedin: "",
@@ -359,6 +369,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/sarojit049/Fleetiva-Roadlines",
     techStack: ["React.js", "Node.js", "Express.js", "MongoDB", "Redis", "Twilio", "PDFKit"],
     level: "Beginner",
+    category: "Python",
     admin: {
       name: "Saroj Kumar",
       linkedin: "https://www.linkedin.com/in/saroj-kumar-017948314?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
@@ -373,6 +384,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://civic-resolve-orcin.vercel.app/",
     techStack: ["OpenCV", "YOLO", "AI priority analysis"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Aditya Gupta",
       linkedin: "http://www.linkedin.com/in/aditya-gupta-b06418365",
@@ -387,6 +399,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://crypto-hub-rosy.vercel.app/",
     techStack: ["JavaScript", "React", "Tailwind", "Node", "Express", "REST API"],
     level: "Intermediate",
+    category: "Blockchain",
     admin: {
       name: "Karan Manickam",
       linkedin: "https://www.linkedin.com/in/karanunix",
@@ -401,6 +414,7 @@ export const PROJECTS: Project[] = [
     liveLink : "https://moo-vit.vercel.app/",
     techStack: ["Flutter", "Firebase", "Mobile App Development"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Shubhangi Roy",
       linkedin: "http://www.linkedin.com/in/shubhangi-roy-762a3427a",
@@ -415,6 +429,7 @@ export const PROJECTS: Project[] = [
     liveLink: "https://animate-hub.vercel.app/",
     techStack: ["MongoDB", "Express.js", "React.js", "Node.js (MERN)"],
     level: "Advanced",
+    category: "Python",
     admin: {
       name: "Prem kolte",
       linkedin: "https://www.linkedin.com/in/prem-kolte/",
@@ -428,6 +443,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Karthik-v202/SensBot",
     techStack: ["ESP8266", "DHT/MQ Sensors", "Arduino C/C++", "Motor Controllers"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Karthik VS",
       linkedin: "http://www.linkedin.com/in/karthik-v-s-4335k",
@@ -441,6 +457,7 @@ export const PROJECTS: Project[] = [
     githubRepo: "https://github.com/Beastyy69/Hologram-With-AI",
     techStack: ["Python", "AI/ML", "Computer Vision", "Hardware Integration"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Harshit Shaw",
       linkedin: "https://www.linkedin.com/in/harshitshaw/",
@@ -455,11 +472,40 @@ export const PROJECTS: Project[] = [
     liveLink :"http://experquick.org/learn",
     techStack: ["Python", "Workflow Automation", "Data Processing"],
     level: "Intermediate",
+    category: "Python",
     admin: {
       name: "Bibekananada Hati",
       linkedin: "https://www.linkedin.com/in/bbek-anand/",
       github: "https://github.com/BBEK-Anand",
       avatar: "https://github.com/BBEK-Anand.png"
+    },
+  },
+  {
+    title: "Event Planner",
+    description: "A comprehensive event planning and management platform designed to help users organize, schedule, and coordinate various types of events with ease and efficiency.",
+    githubRepo: "https://github.com/raghav-yadav-dev/event-planner",
+    techStack: ["Python", "Django", "JavaScript", "PostgreSQL"],
+    level: "Intermediate",
+    category: "Python",
+    admin: {
+      name: "Raghav Yadav",
+      linkedin: "https://www.linkedin.com/in/raghav-yadav-dev",
+      github: "https://github.com/raghav-yadav-dev",
+      avatar: "https://github.com/raghav-yadav-dev.png"
+    },
+  },
+  {
+    title: "Lextransition-AI",
+    description: "Lextransition-AI is an AI-powered language translation system that focuses on accurate contextual translations using modern NLP models.",
+    githubRepo: "https://github.com/lextransition-ai/Lextransition-AI",
+    techStack: ["Python", "Natural Language Processing", "Machine Learning"],
+    level: "Advanced",
+    category: "Python",
+    admin: {
+      name: "Achanta Sharanya",
+      linkedin: "https://www.linkedin.com/in/sharanya-achanta-946297276/",
+      github: "https://github.com/SharanyaAchanta",
+      avatar: "https://github.com/SharanyaAchanta.png"
     },
   },
 ];

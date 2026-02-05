@@ -3,8 +3,6 @@
 import {
     Github,
     Linkedin,
-    ArrowUpRight,
-    Globe,
     ExternalLink
 } from "lucide-react";
 import {
@@ -31,13 +29,17 @@ export const ProjectCard = ({ project }: ProjectProps) => {
             className="h-full"
         >
             <div className="relative h-full rounded-2xl bg-[#090909] border border-white/5 p-6 flex flex-col shadow-lg hover:shadow-[#00D6B2]/5 transition-all group overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00D6B2]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <div className="absolute top-0 left-0 w-full h-[2px] bg-linear-to-r from-transparent via-[#00D6B2]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
                 <div className="flex items-center justify-between mb-5">
-                    <Badge className="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider bg-[#00D6B2]/10 text-[#00D6B2] border border-[#00D6B2]/20">
-                        {project.level}
-                    </Badge>
-
+                    <div className="flex gap-2">
+                        <Badge className="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider bg-[#00D6B2]/10 text-[#00D6B2] border border-[#00D6B2]/20">
+                            {project.level}
+                        </Badge>
+                        <Badge className="px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-wider bg-white/5 text-white/60 border border-white/10">
+                            {project.category}
+                        </Badge>
+                    </div>
                 </div>
 
                 <h3 className="text-xl font-bold text-white mb-2 tracking-tight group-hover:text-[#00D6B2] transition-colors">
@@ -52,7 +54,7 @@ export const ProjectCard = ({ project }: ProjectProps) => {
                     {project.techStack.slice(0, 3).map((tech) => (
                         <span
                             key={tech}
-                            className="px-2.5 py-1 rounded-lg text-[10px] font-medium bg-white/[0.03] text-white/50 border border-white/5 transition-colors group-hover:border-[#00D6B2]/10"
+                            className="px-2.5 py-1 rounded-lg text-[10px] font-medium bg-white/3 text-white/50 border border-white/5 transition-colors group-hover:border-[#00D6B2]/10"
                         >
                             {tech}
                         </span>
@@ -69,8 +71,8 @@ export const ProjectCard = ({ project }: ProjectProps) => {
                         </Button>
                     </DialogTrigger>
 
-                    <DialogContent className="max-w-xl p-0 bg-[#080808] border border-white/10 rounded-[2rem] text-white overflow-hidden max-h-[85vh] flex flex-col">
-                        <div className="h-1 w-full bg-gradient-to-r from-[#00D6B2] to-[#4FD1D0] shrink-0" />
+                    <DialogContent className="max-w-xl p-0 bg-[#080808] border border-white/10 rounded-4xl text-white overflow-hidden max-h-[85vh] flex flex-col">
+                        <div className="h-1 w-full bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] shrink-0" />
 
                         <div className="p-8 overflow-y-auto space-y-8 custom-scrollbar">
                             <div className="flex justify-between items-start gap-4">
