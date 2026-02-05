@@ -199,10 +199,7 @@ function ListItem({ player, rank }: { player: Player, rank: number }) {
     <motion.div layout initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} transition={{ type: 'spring', stiffness: 300, damping: 30 }} className="grid grid-cols-12 items-center px-4 py-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 hover:bg-white/[0.07] transition-colors group">
       <div className="col-span-1 text-center font-bold text-slate-500 text-sm">#{rank}</div>
       <div className="col-span-7 md:col-span-8 flex items-center gap-3">
-        <Avatar className="w-8 h-8 rounded-lg border border-white/10">
-          <AvatarImage src={player.avatar} />
-          <AvatarFallback>{player.name[0]}</AvatarFallback>
-        </Avatar>
+      
         <div className="flex flex-col md:flex-row md:items-center gap-0.5 md:gap-2">
           <span className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors">{player.name}</span>
           <span className="text-[10px] md:text-xs text-slate-500 font-medium">{player.handle}</span>
