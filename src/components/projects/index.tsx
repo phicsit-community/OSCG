@@ -39,7 +39,7 @@ const ProjectsSection = () => {
   }, [activeCategory]);
 
   return (
-    <section className="relative pt-32 pb-24 min-h-screen overflow-hidden bg-[#050505]">
+    <section className="relative pt-32 pb-24 min-h-screen overflow-hidden ">
       {/* Dynamic background accents */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#00D6B2]/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#4FD1D0]/5 rounded-full blur-[120px] pointer-events-none" />
@@ -52,11 +52,11 @@ const ProjectsSection = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="mb-4 text-4xl sm:text-5xl md:text-6xl font-black text-white tracking-tighter uppercase italic">
-              Explore <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2] bg-size-[200%_auto] animate-gradient">Open Source</span>
+            <h2 className="mb-4 text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight uppercase">
+              Active <span className="text-transparent bg-clip-text bg-linear-to-r from-[#00D6B2] to-[#4FD1D0]">Projects</span>
             </h2>
             <p className="text-white/40 text-base sm:text-lg max-w-2xl mx-auto mt-4 px-4 font-medium leading-relaxed">
-              Find your next contribution. Filter by your expertise and join high-impact global projects.
+              Discover community-driven initiatives. View detailed architectures, tech stacks, and connect with lead mentors.
             </p>
           </motion.div>
         </div>
@@ -67,9 +67,9 @@ const ProjectsSection = () => {
             <Button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`h-11 px-8 rounded-2xl font-bold text-xs uppercase tracking-widest transition-all duration-300 ${activeCategory === category
-                ? "bg-[#00D6B2] text-black shadow-[0_0_25px_rgba(0,214,178,0.3)] scale-105"
-                : "bg-white/5 text-white/50 border border-white/5 hover:bg-white/10 hover:text-white"
+              className={`h-10 px-6 rounded-xl font-bold text-[10px] uppercase tracking-wider  cursor-pointer transition-all duration-200 ${activeCategory === category
+                ? "bg-[#00D6B2]  text-black hover:bg-[#00D6B2]/80 "
+                : " text-white/50 border border-white/5 hover:bg-white/10 hover:text-white"
                 }`}
             >
               {category}

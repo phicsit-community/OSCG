@@ -24,12 +24,11 @@ interface ProjectProps {
 export const ProjectCard = ({ project }: ProjectProps) => {
     return (
         <motion.div
-            whileHover={{ y: -5 }}
+            whileHover={{ y: -4 }}
             transition={{ duration: 0.2 }}
-            className="h-full"
+            className="h-full group"
         >
-            <div className="relative h-full rounded-2xl bg-[#090909] border border-white/5 p-6 flex flex-col shadow-lg hover:shadow-[#00D6B2]/5 transition-all group overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-[2px] bg-linear-to-r from-transparent via-[#00D6B2]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="relative h-full rounded-2xl bg-[#090909] border border-white/5 p-6 flex flex-col shadow-md hover:border-white/10 transition-all overflow-hidden">
 
                 <div className="flex items-center justify-between mb-5">
                     <div className="flex gap-2">
