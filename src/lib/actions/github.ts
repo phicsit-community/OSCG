@@ -20,7 +20,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
                 return `${parts[parts.length - 2]}/${parts[parts.length - 1]}`;
             }
             return null;
-        } catch (e) {
+        } catch (_) {
             return null;
         }
     }).filter(Boolean) as string[];
@@ -56,23 +56,32 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         const searchData = await response.json();
         const allMergedPRs = searchData.items || [];
 
-        // 3. Filter PRs to only counts those in our competition repos
-        const competitionPRs = allMergedPRs.filter((pr: any) => {
-            return competitionRepos.some(repo => pr.repository_url.toLowerCase().includes(repo.toLowerCase()));
-        });
+        // 3. Filter PRs and Categorize by Difficulty
+        let mergedCount = 0;
+        const difficultyCounts = { easy: 0, med: 0, hard: 0, exp: 0 };
+        const uniqueProjectRepos = new Set<string>();
 
-        const mergedCount = competitionPRs.length;
+        for (const pr of allMergedPRs) {
+            if (competitionRepos.some(repo => pr.repository_url.toLowerCase().includes(repo.toLowerCase()))) {
+                mergedCount++;
 
-        // 4. Calculate unique competition projects contributed to
-        const uniqueProjectRepos = new Set(
-            competitionPRs.map((pr: any) => {
+                // Track projects
                 const parts = pr.repository_url.split("/");
-                return `${parts[parts.length - 2]}/${parts[parts.length - 1]}`.toLowerCase();
-            })
-        );
+                uniqueProjectRepos.add(`${parts[parts.length - 2]}/${parts[parts.length - 1]}`.toLowerCase());
+
+                // Check difficulty labels
+                const labels = pr.labels?.map((l: any) => l.name.toLowerCase()) || [];
+                if (labels.some((l: string) => l.includes("easy"))) difficultyCounts.easy++;
+                else if (labels.some((l: string) => l.includes("medium") || l.includes("med"))) difficultyCounts.med++;
+                else if (labels.some((l: string) => l.includes("hard"))) difficultyCounts.hard++;
+                else if (labels.some((l: string) => l.includes("expert") || l.includes("exp"))) difficultyCounts.exp++;
+                else difficultyCounts.easy++; // Default to easy if no label
+            }
+        }
+
         const projectsCount = uniqueProjectRepos.size;
 
-        // 5. Update Database (ONLY counts, NEVER the score)
+        // 4. Update Database (ONLY counts, NEVER the score)
         const { error } = await supabaseAdmin
             .from("profiles")
             .update({
@@ -91,12 +100,14 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
             success: true,
             data: {
                 mergedPRs: mergedCount,
-                projectsCount: projectsCount
+                projectsCount: projectsCount,
+                difficultyCounts
             }
         };
 
+
     } catch (error) {
-        console.error("Sync Error:", error);
-        return { success: false, error: "Unexpected error during synchronization" };
+        console.error("Error loading projects:", error); // Updated console.error message
+        return { success: false, error: "Configuration Error" }; // Updated error message
     }
 }

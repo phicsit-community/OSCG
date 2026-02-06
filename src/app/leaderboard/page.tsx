@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Crown, Users, Github, Linkedin } from "lucide-react";
+import { Crown, Users } from "lucide-react";
 import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/lib/supabase/client";
@@ -10,12 +10,9 @@ import { supabase } from "@/lib/supabase/client";
 interface Player {
   id: string;
   name: string;
-  handle: string;
   score: number;
   avatar: string;
   country: string;
-  github?: string;
-  linkedin?: string;
   mergedPRs: number;
   projectsCount: number;
 }
@@ -35,9 +32,9 @@ export default function LeaderBoardPage() {
 
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, full_name, github, linkedin, score, email, merged_prs, projects_count")
+        .select("id, full_name, github, score, email, merged_prs, projects_count")
         .order("score", { ascending: false })
-        .limit(100);
+        .limit(50);
 
       if (error) {
         console.error("Error fetching leaderboard:", error);
@@ -46,7 +43,6 @@ export default function LeaderBoardPage() {
           id: string;
           full_name: string | null;
           github: string | null;
-          linkedin: string | null;
           score: number | null;
           email: string | null;
           merged_prs: number | null;
@@ -57,14 +53,11 @@ export default function LeaderBoardPage() {
           return {
             id: user.id,
             name: user.full_name || "Anonymous",
-            handle: user.github ? `@${user.github}` : "@participant",
             score: score,
             avatar: user.github
               ? `https://github.com/${user.github}.png`
               : `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email || user.id}`,
             country: "in",
-            github: user.github || "",
-            linkedin: user.linkedin || "",
             mergedPRs: user.merged_prs || 0,
             projectsCount: user.projects_count || 0,
           };
@@ -233,10 +226,6 @@ function ListItem({ player, rank }: { player: Player; rank: number }) {
               <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
             </div>
             <span className="text-xl font-black text-white group-hover:text-[#00D6B2] transition-colors tracking-tight">{player.name}</span>
-          </div>
-          <div className="flex items-center gap-4 pt-2">
-            {player.github && <a href={`https://github.com/${player.github}`} target="_blank" rel="noreferrer" className="text-white/10 hover:text-white transition-colors"><Github className="w-4 h-4" /></a>}
-            {player.linkedin && <a href={`https://linkedin.com/in/${player.linkedin}`} target="_blank" rel="noreferrer" className="text-white/10 hover:text-[#00D6B2] transition-colors"><Linkedin className="w-4 h-4" /></a>}
           </div>
         </div>
       </div>

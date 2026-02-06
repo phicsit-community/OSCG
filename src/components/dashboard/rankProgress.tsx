@@ -11,28 +11,6 @@ export default function RankProgress() {
         <StatCard title="Points" value="0 / 200" sub="to next rank" />
       </div>
 
-      {/* ===== NEXT RANK ===== */}
-      <div className="mb-6 bg-white/5 border border-white/10 rounded-2xl p-4">
-        <div className="flex justify-between items-center mb-3">
-          <h2 className="text-white/70 font-bold text-[10px] uppercase tracking-widest">
-            Progress to Next Rank
-          </h2>
-          <span className="text-[10px] font-bold text-[#00D6B2] uppercase tracking-wider">200 pts to go</span>
-        </div>
-
-        {/* Slim progress bar */}
-        <div className="h-2 rounded-full bg-white/10 overflow-hidden">
-          <div
-            className="h-full w-[5%] bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full shadow-[0_0_10px_rgba(0,214,178,0.3)] transition-all duration-500"
-            style={{ width: '5%' }}
-          />
-        </div>
-
-        <div className="flex justify-between text-[10px] font-bold text-white/40 mt-3 uppercase tracking-tighter">
-          <span>0.0% complete</span>
-          <span className="text-white/60">Rank #30</span>
-        </div>
-      </div>
 
       {/* ===== ULTIMATE TARGET ===== */}
       <div className="rounded-2xl border border-white/10 bg-linear-to-br from-white/5 to-transparent p-4 mb-4">

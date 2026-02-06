@@ -72,7 +72,7 @@ export default function Achievements({
         .eq("id", user.id);
 
       if (error) throw error;
-    } catch (error) {
+    } catch {
       toast.error("Failed to save tech stack");
     } finally {
       setIsSaving(false);

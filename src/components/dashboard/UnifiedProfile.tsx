@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Check, Github, Linkedin } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -12,7 +12,6 @@ type UnifiedProfileProps = {
 };
 
 export default function UnifiedProfile({ username, fullName, linkedin, role, score = 0 }: UnifiedProfileProps) {
-    // Extract handle if user pasted a full URL
     const cleanUsername = React.useMemo(() => {
         if (!username) return "";
         if (username.includes("github.com")) {
@@ -38,8 +37,7 @@ export default function UnifiedProfile({ username, fullName, linkedin, role, sco
     return (
         <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] w-full border border-white/5 overflow-hidden hover:border-[#00D6B2]/20 transition-all duration-500 shadow-2xl group">
             <div className="flex flex-col lg:flex-row h-full">
-                {/* ================= LEFT SIDE: PROFILE INFO ================= */}
-                <div className="w-full lg:w-2/5 p-6 md:p-8 flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-r border-white/5 bg-white/[0.02]">
+                <div className="w-full lg:w-2/5 p-6 md:p-8 flex flex-col items-center justify-center border-b lg:border-b-0 lg:border-r border-white/5 bg-white/2">
                     <div className="relative group/avatar mb-6">
                         <div className="absolute -inset-1 bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] rounded-full blur opacity-20 group-hover/avatar:opacity-40 transition duration-500" />
                         <div className="relative p-1 rounded-full bg-linear-to-br from-white/10 to-transparent">
@@ -158,6 +156,7 @@ export default function UnifiedProfile({ username, fullName, linkedin, role, sco
                             <div className="relative w-full h-full flex items-center justify-center p-2">
                                 {cleanUsername ? (
                                     /* using standard img tag with pure inversion for accurate GitHub Dark colors */
+                                    // eslint-disable-next-line @next/next/no-img-element
                                     <img
                                         src={`https://github-contributions-api.deno.dev/${cleanUsername}.svg`}
                                         alt="Contribution Graph"
@@ -193,15 +192,6 @@ function StatCard({
             <p className="text-[9px] font-bold text-white/40 mb-1 uppercase tracking-widest leading-none">{title}</p>
             <p className="text-xl font-black text-white tracking-tighter mt-1">{value}</p>
             <p className="text-[9px] font-bold text-[#00D6B2] uppercase tracking-wider mt-0.5">{sub}</p>
-        </div>
-    );
-}
-
-function Metric({ label, value, color = "text-white" }: { label: string; value: string, color?: string }) {
-    return (
-        <div>
-            <p className="text-[9px] font-bold text-white/40 mb-1 uppercase tracking-widest leading-none">{label}</p>
-            <p className={`text-2xl font-black ${color} tracking-tighter`}>{value}</p>
         </div>
     );
 }

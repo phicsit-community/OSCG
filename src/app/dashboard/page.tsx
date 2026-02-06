@@ -18,6 +18,7 @@ const DashboardPage = () => {
     const [mergedPRs, setMergedPRs] = useState(0);
     const [projectsCount, setProjectsCount] = useState(0);
     const [score, setScore] = useState(0);
+    const [difficultyCounts, setDifficultyCounts] = useState({ easy: 0, med: 0, hard: 0, exp: 0 });
 
     const [loading, setLoading] = useState(true);
 
@@ -52,10 +53,13 @@ const DashboardPage = () => {
                             if (result.success && result.data) {
                                 setMergedPRs(result.data.mergedPRs);
                                 setProjectsCount(result.data.projectsCount);
-                                // Note: Score is decoupled from sync to preserve Admin manual updates
+                                if (result.data.difficultyCounts) {
+                                    setDifficultyCounts(result.data.difficultyCounts);
+                                }
                             }
                         }
-                    } else {
+                    }
+                    else {
                         toast.warning("GitHub profile not found", {
                             description: "Please connect your GitHub in profile settings to track contributions.",
                             duration: 5000,
@@ -128,7 +132,11 @@ const DashboardPage = () => {
                     </div>
                     <Achievements mergedPRs={mergedPRs} projectsCount={projectsCount} />
                     <div className="w-full">
-                        <UnifiedMetrics mergedPRs={mergedPRs} projectsCount={projectsCount} />
+                        <UnifiedMetrics
+                            mergedPRs={mergedPRs}
+                            projectsCount={projectsCount}
+                            difficultyCounts={difficultyCounts}
+                        />
                     </div>
 
 

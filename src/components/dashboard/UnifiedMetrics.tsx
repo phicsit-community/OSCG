@@ -3,11 +3,17 @@ import { GitPullRequest, Bug, GitCommit, Folder, Eye } from "lucide-react";
 
 export default function UnifiedMetrics({
     mergedPRs = 0,
-    projectsCount = 0
+    projectsCount = 0,
+    difficultyCounts = { easy: 0, med: 0, hard: 0, exp: 0 }
 }: {
     mergedPRs?: number;
     projectsCount?: number;
+    difficultyCounts?: { easy: number; med: number; hard: number; exp: number };
 }) {
+    // Calculate Percentages for the distribution bars
+    const total = mergedPRs || 1; // avoid divide by zero
+    const getPercent = (count: number) => (count / total) * 100;
+
     return (
         <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] w-full border border-white/5 overflow-hidden hover:border-[#00D6B2]/20 transition-all duration-500 shadow-2xl group">
             <div className="flex flex-col lg:flex-row">
@@ -32,17 +38,17 @@ export default function UnifiedMetrics({
                     </div>
 
                     <div className="flex-1 flex flex-col justify-center gap-7 relative z-10 px-2 min-h-[240px]">
-                        <DistributionBar label="Easy" color="bg-[#00D6B2]" percentage={0} pts="5" />
-                        <DistributionBar label="Medium" color="bg-[#4FD1D0]" percentage={0} pts="10" />
-                        <DistributionBar label="Hard" color="bg-amber-400" percentage={0} pts="20" />
-                        <DistributionBar label="Expert" color="bg-rose-500" percentage={0} pts="40" />
+                        <DistributionBar label="Easy" color="bg-[#00D6B2]" percentage={getPercent(difficultyCounts.easy)} pts="5" />
+                        <DistributionBar label="Medium" color="bg-[#4FD1D0]" percentage={getPercent(difficultyCounts.med)} pts="10" />
+                        <DistributionBar label="Hard" color="bg-amber-400" percentage={getPercent(difficultyCounts.hard)} pts="20" />
+                        <DistributionBar label="Expert" color="bg-rose-500" percentage={getPercent(difficultyCounts.exp)} pts="40" />
                     </div>
 
                     <div className="grid grid-cols-4 gap-4 mt-8 pt-8 border-t border-white/5 relative z-10">
-                        <StatDot color="bg-[#00D6B2]" label="Easy" count="0" />
-                        <StatDot color="bg-[#4FD1D0]" label="Med" count="0" />
-                        <StatDot color="bg-amber-400" label="Hard" count="0" />
-                        <StatDot color="bg-rose-500" label="Exp" count="0" />
+                        <StatDot color="bg-[#00D6B2]" label="Easy" count={difficultyCounts.easy.toString()} />
+                        <StatDot color="bg-[#4FD1D0]" label="Med" count={difficultyCounts.med.toString()} />
+                        <StatDot color="bg-amber-400" label="Hard" count={difficultyCounts.hard.toString()} />
+                        <StatDot color="bg-rose-500" label="Exp" count={difficultyCounts.exp.toString()} />
                     </div>
                 </div>
 

@@ -15,7 +15,7 @@ export default function ImpactOverview() {
 
           <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-lg border border-white/10">
             <Eye className="w-3.5 h-3.5 text-[#00D6B2]" />
-            22 Views
+            0 Views
           </div>
         </div>
 
