@@ -132,20 +132,6 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    title: "Sage Vision",
-    description: "Sage Vision is an AI-powered computer vision application focused on image recognition and intelligent visual analysis. It aims to provide accurate detection and insights from visual data using machine learning models.",
-    githubRepo: "https://github.com/sahil-09/SageVision",
-    techStack: ["Python", "Computer Vision", "Machine Learning", "OpenCV"],
-    level: "Intermediate",
-    category: "Python",
-    admin: {
-      name: "Amitosh Biswas",
-      linkedin: "http://www.linkedin.com/in/amitosh-biswas-3b80b9250",
-      github: "https://github.com/sahil-09",
-      avatar: "https://github.com/sahil-09.png"
-    },
-  },
-  {
     title: "arduino-cli-interactive",
     description: "An interactive terminal-based tool to help beginners use arduino-cli easily with guided workflows.",
     githubRepo: "https://github.com/Vaishnav-Sabari-Girish/arduino-cli-interactive",
