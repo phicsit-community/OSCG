@@ -8,9 +8,10 @@ type UnifiedProfileProps = {
     fullName?: string;
     linkedin?: string;
     role?: string;
+    score?: number;
 };
 
-export default function UnifiedProfile({ username, fullName, linkedin, role }: UnifiedProfileProps) {
+export default function UnifiedProfile({ username, fullName, linkedin, role, score = 0 }: UnifiedProfileProps) {
     // Extract handle if user pasted a full URL
     const cleanUsername = React.useMemo(() => {
         if (!username) return "";
@@ -111,9 +112,9 @@ export default function UnifiedProfile({ username, fullName, linkedin, role }: U
                 <div className="w-full lg:w-3/5 p-6 md:p-8 flex flex-col h-full justify-center">
                     {/* Top Stats Row */}
                     <div className="grid grid-cols-3 gap-4 mb-6">
-                        <StatCard title="Current Rank" value="#50" sub="Top 100%" />
+                        <StatCard title="Current Rank" value="#--" sub="Top 100%" />
                         <StatCard title="Day Streak" value="0" sub="days" />
-                        <StatCard title="Points" value="0 / 200" sub="to next rank" />
+                        <StatCard title="Total Points" value={score.toString()} sub="verified" />
                     </div>
 
                     <div className="flex flex-col gap-4 grow">

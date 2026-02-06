@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Sparkles, Lock, Zap, X, Search, Loader2 } from "lucide-react";
+import { Sparkles, Lock, Zap, X, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { AnimatePresence, motion } from "framer-motion";
 import ReadyToContribute from "./contribute";
-
-const ACHIEVEMENTS = Array.from({ length: 6 });
 
 const ALL_SUGGESTIONS = [
   "React", "Next.js", "TypeScript", "JavaScript", "Python", "Node.js",
@@ -17,12 +15,17 @@ const ALL_SUGGESTIONS = [
 
 const QUICK_ADD = ["React", "Python", "Node.js", "TypeScript", "Next.js"];
 
-export default function Achievements() {
+export default function Achievements({
+  mergedPRs = 0,
+  projectsCount = 0
+}: {
+  mergedPRs?: number;
+  projectsCount?: number;
+}) {
   // Tech Stack State
   const [selectedTechs, setSelectedTechs] = useState<string[]>([]);
   const [input, setInput] = useState("");
   const [isSaving, setIsSaving] = useState(false);
-  const [isStackLoading, setIsStackLoading] = useState(true);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
   // Initial Fetch for Tech Stack
@@ -42,8 +45,6 @@ export default function Achievements() {
         }
       } catch (error) {
         console.error("Error fetching tech stack:", error);
-      } finally {
-        setIsStackLoading(false);
       }
     }
     fetchTechStack();
@@ -95,15 +96,26 @@ export default function Achievements() {
     saveTechStack(newStack);
   };
 
+  // Achievement Logic
+  const achievements = useMemo(() => {
+    return [
+      { id: 1, name: "First Merge", unlocked: mergedPRs >= 1, description: "Merged your first PR" },
+      { id: 2, name: "Project Pioneer", unlocked: projectsCount >= 1, description: "Contributed to a project" },
+      { id: 3, name: "Triple Threat", unlocked: mergedPRs >= 3, description: "3 merged PRs" },
+      { id: 4, name: "Multitasker", unlocked: projectsCount >= 3, description: "3 different projects" },
+      { id: 5, name: "Power Contributor", unlocked: mergedPRs >= 10, description: "10 merged PRs" },
+      { id: 6, name: "Community Legend", unlocked: projectsCount >= 10, description: "10 different projects" },
+    ];
+  }, [mergedPRs, projectsCount]);
+
+  const unlockedCount = achievements.filter(a => a.unlocked).length;
+
   return (
     <div className="w-full">
-      {/* Card */}
       <div className="bg-white/5 backdrop-blur-md rounded-3xl p-6 md:p-8 w-full border border-white/10 h-full hover:border-[#00D6B2]/40 transition-all duration-300 shadow-xl group">
-
         <div className="flex flex-col md:flex-row gap-8 items-start">
           {/* LEFT: ACHIEVEMENTS */}
           <div className="flex-1 w-full">
-            {/* Header Row */}
             <div className="flex items-center justify-between mb-8">
               <div>
                 <div className="flex items-center gap-3 text-xl text-white font-bold tracking-tight">
@@ -114,33 +126,36 @@ export default function Achievements() {
                   Unlock badges as you contribute
                 </p>
               </div>
-
-              <span className="text-[10px] font-bold text-white/70 bg-white/5 px-4 py-1.5 rounded-full border border-white/10 uppercase tracking-wider">
-                0/6 Unlocked
+              <span className="text-[10px] font-bold text-[#00D6B2] bg-[#00D6B2]/10 px-4 py-1.5 rounded-full border border-[#00D6B2]/10 uppercase tracking-wider">
+                {unlockedCount}/6 Unlocked
               </span>
             </div>
 
-            {/* Achievement Tiles */}
-            <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
-              {ACHIEVEMENTS.map((_, idx) => (
+            <div className="grid grid-cols-3 gap-4">
+              {achievements.map((ach) => (
                 <div
-                  key={idx}
-                  className="group/ach aspect-square rounded-2xl
-                                 bg-white/5
-                                 border border-white/10
-                                 flex flex-col items-center justify-center
-                                 transition-all duration-300 hover:bg-[#00D6B2]/5 hover:border-[#00D6B2]/30"
+                  key={ach.id}
+                  title={ach.description}
+                  className={`group/ach aspect-square rounded-2xl border transition-all duration-300 flex flex-col items-center justify-center
+                    ${ach.unlocked
+                      ? 'bg-[#00D6B2]/10 border-[#00D6B2]/40 shadow-[0_0_20px_rgba(0,214,178,0.1)]'
+                      : 'bg-white/5 border-white/10 opacity-40'}`}
                 >
-                  <div className="p-3 rounded-full bg-white/5 mb-2 group-hover/ach:bg-[#00D6B2]/10 transition-colors">
-                    <Lock className="w-5 h-5 text-white/20 group-hover/ach:text-[#00D6B2] transition-colors" />
+                  <div className={`p-3 rounded-full mb-2 transition-colors ${ach.unlocked ? 'bg-[#00D6B2]/20' : 'bg-white/5'}`}>
+                    {ach.unlocked ? (
+                      <Zap className="w-5 h-5 text-[#00D6B2] fill-[#00D6B2]/20" />
+                    ) : (
+                      <Lock className="w-4 h-4 text-white/20" />
+                    )}
                   </div>
-                  <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] group-hover/ach:text-white/40 transition-colors">Locked</span>
+                  <span className={`text-[8px] font-black uppercase tracking-widest text-center px-2 leading-tight ${ach.unlocked ? 'text-[#00D6B2]' : 'text-white/20'}`}>
+                    {ach.unlocked ? ach.name : "Locked"}
+                  </span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* DIVIDER */}
           <div className="hidden md:block w-px bg-white/5 self-stretch mx-4"></div>
 
           {/* RIGHT: TECH STACK */}
@@ -177,7 +192,6 @@ export default function Achievements() {
                 ))}
               </AnimatePresence>
 
-              {/* Input Field */}
               <div className="relative group/input inline-flex items-center grow min-w-[60px]">
                 <input
                   type="text"
@@ -197,7 +211,6 @@ export default function Achievements() {
                   placeholder="+ Add Skill"
                   className="w-full bg-transparent border-none focus:outline-none text-[10px] font-bold text-white/60 focus:text-white placeholder:text-white/20 uppercase tracking-wide h-full py-1.5"
                 />
-                {/* Dropdown Suggestions */}
                 <AnimatePresence>
                   {showSuggestions && filteredSuggestions.length > 0 && (
                     <motion.div
@@ -224,7 +237,6 @@ export default function Achievements() {
               </div>
             </div>
 
-            {/* Quick Add Suggestions */}
             {QUICK_ADD.filter(t => !selectedTechs.includes(t)).length > 0 && (
               <div className="flex flex-wrap gap-2 mt-auto mb-6">
                 {QUICK_ADD.filter(t => !selectedTechs.includes(t)).map(tech => (
@@ -239,7 +251,6 @@ export default function Achievements() {
               </div>
             )}
 
-            {/* Ready to Contribute Card */}
             <ReadyToContribute />
           </div>
         </div>

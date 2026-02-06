@@ -1,11 +1,17 @@
 import React from "react";
 import { GitPullRequest, Bug, GitCommit, Folder, Eye } from "lucide-react";
 
-export default function UnifiedMetrics() {
+export default function UnifiedMetrics({
+    mergedPRs = 0,
+    projectsCount = 0
+}: {
+    mergedPRs?: number;
+    projectsCount?: number;
+}) {
     return (
         <div className="bg-white/5 backdrop-blur-xl rounded-[2.5rem] w-full border border-white/5 overflow-hidden hover:border-[#00D6B2]/20 transition-all duration-500 shadow-2xl group">
             <div className="flex flex-col lg:flex-row">
-          
+
                 <div className="w-full lg:w-3/5 p-6 md:p-8 border-b lg:border-b-0 lg:border-r border-white/5 relative overflow-hidden">
                     <div className="absolute -bottom-24 -left-24 w-48 h-48 bg-[#4FD1D0]/10 blur-[100px] rounded-full group-hover:bg-[#4FD1D0]/20 transition-colors duration-700" />
 
@@ -21,7 +27,7 @@ export default function UnifiedMetrics() {
                         </div>
 
                         <span className="text-[10px] font-black text-[#00D6B2] bg-[#00D6B2]/10 px-4 py-2 rounded-xl border border-[#00D6B2]/10 uppercase tracking-widest shadow-inner">
-                            0 TOTAL
+                            {mergedPRs} TOTAL
                         </span>
                     </div>
 
@@ -50,7 +56,7 @@ export default function UnifiedMetrics() {
 
                         <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-widest bg-white/5 px-3 py-1 rounded-lg border border-white/10">
                             <Eye className="w-3.5 h-3.5 text-[#00D6B2]" />
-                            22 Views
+                            Live Sync
                         </div>
                     </div>
 
@@ -58,9 +64,9 @@ export default function UnifiedMetrics() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-full content-start">
                         <MetricCard
                             icon={<GitPullRequest className="w-5 h-5 text-[#00D6B2]" />}
-                            value="0"
+                            value={mergedPRs.toString()}
                             label="Pull Requests"
-                            sub="0 total"
+                            sub={`${mergedPRs} merged`}
                         />
 
                         <MetricCard
@@ -72,14 +78,14 @@ export default function UnifiedMetrics() {
 
                         <MetricCard
                             icon={<GitCommit className="w-5 h-5 text-[#4FD1D0]" />}
-                            value="0"
+                            value="--"
                             label="Commits"
                             sub="all time"
                         />
 
                         <MetricCard
                             icon={<Folder className="w-5 h-5 text-yellow-400" />}
-                            value="0"
+                            value={projectsCount.toString()}
                             label="Projects"
                             sub="contributed"
                         />

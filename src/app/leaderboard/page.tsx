@@ -35,7 +35,7 @@ export default function LeaderBoardPage() {
 
       const { data, error } = await supabase
         .from("profiles")
-        .select("id, full_name, github, linkedin, score, email")
+        .select("id, full_name, github, linkedin, score, email, merged_prs, projects_count")
         .order("score", { ascending: false })
         .limit(100);
 
@@ -49,6 +49,8 @@ export default function LeaderBoardPage() {
           linkedin: string | null;
           score: number | null;
           email: string | null;
+          merged_prs: number | null;
+          projects_count: number | null;
         }
         const dbPlayers = (data as LeaderboardProfile[]).map((user) => {
           const score = user.score || 0;
@@ -63,9 +65,8 @@ export default function LeaderBoardPage() {
             country: "in",
             github: user.github || "",
             linkedin: user.linkedin || "",
-            // Standardizing to 0 as requested since there is no real data yet
-            mergedPRs: 0,
-            projectsCount: 0,
+            mergedPRs: user.merged_prs || 0,
+            projectsCount: user.projects_count || 0,
           };
         });
 

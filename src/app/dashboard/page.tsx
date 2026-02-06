@@ -15,16 +15,21 @@ const DashboardPage = () => {
     const [fullName, setFullName] = useState("");
     const [linkedin, setLinkedin] = useState("");
     const [role, setRole] = useState("contributor");
+    const [mergedPRs, setMergedPRs] = useState(0);
+    const [projectsCount, setProjectsCount] = useState(0);
+    const [score, setScore] = useState(0);
+
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function getProfile() {
+        async function getProfileAndSync() {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    // 1. Initial Profile Fetch
                     const { data: profile } = await supabase
                         .from("profiles")
-                        .select("github, full_name, linkedin, role")
+                        .select("github, full_name, linkedin, role, merged_prs, projects_count, score")
                         .eq("id", user.id)
                         .single();
 
@@ -33,6 +38,23 @@ const DashboardPage = () => {
                         if (profile.full_name) setFullName(profile.full_name);
                         if (profile.linkedin) setLinkedin(profile.linkedin);
                         if (profile.role) setRole(profile.role);
+
+                        // Set Initial Metrics
+                        setMergedPRs(profile.merged_prs || 0);
+                        setProjectsCount(profile.projects_count || 0);
+                        setScore(profile.score || 0);
+
+                        // 2. Background Sync (Lazy Sync)
+                        if (profile.github) {
+                            const { syncGitHubContribution } = await import("@/lib/actions/github");
+                            const result = await syncGitHubContribution(user.id, profile.github);
+
+                            if (result.success && result.data) {
+                                setMergedPRs(result.data.mergedPRs);
+                                setProjectsCount(result.data.projectsCount);
+                                // Note: Score is decoupled from sync to preserve Admin manual updates
+                            }
+                        }
                     } else {
                         toast.warning("GitHub profile not found", {
                             description: "Please connect your GitHub in profile settings to track contributions.",
@@ -47,7 +69,7 @@ const DashboardPage = () => {
             }
         }
 
-        getProfile();
+        getProfileAndSync();
     }, []);
 
     if (loading) {
@@ -96,11 +118,17 @@ const DashboardPage = () => {
 
                 <>
                     <div className="w-full">
-                        <UnifiedProfile username={username} fullName={fullName} linkedin={linkedin} role={role} />
+                        <UnifiedProfile
+                            username={username}
+                            fullName={fullName}
+                            linkedin={linkedin}
+                            role={role}
+                            score={score}
+                        />
                     </div>
-                    <Achievements />
+                    <Achievements mergedPRs={mergedPRs} projectsCount={projectsCount} />
                     <div className="w-full">
-                        <UnifiedMetrics />
+                        <UnifiedMetrics mergedPRs={mergedPRs} projectsCount={projectsCount} />
                     </div>
 
 
