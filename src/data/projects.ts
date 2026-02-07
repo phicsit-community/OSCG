@@ -61,7 +61,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Innovision",
     description: "Innovision is a modern web platform designed to showcase innovative projects, ideas, and events with a clean and interactive user interface.",
-    githubRepo: "https://github.com/akshay-innovision/Innovision",
+    githubRepo: "https://github.com/ItsVikasA/Innovision-Open-Source",
     techStack: ["React.js", "Node.js", "MongoDB"],
     level: "Intermediate",
     category: "Python",
@@ -483,7 +483,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Lextransition-AI",
     description: "Lextransition-AI is an AI-powered language translation system that focuses on accurate contextual translations using modern NLP models.",
-    githubRepo: "https://github.com/lextransition-ai/Lextransition-AI",
+    githubRepo: "https://github.com/SharanyaAchanta/LexTransition-AI",
     techStack: ["Python", "Natural Language Processing", "Machine Learning"],
     level: "Advanced",
     category: "Python",
