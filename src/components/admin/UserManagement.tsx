@@ -191,6 +191,7 @@ export default function UserManagement({
               </SelectTrigger>
               <SelectContent className="bg-[#0B0F17] cursor-pointer border-white/10 text-slate-300">
                 <SelectItem value="all" className="text-sm font-medium  focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">All Roles</SelectItem>
+                <SelectItem value="admin" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Admin</SelectItem>
                 <SelectItem value="contributor" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Contributor</SelectItem>
                 <SelectItem value="project-admin" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Project Admin</SelectItem>
                 <SelectItem value="mentor" className="text-sm font-medium focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Mentor</SelectItem>
@@ -326,6 +327,7 @@ export default function UserManagement({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent className="bg-[#0B0F17] border-white/10 text-slate-300">
+                            <SelectItem value="admin" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Admin</SelectItem>
                             <SelectItem value="contributor" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Contributor</SelectItem>
                             <SelectItem value="project-admin" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Project Admin</SelectItem>
                             <SelectItem value="mentor" className="text-[10px] font-bold uppercase tracking-wider focus:bg-[#11D392]/10 focus:text-[#11D392] cursor-pointer">Mentor</SelectItem>

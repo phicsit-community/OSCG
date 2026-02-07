@@ -71,15 +71,15 @@ export async function updateUserRole(userId: string, role: string) {
     return { success: false, error: "Authentication required" };
   }
 
-  // Verify requester is a super admin
+  // Verify requester is a super admin (is_admin flag or admin role)
   const { data: requesterProfile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, is_admin")
     .eq("id", requester.id)
     .single();
 
-  if (requesterProfile?.role !== "admin") {
-    return { success: false, error: "Unauthorized: Super Admin privileges required" };
+  if (!requesterProfile?.is_admin && requesterProfile?.role !== "admin") {
+    return { success: false, error: "Unauthorized: Admin privileges required" };
   }
 
   const { error } = await supabase
@@ -110,11 +110,11 @@ export async function updateUserScore(userId: string, score: number) {
   // Verify requester is an admin or project-admin
   const { data: requesterProfile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, is_admin")
     .eq("id", requester.id)
     .single();
 
-  if (requesterProfile?.role !== "admin" && requesterProfile?.role !== "project-admin") {
+  if (!requesterProfile?.is_admin && requesterProfile?.role !== "admin" && requesterProfile?.role !== "project-admin") {
     return { success: false, error: "Unauthorized: Admin privileges required" };
   }
 
