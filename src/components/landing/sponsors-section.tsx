@@ -53,7 +53,7 @@ const ecosystemPartners = [
 ];
 
 const hiringPartners = [
-  { name: "Dalogic", logo: "/sponsors/dalogic.png", url: "https://www.dalogic.vercel.app/", imgClass: "scale-[3.5] filter-none" },
+  { name: "Dalogic", logo: "/sponsors/dalogic.png", url: "https://dalogic.vercel.app/", imgClass: "scale-[3.5] filter-none" },
   { name: "Phicsit", logo: "/sponsors/phic.png", url: "https://phicsit.in/" },
 ];
 
