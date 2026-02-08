@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { supabaseAdmin } from "@/lib/supabase/admin";
@@ -81,12 +82,20 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
 
         const projectsCount = uniqueProjectRepos.size;
 
-        // 4. Update Database (ONLY counts, NEVER the score)
+        // 4. Calculate Score based on Weighted Difficulty
+        // Easy: 10, Medium: 20, Hard: 30, Expert: 50
+        const calculatedScore = (difficultyCounts.easy * 10) +
+            (difficultyCounts.med * 20) +
+            (difficultyCounts.hard * 30) +
+            (difficultyCounts.exp * 50);
+
+        // 5. Update Database (Sync counts AND score)
         const { error } = await supabaseAdmin
             .from("profiles")
             .update({
                 merged_prs: mergedCount,
                 projects_count: projectsCount,
+                score: calculatedScore,
                 updated_at: new Date().toISOString()
             })
             .eq("id", userId);
@@ -101,7 +110,8 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
             data: {
                 mergedPRs: mergedCount,
                 projectsCount: projectsCount,
-                difficultyCounts
+                difficultyCounts,
+                score: calculatedScore
             }
         };
 

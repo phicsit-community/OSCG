@@ -53,6 +53,9 @@ const DashboardPage = () => {
                             if (result.success && result.data) {
                                 setMergedPRs(result.data.mergedPRs);
                                 setProjectsCount(result.data.projectsCount);
+                                if (result.data.score !== undefined) {
+                                    setScore(result.data.score);
+                                }
                                 if (result.data.difficultyCounts) {
                                     setDifficultyCounts(result.data.difficultyCounts);
                                 }
