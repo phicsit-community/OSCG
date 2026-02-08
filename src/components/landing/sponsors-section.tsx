@@ -53,7 +53,7 @@ const ecosystemPartners = [
 ];
 
 const hiringPartners = [
-  // { name: "Dalogic", logo: "/sponsors/dalogic.png", url: "https://www.dalogic.vercel.app/" },
+  { name: "Dalogic", logo: "/sponsors/dalogic.png", url: "https://www.dalogic.vercel.app/", imgClass: "scale-[3.5] filter-none" },
   { name: "Phicsit", logo: "/sponsors/phic.png", url: "https://phicsit.in/" },
 ];
 
@@ -302,9 +302,9 @@ const SponsorsSection = () => {
                       <Image
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        width={150}
-                        height={75}
-                        className="w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-500"
+                        width={600}
+                        height={300}
+                        className={`w-full h-full object-contain filter brightness-90 group-hover:brightness-110 transition-all duration-500 ${sponsor.imgClass || ""}`}
                       />
                     </Wrapper>
                   );
