@@ -127,10 +127,30 @@ export async function updateUserScore(userId: string, score: number) {
     return { success: false, error: "Unauthorized: Admin privileges required" };
   }
 
+  // 1. Block self-scoring
+  if (requester.id === userId) {
+    return { success: false, error: "Self-scoring is strictly prohibited." };
+  }
+
+  // 2. Check the target user's role - only contributors can have scores
+  const { data: targetProfile } = await supabaseAdmin
+    .from("profiles")
+    .select("role, is_admin")
+    .eq("id", userId)
+    .single();
+
+  if (targetProfile?.is_admin || targetProfile?.role === "admin" || targetProfile?.role === "project-admin") {
+    return { success: false, error: "Scores cannot be assigned to administrative roles." };
+  }
+
   // Use admin client to bypass RLS for updating scores
   const { data, error, status } = await supabaseAdmin
     .from("profiles")
-    .update({ score, updated_at: new Date().toISOString() })
+    .update({
+      score,
+      merged_prs: targetProfile?.role === 'contributor' ? undefined : 0, // Ensure PRs are 0 if role changed
+      updated_at: new Date().toISOString()
+    })
     .eq("id", userId)
     .select();
 
