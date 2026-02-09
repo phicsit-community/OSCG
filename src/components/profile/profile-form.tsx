@@ -150,15 +150,22 @@ const ProfileForm = () => {
 
         setSaving(true);
         try {
-            // Sanitize social URLs to store only usernames if possible
-            const sanitizeHandle = (url: string) => {
-                if (!url) return "";
-                return url.split('/').filter(Boolean).pop() || "";
-            };
+            const githubHandle = formData.github.toLowerCase().trim();
+            if (githubHandle) {
+                const { data: existing, error: checkError } = await supabase
+                    .from("profiles")
+                    .select("id")
+                    .eq("github", githubHandle)
+                    .neq("id", user.id)
+                    .maybeSingle();
 
-            const githubHandle = formData.github.includes("github.com")
-                ? sanitizeHandle(formData.github)
-                : formData.github;
+                if (checkError) throw checkError;
+                if (existing) {
+                    toast.error("GitHub handle already linked to another account!");
+                    setSaving(false);
+                    return;
+                }
+            }
 
             const { error } = await supabase.from("profiles").upsert({
                 id: user.id,

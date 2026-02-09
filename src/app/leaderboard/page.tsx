@@ -48,20 +48,29 @@ export default function LeaderBoardPage() {
           merged_prs: number | null;
           projects_count: number | null;
         }
-        const dbPlayers = (data as LeaderboardProfile[]).map((user) => {
-          const score = user.score || 0;
-          return {
-            id: user.id,
-            name: user.full_name || "Anonymous",
-            score: score,
-            avatar: user.github
-              ? `https://github.com/${user.github}.png`
-              : `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email || user.id}`,
-            country: "in",
-            mergedPRs: user.merged_prs || 0,
-            projectsCount: user.projects_count || 0,
-          };
-        });
+        const seenGithub = new Set<string>();
+        const dbPlayers = (data as LeaderboardProfile[])
+          .filter((user) => {
+            if (!user.github) return true;
+            const handle = user.github.toLowerCase().trim();
+            if (seenGithub.has(handle)) return false;
+            seenGithub.add(handle);
+            return true;
+          })
+          .map((user) => {
+            const score = user.score || 0;
+            return {
+              id: user.id,
+              name: user.full_name || "Anonymous",
+              score: score,
+              avatar: user.github
+                ? `https://github.com/${user.github}.png`
+                : `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.email || user.id}`,
+              country: "in",
+              mergedPRs: user.merged_prs || 0,
+              projectsCount: user.projects_count || 0,
+            };
+          });
 
         setPlayers(dbPlayers);
       }
