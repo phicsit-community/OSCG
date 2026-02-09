@@ -88,18 +88,22 @@ const DashboardPage = () => {
     }
 
     return (
-        <div className="space-y-8 mt-15 animate-in fade-in duration-700 w-full max-w-full">
+        <div className="space-y-12 mt-28 animate-in fade-in duration-700 w-full max-w-full pb-20">
             <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <h1 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4">
-                        <span className="bg-linear-to-r from-[#00D6B2] to-[#4FD1D0] bg-clip-text text-transparent transition-all duration-500 hover:tracking-tight">
-                            {role === 'project-admin' ? 'Project Admin Console' : 'Dashboard'}
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="h-px w-8 bg-[#00D6B2]" />
+                        <span className="text-[#00D6B2] text-xs font-black uppercase tracking-[0.4em]">Official Portal</span>
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-black text-white tracking-tightest mb-4 leading-none">
+                        <span className="bg-linear-to-r from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2] bg-clip-text text-transparent transition-all duration-500 hover:tracking-tight animate-gradient-x">
+                            {role === 'project-admin' ? 'Project Admin Console' : 'Your Dashboard'}
                         </span>
                     </h1>
-                    <p className="text-white/40 text-base font-semibold max-w-3xl leading-relaxed">
+                    <p className="text-white/30 text-base md:text-lg font-medium max-w-3xl leading-relaxed">
                         {role === 'project-admin'
-                            ? 'Lead the community · Manage project impact'
-                            : 'Track your open source journey'}
+                            ? 'Lead the community, manage contributor impact, and drive project success.'
+                            : 'Track your open source contributions, scores, and global rankings.'}
                     </p>
                 </div>
 

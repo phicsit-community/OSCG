@@ -126,15 +126,17 @@ export default function ProjectAdminSection() {
 
     return (
         <div className="space-y-6">
-            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-4">
-                <div className="flex flex-col md:flex-row items-center gap-4 w-full xl:w-auto">
+            <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-6 pb-6 border-b border-white/5">
+                <div className="flex flex-col md:flex-row items-center gap-6 w-full xl:w-auto">
                     <div>
-                        <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-3 leading-none">
-                            <Trophy className="w-6 h-6 text-[#00D6B2]" />
-                            Contributors
+                        <h2 className="text-3xl md:text-4xl font-black text-white tracking-tightest flex items-center gap-4 leading-none">
+                            <div className="p-3 rounded-2xl bg-[#00D6B2]/10 border border-[#00D6B2]/20">
+                                <Trophy className="w-6 h-6 text-[#00D6B2]" />
+                            </div>
+                            Contributor Tracker
                         </h2>
-                        <p className="text-white/40 text-[10px] font-black uppercase tracking-wider mt-1 hidden md:block">
-                            Assign points based on impact
+                        <p className="text-white/20 text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] mt-3 hidden md:block pl-1">
+                            Review impact & assign merit points
                         </p>
                     </div>
 
