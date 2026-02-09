@@ -1,6 +1,6 @@
 "use client"
 
-import { MapPin, Users, Calendar, X } from "lucide-react";
+import { Calendar, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -13,8 +13,6 @@ interface EventCardProps {
   title: string;
   description: string;
   date: string;
-  location: string;
-  attendees: string;
   index: number;
   totalEvents: number;
   link?: string;
@@ -26,8 +24,6 @@ export const EventCard = ({
   title,
   description,
   date,
-  location,
-  attendees,
   index,
   link,
   buttonText,
@@ -147,9 +143,19 @@ export const EventCard = ({
                 initial={{ scale: 0 }}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
-                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white bg-[#11D493] uppercase tracking-wide w-fit"
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-black bg-[#11D493] uppercase tracking-wide w-fit"
               >
                 Ongoing
+              </motion.span>
+            )}
+            {status === "past" && (
+              <motion.span
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold text-white/70 bg-gray-700 uppercase tracking-wide w-fit"
+              >
+                Completed
               </motion.span>
             )}
             <motion.div
@@ -170,7 +176,7 @@ export const EventCard = ({
             initial={{ y: 20 }}
             whileInView={{ y: 0 }}
             viewport={{ once: true }}
-            className={`text-xl sm:text-2xl md:text-3xl font-bold mb-3 ${isActive ? "text-white" : "text-white/40"
+            className={`text-xl sm:text-2xl md:text-3xl font-bold mb-3 ${isActive || status === "past" ? "text-white" : "text-white/40"
               }`}
           >
             {title}

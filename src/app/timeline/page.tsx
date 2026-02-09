@@ -3,7 +3,7 @@ import { EventCard } from "./_components/event-card";
 const EventTimeline = () => {
   const events = [
     {
-      status: "Open" as const,
+      status: "past" as const,
       title: "Registrations Open",
       description: "Participants from across the globe can officially register for OSCG’26.",
       date: "1st December, 2025",
@@ -11,7 +11,7 @@ const EventTimeline = () => {
       attendees: "500+",
     },
     {
-      status: "Open" as const,
+      status: "past" as const,
       title: "Mentor Registration Opens",
       description: "Experienced open-source contributors, industry professionals, and community leaders are invited to register as mentors.",
       date: "10th January, 2026",
@@ -21,7 +21,7 @@ const EventTimeline = () => {
       buttonText: "Become a Mentor",
     },
     {
-      status: "Open" as const,
+      status: "past" as const,
       title: "Project Admin Registration Opens",
       description: "Open-source organizations, startups, and independent maintainers are invited to onboard their projects.",
       date: "10th January, 2026",
@@ -31,25 +31,26 @@ const EventTimeline = () => {
       buttonText: "Become Project Admin",
     },
     {
-      status: "upcoming" as const,
+      status: "Open" as const,
       title: "Project Listings Go Live",
       description: "Registered projects are published on the platform with detailed descriptions, tech stacks, contribution guidelines, and difficulty levels.",
-      date: "TBD",
+      date: "5th February, 2026",
       location: "Virtual",
       attendees: "Pending",
     },
     {
-      status: "upcoming" as const,
+      status: "Open" as const,
       title: "Orientation Session",
       description: "Introductory sessions, mentor meet-ups, and contributor orientations are conducted to ensure everyone understands workflows, open-source best practices, and collaboration tools.",
-      date: "TBD",
+      date: "6th February, 2026",
       location: "Virtual",
       attendees: "300+",
     },
     {
+      status: "Open" as const,
       title: "Contribution Phase Begins",
       description: "Active development starts as contributors work on issues, features, documentation, design, and research under mentor guidance.",
-      date: "5th February, 2026",
+      date: "9th February, 2026",
       location: "Virtual",
       attendees: "800+",
     },
