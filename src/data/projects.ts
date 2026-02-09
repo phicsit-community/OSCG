@@ -117,21 +117,6 @@ export const PROJECTS: Project[] = [
     },
   },
   {
-    title: "Mapify OS",
-    description: "Mapify OS is a production-ready, open-source application focused on maps and geospatial data, designed as a modern web platform for handling geographic information and interactive mapping solutions.",
-    githubRepo: "https://github.com/Aditya-Karmalkar/MapifyOS",
-    liveLink: "https://mapifyos.netlify.app/",
-    techStack: ["React 18"],
-    level: "Intermediate",
-    category: "AI",
-    admin: {
-      name: "Aditya Karmalkar",
-      linkedin: "https://www.linkedin.com/in/aditya-karmalkar-242274262/",
-      github: "https://github.com/Aditya-Karmalkar",
-      avatar: "https://github.com/Aditya-Karmalkar.png"
-    },
-  },
-  {
     title: "arduino-cli-interactive",
     description: "An interactive terminal-based tool to help beginners use arduino-cli easily with guided workflows.",
     githubRepo: "https://github.com/Vaishnav-Sabari-Girish/arduino-cli-interactive",
