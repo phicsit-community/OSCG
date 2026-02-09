@@ -15,7 +15,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
     // 1. Ownership & Role check
     const { data: profile } = await supabaseAdmin
         .from("profiles")
-        .select("role, id, github")
+        .select("role, id, github, score")
         .eq("id", userId)
         .single();
 
@@ -66,7 +66,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
                 return `${parts[parts.length - 2]}/${parts[parts.length - 1]}`;
             }
             return null;
-        } catch (_) {
+        } catch {
             return null;
         }
     }).filter(Boolean) as string[];
@@ -135,12 +135,14 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
             (difficultyCounts.exp * 50);
 
         // 5. Update Database (Sync counts AND score)
+        // We use Math.max to ensure that manual score updates by admins are preserved
+        // if the calculated score from GitHub is lower.
         const { error } = await supabaseAdmin
             .from("profiles")
             .update({
                 merged_prs: mergedCount,
                 projects_count: projectsCount,
-                score: calculatedScore,
+                score: Math.max(profile?.score || 0, calculatedScore),
                 updated_at: new Date().toISOString()
             })
             .eq("id", userId);
