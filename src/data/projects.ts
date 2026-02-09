@@ -397,7 +397,7 @@ export const PROJECTS: Project[] = [
     title: "MooVit",
     description: "MooVit is a fitness and activity tracking application designed to help users monitor workouts, daily movements, and health progress in a simple and engaging way. It focuses on improving lifestyle habits through data-driven insights.",
     githubRepo: "https://github.com/ShubhangiRoy12/MooVit",
-    liveLink : "https://moo-vit.vercel.app/",
+    liveLink: "https://moo-vit.vercel.app/",
     techStack: ["Flutter", "Firebase", "Mobile App Development"],
     level: "Intermediate",
     category: "Python",
@@ -455,7 +455,7 @@ export const PROJECTS: Project[] = [
     title: "PyLabFlow",
     description: "PyLabFlow is a Python-based automation and workflow management tool designed to streamline laboratory processes and data handling. It focuses on building efficient pipelines for experiments, analysis, and task orchestration.",
     githubRepo: "https://github.com/BBEK-Anand/PyLabFlow",
-    liveLink :"http://experquick.org/learn",
+    liveLink: "http://experquick.org/learn",
     techStack: ["Python", "Workflow Automation", "Data Processing"],
     level: "Intermediate",
     category: "Python",
@@ -492,6 +492,21 @@ export const PROJECTS: Project[] = [
       linkedin: "https://www.linkedin.com/in/sharanya-achanta-946297276/",
       github: "https://github.com/SharanyaAchanta",
       avatar: "https://github.com/SharanyaAchanta.png"
+    },
+  },
+  {
+    title: "GroqTales",
+    description: "GroqTales is an open-source platform that uses AI to generate stories and comics, which you can mint and own as NFTs on the Monad blockchain. Join a creative community blending storytelling, generative AI, and Web3 technology.",
+    githubRepo: "https://github.com/IndieHub25/GroqTales",
+    liveLink: "https://www.groqtales.xyz/",
+    techStack: ["Next.js", "React", "TS", "TailwindCSS", "shadcn/ui", "Node.js", "REST APIs", "Groq API", "LPU", "prompt-eng", "gen-AI", "MongoDB", "Monad", "EVM", "Solidity", "Web3", "NFT", "dApp", "Hardhat", "Foundry", "Jest", "ESLint", "Prettier", "Vercel", "Netlify", "Render"],
+    level: "Advanced",
+    category: "AI",
+    admin: {
+      name: "Mantej Singh Arora",
+      linkedin: "https://www.linkedin.com/in/mantej-singh-arora/",
+      github: "https://github.com/IndieHub25",
+      avatar: "https://github.com/IndieHub25.png"
     },
   },
 ];
