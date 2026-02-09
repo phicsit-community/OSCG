@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
@@ -82,10 +83,12 @@ export async function updateUserRole(userId: string, role: string) {
     return { success: false, error: "Unauthorized: Admin privileges required" };
   }
 
-  // If promoting to Admin or Project Admin, reset score to 0
+  // If promoting to Admin or Project Admin, reset all contributor metrics to 0
   const updates: any = { role, updated_at: new Date().toISOString() };
   if (role === "admin" || role === "project-admin") {
     updates.score = 0;
+    updates.merged_prs = 0;
+    updates.projects_count = 0;
   }
 
   const { error } = await supabase

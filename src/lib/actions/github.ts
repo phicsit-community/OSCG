@@ -33,12 +33,14 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         return { success: false, error: "This GitHub handle is already linked to another account." };
     }
 
-    // Admins and Project Admins should NOT have a score or be on the leaderboard
+    // Admins and Project Admins should NOT have any metrics or be on the leaderboard
     if (profile.role !== "contributor") {
         await supabaseAdmin
             .from("profiles")
             .update({
                 score: 0,
+                merged_prs: 0,
+                projects_count: 0,
                 updated_at: new Date().toISOString()
             })
             .eq("id", userId);
@@ -49,7 +51,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
                 mergedPRs: 0,
                 projectsCount: 0,
                 score: 0,
-                message: "Admins are excluded from scoring"
+                message: "Admins are excluded from stats"
             }
         };
     }
