@@ -223,7 +223,7 @@ export const PROJECTS: Project[] = [
   {
     title: "tweakio-sdk",
     description: "tweakio-sdk is a developer-friendly SDK designed to integrate AI-powered workflows and automation into applications easily. It focuses on simplifying interaction with AI services through structured APIs and tools.",
-    githubRepo: "https://github.com/BITS-Rohit/tweakio-sdk/releases/tag/v0.1.4",
+    githubRepo: "https://github.com/BITS-Rohit/tweakio-sdk",
     liveLink: "https://pypi.org/project/tweakio-SDK/",
     techStack: ["Python", "SDK Development", "AI Integration", "REST APIs"],
     level: "Advanced",
