@@ -66,7 +66,11 @@ export default function LeaderBoardPage() {
             return true;
           })
           .map((user) => {
-            const score = user.score || 0;
+            // Safety: If a contributor has 0 work shown, we don't allow "Ghost Points"
+            // High scores with 0 PRs/Projects are usually from stale syncs or deleted accounts.
+            const rawScore = user.score || 0;
+            const score = (user.merged_prs === 0 && user.projects_count === 0 && rawScore > 0) ? 0 : rawScore;
+
             return {
               id: user.id,
               name: user.full_name || "Anonymous",
@@ -79,6 +83,7 @@ export default function LeaderBoardPage() {
               projectsCount: user.projects_count || 0,
             };
           })
+          .sort((a, b) => b.score - a.score) // Re-sort in case we zeroed someone out
           .slice(0, 50);
 
         setPlayers(dbPlayers);
