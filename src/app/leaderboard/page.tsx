@@ -26,15 +26,19 @@ export default function LeaderBoardPage() {
     try {
       const { count } = await supabase
         .from("profiles")
-        .select("*", { count: "exact", head: true });
+        .select("*", { count: "exact", head: true })
+        .eq("role", "contributor")
+        .eq("is_admin", false);
 
       setTotalContributors(count || 0);
 
       const { data, error } = await supabase
         .from("profiles")
         .select("id, full_name, github, score, email, merged_prs, projects_count")
+        .eq("role", "contributor")
+        .eq("is_admin", false)
         .order("score", { ascending: false })
-        .limit(50);
+        .limit(100);
 
       if (error) {
         console.error("Error fetching leaderboard:", error);
@@ -70,7 +74,8 @@ export default function LeaderBoardPage() {
               mergedPRs: user.merged_prs || 0,
               projectsCount: user.projects_count || 0,
             };
-          });
+          })
+          .slice(0, 50);
 
         setPlayers(dbPlayers);
       }
