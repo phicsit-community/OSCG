@@ -32,6 +32,19 @@ export default function LeaderBoardPage() {
 
       setTotalContributors(count || 0);
 
+      // 1. Fetch all unique GitHub handles that belong to ANY Admin or Project Admin
+      const { data: adminProfiles } = await supabase
+        .from("profiles")
+        .select("github")
+        .or("role.eq.admin,role.eq.project-admin,is_admin.eq.true");
+
+      const adminHandles = new Set(
+        (adminProfiles || [])
+          .map(p => p.github?.toLowerCase().trim())
+          .filter(Boolean)
+      );
+
+      // 2. Fetch potential contributors
       const { data, error } = await supabase
         .from("profiles")
         .select("id, full_name, github, score, email, merged_prs, projects_count")
@@ -55,19 +68,17 @@ export default function LeaderBoardPage() {
         const seenGithub = new Set<string>();
         const dbPlayers = (data as LeaderboardProfile[])
           .filter((user) => {
-            if (!user.github) return true;
-            const handle = user.github.toLowerCase().trim();
+            const handle = user.github?.toLowerCase().trim() || "";
+            const name = user.full_name?.toLowerCase() || "";
 
-            // If we've seen this handle before OR it's a known admin handle (if we had that list), block it.
-            // For now, simple deduplication is the best we can do without a secondary fetch.
+            // SECURITY LOCK: If this identity is an admin on ANY account, boot them from contributor list
+            if (adminHandles.has(handle) || name.includes("gopichand")) return false;
+
             if (handle === "" || seenGithub.has(handle)) return false;
-
             seenGithub.add(handle);
             return true;
           })
           .map((user) => {
-            // Safety: If a contributor has 0 work shown, we don't allow "Ghost Points"
-            // High scores with 0 PRs/Projects are usually from stale syncs or deleted accounts.
             const rawScore = user.score || 0;
             const score = (user.merged_prs === 0 && user.projects_count === 0 && rawScore > 0) ? 0 : rawScore;
 
@@ -83,7 +94,7 @@ export default function LeaderBoardPage() {
               projectsCount: user.projects_count || 0,
             };
           })
-          .sort((a, b) => b.score - a.score) // Re-sort in case we zeroed someone out
+          .sort((a, b) => b.score - a.score)
           .slice(0, 50);
 
         setPlayers(dbPlayers);
