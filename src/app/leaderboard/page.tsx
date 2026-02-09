@@ -57,7 +57,11 @@ export default function LeaderBoardPage() {
           .filter((user) => {
             if (!user.github) return true;
             const handle = user.github.toLowerCase().trim();
-            if (seenGithub.has(handle)) return false;
+
+            // If we've seen this handle before OR it's a known admin handle (if we had that list), block it.
+            // For now, simple deduplication is the best we can do without a secondary fetch.
+            if (handle === "" || seenGithub.has(handle)) return false;
+
             seenGithub.add(handle);
             return true;
           })

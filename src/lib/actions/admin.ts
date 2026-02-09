@@ -82,9 +82,15 @@ export async function updateUserRole(userId: string, role: string) {
     return { success: false, error: "Unauthorized: Admin privileges required" };
   }
 
+  // If promoting to Admin or Project Admin, reset score to 0
+  const updates: any = { role, updated_at: new Date().toISOString() };
+  if (role === "admin" || role === "project-admin") {
+    updates.score = 0;
+  }
+
   const { error } = await supabase
     .from("profiles")
-    .update({ role, updated_at: new Date().toISOString() })
+    .update(updates)
     .eq("id", userId);
 
   if (error) {

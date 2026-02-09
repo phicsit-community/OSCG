@@ -9,9 +9,52 @@ import { PROJECTS } from "@/data/projects";
  * and updates their profile and score in the database.
  */
 export async function syncGitHubContribution(userId: string, githubHandle: string) {
-    if (!githubHandle) return { success: false, error: "No GitHub handle provided" };
+    const normalizedHandle = githubHandle.toLowerCase().trim();
+    if (!normalizedHandle) return { success: false, error: "No GitHub handle provided" };
 
-    // 1. Get all project repository identifiers (e.g., "owner/repo")
+    // 1. Ownership & Role check
+    const { data: profile } = await supabaseAdmin
+        .from("profiles")
+        .select("role, id, github")
+        .eq("id", userId)
+        .single();
+
+    if (!profile) return { success: false, error: "Profile not found" };
+
+    // Check if handle is taken by another account
+    const { data: existingHandleAccount } = await supabaseAdmin
+        .from("profiles")
+        .select("id")
+        .eq("github", normalizedHandle)
+        .neq("id", userId)
+        .maybeSingle();
+
+    if (existingHandleAccount) {
+        return { success: false, error: "This GitHub handle is already linked to another account." };
+    }
+
+    // Admins and Project Admins should NOT have a score or be on the leaderboard
+    if (profile.role !== "contributor") {
+        await supabaseAdmin
+            .from("profiles")
+            .update({
+                score: 0,
+                updated_at: new Date().toISOString()
+            })
+            .eq("id", userId);
+
+        return {
+            success: true,
+            data: {
+                mergedPRs: 0,
+                projectsCount: 0,
+                score: 0,
+                message: "Admins are excluded from scoring"
+            }
+        };
+    }
+
+    // 2. Get all project repository identifiers (e.g., "owner/repo")
     // We extract these from the githubRepo URLs in our PROJECTS data
     const competitionRepos = PROJECTS.map(p => {
         try {
@@ -35,7 +78,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
     try {
         // Search Query: PRs by author, merged, in the specific repos if possible, 
         // but a global author search is easier to manage and then filter.
-        const query = `author:${githubHandle.replace('@', '')} is:pr is:merged`;
+        const query = `author:${normalizedHandle.replace('@', '')} is:pr is:merged`;
         const searchUrl = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=100`;
 
         const response = await fetch(searchUrl, {
