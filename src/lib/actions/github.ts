@@ -60,10 +60,13 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
     // We extract these from the githubRepo URLs in our PROJECTS data
     const competitionRepos = PROJECTS.map(p => {
         try {
-            const url = p.githubRepo.replace(/\/$/, ""); // remove trailing slash
+            // Remove trailing slash and .git suffix
+            const url = p.githubRepo.trim().replace(/\/$/, "").replace(/\.git$/, "");
             const parts = url.split("/");
             if (parts.length >= 2) {
-                return `${parts[parts.length - 2]}/${parts[parts.length - 1]}`;
+                const owner = parts[parts.length - 2].toLowerCase();
+                const repo = parts[parts.length - 1].toLowerCase();
+                return `${owner}/${repo}`;
             }
             return null;
         } catch {
@@ -108,20 +111,30 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         const uniqueProjectRepos = new Set<string>();
 
         for (const pr of allMergedPRs) {
-            if (competitionRepos.some(repo => pr.repository_url.toLowerCase().includes(repo.toLowerCase()))) {
+            // Extract owner/repo from repository_url (e.g., "https://api.github.com/repos/owner/repo")
+            const prRepoUrl = (pr.repository_url || "").toLowerCase();
+            const prRepoSuffix = prRepoUrl.split("/repos/")[1];
+
+            if (prRepoSuffix && competitionRepos.includes(prRepoSuffix)) {
                 mergedCount++;
 
-                // Track projects
-                const parts = pr.repository_url.split("/");
-                uniqueProjectRepos.add(`${parts[parts.length - 2]}/${parts[parts.length - 1]}`.toLowerCase());
+                // Track unique projects
+                uniqueProjectRepos.add(prRepoSuffix);
 
                 // Check difficulty labels
                 const labels = pr.labels?.map((l: any) => l.name.toLowerCase()) || [];
-                if (labels.some((l: string) => l.includes("easy"))) difficultyCounts.easy++;
-                else if (labels.some((l: string) => l.includes("medium") || l.includes("med"))) difficultyCounts.med++;
-                else if (labels.some((l: string) => l.includes("hard"))) difficultyCounts.hard++;
-                else if (labels.some((l: string) => l.includes("expert") || l.includes("exp"))) difficultyCounts.exp++;
-                else difficultyCounts.easy++; // Default to easy if no label
+                
+                // Detection logic with expanded keywords
+                const isExp = labels.some((l: string) => l.includes("expert") || l.includes("exp") || l.includes("advanced"));
+                const isHard = labels.some((l: string) => l.includes("hard") || l.includes("high"));
+                const isMed = labels.some((l: string) => l.includes("medium") || l.includes("med") || l.includes("intermediate") || l.includes("mid"));
+                const isEasy = labels.some((l: string) => l.includes("easy") || l.includes("beginner") || l.includes("starter"));
+
+                if (isExp) difficultyCounts.exp++;
+                else if (isHard) difficultyCounts.hard++;
+                else if (isMed) difficultyCounts.med++;
+                else if (isEasy) difficultyCounts.easy++;
+                else difficultyCounts.easy++; // Default to easy if no recognized level label is found
             }
         }
 
@@ -137,6 +150,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         // 5. Update Database (Sync counts AND score)
         // We use Math.max to ensure that manual score updates by admins are preserved
         // if the calculated score from GitHub is lower.
+        // Also ensure merged_prs and projects_count are updated.
         const { error } = await supabaseAdmin
             .from("profiles")
             .update({
