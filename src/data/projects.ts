@@ -60,9 +60,9 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Innovision",
-    description: "Innovision is a modern web platform designed to showcase innovative projects, ideas, and events with a clean and interactive user interface.",
+    description: "InnoVision is a cutting-edge AI-powered learning platform that dynamically generates structured and engaging courses from any topic. Unlike traditional static courses, InnoVision leverages AI and machine learning to create a flexible, adaptive learning environment tailored to individual learner needs.",
     githubRepo: "https://github.com/akshay-innovision/Innovision-Open-Source",
-    techStack: ["React.js", "Node.js", "MongoDB"],
+    techStack: ["Next.js", "Firebase", "RazorPay","Google AI Studio"],
     level: "Intermediate",
     category: "Python",
     liveLink: "https://innovision-open-source.vercel.app/",
