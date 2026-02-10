@@ -170,8 +170,8 @@ export default function LeaderBoardPage() {
         {/* LIST SECTION - NO REDUNDANT HEADERS */}
         <div className="space-y-6">
           <AnimatePresence mode="popLayout">
-            {players.slice(3).map((player, index) => (
-              <ListItem key={player.id} player={player} rank={index + 4} />
+            {players.map((player, index) => (
+              <ListItem key={player.id} player={player} rank={index + 1} />
             ))}
           </AnimatePresence>
 
@@ -220,12 +220,23 @@ function PodiumStep({ player, rank, color, isCenter = false }: { player: Player;
       <motion.div
         className={`w-full rounded-t-[3rem] relative overflow-hidden bg-linear-to-b ${color} opacity-90 backdrop-blur-xl border-t border-white/20 shadow-3xl`}
         initial={{ height: 0 }}
-        animate={{ height: isCenter ? '280px' : rank === 2 ? '220px' : '160px' }}
+        animate={{ height: isCenter ? '360px' : rank === 2 ? '300px' : '240px' }}
         transition={{ duration: 1.2, type: "spring", bounce: 0.15 }}
       >
-        <div className="absolute top-12 w-full text-center px-4">
+        <div className="absolute top-10 w-full text-center px-4">
           <div className="text-5xl md:text-7xl font-black text-[#050505]/90 tracking-tighter leading-none">{player.score}</div>
-          <p className="text-xs uppercase font-black text-[#050505]/40 tracking-[0.3em] mt-2">Current Points</p>
+          <p className="text-[10px] uppercase font-black text-[#050505]/40 tracking-[0.3em] mt-2">Current Points</p>
+
+          <div className="mt-8 flex items-center justify-center gap-6 border-t border-[#050505]/10 pt-6">
+            <div className="text-center">
+              <p className="text-[8px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest mb-1">Merged PRs</p>
+              <p className="text-lg md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.mergedPRs}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-[8px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest mb-1">Projects</p>
+              <p className="text-lg md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.projectsCount}</p>
+            </div>
+          </div>
         </div>
         <div className="absolute inset-0 bg-linear-to-tr from-transparent via-white/10 to-transparent pointer-events-none" />
       </motion.div>

@@ -81,9 +81,9 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
     const GITHUB_TOKEN = process.env.GITHUB_ACCESS_TOKEN;
 
     try {
-        // Search Query: PRs by author, merged, in the specific repos if possible, 
-        // but a global author search is easier to manage and then filter.
-        const query = `author:${normalizedHandle.replace('@', '')} is:pr is:merged`;
+        // Search Query: Involves the user (author or assignee), is closed, 
+        // across the entire account (we filter repos locally).
+        const query = `involves:${normalizedHandle.replace('@', '')} is:closed`;
         const searchUrl = `https://api.github.com/search/issues?q=${encodeURIComponent(query)}&per_page=100`;
 
         const response = await fetch(searchUrl, {
@@ -103,38 +103,57 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         }
 
         const searchData = await response.json();
-        const allMergedPRs = searchData.items || [];
+        const items = searchData.items || [];
 
-        // 3. Filter PRs and Categorize by Difficulty
+        // 3. Filter Items and Categorize by Difficulty
         let mergedCount = 0;
         const difficultyCounts = { easy: 0, med: 0, hard: 0, exp: 0 };
         const uniqueProjectRepos = new Set<string>();
 
-        for (const pr of allMergedPRs) {
-            // Extract owner/repo from repository_url (e.g., "https://api.github.com/repos/owner/repo")
-            const prRepoUrl = (pr.repository_url || "").toLowerCase();
-            const prRepoSuffix = prRepoUrl.split("/repos/")[1];
+        // Tracking to avoid double counting same "task" (Issue + PR)
+        const processedTasks = new Set<string>();
 
-            if (prRepoSuffix && competitionRepos.includes(prRepoSuffix)) {
-                mergedCount++;
+        for (const item of items) {
+            const repoUrl = (item.repository_url || "").toLowerCase();
+            const repoSuffix = repoUrl.split("/repos/")[1];
 
-                // Track unique projects
-                uniqueProjectRepos.add(prRepoSuffix);
+            if (repoSuffix && competitionRepos.includes(repoSuffix)) {
+                const isPR = !!item.pull_request;
+                const isAuthored = item.user?.login.toLowerCase() === normalizedHandle;
+                const isAssignee = item.assignees?.some((a: any) => a.login.toLowerCase() === normalizedHandle);
 
-                // Check difficulty labels
-                const labels = pr.labels?.map((l: any) => l.name.toLowerCase()) || [];
-                
-                // Detection logic with expanded keywords
-                const isExp = labels.some((l: string) => l.includes("expert") || l.includes("exp") || l.includes("advanced"));
-                const isHard = labels.some((l: string) => l.includes("hard") || l.includes("high"));
-                const isMed = labels.some((l: string) => l.includes("medium") || l.includes("med") || l.includes("intermediate") || l.includes("mid"));
-                const isEasy = labels.some((l: string) => l.includes("easy") || l.includes("beginner") || l.includes("starter"));
+                // We only count Merged PRs (authored by user) or Closed Issues (assigned to user)
+                if (isPR && !isAuthored) continue; // Skip PRs user didn't author
+                if (!isPR && !isAssignee) continue; // Skip Issues user wasn't assigned to
+
+                // Track Unique Projects
+                uniqueProjectRepos.add(repoSuffix);
+
+                if (isPR) mergedCount++;
+
+                // Deduplication logic: If a PR body mentions an issue #, or vice-versa, 
+                // we try to treat them as one "work unit" for points. 
+                // For simplicity, we use the item number as the unit ID per repo.
+                const taskKey = `${repoSuffix}#${item.number}`;
+                if (processedTasks.has(taskKey)) continue;
+                processedTasks.add(taskKey);
+
+                // Detection logic with expanded keywords and context scanning
+                const labels = item.labels?.map((l: any) => l.name.toLowerCase()) || [];
+                const itemTitle = (item.title || "").toLowerCase();
+                const itemBody = (item.body || "").toLowerCase();
+                const searchContext = [...labels, itemTitle, itemBody].join(" ");
+
+                const isExp = /expert|exp|advanced/.test(searchContext);
+                const isHard = /hard|high/.test(searchContext);
+                const isMed = /medium|med|intermediate|mid/.test(searchContext);
+                const isEasy = /easy|beginner|starter/.test(searchContext);
 
                 if (isExp) difficultyCounts.exp++;
                 else if (isHard) difficultyCounts.hard++;
                 else if (isMed) difficultyCounts.med++;
                 else if (isEasy) difficultyCounts.easy++;
-                else difficultyCounts.easy++; // Default to easy if no recognized level label is found
+                else difficultyCounts.easy++;
             }
         }
 
@@ -172,7 +191,7 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
                 mergedPRs: mergedCount,
                 projectsCount: projectsCount,
                 difficultyCounts,
-                score: calculatedScore
+                score: Math.max(profile?.score || 0, calculatedScore)
             }
         };
 

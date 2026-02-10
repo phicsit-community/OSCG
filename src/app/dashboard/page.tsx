@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -23,10 +24,35 @@ const DashboardPage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        let channel: any;
+
         async function getProfileAndSync() {
             try {
                 const { data: { user } } = await supabase.auth.getUser();
                 if (user) {
+                    // Set up Real-time Profile Updates (for manual admin score changes)
+                    channel = supabase
+                        .channel(`dashboard_profile_${user.id}`)
+                        .on(
+                            "postgres_changes",
+                            {
+                                event: "UPDATE",
+                                schema: "public",
+                                table: "profiles",
+                                filter: `id=eq.${user.id}`
+                            },
+                            (payload) => {
+                                const updatedProfile = payload.new;
+                                if (updatedProfile) {
+                                    if (updatedProfile.score !== undefined) setScore(updatedProfile.score);
+                                    if (updatedProfile.merged_prs !== undefined) setMergedPRs(updatedProfile.merged_prs);
+                                    if (updatedProfile.projects_count !== undefined) setProjectsCount(updatedProfile.projects_count);
+                                    if (updatedProfile.role) setRole(updatedProfile.role);
+                                }
+                            }
+                        )
+                        .subscribe();
+
                     // 1. Initial Profile Fetch
                     const { data: profile } = await supabase
                         .from("profiles")
@@ -77,6 +103,10 @@ const DashboardPage = () => {
         }
 
         getProfileAndSync();
+
+        return () => {
+            if (channel) supabase.removeChannel(channel);
+        };
     }, []);
 
     if (loading) {
