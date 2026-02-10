@@ -166,21 +166,19 @@ export default function LeaderBoardPage() {
           <PodiumStep player={players[2]} rank={3} color="from-orange-300 to-amber-800" />
         </div>
 
-        {/* LIST SECTION - NO REDUNDANT HEADERS */}
-        <div className="space-y-4">
-          <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0 scrollbar-hide">
-            <div className="min-w-[800px] md:min-w-full space-y-4">
-              <AnimatePresence mode="popLayout">
-                {players.slice(3).map((player, index) => (
-                  <ListItem key={player.id} player={player} rank={index + 4} />
-                ))}
-              </AnimatePresence>
-            </div>
+        {/* LIST SECTION - RESPONSIVE LAYOUT (NO SCROLL) */}
+        <div className="space-y-3 md:space-y-4">
+          <div className="w-full space-y-4 md:space-y-6">
+            <AnimatePresence mode="popLayout">
+              {players.slice(3).map((player, index) => (
+                <ListItem key={player.id} player={player} rank={index + 4} />
+              ))}
+            </AnimatePresence>
           </div>
 
           {players.length === 0 && !loading && (
-            <div className="text-center py-32 bg-white/2 border-2 border-dashed border-white/5 rounded-[3rem] animate-pulse">
-              <p className="text-white/10 font-black uppercase tracking-[0.4em] text-sm">Synchronizing contributor global data...</p>
+            <div className="text-center py-20 md:py-32 bg-white/2 border-2 border-dashed border-white/5 rounded-3xl md:rounded-[3rem] animate-pulse">
+              <p className="text-white/10 font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm">Synchronizing contributor global data...</p>
             </div>
           )}
         </div>
@@ -252,13 +250,13 @@ function ListItem({ player, rank }: { player: Player; rank: number }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="grid grid-cols-12 items-center px-6 md:px-10 py-5 md:py-8 rounded-2xl md:rounded-[2.5rem] bg-white/2 border border-white/5 hover:border-[#00D6B2]/30 hover:bg-white/4 transition-all duration-500 group relative overflow-hidden"
+      className="flex items-center justify-between md:grid md:grid-cols-12 md:items-center px-4 py-4 md:px-10 md:py-8 rounded-2xl md:rounded-[2.5rem] bg-white/2 border border-white/5 hover:border-[#00D6B2]/30 hover:bg-white/4 transition-all duration-500 group relative overflow-hidden gap-3"
     >
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#00D6B2]/2 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none group-hover:bg-[#00D6B2]/5 transition-colors" />
 
-      {/* BIG RANK NUMBER */}
-      <div className="col-span-1">
-        <div className={`w-10 h-10 md:w-14 md:h-14 rounded-xl md:rounded-2xl flex items-center justify-center font-black text-sm md:text-lg border-2 transition-all duration-500 ${rank === 4 ? 'bg-[#00D6B2]/10 border-[#00D6B2]/30 text-[#00D6B2] shadow-[0_0_20px_rgba(0,214,178,0.2)]' :
+      {/* RANK (Mobile & Desktop) */}
+      <div className="shrink-0 md:col-span-1">
+        <div className={`w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center font-black text-xs md:text-lg border transition-all duration-500 ${rank === 4 ? 'bg-[#00D6B2]/10 border-[#00D6B2]/30 text-[#00D6B2] shadow-[0_0_20px_rgba(0,214,178,0.2)]' :
           rank === 5 ? 'bg-slate-400/10 border-slate-400/30 text-slate-300' :
             'bg-white/5 border-white/10 text-white/10 group-hover:text-white/40'
           }`}>
@@ -266,32 +264,42 @@ function ListItem({ player, rank }: { player: Player; rank: number }) {
         </div>
       </div>
 
-      {/* USER INFO */}
-      <div className="col-span-3 flex items-center gap-4 md:gap-6 pl-4">
-        <div className="flex flex-col space-y-1">
-          <div className="flex items-center gap-2 md:gap-3">
-            <div className="relative w-4 h-3 md:w-5 md:h-3.5 opacity-100 shrink-0">
-              <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
+      {/* USER INFO (Mobile Layout: Name + Stacked Stats | Desktop: Name only) */}
+      <div className="flex-1 md:col-span-3 min-w-0 px-2 md:pl-4">
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="relative w-4 h-3 md:w-5 md:h-3.5 opacity-100 shrink-0">
+            <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
+          </div>
+          <div className="flex flex-col">
+            <span className="text-sm md:text-xl font-black text-white group-hover:text-[#00D6B2] transition-colors tracking-tight truncate max-w-[140px] md:max-w-none">
+              {player.name}
+            </span>
+            {/* Mobile Only Stats Line */}
+            <div className="flex items-center gap-2 md:hidden mt-0.5">
+              <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">{player.mergedPRs} PRs</span>
+              <span className="text-[10px] text-white/20">•</span>
+              <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">{player.projectsCount} Projs</span>
             </div>
-            <span className="text-base md:text-xl font-black text-white group-hover:text-[#00D6B2] transition-colors tracking-tight truncate max-w-[120px] md:max-w-none">{player.name}</span>
           </div>
         </div>
       </div>
 
-      {/* STATS GRID */}
-      <div className="col-span-3 text-center border-l border-white/3">
-        <p className="text-[8px] md:text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-1 md:mb-2">Merged PRs</p>
-        <span className="text-xl md:text-3xl font-black text-[#00D6B2] tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(0,214,178,0.1)]">{player.mergedPRs}</span>
+      {/* DESKTOP STATS GRID (Hidden on Mobile) */}
+      <div className="hidden md:block col-span-3 text-center border-l border-white/3">
+        <p className="text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-2">Merged PRs</p>
+        <span className="text-3xl font-black text-[#00D6B2] tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(0,214,178,0.1)]">{player.mergedPRs}</span>
       </div>
 
-      <div className="col-span-2 text-center">
-        <p className="text-[8px] md:text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-1 md:mb-2">Projects</p>
-        <span className="text-xl md:text-3xl font-black text-white/80 tracking-tighter tabular-nums transition-colors group-hover:text-white uppercase">{player.projectsCount}</span>
+      <div className="hidden md:block col-span-2 text-center">
+        <p className="text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-2">Projects</p>
+        <span className="text-3xl font-black text-white/80 tracking-tighter tabular-nums transition-colors group-hover:text-white uppercase">{player.projectsCount}</span>
       </div>
 
-      <div className="col-span-3 text-center border-l border-white/3">
-        <p className="text-[8px] md:text-[12px] font-black text-[#00D6B2]/40 group-hover:text-[#00D6B2] transition-colors uppercase tracking-[0.3em] mb-1 md:mb-2">Total Points</p>
-        <span className="text-xl md:text-3xl font-black text-white tracking-tighter tabular-nums">{player.score}</span>
+      {/* TOTAL POINTS (Mobile & Desktop) */}
+      <div className="shrink-0 md:col-span-3 text-right md:text-center border-l-0 md:border-l border-white/3 pl-2 md:pl-0">
+        <p className="hidden md:block text-[12px] font-black text-[#00D6B2]/40 group-hover:text-[#00D6B2] transition-colors uppercase tracking-[0.3em] mb-2">Total Points</p>
+        <span className="text-lg md:text-3xl font-black text-white tracking-tighter tabular-nums block">{player.score}</span>
+        <span className="md:hidden text-[8px] font-bold text-[#00D6B2]/60 uppercase tracking-widest block mt-0.5">Points</span>
       </div>
     </motion.div>
   );

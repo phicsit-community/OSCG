@@ -55,8 +55,8 @@ export const speakers: Speaker[] = [
   {
     image: "/speakers/TarunGupta.png",
     name: "Tarun Gupta",
-    title: "Founder & CTO",
-    expertise: "Salesforce Marketing Champion",
+    title: "Founder & CTO, Vivaansh Consulting.",
+    expertise: "Growth Catalyst Leader & Community Builder",
     linkedin: "https://www.linkedin.com/in/thetarungupta"
   },
   {
