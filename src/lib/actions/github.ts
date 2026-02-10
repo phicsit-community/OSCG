@@ -105,68 +105,83 @@ export async function syncGitHubContribution(userId: string, githubHandle: strin
         const searchData = await response.json();
         const items = searchData.items || [];
 
-        // 3. Filter Items and Categorize by Difficulty
-        let mergedCount = 0;
-        const difficultyCounts = { easy: 0, med: 0, hard: 0, exp: 0 };
-        const uniqueProjectRepos = new Set<string>();
-
-        // Tracking to avoid double counting same "task" (Issue + PR)
-        const processedTasks = new Set<string>();
+        // 3. Process Items: Group by Repo & Item Type
+        const prs: any[] = [];
+        const issuesByRepo: Record<string, any[]> = {};
 
         for (const item of items) {
             const repoUrl = (item.repository_url || "").toLowerCase();
             const repoSuffix = repoUrl.split("/repos/")[1];
+            if (!repoSuffix || !competitionRepos.includes(repoSuffix)) continue;
 
-            if (repoSuffix && competitionRepos.includes(repoSuffix)) {
-                const isPR = !!item.pull_request;
-                const isAuthored = item.user?.login.toLowerCase() === normalizedHandle;
-                const isAssignee = item.assignees?.some((a: any) => a.login.toLowerCase() === normalizedHandle);
+            const isPR = !!item.pull_request;
+            const isAuthored = item.user?.login.toLowerCase() === normalizedHandle;
+            const isAssignee = item.assignees?.some((a: any) => a.login.toLowerCase() === normalizedHandle);
 
-                // We only count Merged PRs (authored by user) or Closed Issues (assigned to user)
-                if (isPR && !isAuthored) continue; // Skip PRs user didn't author
-                if (!isPR && !isAssignee) continue; // Skip Issues user wasn't assigned to
-
-                // Track Unique Projects
-                uniqueProjectRepos.add(repoSuffix);
-
-                if (isPR) mergedCount++;
-
-                // Deduplication logic: If a PR body mentions an issue #, or vice-versa, 
-                // we try to treat them as one "work unit" for points. 
-                // For simplicity, we use the item number as the unit ID per repo.
-                const taskKey = `${repoSuffix}#${item.number}`;
-                if (processedTasks.has(taskKey)) continue;
-                processedTasks.add(taskKey);
-
-                // Detection logic with expanded keywords and context scanning
-                const labels = item.labels?.map((l: any) => l.name.toLowerCase()) || [];
-                const itemTitle = (item.title || "").toLowerCase();
-                const itemBody = (item.body || "").toLowerCase();
-                const searchContext = [...labels, itemTitle, itemBody].join(" ");
-
-                const isExp = /expert|exp|advanced/.test(searchContext);
-                const isHard = /hard|high/.test(searchContext);
-                const isMed = /medium|med|intermediate|mid/.test(searchContext);
-                const isEasy = /easy|beginner|starter/.test(searchContext);
-
-                if (isExp) difficultyCounts.exp++;
-                else if (isHard) difficultyCounts.hard++;
-                else if (isMed) difficultyCounts.med++;
-                else if (isEasy) difficultyCounts.easy++;
-                else difficultyCounts.easy++;
+            if (isPR && isAuthored) {
+                prs.push({ ...item, repoSuffix });
+            } else if (!isPR && isAssignee) {
+                if (!issuesByRepo[repoSuffix]) issuesByRepo[repoSuffix] = [];
+                issuesByRepo[repoSuffix].push(item);
             }
+        }
+
+        let mergedCount = 0;
+        const difficultyCounts: Record<string, number> = { easy: 0, med: 0, hard: 0, exp: 0 };
+        const uniqueProjectRepos = new Set<string>();
+
+        // Helper to extract difficulty from a context string
+        const getDifficulty = (labels: string[], title: string, body: string) => {
+            const context = [...labels, title.toLowerCase(), body.toLowerCase()].join(" ");
+            if (/expert|exp|advanced/.test(context)) return 'exp';
+            if (/hard|high/.test(context)) return 'hard';
+            if (/medium|med|intermediate|mid/.test(context)) return 'med';
+            if (/easy|beginner|starter/.test(context)) return 'easy';
+            return 'easy';
+        };
+
+        for (const pr of prs) {
+            mergedCount++;
+            uniqueProjectRepos.add(pr.repoSuffix);
+
+            // 1. Get PR difficulty
+            const prLabels = pr.labels?.map((l: any) => l.name.toLowerCase()) || [];
+            let level = getDifficulty(prLabels, pr.title, pr.body || "");
+
+            // 2. Try to find a linked issue to inherit a higher difficulty
+            // Look for "fixes #123" or similar in PR body
+            const linkedIssueMatch = (pr.body || "").match(/(?:fixes|closes|resolves)\s+#(\d+)/i);
+            const linkedIssueNumber = linkedIssueMatch ? parseInt(linkedIssueMatch[1]) : null;
+
+            const repoIssues = issuesByRepo[pr.repoSuffix] || [];
+            const linkedIssue = repoIssues.find(i =>
+                i.number === linkedIssueNumber ||
+                (i.title.toLowerCase().includes(pr.title.toLowerCase().substring(0, 20)))
+            );
+
+            if (linkedIssue) {
+                const issueLabels = linkedIssue.labels?.map((l: any) => l.name.toLowerCase()) || [];
+                const issueLevel = getDifficulty(issueLabels, linkedIssue.title, linkedIssue.body || "");
+
+                // Inherit higher difficulty
+                const weight: Record<string, number> = { exp: 4, hard: 3, med: 2, easy: 1 };
+                if (weight[issueLevel] > weight[level]) {
+                    level = issueLevel;
+                }
+            }
+
+            difficultyCounts[level]++;
         }
 
         const projectsCount = uniqueProjectRepos.size;
 
         // 4. Calculate Score based on Weighted Difficulty
-        // Easy: 10, Medium: 20, Hard: 30, Expert: 50
         const calculatedScore = (difficultyCounts.easy * 10) +
             (difficultyCounts.med * 20) +
             (difficultyCounts.hard * 30) +
             (difficultyCounts.exp * 50);
 
-        // 5. Update Database (Sync counts AND score)
+        // 5. Update Database
         // We use Math.max to ensure that manual score updates by admins are preserved
         // if the calculated score from GitHub is lower.
         // Also ensure merged_prs and projects_count are updated.
