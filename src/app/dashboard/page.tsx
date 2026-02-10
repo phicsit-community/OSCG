@@ -9,7 +9,9 @@ import UnifiedProfile from "@/components/dashboard/UnifiedProfile";
 import UnifiedMetrics from "@/components/dashboard/UnifiedMetrics";
 import ProjectAdminSection from "@/components/dashboard/ProjectAdminSection";
 
+import { AlertCircle } from "lucide-react";
 import { toast } from "sonner";
+import { syncGitHubContribution } from "@/lib/actions/github";
 
 const DashboardPage = () => {
     const [username, setUsername] = useState("");
@@ -19,7 +21,7 @@ const DashboardPage = () => {
     const [mergedPRs, setMergedPRs] = useState(0);
     const [projectsCount, setProjectsCount] = useState(0);
     const [score, setScore] = useState(0);
-    const [difficultyCounts, setDifficultyCounts] = useState({ easy: 0, med: 0, hard: 0, exp: 0 });
+    const [difficultyCounts, setDifficultyCounts] = useState<Record<string, number>>({ easy: 0, med: 0, hard: 0, exp: 0 });
 
     const [loading, setLoading] = useState(true);
 
@@ -73,7 +75,6 @@ const DashboardPage = () => {
 
                         // 2. Background Sync (Lazy Sync)
                         if (profile.github) {
-                            const { syncGitHubContribution } = await import("@/lib/actions/github");
                             const result = await syncGitHubContribution(user.id, profile.github);
 
                             if (result.success && result.data) {
@@ -83,7 +84,7 @@ const DashboardPage = () => {
                                     setScore(result.data.score);
                                 }
                                 if (result.data.difficultyCounts) {
-                                    setDifficultyCounts(result.data.difficultyCounts);
+                                    setDifficultyCounts(result.data.difficultyCounts as any);
                                 }
                             }
                         }
@@ -118,15 +119,11 @@ const DashboardPage = () => {
     }
 
     return (
-        <div className="space-y-12 mt-28 animate-in fade-in duration-700 w-full max-w-full pb-20">
-            <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-12 mt-10 animate-in fade-in duration-700 w-full max-w-full pb-20">
+            <div className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="h-px w-8 bg-[#00D6B2]" />
-                        <span className="text-[#00D6B2] text-xs font-black uppercase tracking-[0.4em]">Official Portal</span>
-                    </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white tracking-tightest mb-4 leading-none">
-                        <span className="bg-linear-to-r from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2] bg-clip-text text-transparent transition-all duration-500 hover:tracking-tight animate-gradient-x">
+                        <span className="bg-linear-to-r from-[#00D6B2] via-[#4FD1D0] to-[#00D6B2] bg-clip-text text-transparent transition-all duration-500">
                             {role === 'project-admin' ? 'Project Admin Console' : 'Your Dashboard'}
                         </span>
                     </h1>
@@ -137,21 +134,59 @@ const DashboardPage = () => {
                     </p>
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <div className="px-6 py-3 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-md">
-                        <div className="w-2.5 h-2.5 rounded-full bg-[#00D6B2] animate-pulse shadow-[0_0_12px_#00D6B2]" />
-                        <span className="text-xs font-bold text-white/60 uppercase tracking-[0.2em]">Real-time Status</span>
-                    </div>
-                </div>
+
             </div>
 
             {role === 'project-admin' ? (
-                <div className="space-y-10">
-                    <div className="max-w-md mx-auto">
-                        <ProfileCard username={username} fullName={fullName} linkedin={linkedin} role={role} />
+                <div className="space-y-16">
+                    <div className="flex flex-col lg:flex-row items-center justify-center gap-10 px-4">
+                        <div className="w-full max-w-md shrink-0">
+                            <ProfileCard username={username} fullName={fullName} linkedin={linkedin} role={role} />
+                        </div>
+
+                        <div className="w-full max-w-xl">
+                            <div className="bg-amber-400/10 border border-amber-400/20 rounded-[3rem] p-8 md:p-10 relative overflow-hidden group hover:border-amber-400/40 transition-all duration-500 shadow-[0_32px_64px_rgba(0,0,0,0.5)] backdrop-blur-3xl">
+                                <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                                    <AlertCircle className="w-32 h-32 text-amber-400 -rotate-12" />
+                                </div>
+
+                                <div className="flex items-center gap-5 mb-10 relative z-10">
+                                    <div className="p-4 rounded-[1.25rem] bg-amber-400/20 border border-amber-400/30">
+                                        <AlertCircle className="w-7 h-7 text-amber-400" />
+                                    </div>
+                                    <div>
+                                        <h4 className="text-amber-400 font-black text-lg md:text-xl leading-none">Maintenance Protocol</h4>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-8 relative z-10">
+                                    <div className="space-y-3">
+                                        <h5 className="text-white font-black text-sm md:text-base uppercase tracking-tight flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                                            Unified Labeling
+                                        </h5>
+                                        <p className="text-white/50 text-xs md:text-sm leading-relaxed font-medium pl-4">
+                                            Apply difficulty labels (<span className="text-amber-400 font-bold uppercase italic tracking-tighter">easy, med, hard, expert</span>) to both **Issues** and **PRs**.
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-3 pt-8 border-t border-white/5">
+                                        <h5 className="text-white font-black text-sm md:text-base uppercase tracking-tight flex items-center gap-3">
+                                            <div className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+                                            Intelligent Sync
+                                        </h5>
+                                        <p className="text-white/50 text-xs md:text-sm leading-relaxed font-medium pl-4">
+                                            Link PRs to Issues (e.g., &quot;Fixes #123&quot;). The system will automatically fetch the highest difficulty level detected.
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-amber-400/5 rounded-full blur-[80px] pointer-events-none" />
+                            </div>
+                        </div>
                     </div>
 
-                    <div className="pt-8 border-t border-white/5">
+                    <div className="pt-12 border-t border-white/5">
                         <ProjectAdminSection />
                     </div>
                 </div>
@@ -172,7 +207,7 @@ const DashboardPage = () => {
                         <UnifiedMetrics
                             mergedPRs={mergedPRs}
                             projectsCount={projectsCount}
-                            difficultyCounts={difficultyCounts}
+                            difficultyCounts={difficultyCounts as any}
                         />
                     </div>
 
