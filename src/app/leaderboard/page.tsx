@@ -21,14 +21,18 @@ export default function LeaderBoardPage() {
   const [players, setPlayers] = useState<Player[]>([]);
   const [totalContributors, setTotalContributors] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const fetchLeaderboard = useCallback(async () => {
     try {
       const { count } = await supabase
         .from("profiles")
         .select("*", { count: "exact", head: true })
-        .eq("role", "contributor")
-        .eq("is_admin", false);
+        .eq("role", "contributor");
 
       setTotalContributors(count || 0);
 
@@ -44,12 +48,11 @@ export default function LeaderBoardPage() {
           .filter(Boolean)
       );
 
-      // 2. Fetch potential contributors
+      // 2. Fetch potential contributors (up to 100 to filter and sort)
       const { data, error } = await supabase
         .from("profiles")
         .select("id, full_name, github, score, email, merged_prs, projects_count")
         .eq("role", "contributor")
-        .eq("is_admin", false)
         .order("score", { ascending: false })
         .limit(100);
 
@@ -71,7 +74,7 @@ export default function LeaderBoardPage() {
             const handle = user.github?.toLowerCase().trim() || "";
             const name = user.full_name?.toLowerCase() || "";
 
-            // SECURITY LOCK: If this identity is an admin on ANY account, boot them from contributor list
+            // SECURITY LOCK: Filter out known admins to keep leaderboard pure
             if (adminHandles.has(handle) || name.includes("gopichand")) return false;
 
             if (handle === "" || seenGithub.has(handle)) return false;
@@ -80,6 +83,7 @@ export default function LeaderBoardPage() {
           })
           .map((user) => {
             const rawScore = user.score || 0;
+            // Only show score if they have at least one contribution or were assigned points
             const score = (user.merged_prs === 0 && user.projects_count === 0 && rawScore > 0) ? 0 : rawScore;
 
             return {
@@ -150,7 +154,7 @@ export default function LeaderBoardPage() {
                   <Users className="w-4 h-4 text-[#00D6B2]" />
                   Global Contributors
                 </p>
-                <div className="text-7xl font-black tracking-tightest text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                <div className="text-7xl font-black tracking-tightest text-white drop-shadow-[0_0_20px_rgba(250,204,21,0.1)]">
                   {totalContributors}
                 </div>
                 <div className="absolute inset-0 bg-linear-to-br from-[#00D6B2]/5 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity" />
@@ -160,25 +164,23 @@ export default function LeaderBoardPage() {
         </div>
 
         {/* PODIUM SECTION */}
-        <div className="grid grid-cols-3 gap-3 md:gap-12 items-end mb-16 md:mb-32 h-[380px] md:h-[550px]">
-          <PodiumStep player={players[1]} rank={2} color="from-slate-300 to-slate-600" />
-          <PodiumStep player={players[0]} rank={1} color="from-yellow-300 to-amber-600" isCenter={true} />
-          <PodiumStep player={players[2]} rank={3} color="from-orange-300 to-amber-800" />
+        <div className="grid grid-cols-3 gap-2 md:gap-12 items-end mb-8 md:mb-32 h-[280px] md:h-[550px]">
+          <PodiumStep player={players[1]} rank={2} color="from-slate-300 to-slate-600" isMounted={mounted} />
+          <PodiumStep player={players[0]} rank={1} color="from-yellow-300 to-amber-600" isCenter={true} isMounted={mounted} />
+          <PodiumStep player={players[2]} rank={3} color="from-orange-300 to-amber-800" isMounted={mounted} />
         </div>
 
-        {/* LIST SECTION - RESPONSIVE LAYOUT (NO SCROLL) */}
-        <div className="space-y-3 md:space-y-4">
-          <div className="w-full space-y-4 md:space-y-6">
-            <AnimatePresence mode="popLayout">
-              {players.slice(3).map((player, index) => (
-                <ListItem key={player.id} player={player} rank={index + 4} />
-              ))}
-            </AnimatePresence>
-          </div>
+        {/* LIST SECTION - NO REDUNDANT HEADERS */}
+        <div className="space-y-3">
+          <AnimatePresence mode="popLayout">
+            {players.slice(3).map((player, index) => (
+              <ListItem key={player.id} player={player} rank={index + 4} />
+            ))}
+          </AnimatePresence>
 
           {players.length === 0 && !loading && (
-            <div className="text-center py-20 md:py-32 bg-white/2 border-2 border-dashed border-white/5 rounded-3xl md:rounded-[3rem] animate-pulse">
-              <p className="text-white/10 font-black uppercase tracking-[0.2em] md:tracking-[0.4em] text-xs md:text-sm">Synchronizing contributor global data...</p>
+            <div className="text-center py-32 bg-white/2 border-2 border-dashed border-white/5 rounded-[3rem] animate-pulse">
+              <p className="text-white/10 font-black uppercase tracking-[0.4em] text-sm">Synchronizing contributor global data...</p>
             </div>
           )}
         </div>
@@ -187,55 +189,64 @@ export default function LeaderBoardPage() {
   );
 }
 
-function PodiumStep({ player, rank, color, isCenter = false }: { player: Player; rank: number; color: string; isCenter?: boolean }) {
+function PodiumStep({ player, rank, color, isCenter = false, isMounted = false }: { player: Player; rank: number; color: string; isCenter?: boolean; isMounted?: boolean }) {
   if (!player) return <div className="w-full h-20 bg-white/2 rounded-3xl animate-pulse" />;
+
+  const getHeight = () => {
+    if (!isMounted) return '0px';
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) {
+      return isCenter ? '100px' : rank === 2 ? '80px' : '65px';
+    }
+    return isCenter ? '360px' : rank === 2 ? '300px' : '240px';
+  };
 
   return (
     <motion.div layout className={`flex flex-col items-center justify-end w-full ${isCenter ? 'h-full z-10' : 'h-[85%] z-0'}`}>
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center mb-6 md:mb-10 relative">
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col items-center mb-2 md:mb-10 relative">
         {rank === 1 && (
-          <motion.div animate={{ y: [0, -10, 0], scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-12 md:-top-16 text-yellow-400">
-            <Crown className="w-10 h-10 md:w-14 md:h-14 fill-current drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
+          <motion.div animate={{ y: [0, -6, 0], scale: [1, 1.05, 1] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="absolute -top-8 md:-top-16 text-yellow-400">
+            <Crown className="w-6 h-6 md:w-14 md:h-14 fill-current drop-shadow-[0_0_20px_rgba(250,204,21,0.6)]" />
           </motion.div>
         )}
-        <div className={`relative p-1 rounded-full bg-linear-to-b ${color} shadow-[0_10px_30px_rgba(0,0,0,0.5)] group/avatar`}>
-          <div className={`border-2 md:border-4 border-[#050505] rounded-full overflow-hidden transition-transform duration-700 group-hover/avatar:scale-110 ${isCenter ? 'w-24 h-24 md:w-44 md:h-44' : 'w-16 h-16 md:w-32 md:h-32'}`}>
+        <div className={`relative p-0.5 md:p-1 rounded-full bg-linear-to-b ${color} shadow-[0_10px_30px_rgba(0,0,0,0.5)] group/avatar`}>
+          <div className={`border md:border-4 border-[#050505] rounded-full overflow-hidden transition-transform duration-700 group-hover/avatar:scale-110 ${isCenter ? 'w-16 h-16 md:w-44 md:h-44' : 'w-12 h-12 md:w-32 md:h-32'}`}>
             <Avatar className="w-full h-full">
               <AvatarImage src={player.avatar} />
-              <AvatarFallback className="bg-[#121825] text-lg font-bold">{player.name[0]}</AvatarFallback>
+              <AvatarFallback className="bg-[#121825] text-xs md:text-lg font-bold">{player.name[0]}</AvatarFallback>
             </Avatar>
           </div>
-          <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full px-2.5 py-1 text-[8px] md:text-xs font-black bg-[#050505] border border-white/20 text-white shadow-2xl z-20 whitespace-nowrap">
+          <div className="absolute -bottom-2 md:-bottom-3 left-1/2 -translate-x-1/2 rounded-full px-1.5 py-0.5 md:px-2.5 md:py-1 text-[5px] md:text-xs font-black bg-[#050505] border border-white/20 text-white shadow-2xl z-20 whitespace-nowrap">
             RANK #{rank}
           </div>
         </div>
-        <div className="mt-8 md:mt-12 text-center space-y-1">
-          <div className="flex items-center justify-center gap-1.5">
-            <div className="relative w-4 h-3 md:w-5 md:h-3.5 opacity-100 shrink-0">
+        <div className="mt-3 md:mt-12 text-center space-y-0.5 px-0.5">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-0.5 md:gap-1.5">
+            <div className="relative w-2.5 h-1.5 md:w-5 md:h-3.5 opacity-100 shrink-0">
               <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
             </div>
-            <p className={`font-black text-white truncate max-w-[100px] md:max-w-[180px] tracking-tight ${isCenter ? 'text-sm md:text-3xl' : 'text-xs md:text-xl'}`}>{player.name}</p>
+            <p className={`font-black text-white truncate max-w-[50px] md:max-w-[180px] tracking-tight ${isCenter ? 'text-[8px] md:text-3xl' : 'text-[7px] md:text-xl'}`}>{player.name}</p>
           </div>
         </div>
       </motion.div>
       <motion.div
-        className={`w-full rounded-t-2xl md:rounded-t-[3rem] relative overflow-hidden bg-linear-to-b ${color} opacity-90 backdrop-blur-xl border-t border-white/20 shadow-3xl`}
+        className={`w-full rounded-t-lg md:rounded-t-[3rem] relative overflow-hidden bg-linear-to-b ${color} opacity-90 backdrop-blur-xl border-t border-white/20 shadow-3xl`}
         initial={{ height: 0 }}
-        animate={{ height: isCenter ? (window?.innerWidth < 768 ? '180px' : '360px') : (window?.innerWidth < 768 ? (rank === 2 ? '150px' : '120px') : (rank === 2 ? '300px' : '240px')) }}
+        animate={{ height: getHeight() }}
         transition={{ duration: 1.2, type: "spring", bounce: 0.15 }}
       >
-        <div className="absolute top-4 md:top-10 w-full text-center px-2 md:px-4">
-          <div className="text-3xl md:text-7xl font-black text-[#050505]/90 tracking-tighter leading-none">{player.score}</div>
-          <p className="text-[7px] md:text-[10px] uppercase font-black text-[#050505]/40 tracking-[0.2em] mt-1 md:mt-2">Points</p>
+        <div className="absolute top-1 md:top-10 w-full text-center px-0.5 md:px-4">
+          <div className="text-lg md:text-7xl font-black text-[#050505]/90 tracking-tighter leading-none">{player.score}</div>
+          <p className="text-[5px] md:text-[10px] uppercase font-black text-[#050505]/40 tracking-[0.2em] mt-0.5 md:mt-2">Pts</p>
 
-          <div className="mt-4 md:mt-8 flex items-center justify-center gap-3 md:gap-6 border-t border-[#050505]/10 pt-4 md:pt-6">
+          <div className="mt-1 md:mt-8 flex items-center justify-center gap-1.5 md:gap-6 border-t border-[#050505]/10 pt-1 md:pt-6">
             <div className="text-center">
-              <p className="text-[6px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest mb-1">PRs</p>
-              <p className="text-xs md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.mergedPRs}</p>
+              <p className="text-[4px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest">PRs</p>
+              <p className="text-[8px] md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.mergedPRs}</p>
             </div>
             <div className="text-center">
-              <p className="text-[6px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest mb-1">PROJs</p>
-              <p className="text-xs md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.projectsCount}</p>
+              <p className="text-[4px] md:text-[10px] font-black text-[#050505]/50 uppercase tracking-widest">PROJ</p>
+              <p className="text-[8px] md:text-2xl font-black text-[#050505]/80 leading-none tabular-nums">{player.projectsCount}</p>
             </div>
           </div>
         </div>
@@ -250,56 +261,50 @@ function ListItem({ player, rank }: { player: Player; rank: number }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex items-center justify-between md:grid md:grid-cols-12 md:items-center px-4 py-4 md:px-10 md:py-8 rounded-2xl md:rounded-[2.5rem] bg-white/2 border border-white/5 hover:border-[#00D6B2]/30 hover:bg-white/4 transition-all duration-500 group relative overflow-hidden gap-3"
+      className="flex items-center gap-3 md:grid md:grid-cols-12 px-3 md:px-10 py-3 md:py-8 rounded-lg md:rounded-[2.5rem] bg-white/2 border border-white/5 hover:border-[#00D6B2]/30 hover:bg-white/4 transition-all duration-500 group relative overflow-hidden"
     >
       <div className="absolute top-0 right-0 w-64 h-64 bg-[#00D6B2]/2 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none group-hover:bg-[#00D6B2]/5 transition-colors" />
 
-      {/* RANK (Mobile & Desktop) */}
-      <div className="shrink-0 md:col-span-1">
-        <div className={`w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center font-black text-xs md:text-lg border transition-all duration-500 ${rank === 4 ? 'bg-[#00D6B2]/10 border-[#00D6B2]/30 text-[#00D6B2] shadow-[0_0_20px_rgba(0,214,178,0.2)]' :
+      {/* RANK */}
+      <div className="flex-none md:col-span-1">
+        <div className={`w-8 h-8 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center font-black text-xs md:text-lg border transition-all duration-500 ${rank === 4 ? 'bg-[#00D6B2]/10 border-[#00D6B2]/30 text-[#00D6B2]' :
           rank === 5 ? 'bg-slate-400/10 border-slate-400/30 text-slate-300' :
-            'bg-white/5 border-white/10 text-white/10 group-hover:text-white/40'
+            'bg-white/5 border-white/10 text-white/20'
           }`}>
           {rank.toString().padStart(2, '0')}
         </div>
       </div>
 
-      {/* USER INFO (Mobile Layout: Name + Stacked Stats | Desktop: Name only) */}
-      <div className="flex-1 md:col-span-3 min-w-0 px-2 md:pl-4">
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="relative w-4 h-3 md:w-5 md:h-3.5 opacity-100 shrink-0">
-            <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm md:text-xl font-black text-white group-hover:text-[#00D6B2] transition-colors tracking-tight truncate max-w-[140px] md:max-w-none">
-              {player.name}
-            </span>
-            {/* Mobile Only Stats Line */}
-            <div className="flex items-center gap-2 md:hidden mt-0.5">
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">{player.mergedPRs} PRs</span>
-              <span className="text-[10px] text-white/20">•</span>
-              <span className="text-[10px] font-bold text-white/40 uppercase tracking-wider">{player.projectsCount} Projs</span>
-            </div>
+      {/* USER */}
+      <div className="grow md:col-span-4 flex items-center gap-2 md:gap-6">
+        <div className="relative w-4 h-3 md:w-6 md:h-4 opacity-100 shrink-0">
+          <Image src={`https://flagcdn.com/w40/${player.country}.png`} alt="" fill className="object-cover rounded-sm" />
+        </div>
+        <span className="text-xs md:text-xl font-black text-white group-hover:text-[#00D6B2] transition-colors tracking-tight truncate max-w-[80px] md:max-w-none">{player.name}</span>
+      </div>
+
+      {/* STATS - FLEX ON MOBILE FOR TIGHTER GAPS */}
+      <div className="flex-none flex items-center gap-4 md:grid md:grid-cols-7 md:col-span-7">
+        <div className="md:col-span-2 text-center md:border-l md:border-white/3">
+          <p className="hidden md:block text-[12px] font-black text-white/20 uppercase tracking-widest mb-1">PRs</p>
+          <div className="flex md:block items-baseline gap-1">
+            <span className="text-sm md:text-3xl font-black text-[#00D6B2] tabular-nums">{player.mergedPRs}</span>
+            <span className="md:hidden text-[8px] font-black text-white/10 uppercase">PRs</span>
           </div>
         </div>
-      </div>
 
-      {/* DESKTOP STATS GRID (Hidden on Mobile) */}
-      <div className="hidden md:block col-span-3 text-center border-l border-white/3">
-        <p className="text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-2">Merged PRs</p>
-        <span className="text-3xl font-black text-[#00D6B2] tracking-tighter tabular-nums drop-shadow-[0_0_15px_rgba(0,214,178,0.1)]">{player.mergedPRs}</span>
-      </div>
+        <div className="md:col-span-2 text-center">
+          <p className="hidden md:block text-[12px] font-black text-white/20 uppercase tracking-widest mb-1">Projs</p>
+          <div className="flex md:block items-baseline gap-1">
+            <span className="text-sm md:text-3xl font-black text-white/80 tabular-nums">{player.projectsCount}</span>
+            <span className="md:hidden text-[8px] font-black text-white/10 uppercase">PJ</span>
+          </div>
+        </div>
 
-      <div className="hidden md:block col-span-2 text-center">
-        <p className="text-[12px] font-black text-white/40 group-hover:text-white transition-colors uppercase tracking-[0.3em] mb-2">Projects</p>
-        <span className="text-3xl font-black text-white/80 tracking-tighter tabular-nums transition-colors group-hover:text-white uppercase">{player.projectsCount}</span>
-      </div>
-
-      {/* TOTAL POINTS (Mobile & Desktop) */}
-      <div className="shrink-0 md:col-span-3 text-right md:text-center border-l-0 md:border-l border-white/3 pl-2 md:pl-0">
-        <p className="hidden md:block text-[12px] font-black text-[#00D6B2]/40 group-hover:text-[#00D6B2] transition-colors uppercase tracking-[0.3em] mb-2">Total Points</p>
-        <span className="text-lg md:text-3xl font-black text-white tracking-tighter tabular-nums block">{player.score}</span>
-        <span className="md:hidden text-[8px] font-bold text-[#00D6B2]/60 uppercase tracking-widest block mt-0.5">Points</span>
+        <div className="md:col-span-3 text-center md:border-l md:border-white/3">
+          <p className="hidden md:block text-[12px] font-black text-[#00D6B2]/40 uppercase tracking-widest mb-1">Score</p>
+          <span className="text-sm md:text-3xl font-black text-white tabular-nums">{player.score}</span>
+        </div>
       </div>
     </motion.div>
   );
